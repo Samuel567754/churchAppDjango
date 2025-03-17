@@ -1,0 +1,78 @@
+{% extends 'member_dashboard.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Header -->
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-3">
+        <i class="bx bx-bell text-3xl text-blue-600 dark:text-blue-400"></i>
+        My Notifications
+    </h1>
+
+    {% if notifications %}
+        <!-- Notifications List -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <ul class="space-y-4">
+                {% for notification in notifications %}
+                <li class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-lg transition-all duration-300
+                    {% if not notification.is_read %}
+                        bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500
+                    {% else %}
+                        bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600
+                    {% endif %}">
+
+                    <!-- Notification Content -->
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-lg flex items-center gap-2">
+                            <i class="bx bx-notification text-blue-500 dark:text-blue-400"></i>
+                            {{ notification.title }}
+                            {% if not notification.is_read %}
+                                <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">New</span>
+                            {% endif %}
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 mt-1">{{ notification.content }}</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-2 flex items-center gap-1">
+                            <i class="bx bx-time text-gray-400 dark:text-gray-500"></i>
+                            {{ notification.created_at|date:"M d, Y - h:i A" }}
+                        </p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center gap-4 mt-3 sm:mt-0">
+                        <!-- Mark as Read Button -->
+                        {% if not notification.is_read %}
+                        <form action="{% url 'contact:mark_as_read' notification.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit"
+                                    class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 text-sm font-medium flex items-center gap-1 transition-colors duration-200">
+                                <i class="bx bx-check-circle text-lg"></i>
+                                <span>Mark as Read</span>
+                            </button>
+                        </form>
+                        {% endif %}
+
+                        <!-- Delete Button -->
+                        <button type="button" onclick="confirmDeleteNotification({{ notification.pk }})"
+                                class="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-all duration-200 hover:scale-110">
+                            <i class="bx bx-trash text-2xl"></i>
+                        </button>
+                        <form id="delete-form-notification-{{ notification.pk }}"
+                              action="{% url 'contact:notification_delete' notification.pk %}"
+                              method="POST">
+                            {% csrf_token %}
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <!-- Empty State -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 flex flex-col items-center justify-center text-center">
+            <i class="bx bx-bell-off text-6xl text-gray-400 dark:text-gray-500 mb-4"></i>
+            <p class="text-gray-900 dark:text-gray-100 font-semibold text-lg mb-2">No New Notifications</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Check back later for updates!</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

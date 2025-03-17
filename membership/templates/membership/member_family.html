@@ -1,0 +1,111 @@
+{% extends 'member_dashboard.html' %}
+
+{% block content %}
+<div class="container mx-auto p-4">
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-4 md:mb-0">
+            <i class="fas fa-home mr-2 text-indigo-500"></i> My Families
+        </h1>
+        <div class="flex space-x-3">
+            <a href="{% url 'membership:family_list' %}" 
+               class="group bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out flex items-center relative overflow-hidden">
+                <i class="fas fa-eye mr-2"></i> View Families
+                <span class="absolute inset-0 w-0 bg-indigo-700 opacity-0 group-hover:w-full group-hover:opacity-20 transition-all duration-300 ease-out"></span>
+            </a>
+            <a href="{% url 'membership:create_family' %}" 
+               class="group bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out flex items-center relative overflow-hidden">
+                <i class="fas fa-plus-circle mr-2"></i> Create Family
+                <span class="absolute inset-0 w-0 bg-blue-700 opacity-0 group-hover:w-full group-hover:opacity-20 transition-all duration-300 ease-out"></span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Family List Section -->
+    {% if families %}
+        {% for family in families %}
+            <div class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 mb-6 hover:shadow-lg transition-all duration-300 ease-in-out">
+                <!-- Family Details -->
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">
+                    <i class="fas fa-users mr-2 text-indigo-500"></i> {{ family.family_name }}
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-2">
+                    <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i> Address: {{ family.address }}
+                </p>
+                <p class="text-gray-600 dark:text-gray-300 mb-2">
+                    <i class="fas fa-phone mr-2 text-green-500"></i> Phone: {{ family.phone_number }}
+                </p>
+
+                <!-- Head of Family -->
+                {% if family.head_of_family %}
+                    <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">
+                        <i class="fas fa-user-tie mr-2 text-yellow-500"></i> Designated Head: {{ family.head_of_family.user.get_full_name }}
+                    </p>
+                {% endif %}
+
+                <!-- Family Members -->
+                <div class="mt-6">
+                    <h3 class="text-xl font-medium text-gray-800 dark:text-gray-100 mb-3">
+                        <i class="fas fa-user-friends mr-2 text-purple-500"></i> Members ({{ family.get_family_size }})
+                    </h3>
+                    <ul class="mt-2 space-y-2">
+                        {% for member in family.get_family_members %}
+                            <li class="flex items-center space-x-2">
+                                <i class="fas fa-check-circle text-green-500 dark:text-green-400"></i>
+                                <span class="text-gray-700 dark:text-gray-200">
+                                    {{ member.user.get_full_name }} ({{ member.user.username }})
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="mt-6 flex justify-end space-x-3">
+                    <a href="{% url 'membership:edit_family' family.id %}" 
+                       class="group bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out flex items-center relative overflow-hidden">
+                        <i class="fas fa-edit mr-2"></i> Edit Family
+                        <span class="absolute inset-0 w-0 bg-yellow-700 opacity-0 group-hover:w-full group-hover:opacity-20 transition-all duration-300 ease-out"></span>
+                    </a>
+                    <a href="{% url 'membership:add_family_member' family.id %}" 
+                       class="group bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out flex items-center relative overflow-hidden">
+                        <i class="fas fa-user-plus mr-2"></i> Add Members
+                        <span class="absolute inset-0 w-0 bg-green-700 opacity-0 group-hover:w-full group-hover:opacity-20 transition-all duration-300 ease-out"></span>
+                    </a>
+                    {% if family.head_of_family == request.user.member %}
+                    {% comment %} <a href="{% url 'membership:delete_family' family.id %}" 
+                       class="delete-family-btn group bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out flex items-center relative overflow-hidden">
+                        <i class="fas fa-trash-alt mr-2"></i> Delete Family
+                        <span class="absolute inset-0 w-0 bg-red-700 opacity-0 group-hover:w-full group-hover:opacity-20 transition-all duration-300 ease-out"></span>
+                    </a> {% endcomment %}
+                    <form id="delete-form-{{ family.id }}" method="get" action="{% url 'membership:delete_family' family.id %}" class="inline-block">
+                        {% csrf_token %}
+                        <button type="button" onclick="confirmDeletefamily({{ family.id }})" 
+                                class="group bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out flex items-center relative overflow-hidden">
+                          <i class="fas fa-trash-alt mr-2"></i> Delete Family
+                          <span class="absolute inset-0 w-0 bg-red-700 opacity-0 group-hover:w-full group-hover:opacity-20 transition-all duration-300 ease-out"></span>
+                        </button>
+                      </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <!-- No Families State -->
+        <div class="bg-yellow-100 dark:bg-yellow-900 p-6 rounded-xl mb-6 text-center">
+            <p class="text-yellow-800 dark:text-yellow-200 text-lg">
+                <i class="fas fa-exclamation-triangle mr-2 text-yellow-500"></i> You are not associated with any family.
+            </p>
+            <a href="{% url 'membership:create_family' %}" 
+               class="mt-4 group bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out flex items-center justify-center mx-auto w-48 relative overflow-hidden">
+                <i class="fas fa-plus-circle mr-2"></i> Create Family
+                <span class="absolute inset-0 w-0 bg-blue-700 opacity-0 group-hover:w-full group-hover:opacity-20 transition-all duration-300 ease-out"></span>
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+ 
+</script>
+{% endblock %}

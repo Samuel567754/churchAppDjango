@@ -1,0 +1,119 @@
+{% extends 'member_dashboard.html' %}
+
+{% block content %}
+<div class="container mx-auto max-w-screen-xl px-4 py-8">
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row items-center justify-between mb-8 bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md">
+    <div class="flex items-center space-x-4">
+      <!-- Modern Resource Icon -->
+      <div class="p-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full shadow-lg">
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M3 7h4l2 3h10v11H3z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">Resources</h1>
+        <p class="mt-1 text-lg text-gray-600 dark:text-gray-300">Explore our library of valuable resources.</p>
+      </div>
+    </div>
+    <!-- Filtering Form -->
+    <form method="get" action="{% url 'worship:resource_list' %}" class="mt-4 sm:mt-0 w-full sm:w-1/2">
+      <div class="flex flex-wrap gap-4">
+         <input type="text" name="title" value="{{ title_filter }}" placeholder="Filter by Title" class="w-full sm:w-auto flex-grow px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+         <input type="text" name="description" value="{{ description_filter }}" placeholder="Filter by Description" class="w-full sm:w-auto flex-grow px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+         <input type="date" name="from_date" value="{{ from_date }}" placeholder="From Date" class="w-full sm:w-auto flex-grow px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+         <input type="date" name="to_date" value="{{ to_date }}" placeholder="To Date" class="w-full sm:w-auto flex-grow px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+         <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-500 hover:opacity-90 text-white font-medium text-sm rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.15z"/>
+           </svg>
+           Filter
+         </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Display Filtered Heading if Filters Applied -->
+  {% if title_filter or description_filter or from_date or to_date %}
+    <div class="mb-6 text-center">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Filtered Resources</h2>
+    </div>
+  {% endif %}
+
+  <!-- Resource List -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% if resources.object_list %}
+      {% for resource in resources %}
+        <!-- Resource Card -->
+        <div class="group relative bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-700 rounded-3xl overflow-hidden shadow-lg transition transform hover:shadow-2xl hover:scale-105 flex flex-col">
+          <div class="p-4 sm:p-6 flex-grow text-center">
+            <!-- File Icon -->
+            <div class="mb-4 flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-blue-400 to-blue-600">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="File Icon">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <!-- Title & Description -->
+            <div>
+              <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 line-clamp-1">{{ resource.title }}</h2>
+              <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-2 mt-1">{{ resource.description }}</p>
+            </div>
+          </div>
+          <!-- Card Footer -->
+          <div class="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 px-4 py-3 border-t border-gray-200 dark:border-gray-600 flex flex-col items-center space-y-2">
+            <span class="text-gray-500 dark:text-gray-400 text-sm">Uploaded: {{ resource.uploaded_at|date:"M d, Y" }}</span>
+            <a href="{% url 'worship:resource_download' resource.pk %}" class="group mt-1 inline-flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-500 hover:opacity-90 text-white font-medium text-sm px-4 py-2 rounded-md shadow transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              <svg class="w-6 h-6 mr-2 transform transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" aria-label="Download Icon">
+                <g class="opacity-75">
+                  <path d="M4 4h12a2 2 0 012 2v2H4V4z" />
+                  <path d="M4 8h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V10a2 2 0 012-2z" />
+                </g>
+                <g>
+                  <path d="M12 13v4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M9 16l3 3 3-3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+              </svg>
+              Download
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-span-full text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        <h3 class="mt-2 text-xl font-bold text-gray-900 dark:text-gray-100">No Resources Found</h3>
+        <p class="mt-1 text-md text-gray-500 dark:text-gray-400">We're still adding resources. Check back soon!</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Pagination -->
+  <div class="mt-6 flex justify-center">
+    <nav class="inline-flex items-center space-x-1">
+      {% if resources.has_previous %}
+        <a href="?title={{ title_filter|urlencode }}&description={{ description_filter|urlencode }}&from_date={{ from_date|urlencode }}&to_date={{ to_date|urlencode }}&page={{ resources.previous_page_number }}" 
+           class="inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+          <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          <span>Previous</span>
+        </a>
+      {% endif %}
+      <span class="inline-flex items-center px-4 py-2 border border-gray-300 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200">
+        Page {{ resources.number }} of {{ resources.paginator.num_pages }}
+      </span>
+      {% if resources.has_next %}
+        <a href="?title={{ title_filter|urlencode }}&description={{ description_filter|urlencode }}&from_date={{ from_date|urlencode }}&to_date={{ to_date|urlencode }}&page={{ resources.next_page_number }}" 
+           class="inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+          <span>Next</span>
+          <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      {% endif %}
+    </nav>
+  </div>
+</div>
+{% endblock %}

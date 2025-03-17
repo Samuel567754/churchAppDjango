@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ newsletter.title }}</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 5px;">
+    <div style="max-width: 600px; background: white; padding: 10px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h2 style="color: #4CAF50; text-align: center;">{{ newsletter.title }}</h2>
+        <p style="font-size: 16px; color: #333;">{{ newsletter.content|safe }}</p>
+
+        {% if newsletter.attachment %}
+        <p style="text-align: center;">
+            <a href="{{ newsletter.attachment.url }}" style="display: inline-block; padding: 10px 20px; background: blue; color: white; text-decoration: none; border-radius: 5px;">Download Attachment</a>
+        </p>
+        {% endif %}
+
+        <p style="font-size: 14px; color: #666; text-align: center;">&copy; {{ year }} Church Newsletter</p>
+    </div>
+</body>
+</html>

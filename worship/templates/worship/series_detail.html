@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<meta property="og:title" content="{{ series.title }}">
+<meta property="og:description" content="{{ series.description|truncatewords:30 }}">
+{% if series.image %}
+<meta property="og:image" content="{{ series.image.url }}">
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<section class="relative bg-cover bg-center h-72 overflow-hidden"
+style="background-image: {% if series.image %}url('{{ series.image.url }}'){% else %}url('https://images.unsplash.com/photo-1560361635-9d6b6befc49b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2VybW9uc3xlbnwwfHwwfHx8MA=='){% endif %};"
+>
+  <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white z-20">
+    <!-- Dynamic Title -->
+    <h1 class="text-4xl font-bold">{{ series.title }}</h1>
+    
+    <!-- Series Start and End Date -->
+    <p class="text-xl mt-4">
+      <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      {{ series.start_date|date:"F j, Y" }} - {% if series.end_date %}{{ series.end_date|date:"F j, Y" }}{% else %}Present{% endif %}
+    </p>
+  </div>
+</section>
+
+
+
+<main class="container mx-auto px-4 py-12">
+  <!-- Series Header -->
+  <header class="mb-12 text-center">
+    {% if series.image %}
+    <div class="aspect-w-16 aspect-h-9 mb-8 rounded-xl overflow-hidden shadow-lg">
+      <img src="{{ series.image.url }}" alt="{{ series.title }}" class="w-full h-full object-cover">
+    </div>
+    {% endif %}
+    
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ series.title }}</h1>
+    
+    <div class="max-w-3xl mx-auto prose text-gray-600 mb-8">
+      {{ series.description|linebreaks }}
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-4 text-gray-600">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <span>{{ series.start_date|date:"F Y" }} - {% if series.end_date %}{{ series.end_date|date:"F Y" }}{% else %}Present{% endif %}</span>
+      </div>
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <span>{{ sermons.count }} Messages</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sermons Grid -->
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for sermon in sermons %}
+    <article class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+      <div class="relative aspect-video bg-gray-100">
+        {% if sermon.video_url %}
+        <iframe class="absolute inset-0 w-full h-full" src="{{ sermon.video_url }}" loading="lazy"></iframe>
+        {% else %}
+        <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
+          <svg class="w-12 h-12 text-white opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+          </svg>
+        </div>
+        {% endif %}
+        <span class="absolute top-3 right-3 px-2 py-1 bg-white/90 text-sm rounded-full shadow">
+          {{ sermon.date|date:"M j" }}
+        </span>
+      </div>
+      
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">{{ sermon.title }}</h3>
+        <div class="space-y-2">
+          {% if sermon.preacher %}
+          <p class="text-gray-600 flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+            {{ sermon.preacher.name }}
+          </p>
+          {% endif %}
+          {% if sermon.scripture_reference %}
+          <p class="text-gray-600 flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"/>
+            </svg>
+            {{ sermon.scripture_reference }}
+          </p>
+          {% endif %}
+          {% if sermon.description %}
+          <p class="text-gray-600">
+            {{ sermon.description|truncatewords:20 }}
+          </p>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+</main>
+{% endblock %}

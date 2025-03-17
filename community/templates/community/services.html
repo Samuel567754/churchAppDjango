@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+
+{% block title %}Services page - Church{% endblock %}
+
+{% block head %}
+{{ block.super}}
+ <style>
+    .animate-fade-in{
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+    .section-title{
+        position:relative;
+        padding-bottom: 1rem;
+    }
+    .section-title:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        height: 2px;
+        width: 60px;
+        background-color: #6366f1;
+    }
+     .ministry-icon{
+        stroke-width: 1.5;
+    }
+ </style>
+{% endblock %}
+
+{% block content %}
+
+<div>
+  <!-- Page Header -->
+  <section class="relative">
+    <img
+      src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      alt="Worship and Fellowship"
+      class="w-full h-96 object-cover"
+    />
+    <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+      <h1 class="text-4xl font-bold animate-fade-in">Our Services</h1>
+      <p class="text-xl mt-4 animate-fade-in delay-100">Join Us in Worship and Fellowship</p>
+    </div>
+  </section>
+  
+    <!-- Service Times -->
+   <!-- Service Times -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="section-title text-3xl font-bold mb-4 text-indigo-700 animate-fade-in">
+        Weekly Services & Meetings
+      </h2>
+      <p class="text-xl text-gray-600 animate-fade-in delay-100">
+        Join us at Adum Central Church of Christ as we gather for worship, prayer, and the study of God's Word.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Sunday Morning Service -->
+      <div class="bg-gray-50 rounded-lg p-8">
+        <div class="text-indigo-600 mb-4">
+          <svg class="h-12 w-12 mx-auto ministry-icon text-indigo-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14v-4h2v4h-2zm0-6V7h2v3h-2z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">
+          General Church Service
+        </h3>
+        <p class="text-gray-600 mb-4 ministry-description">
+          Sunday Morning: 8:30 AM – 12:00 PM
+        </p>
+        <ul class="text-gray-600 space-y-2">
+          <li>• Traditional Worship with Hymns</li>
+          <li>• Expository Biblical Teaching</li>
+          <li>• Communion & Fellowship</li>
+        </ul>
+      </div>
+      
+      <!-- Tuesday Bible Study -->
+      <div class="bg-gray-50 rounded-lg p-8">
+        <div class="text-indigo-600 mb-4">
+          <svg class="h-12 w-12 mx-auto ministry-icon text-purple-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 4v16c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1zm10 2h4v10h-4V6zm-6 0h4v10H7V6z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">
+          Bible Study (Tuesday)
+        </h3>
+        <p class="text-gray-600 mb-4 ministry-description">
+          Tuesday Evening: 6:30 PM – 7:30 PM
+        </p>
+        <ul class="text-gray-600 space-y-2">
+          <li>• Expository Bible Teaching</li>
+          <li>• Prayer & Reflection</li>
+          <li>• Small Group Discussion</li>
+        </ul>
+      </div>
+      
+      <!-- Friday Prayer Meeting -->
+      <div class="bg-gray-50 rounded-lg p-8">
+        <div class="text-indigo-600 mb-4">
+          <svg class="h-12 w-12 mx-auto ministry-icon text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14v-4h2v4h-2zm0-6V7h2v3h-2z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">
+          Prayer Meeting (Friday)
+        </h3>
+        <p class="text-gray-600 mb-4 ministry-description">
+          Friday Evening: 6:30 PM – 7:30 PM
+        </p>
+        <ul class="text-gray-600 space-y-2">
+          <li>• Corporate Prayer</li>
+          <li>• Worship Through Prayer</li>
+          <li>• Fellowship in Prayer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-800">Live Streams</h2>
+      <p class="text-lg text-gray-600 mt-2">
+        Tune in to our live sermons and events as they happen.
+      </p>
+    </div>
+    <!-- Live Streams Grid -->
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      {% for stream in live_streams %}
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+          <!-- Thumbnail & Live Badge -->
+          <div class="relative">
+            <img src="{{ stream.thumbnail.url }}" alt="{{ stream.title }}" class="w-full h-48 object-cover">
+            {% if stream.is_live %}
+              <div class="absolute top-2 left-2 bg-red-600 text-white px-3 py-1 text-xs uppercase font-bold rounded">
+                Live
+              </div>
+            {% endif %}
+          </div>
+          <!-- Stream Details -->
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800">{{ stream.title }}</h3>
+            <p class="text-gray-600 text-sm mt-1">
+              {{ stream.scheduled_time|date:"F j, Y g:i A" }}
+            </p>
+            <p class="text-gray-700 mt-3 line-clamp-3">
+              {{ stream.description|truncatewords:20 }}
+            </p>
+            <!-- Action Button -->
+            <div class="mt-4">
+              <a href="{{ stream.stream_url }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                {% if stream.is_live %}
+                  Watch Now
+                {% else %}
+                  View Details
+                {% endif %}
+                <svg class="h-5 w-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L13.586 11H3a1 1 0 110-2h10.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center text-gray-600 col-span-full">No live streams available at the moment.</p>
+      {% endfor %}
+    </div>
+    <!-- Pagination Controls -->
+    {% if live_streams.has_other_pages %}
+      <div class="mt-8 flex justify-center items-center space-x-2">
+        {% if live_streams.has_previous %}
+          <a href="?page={{ live_streams.previous_page_number }}" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">&laquo; Previous</a>
+        {% endif %}
+        {% for num in live_streams.paginator.page_range %}
+          {% if live_streams.number == num %}
+            <span class="px-4 py-2 bg-indigo-600 border border-indigo-600 rounded-md text-white">{{ num }}</span>
+          {% else %}
+            <a href="?page={{ num }}" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if live_streams.has_next %}
+          <a href="?page={{ live_streams.next_page_number }}" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Next &raquo;</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+  
+  <!-- What to Expect -->
+<section class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="section-title text-3xl font-bold mb-4 text-indigo-700 animate-fade-in">
+        What to Expect
+      </h2>
+      <p class="text-xl text-gray-600 animate-fade-in delay-100">
+        Your first visit to Adum Central Church of Christ
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Left Column: Worship Experience -->
+      <div>
+        <img
+          src="https://plus.unsplash.com/premium_photo-1678233035754-8ea508fb30b5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fGNodXJjaHxlbnwwfHwwfHx8MA%3D%3D"
+          alt="Worship Service"
+          class="rounded-lg shadow-lg mb-8"
+        />
+        <h3 class="text-2xl font-semibold mb-4 text-gray-800 ministry-title">Worship Experience</h3>
+        <p class="text-gray-600 ministry-description">
+          At Adum Central Church of Christ, our worship is marked by simplicity and a deep reverence for Scripture. Experience pure congregational worship with a cappella singing, earnest prayer, and expository preaching that reflects the practices of the early church.
+        </p>
+      </div>
+
+      <!-- Right Column: Key Aspects -->
+      <div class="space-y-8">
+        <!-- Worship Style -->
+        <div>
+          <svg class="h-8 w-8 text-indigo-500 mb-2 ministry-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14v-4h2v4h-2zm0-6V7h2v3h-2z"/>
+          </svg>
+          <h4 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">Worship Style</h4>
+          <p class="text-gray-600 ministry-description">
+            Our services are unaccompanied by instruments, embracing a cappella singing that honors the historic simplicity of biblical worship.
+          </p>
+        </div>
+
+        <!-- Preaching & Teaching -->
+        <div>
+          <svg class="h-8 w-8 text-purple-500 mb-2 ministry-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 4v16c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1zm10 2h4v10h-4V6zm-6 0h4v10H7V6z"/>
+          </svg>
+          <h4 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">Preaching & Teaching</h4>
+          <p class="text-gray-600 ministry-description">
+            Expect thoughtful, expository preaching that unpacks the Scriptures, delivering clear, Bible-based teaching to guide your spiritual growth.
+          </p>
+        </div>
+
+        <!-- Fellowship -->
+        <div>
+          <svg class="h-8 w-8 text-yellow-500 mb-2 ministry-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14v-4h2v4h-2zm0-6V7h2v3h-2z"/>
+          </svg>
+          <h4 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">Fellowship</h4>
+          <p class="text-gray-600 ministry-description">
+            Connect with fellow believers in genuine, heartfelt fellowship after the service—a time for prayer, conversation, and building lasting relationships.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  </div>
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const fadeElements = document.querySelectorAll('.animate-fade-in');
+          fadeElements.forEach((element, index) => {
+              setTimeout(() => {
+              element.classList.add('opacity-100');
+              }, index*150)
+          });
+      });
+  </script>
+
+{% endblock %}

@@ -1,0 +1,181 @@
+{% extends 'member_dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="max-w-3xl mx-auto mt-6 bg-white dark:bg-gray-800 shadow-2xl rounded-2xl p-8 transform transition-all duration-300 hover:shadow-3xl animate-fade-in-up">
+    <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 flex items-center gap-3">
+        <i class="fas fa-calendar-check text-purple-600"></i>
+        Respond to Appointment
+    </h2>
+
+    <div class="mb-6 space-y-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-700 p-6 rounded-xl">
+        <p class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+            <i class="fas fa-user-tag text-blue-500 w-5"></i>
+            <strong>Role:</strong> {{ appointment.role.name }}
+        </p>
+        <p class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+            <i class="fas fa-calendar-day text-purple-500 w-5"></i>
+            <strong>Day:</strong> {{ appointment.day.name }}
+        </p>
+        <p class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+            <i class="fas fa-clock text-green-500 w-5"></i>
+            <strong>Date:</strong> {{ appointment.date }}
+        </p>
+    </div>
+
+    <form method="post" class="space-y-6" id="appointment-form">
+        {% csrf_token %}
+
+        <div class="relative group">
+            <label for="{{ form.status.id_for_label }}" class="block text-gray-700 dark:text-gray-300 font-medium mb-2 flex items-center gap-2">
+                <i class="fas fa-toggle-on text-blue-500"></i>
+                Response Status
+            </label>
+            <div class="relative">
+                {{ form.status }}
+                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-gray-400 dark:text-gray-500">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            <p id="status-error" class="text-red-600 text-sm hidden">Please select either "Accepted" or "Rejected".</p>
+        </div>
+
+        <div id="reason-field" class="hidden animate-slide-down">
+            <label for="{{ form.reason.id_for_label }}" class="block text-gray-700 dark:text-gray-300 font-medium mb-2 flex items-center gap-2">
+                <i class="fas fa-comment-dots text-red-500"></i>
+                Reason for Rejection
+            </label>
+            {{ form.reason }}
+
+            <p id="reason-error" class="text-red-600 text-sm hidden">Please provide a reason for rejection.</p>
+        </div>
+
+        <div class="flex space-x-4 mt-8">
+            <button type="submit" id="submit-btn" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
+                <i class="fas fa-check-circle"></i>
+                Submit Response
+            </button>
+            <a href="{% url 'worship:member_appointments' %}" 
+               class="px-6 py-3 bg-gradient-to-r from-gray-400 to-gray-500 text-white font-semibold rounded-xl hover:from-gray-500 hover:to-gray-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i>
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    @keyframes fade-in-up {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slide-down {
+        0% { opacity: 0; transform: translateY(-10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in-up {
+        animation: fade-in-up 0.5s ease-out;
+    }
+
+    .animate-slide-down {
+        animation: slide-down 0.3s ease-out;
+    }
+
+    select, textarea {
+        @apply w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-purple-500 transition-all duration-300;
+    }
+
+    textarea {
+        @apply focus:ring-2 focus:ring-purple-200;
+    }
+</style>
+
+
+<!-- SweetAlert Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const statusField = document.getElementById("{{ form.status.id_for_label }}");
+    const reasonField = document.getElementById("reason-field");
+    const reasonInput = document.getElementById("{{ form.reason.id_for_label }}");
+    const reasonError = document.getElementById("reason-error");
+    const statusError = document.getElementById("status-error");
+    const form = document.getElementById("appointment-form");
+    const submitBtn = document.getElementById("submit-btn");
+
+    if (!statusField || !reasonField || !reasonInput || !reasonError || !form || !submitBtn || !statusError) {
+        console.error("Some form elements are missing.");
+        return;  // Exit if any element is missing
+    }
+
+    function toggleReasonField() {
+        const statusValue = statusField.value.toLowerCase();
+        if (statusValue === "rejected" || statusValue === "denied") {
+            reasonField.classList.remove("hidden");
+        } else {
+            reasonField.classList.add("hidden");
+            reasonError.classList.add("hidden"); // Hide error message when field is hidden
+        }
+    }
+
+    function validateForm(event) {
+        const statusValue = statusField.value.toLowerCase();
+        let isValid = true;
+
+        // Prevent submission if status is "Pending"
+        if (statusValue === "pending") {
+            event.preventDefault();
+            statusError.classList.remove("hidden");
+            isValid = false;
+        } else {
+            statusError.classList.add("hidden");
+        }
+
+        // Require reason if rejecting
+        if ((statusValue === "rejected" || statusValue === "denied") && !reasonInput.value.trim()) {
+            event.preventDefault();
+            reasonError.classList.remove("hidden");
+            reasonInput.focus();
+            isValid = false;
+        } else {
+            reasonError.classList.add("hidden");
+        }
+
+        return isValid;
+    }
+
+    function confirmSubmission(event) {
+        event.preventDefault();  // Stop form from submitting immediately
+
+        if (!validateForm(event)) {
+            return; // Stop if validation fails
+        }
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Once submitted, you cannot change your response!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, submit it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit(); // Submit only if confirmed
+            }
+        });
+    }
+
+    // Initialize on page load
+    toggleReasonField();
+
+    // Listen for changes
+    statusField.addEventListener("change", toggleReasonField);
+    submitBtn.addEventListener("click", confirmSubmission);
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+
+{% block title %}Content page - Church{% endblock %}
+
+{% block content %} 
+
+  <!-- Page Header -->
+<section class="relative">
+    <img 
+      src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" 
+      alt="Contact Us" 
+      class="w-full h-96 object-cover" 
+    />
+    <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+      <h1 class="text-4xl font-bold">Contact Us</h1>
+      <p class="text-xl mt-4">We'd Love to Hear from You</p>
+    </div>
+  </section>
+
+
+ <!-- Contact Information and Form -->
+ <section class="py-16 bg-white">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+       <!-- Contact Information -->
+       <div>
+         <h2 class="text-3xl font-bold mb-8">Get in Touch</h2>
+
+         <div class="space-y-6">
+           <div class="flex items-start">
+             <div class="h-6 w-6 text-indigo-600 mr-4 mt-1">&#x1F4CD;</div>
+             <div>
+               <h3 class="font-semibold mb-1">Location</h3>
+               <p class="text-gray-600">123 Faith Street</p>
+               <p class="text-gray-600">Your City, ST 12345</p>
+             </div>
+           </div>
+
+           <div class="flex items-start">
+             <div class="h-6 w-6 text-indigo-600 mr-4 mt-1">&#x1F4DE;</div>
+             <div>
+               <h3 class="font-semibold mb-1">Phone</h3>
+               <p class="text-gray-600">(555) 123-4567</p>
+             </div>
+           </div>
+
+           <div class="flex items-start">
+             <div class="h-6 w-6 text-indigo-600 mr-4 mt-1">&#x1F4E7;</div>
+             <div>
+               <h3 class="font-semibold mb-1">Email</h3>
+               <p class="text-gray-600">info@gracecommunity.org</p>
+             </div>
+           </div>
+
+           <div class="flex items-start">
+             <div class="h-6 w-6 text-indigo-600 mr-4 mt-1">&#x23F0;</div>
+             <div>
+               <h3 class="font-semibold mb-1">Office Hours</h3>
+               <p class="text-gray-600">Monday - Friday: 9:00 AM - 5:00 PM</p>
+               <p class="text-gray-600">Saturday - Sunday: Closed</p>
+             </div>
+           </div>
+           <div class="mt-8">
+            <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+            <div class="flex space-x-4">
+                <a href="#" class="text-church-brown hover:text-church-gold">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="#" class="text-church-brown hover:text-church-gold">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                </a>
+                <a href="#" class="text-church-brown hover:text-church-gold">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96 .96.217 1.382.64 1.382 1.382.4.562.636 1.197.749 2.227.055 1.265.07 1.647.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+                </a>
+                <a href="#" class="text-church-brown hover:text-church-gold">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                </a>
+            </div>
+        </div>
+         </div>
+       </div>
+
+
+       <div class="bg-gray-50 p-8 rounded-lg relative">
+        <h3 class="text-2xl font-bold mb-6 text-gray-800">Send Us a Message</h3>
+    
+        <!-- Global Message Area -->
+        <div id="global-messages" class="space-y-4 mb-4">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message-container flex items-center p-3 rounded-md text-sm"
+                         data-message-type="{{ message.tags }}">
+                        <i class="message-icon mr-2"></i> <!-- Icon Placeholder -->
+                        <p class="message-text">{{ message }}</p>
+                        <button class="ml-auto text-gray-500 hover:text-gray-700 focus:outline-none close-button">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+    
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input type="text" id="name" name="name"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                       value="{{ form.name.value|default:'' }}"/>
+                {% if form.name.errors %}
+                    <div class="error-container text-sm text-red-500 mt-2 flex items-center">
+                      <i class="error-icon mr-1"></i>
+                      {% for error in form.name.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+    
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" id="email" name="email"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                       value="{{ form.email.value|default:'' }}"/>
+                {% if form.email.errors %}
+                    <div class="error-container text-sm text-red-500 mt-2 flex items-center">
+                      <i class="error-icon mr-1"></i>
+                        {% for error in form.email.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+    
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <input type="tel" id="phone" name="phone"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                       value="{{ form.phone.value|default:'' }}" placeholder="e.g., +233123456789 or 0241234567"/>
+                {% if form.phone.errors %}
+                    <div class="error-container text-sm text-red-500 mt-2 flex items-center">
+                       <i class="error-icon mr-1"></i>
+                       {% for error in form.phone.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+    
+            <div>
+                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                <input type="text" id="subject" name="subject"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                       value="{{ form.subject.value|default:'' }}"/>
+                {% if form.subject.errors %}
+                    <div class="error-container text-sm text-red-500 mt-2 flex items-center">
+                       <i class="error-icon mr-1"></i>
+                       {% for error in form.subject.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+    
+            <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <textarea id="message" name="message" rows="4"
+                          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">{{ form.message.value|default:'' }}</textarea>
+                {% if form.message.errors %}
+                    <div class="error-container text-sm text-red-500 mt-2 flex items-center">
+                        <i class="error-icon mr-1"></i>
+                        {% for error in form.message.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+    
+            <button type="submit"
+                    class="w-full bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 focus:outline-none">
+                Send Message
+            </button>
+        </form>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+            const globalMessagesContainer = document.getElementById('global-messages');
+    
+          // Add icon and style based on message type
+            globalMessagesContainer.querySelectorAll('.message-container').forEach(container => {
+              const messageType = container.getAttribute('data-message-type');
+              const iconElement = container.querySelector('.message-icon');
+                if (messageType === 'success') {
+                    iconElement.innerHTML = `<svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                    container.classList.add('bg-green-100', 'text-green-700');
+                } else if (messageType === 'error') {
+                    iconElement.innerHTML = `<svg class="h-5 w-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                    container.classList.add('bg-red-100', 'text-red-700');
+                }
+            });
+    
+            function hideMessage(container) {
+                container.style.opacity = '0';
+                setTimeout(() => {
+                    container.style.display = 'none';
+                }, 300); // Duration of the transition
+            }
+    
+            // Auto hide global messages after 5 seconds
+          globalMessagesContainer.querySelectorAll('.message-container').forEach(container => {
+              setTimeout(() => {
+                  hideMessage(container);
+              }, 5000);
+          });
+    
+        // Handle close button click
+            globalMessagesContainer.addEventListener('click', function(event){
+              if(event.target.classList.contains('close-button') || event.target.closest('.close-button')){
+               const container = event.target.closest('.message-container');
+               hideMessage(container);
+              }
+            });
+    
+        // Add icon to form error
+        document.querySelectorAll('.error-container').forEach(container => {
+            const errorIcon = container.querySelector('.error-icon');
+            errorIcon.innerHTML = `<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+          });
+      });
+    
+    </script>
+     </div>
+   </div>
+ </section>
+
+
+{% comment %} <section class="py-20 bg-gray-100">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="section-title text-center mb-8 text-2xl font-semibold text-gray-700">Our Location</h2>
+      <div class="h-[400px] bg-gray-200 rounded-lg relative overflow-hidden">
+          <!-- Map Embed Code (Replace with your actual embed code) -->
+          <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.782431012068!2d-73.99326502309988!3d40.72440737134156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25990c0d12763%3A0x796e5f426597d9a3!2s25%20W%2023rd%20St%2C%20New%20York%2C%20NY%2010010%2C%20USA!5e0!3m2!1sen!2suk!4v1697367665489!5m2!1sen!2suk"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+      </div>
+  </div>
+</section> {% endcomment %}
+
+
+
+{% comment %} <section class="py-20 bg-gray-100">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="section-title text-center mb-8 text-2xl font-semibold text-gray-700">Our Location</h2>
+    <div class="h-[400px] bg-gray-200 rounded-lg relative overflow-hidden">
+      <!-- Replace the src URL with your actual Google Maps embed URL -->
+      <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7412009778045!2d-1.6172862255186164!3d6.678950421338427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb97274b2f211d%3A0x3ba5cc03705e8f36!2sAbinkyi%20Market%20and%20Lorry%20Park!5e0!3m2!1sen!2sgh!4v1742016120464!5m2!1sen!2sgh"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+    <!-- Directions Button -->
+    <div class="text-center mt-6">
+      <!-- Update the destination address parameters as needed -->
+      <a href="https://www.google.com/maps/dir/?api=1&destination=P.o.box+1905,+kumasi,+Osei+Tutu+I+Ave,+Kumasi" target="_blank"
+         class="inline-block px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700 transition duration-300">
+        Get Directions
+      </a>
+    </div>
+  </div>
+</section> {% endcomment %}
+
+
+
+<section class="py-24 bg-gradient-to-br from-gray-50 to-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4 relative inline-block">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+          Our Location
+        </span>
+        <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-indigo-200 to-purple-200"></span>
+      </h2>
+      <p class="text-lg text-gray-600 mt-4">
+        Visit us at Abinkyi Market and Lorry Park<br>
+        Open daily 8:00 AM - 8:00 PM
+      </p>
+    </div>
+
+    <!-- Map Container with Hover Effect -->
+    <div class="group relative rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+      <div class="h-[500px] bg-gray-200">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7412009778045!2d-1.6172862255186164!3d6.678950421338427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb97274b2f211d%3A0x3ba5cc03705e8f36!2sAbinkyi%20Market%20and%20Lorry%20Park!5e0!3m2!1sen!2sgh!4v1742016120464!5m2!1sen!2sgh"
+          class="w-full h-full filter grayscale hover:grayscale-0 transition-all duration-500"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent pointer-events-none"></div>
+    </div>
+
+    <!-- Directions Controls -->
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6">
+      <!-- Travel Mode Selector -->
+      <div class="relative w-full sm:w-auto">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-indigo-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A2 2 0 013 15.382V6a2 2 0 012-2h14a2 2 0 012 2v9.382a2 2 0 01-1.553 1.894L15 20m-6 0v-8m6 8v-8" />
+          </svg>
+        </div>
+        <select 
+          id="travelMode" 
+          class="pl-12 pr-6 py-3 w-full sm:w-64 text-gray-700 bg-white border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 appearance-none transition-colors duration-200 hover:border-gray-400"
+        >
+          <option value="driving">Driving Directions</option>
+          <option value="walking">Walking Directions</option>
+          <option value="bicycling">Bicycling Directions</option>
+          <option value="transit">Transit Directions</option>
+        </select>
+      </div>
+
+      <!-- Directions Button -->
+      <button 
+        id="getDirectionsButton"
+        class="w-full sm:w-auto flex items-center justify-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        <svg class="w-5 h-5 mr-3 -ml-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L13.586 11H3a1 1 0 110-2h10.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+        Get Directions
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+document.getElementById('getDirectionsButton').addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+           // Get the user's current coordinates
+           var lat = position.coords.latitude;
+           var lng = position.coords.longitude;
+           // Destination address URL-encoded
+           var destination = "P.o.box+1905,+kumasi,+Osei+Tutu+I+Ave,+Kumasi";
+           // Get the selected travel mode from the dropdown
+           var travelMode = document.getElementById('travelMode').value;
+           // Build the Google Maps directions URL
+           var url = "https://www.google.com/maps/dir/?api=1" +
+                     "&origin=" + lat + "," + lng +
+                     "&destination=" + destination +
+                     "&travelmode=" + travelMode;
+           // Open the directions in a new tab
+           window.open(url, '_blank');
+        }, function(error) {
+           alert("Unable to retrieve your location. Please enable location services.");
+        });
+    } else {
+        alert("Geolocation is not supported by your browser.");
+    }
+});
+</script>
+
+
+{% endblock %}

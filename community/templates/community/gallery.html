@@ -1,0 +1,360 @@
+{% extends 'base.html' %}
+
+{% load gallery_tags %}
+
+{% block title %}Gallary page - Church {% endblock %}
+
+{% block content %} 
+
+ <!-- Page Header -->
+ <section class="relative">
+    <img
+      src="https://images.unsplash.com/photo-1706731715738-e79c46040660?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGNodXJjaCUyMGdhbGxhZXl8ZW58MHx8MHx8fDA%3D"
+      alt="Worship and Fellowship"
+      class="w-full h-96 object-cover"
+    />
+    <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-70"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+      <h1 class="text-4xl font-bold animate-fade-in">Gallary</h1>
+      <p class="text-xl mt-4 animate-fade-in delay-100">view our gallary</p>
+    </div>
+  </section>
+
+
+  <section class="bg-zinc-200 overflow-hidden">
+    <div class="max-w-screen-xl 2xl:max-w-screen-3xl px-4 md:px-8 lg:px-12 mx-auto py-12 lg:py-24 space-y-12">
+      
+        <!-- Gallery Header with Sorting, Filters, and Search -->
+    <div class="text-center space-y-4">
+        <h1 class="text-3xl lg:text-5xl font-bold text-gray-900 font-display tracking-tight">
+          Immersive Visual Journey
+        </h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Discover breathtaking moments captured in stunning detail. Experience each story through adaptive-resolution imagery optimized for your device.
+        </p>
+        
+        <!-- Enhanced Controls Container -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+          <!-- Sorting Controls -->
+          <div class="flex gap-2">
+            <button id="sort-az" class="sort-btn px-4 py-2 bg-white text-gray-700 rounded-full shadow-sm hover:shadow-md transition-all border border-gray-200 hover:border-blue-500 hover:text-blue-600 flex items-center gap-2">
+              <i class="fas fa-sort-alpha-down text-sm"></i>
+              <span>A–Z</span>
+            </button>
+            <button id="sort-za" class="sort-btn px-4 py-2 bg-white text-gray-700 rounded-full shadow-sm hover:shadow-md transition-all border border-gray-200 hover:border-blue-500 hover:text-blue-600 flex items-center gap-2">
+              <i class="fas fa-sort-alpha-up text-sm"></i>
+              <span>Z–A</span>
+            </button>
+          </div>
+    
+          <!-- Filter Chips (Dynamic) -->
+          <div id="filter-container" class="flex flex-wrap gap-2">
+            <button data-filter="all" class="filter-btn px-4 py-2 bg-white text-gray-700 rounded-full shadow-sm hover:shadow-md transition-all border border-gray-200 hover:border-green-500 hover:text-green-600 flex items-center gap-2 {% if selected_category == 'all' %}opacity-100{% else %}opacity-75{% endif %}">
+              <i class="fas fa-th-large text-sm"></i>
+              <span>All</span>
+            </button>
+            {% for cat in categories %}
+            <button data-filter="{{ cat }}" class="filter-btn px-4 py-2 bg-white text-gray-700 rounded-full shadow-sm hover:shadow-md transition-all border border-gray-200 hover:border-green-500 hover:text-green-600 flex items-center gap-2 {% if selected_category|lower == cat %}opacity-100{% else %}opacity-75{% endif %}">
+              <i class="fas fa-tag text-sm"></i>
+              <span>{{ cat|capfirst }}</span>
+            </button>
+            {% endfor %}
+          </div>
+    
+          {% comment %} <!-- Automatic Search Field -->
+          <div class="my-4">
+            <input type="text" id="gallerySearch" placeholder="Search gallery..." class="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition w-full max-w-md mx-auto">
+          </div> {% endcomment %}
+        </div>
+      </div>
+
+      <!-- Gallery Images Grid -->
+      <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% include 'community/partials/gallery_items.html' %}
+      </div>
+  
+      <!-- Loading Indicator for Infinite Scroll -->
+      <div id="loading-indicator" class="flex justify-center items-center py-8 opacity-0 transition-opacity">
+        <div class="flex items-center gap-3 text-gray-500">
+          <div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <span>Loading more content...</span>
+        </div>
+      </div>
+      
+      <!-- Load More Button -->
+      {% if gallery_images.has_next %}
+      <div id="load-more-container" class="flex justify-center mt-6">
+        <button id="load-more-btn" data-next-page="{{ gallery_images.next_page_number }}" class="px-6 py-3 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition">
+          Load More
+        </button>
+      </div>
+      {% endif %}
+      
+    </div>
+  
+    <!-- Enhanced Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm hidden flex items-center justify-center p-4"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Image viewer">
+      <!-- Overlay for closing -->
+      <div id="lightbox-overlay" class="absolute inset-0"></div>
+      <button id="close-modal" class="absolute top-6 right-6 text-white/90 hover:text-white transition-colors z-20"
+              aria-label="Close viewer">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <!-- Navigation Arrows -->
+      <button id="prev-image" class="absolute left-6 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-colors z-20"
+              aria-label="Previous image">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <button id="next-image" class="absolute right-6 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-colors z-20"
+              aria-label="Next image">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+      <!-- Lightbox Content -->
+      <figure class="relative max-w-6xl w-full h-full flex items-center justify-center z-10">
+        <img id="modal-image" class="max-h-[90vh] max-w-full object-contain opacity-0 transition-opacity duration-300" alt="Enlarged view" loading="eager">
+        <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-center">
+          <h2 id="lightbox-title" class="text-2xl font-bold text-white mb-2"></h2>
+          <p id="lightbox-description" class="text-gray-200 max-w-2xl mx-auto"></p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+  
+  <style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .font-display {
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+    /* Optional: Style for active filter/sort buttons */
+    .filter-btn.active, .sort-btn.active {
+        border-color: currentColor;
+        background: linear-gradient(90deg, var(--tw-gradient-from), var(--tw-gradient-to));
+    }
+  </style>
+  
+  <script>
+    class GalleryManager {
+      constructor() {
+        this.currentItems = [];
+        this.currentIndex = -1;
+        this.isLoading = false;
+        this.init();
+      }
+  
+      init() {
+        this.cacheElements();
+        this.setupEventListeners();
+        this.initIntersectionObserver();
+        this.updateGalleryItems();
+      }
+  
+      cacheElements() {
+        this.elements = {
+          galleryContainer: document.getElementById('gallery-container'),
+          sortButtons: document.querySelectorAll('.sort-btn'),
+          filterButtons: document.querySelectorAll('.filter-btn'),
+          lightboxModal: document.getElementById('lightbox-modal'),
+          modalImage: document.getElementById('modal-image'),
+          loadingIndicator: document.getElementById('loading-indicator'),
+          loadMoreButton: document.getElementById('load-more-btn')
+        };
+      }
+  
+      setupEventListeners() {
+        // Sorting
+        document.getElementById('sort-az').addEventListener('click', () => this.sortGallery('asc'));
+        document.getElementById('sort-za').addEventListener('click', () => this.sortGallery('desc'));
+        
+        // Filtering
+        this.elements.filterButtons.forEach(btn => {
+          btn.addEventListener('click', () => this.filterGallery(btn.dataset.filter));
+        });
+        
+        // Lightbox: open on gallery item click
+        this.elements.galleryContainer.addEventListener('click', (e) => {
+          const item = e.target.closest('.gallery-item');
+          if (item) this.openLightbox(this.currentItems.indexOf(item));
+        });
+        
+        // Lightbox controls
+        document.getElementById('close-modal').addEventListener('click', () => this.closeLightbox());
+        document.getElementById('lightbox-overlay').addEventListener('click', () => this.closeLightbox());
+        document.getElementById('next-image').addEventListener('click', () => this.showAdjacentImage(1));
+        document.getElementById('prev-image').addEventListener('click', () => this.showAdjacentImage(-1));
+        
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', (e) => {
+          if (this.elements.lightboxModal.classList.contains('hidden')) return;
+          if (e.key === 'Escape') this.closeLightbox();
+          if (e.key === 'ArrowRight') this.showAdjacentImage(1);
+          if (e.key === 'ArrowLeft') this.showAdjacentImage(-1);
+        });
+        
+        // Load More button click
+        this.elements.loadMoreButton?.addEventListener('click', () => this.loadMoreImages());
+      }
+  
+      updateGalleryItems() {
+        this.currentItems = Array.from(document.querySelectorAll('.gallery-item:not([hidden])'));
+      }
+  
+      sortGallery(order = 'asc') {
+        const items = Array.from(this.currentItems);
+        items.sort((a, b) => {
+          const titleA = a.dataset.title.toLowerCase();
+          const titleB = b.dataset.title.toLowerCase();
+          return order === 'asc' ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+        });
+        this.animateGalleryUpdate(items);
+      }
+  
+      filterGallery(category) {
+        Array.from(this.elements.galleryContainer.children).forEach(item => {
+          item.hidden = (category !== 'all' && item.dataset.category !== category);
+        });
+        this.updateGalleryItems();
+        // Update active state on filter buttons
+        this.elements.filterButtons.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.filter === category);
+        });
+      }
+  
+      animateGalleryUpdate(items) {
+        this.elements.galleryContainer.style.transition = 'opacity 0.3s';
+        this.elements.galleryContainer.style.opacity = '0';
+        setTimeout(() => {
+          this.elements.galleryContainer.innerHTML = '';
+          items.forEach(item => this.elements.galleryContainer.appendChild(item));
+          this.elements.galleryContainer.style.opacity = '1';
+          this.updateGalleryItems();
+        }, 300);
+      }
+  
+      openLightbox(index) {
+        if (index < 0 || index >= this.currentItems.length) return;
+        const item = this.currentItems[index];
+        this.currentIndex = index;
+        this.elements.modalImage.src = item.dataset.imageSrc;
+        this.elements.modalImage.alt = item.dataset.title;
+        document.getElementById('lightbox-title').textContent = item.dataset.title;
+        document.getElementById('lightbox-description').textContent = item.dataset.description;
+        
+        this.elements.lightboxModal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        
+        setTimeout(() => {
+          this.elements.modalImage.classList.add('opacity-100');
+        }, 50);
+      }
+  
+      closeLightbox() {
+        this.elements.lightboxModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        this.elements.modalImage.classList.remove('opacity-100');
+      }
+  
+      showAdjacentImage(offset) {
+        const newIndex = this.currentIndex + offset;
+        if (newIndex >= 0 && newIndex < this.currentItems.length) {
+          this.openLightbox(newIndex);
+        }
+      }
+  
+      animateLoadMore(newItemsHTML) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newItemsHTML;
+        tempDiv.querySelectorAll('.gallery-item').forEach(item => {
+          item.style.opacity = '0';
+        });
+        this.elements.galleryContainer.insertAdjacentHTML('beforeend', tempDiv.innerHTML);
+        requestAnimationFrame(() => {
+          document.querySelectorAll('.gallery-item').forEach(item => {
+            item.style.transition = 'opacity 0.5s';
+            item.style.opacity = '1';
+          });
+        });
+        this.updateGalleryItems();
+      }
+  
+      async loadMoreImages() {
+        if (this.isLoading) return;
+        const nextPage = this.elements.loadMoreButton?.dataset.nextPage;
+        if (!nextPage) return;
+        
+        this.isLoading = true;
+        this.elements.loadingIndicator.classList.remove('hidden');
+        
+        try {
+          const response = await fetch(`?page=${nextPage}`, {
+            headers: { 'x-requested-with': 'XMLHttpRequest' }
+          });
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          // Extract new gallery items (assuming partial template returns only gallery items)
+          const newItems = doc.querySelectorAll('.gallery-item');
+          newItems.forEach(item => {
+            this.elements.galleryContainer.appendChild(item);
+          });
+          // Update pagination state
+          const newLoadMoreBtn = doc.getElementById('load-more-btn');
+          if (newLoadMoreBtn) {
+            this.elements.loadMoreButton.dataset.nextPage = newLoadMoreBtn.dataset.nextPage;
+          } else {
+            this.elements.loadMoreButton.remove();
+          }
+        } catch (error) {
+          console.error('Error loading more images:', error);
+        } finally {
+          this.isLoading = false;
+          this.elements.loadingIndicator.classList.add('hidden');
+        }
+      }
+  
+      initIntersectionObserver() {
+        if (!this.elements.loadMoreButton) return;
+        this.observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !this.elements.loadMoreButton.disabled) {
+              this.loadMoreImages();
+            }
+          });
+        }, { rootMargin: '200px' });
+        this.observer.observe(this.elements.loadMoreButton);
+      }
+    }
+  
+    // Initialize Gallery Manager on DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const galleryManager = new GalleryManager();
+    });
+  
+    // Adaptive image loading (optional)
+    function updateImageSources() {
+      document.querySelectorAll('picture source').forEach(source => {
+        const srcset = source.getAttribute('srcset');
+        if (window.devicePixelRatio > 1) {
+          source.setAttribute('srcset', srcset.replace('480w', '800w'));
+        }
+      });
+    }
+    window.addEventListener('resize', updateImageSources);
+    updateImageSources();
+</script> 
+
+{% endblock %}

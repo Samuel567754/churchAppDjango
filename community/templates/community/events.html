@@ -1,0 +1,568 @@
+{% extends 'base.html' %}
+
+{% block title %}Events - Church Name{% endblock %}
+{% block head %}
+{{ block.super }}
+<style>
+    .animate-fade-in{
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+    .section-title{
+        position:relative;
+        padding-bottom: 1rem;
+    }
+    .section-title:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        height: 2px;
+        width: 60px;
+        background-color: #6366f1;
+    }
+    .ministry-icon{
+        stroke-width: 1.5;
+    }
+    .event-card:hover .event-card-overlay{
+     opacity: 1;
+     transform: translateY(0);
+    }
+    .event-card-overlay{
+        transform: translateY(100%);
+        transition: all 0.4s cubic-bezier(.25,.8,.25,1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<section class="relative bg-cover bg-center h-72 overflow-hidden" style="background-image: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-white">
+        <h1 class="text-4xl font-bold animate-fade-in">Events</h1>
+      <p class="text-xl mt-2 animate-fade-in delay-100">Join Us for Special Events and Activities</p>
+    </div>
+</section>
+
+
+<!-- Upcoming Events Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="section-title text-3xl font-bold mb-4 text-indigo-700 animate-fade-in">Upcoming Events</h2>
+            <p class="text-xl text-gray-600 animate-fade-in delay-100">Mark your calendar and join us for these special occasions</p>
+        </div>
+  
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% if upcoming_events %}
+                {% for event in upcoming_events %}
+                    <div class="event-card relative bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105 group">
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+                        {% else %}
+                            <img src="https://via.placeholder.com/800x480?text=No+Image" alt="{{ event.title }}" class="w-full h-48 object-cover">
+                        {% endif %}
+                        <div class="relative p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">{{ event.title }}</h3>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-center text-gray-600 ministry-description">
+                                    <svg class="h-5 w-5 mr-2 ministry-icon text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 21h14M6 10h12M9 16h6" />
+                                    </svg>
+                                    {{ event.date|date:"M d, Y" }}
+                                </div>
+                                <div class="flex items-center text-gray-600 ministry-description">
+                                    <svg class="h-5 w-5 mr-2 ministry-icon text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8m-4 4V4" />
+                                    </svg>
+                                    {{ event.date|date:"g:i A" }}{% if event.end_date %} - {{ event.end_date|date:"g:i A" }}{% endif %}
+                                </div>
+                                <div class="flex items-center text-gray-600 ministry-description">
+                                    <svg class="h-5 w-5 mr-2 ministry-icon text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10l9-7 9 7-9 7-9-7zm9-7v14" />
+                                    </svg>
+                                    {{ event.location }}
+                                </div>
+                            </div>
+                            <p class="text-gray-600 ministry-description">{{ event.description|truncatewords:20 }}</p>
+                        </div>
+                        <div class="event-card-overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center text-white p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <p class="text-xl font-semibold">Learn More</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <!-- Empty state message -->
+                <div class="col-span-full text-center py-12">
+                    <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="mt-2 text-lg font-medium text-gray-900">No Upcoming Events</p>
+                    <p class="mt-1 text-sm text-gray-500">Please check back later for exciting events and activities.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+  </section>
+  
+ 
+  <style>
+    /* ============================
+       Calendar Container & Table Styling
+    ============================ */
+    .calendar-container {
+      overflow-x: auto;
+    }
+    .calendar-container table {
+      min-width: 800px;
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0 auto;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .calendar-container table:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    .calendar-container th,
+    .calendar-container td {
+      border: 1px solid #e2e8f0;
+      padding: 1rem;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    .calendar-container th {
+      background-color: #f7fafc;
+      color: #2d3748;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .calendar-container td {
+      background-color: #fff;
+      color: #4a5568;
+      position: relative;
+    }
+    .calendar-container td:hover {
+      background-color: #f1f5f9;
+    }
+    .calendar-container .event-day {
+      background-color: #ebf4ff;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .calendar-container .day-number {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-size: 1.125rem;
+      color: #2c5282;
+    }
+    .calendar-container .events {
+      font-size: 0.875rem;
+      color: #2b6cb0;
+      margin-top: 0.5rem;
+    }
+    .calendar-container .event {
+      margin: 0.25rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .calendar-container .event::before {
+      content: "\f073"; /* Font Awesome calendar icon */
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      margin-right: 0.5rem;
+      color: #2b6cb0;
+      transition: color 0.3s ease;
+    }
+    .calendar-container .event:hover::before {
+      color: #2c5282;
+    }
+  
+    /* ============================
+       Enhanced Modal Styling
+    ============================ */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+      backdrop-filter: blur(4px); /* Blurs content behind modal */
+      transition: opacity 0.3s ease-in-out;
+    }
+    .modal-content {
+      background-color: #ffffff;
+      margin: 8% auto; /* Adjust vertical alignment */
+      padding: 2rem;
+      border: none;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      animation: slideDown 0.4s ease-out;
+      position: relative;
+    }
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .close {
+      color: #888;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .close:hover,
+    .close:focus {
+      color: #333;
+      text-decoration: none;
+    }
+    /* Modal Content Enhancements */
+    .modal-content h3 {
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .modal-content p {
+      line-height: 1.6;
+    }
+  </style>
+  
+  <!-- Calendar Section -->
+  <section class="py-20 bg-gradient-to-r from-gray-50 to-white">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8">
+      <div class="text-center mb-12">
+        <h2 class="section-title text-4xl font-bold mb-4 text-indigo-700">
+          Church Calendar
+        </h2>
+        <p class="text-lg text-gray-600">
+          Stay informed about all upcoming events, services, and activities at our church.
+        </p>
+      </div>
+      <div id="calendar-content">
+        {% include "community/calendar_partial.html" %}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Modal Markup -->
+<div id="event-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3 id="modal-title" class="text-2xl font-bold mb-2"></h3>
+      <p id="modal-datetime" class="text-gray-600 mb-4"></p>
+      <p id="modal-description" class="text-gray-700"></p>
+    </div>
+  </div>
+  
+
+<!-- Yearly Calendar Event List Section -->
+<section class="py-10 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-4">
+      <h3 class="text-4xl font-bold text-indigo-700 text-center mb-8">
+        Calendar Events for {{ selected_year }}
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {% for event in church_calendar_event_list_year %}
+          <div class="bg-white shadow-lg rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
+            <div class="p-6">
+              <h4 class="text-xl font-semibold text-indigo-700 mb-2">{{ event.title }}</h4>
+              <p class="text-gray-600 text-sm mb-1">
+                <i class="fas fa-calendar-alt mr-2"></i>{{ event.date|date:"F d, Y" }}
+              </p>
+              <p class="text-gray-600 text-sm mb-3">
+                <i class="fas fa-clock mr-2"></i>{{ event.time|date:"g:i A" }}
+              </p>
+              <p class="text-gray-700 text-base">
+                {{ event.description|truncatewords:20 }}
+              </p>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-center text-gray-600 col-span-full">No events scheduled for {{ selected_year }}.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+  
+  <!-- JavaScript for AJAX Calendar Navigation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function loadCalendar(url) {
+        fetch(url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('calendar-content').innerHTML = html;
+          attachCalendarNavEvents(); // reattach click events
+          attachModalEvents();       // reattach modal event listeners
+        })
+        .catch(error => console.error('Error fetching calendar:', error));
+      }
+  
+      function attachCalendarNavEvents() {
+        const navLinks = document.querySelectorAll('.calendar-nav');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.getAttribute('href');
+            loadCalendar(url);
+            window.history.pushState(null, '', url);
+          });
+        });
+      }
+  
+      // Attach initial events for navigation
+      attachCalendarNavEvents();
+  
+      // Handle browser back/forward
+      window.addEventListener('popstate', function(e) {
+        loadCalendar(location.search);
+      });
+  
+      // Modal Interactions for Calendar Events
+      function attachModalEvents() {
+        const modal = document.getElementById("event-modal");
+        const modalTitle = document.getElementById("modal-title");
+        const modalDatetime = document.getElementById("modal-datetime");
+        const modalDescription = document.getElementById("modal-description");
+        const closeBtn = document.querySelector(".modal .close");
+  
+        const modalEvents = document.querySelectorAll('.modal-event');
+        modalEvents.forEach(eventEl => {
+          eventEl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const title = eventEl.getAttribute('data-title');
+            const date = eventEl.getAttribute('data-date');
+            const time = eventEl.getAttribute('data-time');
+            const description = eventEl.getAttribute('data-description');
+  
+            modalTitle.innerText = title;
+            modalDatetime.innerText = date + ' ' + time;
+            modalDescription.innerText = description;
+            modal.style.display = "block";
+          });
+        });
+  
+        closeBtn.addEventListener('click', function() {
+          modal.style.display = "none";
+        });
+  
+        window.addEventListener('click', function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        });
+      }
+  
+      // Attach modal events initially
+      attachModalEvents();
+    });
+  </script>
+
+
+<!-- Outreach Programs Section -->
+<section class="py-10 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-4">
+      <h3 class="text-4xl font-bold text-indigo-700 text-center mb-8">Outreach Programs</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {% for program in outreach_program_list %}
+          <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300">
+            <h4 class="text-xl font-semibold text-indigo-700 mb-2">{{ program.name }}</h4>
+            <p class="text-gray-600 text-sm">
+              {{ program.start_date|date:"M d, Y" }}{% if program.end_date %} - {{ program.end_date|date:"M d, Y" }}{% endif %}
+            </p>
+            <p class="text-gray-700 mt-3">{{ program.description|truncatewords:20 }}</p>
+            <a href="{{ program.get_absolute_url }}" class="mt-4 inline-block text-indigo-600 hover:text-indigo-800 font-medium">
+              Learn More <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        {% empty %}
+          <div class="col-span-full flex flex-col items-center justify-center py-16">
+            <i class="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500 text-xl">No outreach programs available at this time.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+  
+
+  
+<!-- Featured Events -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-title text-3xl text-center font-bold mb-8 text-indigo-700 animate-fade-in">Featured Events</h2>
+        <p class="text-xl text-gray-600 text-center mb-12 animate-fade-in delay-100">Don't miss these highlighted events</p>
+        {% if featured_events %}
+        <div class="grid md:grid-cols-2 gap-8">
+            {% for event in featured_events %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105">
+                {% if event.image %}
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-64 object-cover">
+                {% else %}
+                <img src="https://via.placeholder.com/800x400?text=No+Image" alt="{{ event.title }}" class="w-full h-64 object-cover">
+                {% endif %}
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-800 ministry-title">{{ event.title }}</h3>
+                    <p class="text-gray-600 mb-4 ministry-description">
+                        {{ event.date|date:"F j, Y" }}
+                        {% if event.end_date %}
+                        | {{ event.date|date:"g:i A" }} - {{ event.end_date|date:"g:i A" }}
+                        {% else %}
+                        | {{ event.date|date:"g:i A" }}
+                        {% endif %}
+                    </p>
+                    <p class="text-gray-600 mb-4 ministry-description">{{ event.description|truncatewords:25 }}</p>
+                    <a href="{% url 'event_detail' event.slug %}" class="text-indigo-600 hover:text-indigo-800 transition-colors duration-300">
+                        {% if event.registration_required %}
+                            Register Now
+                        {% else %}
+                            Learn More
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-12">
+            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="mt-2 text-lg font-medium text-gray-900">No Featured Events</p>
+            <p class="mt-1 text-sm text-gray-500">Please check back later for highlighted events.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+
+<!-- Monthly Calendar -->
+<section class="py-20 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-title text-center text-3xl font-bold mb-8 text-indigo-700 animate-fade-in">Monthly Events</h2>
+        <p class="text-xl text-center text-gray-600 mb-12 animate-fade-in delay-100">Regularly scheduled gatherings</p>
+        {% if monthly_events %}
+        <div class="space-y-6">
+            {% for event in monthly_events %}
+            <div class="bg-white p-6 rounded-lg shadow-md transform transition-transform duration-300 ease-in-out hover:scale-105">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 ministry-title">{{ event.title }}</h3>
+                    <span class="text-indigo-500 ministry-description">
+                        {{ event.date|date:"F j, Y | g:i A" }}
+                    </span>
+                </div>
+                <p class="text-gray-600 ministry-description">{{ event.description|truncatewords:25 }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Empty state message for Monthly Events -->
+        <div class="text-center py-12">
+            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="mt-2 text-lg font-medium text-gray-900">No Monthly Events</p>
+            <p class="mt-1 text-sm text-gray-500">There are currently no recurring or monthly events scheduled.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+  <!-- JavaScript for Popup Interactions -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const popupContainers = document.querySelectorAll('.popup-container');
+  
+      // Function to close all open popups
+      function closeAllPopups() {
+        document.querySelectorAll('.popup.show').forEach(function(popup) {
+          popup.classList.remove('show');
+        });
+      }
+  
+      // For desktop: show popup on mouseenter and hide on mouseleave
+      popupContainers.forEach(function(container) {
+        container.addEventListener('mouseenter', function(e) {
+          closeAllPopups();
+          const popup = container.querySelector('.popup');
+          if (popup) {
+            popup.classList.add('show');
+          }
+        });
+        container.addEventListener('mouseleave', function(e) {
+          const popup = container.querySelector('.popup');
+          if (popup) {
+            popup.classList.remove('show');
+          }
+        });
+      });
+  
+      // For mobile/touch devices: toggle popup on click
+      popupContainers.forEach(function(container) {
+        container.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const popup = container.querySelector('.popup');
+          if (popup) {
+            if (popup.classList.contains('show')) {
+              popup.classList.remove('show');
+            } else {
+              closeAllPopups();
+              popup.classList.add('show');
+            }
+          }
+        });
+      });
+  
+      // Close any open popup when clicking outside a popup-container
+      document.addEventListener('click', closeAllPopups);
+      
+      // Prevent clicks inside the popup from closing it
+      const popups = document.querySelectorAll('.popup');
+      popups.forEach(function(popup) {
+        popup.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      });
+    });
+  </script>
+  
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fadeElements = document.querySelectorAll('.animate-fade-in');
+        fadeElements.forEach((element, index) => {
+            setTimeout(() => {
+            element.classList.add('opacity-100');
+            }, index*150)
+        });
+    });
+</script>
+{% endblock %}

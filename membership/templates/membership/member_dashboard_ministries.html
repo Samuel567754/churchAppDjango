@@ -1,0 +1,143 @@
+{% extends 'member_dashboard.html' %} 
+
+{% load attendance_tags %} 
+
+{%block content %}
+<main
+  class=""
+>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 text-center">
+  <div class="flex flex-col items-center mb-8">
+    <!-- Icon Container with Teal-to-Cyan Gradient and Pulse Animation -->
+    <div class="flex items-center justify-center w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-r from-teal-400 to-cyan-600 shadow-2xl animate-pulse mb-6">
+      <i class="bx bx-grid-alt text-4xl sm:text-6xl text-white"></i>
+    </div>
+    <!-- Main Heading with Reversed Gradient, Drop Shadow, and Tracking -->
+    <h1 class="text-4xl sm:text-6xl font-extrabold text-center bg-gradient-to-r from-cyan-600 to-teal-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+      My Ministries
+    </h1>
+    <!-- Optional Subheading for Context -->
+    <p class="mt-4 text-lg text-gray-700 dark:text-gray-300 max-w-2xl">
+      Empowering our community through dedicated service and fellowship.
+    </p>
+  </div>
+</div>
+
+
+    {% if all_ministries %}
+  <div class="flex flex-col items-center">
+    <!-- Ministries Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+      {% for ministry in all_ministries %}
+        <button type="button" onclick="openMinistryModal('{{ ministry.slug }}')"
+                class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transform transition-transform hover:scale-105 animate-card-in w-full text-left focus:outline-none">
+          {% if ministry.image %}
+            <div class="relative w-full h-48 md:h-72">
+              <img src="{{ ministry.image.url }}" alt="{{ ministry.name }}"
+                   class="w-full h-full object-cover rounded-t-2xl">
+              <div class="absolute inset-0 bg-black bg-opacity-20 transition-opacity duration-300 ease-in-out hover:bg-opacity-0"></div>
+            </div>
+          {% elif ministry.image_url %}
+            <div class="relative w-full h-48 md:h-72">
+              <img src="{{ ministry.image_url }}" alt="{{ ministry.name }}"
+                   class="w-full h-full object-cover rounded-t-2xl">
+              <div class="absolute inset-0 bg-black bg-opacity-20 transition-opacity duration-300 ease-in-out hover:bg-opacity-0"></div>
+            </div>
+          {% else %}
+            <div class="w-full h-48 md:h-72 bg-gray-100 dark:bg-gray-700 flex items-center justify-center rounded-t-2xl">
+              <i class="bx bx-image text-gray-400 dark:text-gray-500 text-6xl md:text-9xl"></i>
+            </div>
+          {% endif %}
+
+          <div class="p-6 md:p-10">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              <i class="bx bx-church text-xl md:text-2xl mr-2"></i>
+              {{ ministry.name }}
+            </h2>
+            <p class="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-4">
+              {{ ministry.description|truncatewords:25 }}
+            </p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm md:text-md mb-3">
+              <span class="font-medium text-gray-800 dark:text-gray-200">
+                <i class="bx bx-user-pin text-gray-500 dark:text-gray-400 mr-1"></i> Leader:
+              </span>
+              {% if ministry.leader %}
+                {{ ministry.leader.user.get_full_name }}
+              {% else %}
+                <span class="text-gray-500 dark:text-gray-400">No leader assigned</span>
+              {% endif %}
+            </p>
+            <div class="mt-6 flex justify-end">
+              <span class="px-6 py-3 font-semibold text-white transition bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg">
+                View Details
+              </span>
+            </div>
+          </div>
+        </button>
+      {% endfor %}
+    </div>
+    <!-- Button to View All Ministries -->
+    <div class="mt-10">
+      <a href="{% url 'membership:all_ministries' %}"
+         class="px-8 py-3 font-semibold text-white transition bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:bg-transparent hover:text-blue-500 dark:hover:text-blue-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      View All Ministries
+      </a>
+    </div>
+  </div>
+{% else %}
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-10 flex flex-col items-center text-center animate-fade-in w-full max-w-3xl mx-auto">
+    <i class="bx bx-group-minus text-6xl md:text-9xl text-gray-400 dark:text-gray-500 mb-6"></i>
+    <p class="text-gray-800 dark:text-gray-100 font-semibold text-xl md:text-3xl mb-4">
+      Not Part of Any Ministries
+    </p>
+    <p class="text-gray-600 dark:text-gray-400 text-base md:text-lg mb-6">
+      Explore our ministries and join one that interests you!
+    </p>
+    <a href="{% url 'membership:all_ministries' %}"
+       class="px-6 py-3 font-semibold text-white transition bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:bg-transparent hover:text-blue-500 dark:hover:text-blue-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      View Ministries
+    </a>
+  </div>
+{% endif %}
+  </div>
+</main>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .animate-card-in {
+    animation: cardIn 0.4s ease-out forwards;
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  @keyframes cardIn {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .animate-text-gradient {
+    animation: textGradient 2s linear infinite;
+    background-size: 200% auto;
+  }
+  @keyframes textGradient {
+    0% {
+      background-position: 200% center;
+    }
+    100% {
+      background-position: -200% center;
+    }
+  }
+</style>
+
+
+{% endblock %}

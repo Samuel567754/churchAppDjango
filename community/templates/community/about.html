@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - Church{% endblock %}
+
+{% block content %}
+
+  <!-- Page Header -->
+  <header class="mt-10 h-64 flex justify-center items-center mb-16 relative">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1554232456-8727aae0cfa4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGFib3V0fGVufDB8fDB8fHww'); height: 60vh;">
+        <div class="flex items-center justify-center h-full bg-black bg-opacity-50">
+          <div class="text-center text-white px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
+            <p class="text-xl md:text-2xl">Growing Together in Faith and Community</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+<main class="container mx-auto px-6 lg:px-10 py-10">
+
+<!-- Our Mission & Values -->
+<section class="py-16 bg-white rounded-lg shadow-md mb-16">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8">
+    <!-- Section Header -->
+    <header class="text-center mb-16">
+      <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Our Mission & Values</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+        At Adum Central Church of Christ, we are devoted to restoring New Testament practices. We commit ourselves to proclaiming God's Word, nurturing a community united in biblical truth, and serving our neighbors with humility and grace.
+      </p>
+    </header>
+
+    <!-- Values Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Faith & Scripture -->
+      <div class="text-center p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 bg-gray-50 transform hover:scale-105">
+         <div class="flex items-center justify-center h-16 w-16 mx-auto mb-6 bg-blue-100 text-blue-600 rounded-full">
+              <!-- Bible Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" />
+              </svg>
+         </div>
+         <h3 class="text-2xl font-bold text-gray-800 mb-4">Scripture</h3>
+         <p class="text-gray-600 leading-relaxed">
+            We believe in the sole authority of the Bible. Every sermon and study is grounded in a careful, expository teaching of God's Word.
+         </p>
+      </div>
+
+      <!-- Community -->
+      <div class="text-center p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 bg-gray-50 transform hover:scale-105">
+          <div class="flex items-center justify-center h-16 w-16 mx-auto mb-6 bg-green-100 text-green-600 rounded-full">
+               <!-- Community Icon -->
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.721c-3.202 0-5.823-2.179-5.823-4.874 0-2.7 2.621-4.875 5.823-4.875m0 0s2.291 1.033 2.291 3.033c0 1.999-2.291 3.033-2.291 3.033m0 0a3.905 3.905 0 01-1.028-1.731m0 0a16.346 16.346 0 01-1.028 1.731m0 0c-.608-1.079-2.054-1.999-3.464-1.999-1.41 0-2.856.92-3.464 1.999m0 0a16.346 16.346 0 01-1.028-1.731m0 0a3.905 3.905 0 01-1.028 1.731m0 0s-2.291-1.033-2.291-3.033c0-1.999 2.291-3.033 2.291-3.033m0 0h.001c3.202 0 5.823 2.179 5.823 4.874 0 2.7-2.621 4.875-5.823 4.875" />
+               </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Community</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Our congregation is a family rooted in mutual support, accountability, and the love of Christ—a true fellowship that honors the New Testament model.
+          </p>
+      </div>
+
+      <!-- Service & Discipleship -->
+      <div class="text-center p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 bg-gray-50 transform hover:scale-105">
+           <div class="flex items-center justify-center h-16 w-16 mx-auto mb-6 bg-yellow-100 text-yellow-600 rounded-full">
+              <!-- Service Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+           </div>
+           <h3 class="text-2xl font-bold text-gray-800 mb-4">Service & Discipleship</h3>
+           <p class="text-gray-600">
+             We strive to live out our faith by serving one another, equipping believers through discipleship, and engaging in acts of kindness that reflect Christ’s love.
+           </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Leadership -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8">
+     <header class="py-16 bg-gray-50 text-center">
+         <div class="max-w-2xl mx-auto">
+             <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Our Leadership</h2>
+             <p class="text-lg text-gray-600 leading-relaxed">
+                Meet the devoted shepherds guiding our congregation with biblical wisdom and heartfelt prayer.
+             </p>
+         </div>
+     </header>
+     <div class="grid md:grid-cols-3 gap-8 mt-8">
+        <!-- Pastor John -->
+        <div class="text-center transform hover:scale-105 transition duration-300">
+           <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Pastor John" class="w-48 h-48 rounded-full mx-auto mb-4 object-cover shadow-md">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Pastor John Smith</h3>
+            <p class="text-gray-600 leading-relaxed">Senior Pastor</p>
+         </div>
+         <!-- Sarah Johnson -->
+         <div class="text-center transform hover:scale-105 transition duration-300">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&auto=format&fit=crop&q=60" alt="Sarah Johnson" class="w-48 h-48 rounded-full mx-auto mb-4 object-cover shadow-md">
+           <h3 class="text-xl font-semibold text-gray-800 mb-2">Sarah Johnson</h3>
+           <p class="text-gray-600 leading-relaxed">Worship Leader</p>
+         </div>
+         <!-- Michael Davis -->
+         <div class="text-center transform hover:scale-105 transition duration-300">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Michael Davis" class="w-48 h-48 rounded-full mx-auto mb-4 object-cover shadow-md">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Michael Davis</h3>
+           <p class="text-gray-600 leading-relaxed">Youth Pastor</p>
+       </div>
+      </div>
+  </div>
+</section>
+
+<!-- Our Story -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8">
+     <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Text Container -->
+       <div>
+           <h2 class="text-3xl font-bold mb-6 text-gray-800">Our Story</h2>
+          <p class="mb-4 text-gray-600 leading-relaxed">
+            Founded in 1950, Adum Central Church of Christ has faithfully served our community for over 70 years. 
+            Rooted in the principles of the New Testament, our church is dedicated to proclaiming the Gospel and nurturing discipleship.
+          </p>
+          <p class="mb-4 text-gray-600 leading-relaxed">
+            We remain committed to a simple yet profound worship experience—centered on Scripture, prayer, and authentic fellowship.
+          </p>
+       </div>
+        <!-- Image Container -->
+       <div>
+           <img src="https://images.unsplash.com/photo-1519491050282-cf00c82424b4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Church History" class="rounded-lg shadow-xl object-cover">
+       </div>
+      </div>
+  </div>
+</section>
+
+<!-- Our Core Values -->
+<section class="py-16 bg-gray-100">
+  <div class="max-w-7xl mx-auto px-4">
+    <!-- Section Title -->
+    <header class="text-center mb-12">
+      <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Our Core Values</h2>
+      <p class="text-lg text-gray-600">Biblical principles that guide our worship, fellowship, and service.</p>
+    </header>
+    <!-- Values Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Faith -->
+      <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
+        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 text-blue-600 rounded-full">
+            <!-- Faith Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.833 21v-8.25M8.167 21v-8.25M12 21a2.25 2.25 0 002.25-2.25V15m-4.5 0V18.75a2.25 2.25 0 002.25 2.25M15.833 21v-8.25a2.25 2.25 0 00-2.25-2.25m-4.5 0V18.75a2.25 2.25 0 012.25 2.25M8.167 21v-8.25a2.25 2.25 0 00-2.25-2.25" />
+            </svg>
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Faith</h3>
+        <p class="text-gray-600">We anchor our lives in the unwavering truth of God's Word and strive to reflect that faith in every aspect of our service.</p>
+      </div>
+      <!-- Community -->
+      <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
+        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-green-100 text-green-600 rounded-full">
+            <!-- Community Icon -->
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.721c-3.202 0-5.823-2.179-5.823-4.874 0-2.7 2.621-4.875 5.823-4.875m0 0s2.291 1.033 2.291 3.033c0 1.999-2.291 3.033-2.291 3.033m0 0a3.905 3.905 0 01-1.028-1.731m0 0a16.346 16.346 0 01-1.028 1.731m0 0c-.608-1.079-2.054-1.999-3.464-1.999-1.41 0-2.856.92-3.464 1.999m0 0a16.346 16.346 0 01-1.028-1.731m0 0a3.905 3.905 0 01-1.028 1.731m0 0s-2.291-1.033-2.291-3.033c0-1.999 2.291-3.033 2.291-3.033m0 0h.001c3.202 0 5.823 2.179 5.823 4.874 0 2.7-2.621 4.875-5.823 4.875" />
+             </svg>
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Community</h3>
+        <p class="text-gray-600">We are a family of believers committed to genuine fellowship, mutual support, and shared accountability as modeled by the early church.</p>
+      </div>
+      <!-- Service -->
+      <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
+        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-yellow-100 text-yellow-600 rounded-full">
+           <!-- Service Icon -->
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+             </svg>
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Service</h3>
+        <p class="text-gray-600">Our service is a humble, Bible-centered gathering, where we worship with simplicity, study the Scriptures, and serve one another in love.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Service Times -->
+<section id="services" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-12">Service Times</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-2 text-gray-800">Sunday Morning</h3>
+        <p class="text-gray-600">8:30 AM – 12:00 PM</p>
+        <p class="text-gray-600">General Church Service</p>
+      </div>
+      <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-2 text-gray-800">Tuesday Evening</h3>
+        <p class="text-gray-600">6:30 PM – 7:30 PM</p>
+        <p class="text-gray-600">Bible Study</p>
+      </div>
+      <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <h3 class="text-xl font-bold mb-2 text-gray-800">Friday Evening</h3>
+        <p class="text-gray-600">6:30 PM – 7:30 PM</p>
+        <p class="text-gray-600">Prayer Meeting</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <!-- Text Container -->
+      <div>
+        <h2 class="text-4xl font-bold mb-6 text-gray-800">Our Story</h2>
+        <p class="mb-4 text-gray-600 leading-relaxed">
+          Founded in 1950, Adum Central Church of Christ has faithfully carried the New Testament vision in our community for over 70 years.
+          We strive to restore biblical worship and discipleship, anchoring our lives in Scripture and heartfelt prayer.
+        </p>
+        <p class="mb-4 text-gray-600 leading-relaxed">
+          Our congregation welcomes all who seek a genuine encounter with God—a place where tradition meets living faith.
+        </p>
+        <a href="#contact" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">Contact Us</a>
+      </div>
+      <!-- Image Container -->
+      <div>
+        <img src="https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=500&auto=format&fit=crop&q=60" alt="Church Building" class="rounded-lg shadow-xl">
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-title {
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  .section-title:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 60px;
+    background-color: #6366f1;
+  }
+  .ministry-icon {
+    stroke-width: 1.5;
+  }
+</style>
+ 
+
+
+       <section class="relative py-16 overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579208575657-c595a05383b7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2l2ZXxlbnwwfHwwfHx8MA%3D%3D')] bg-cover bg-center"></div>
+     
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+     
+        <!-- Content Layer -->
+        <div class="max-w-7xl mx-auto px-4 py-20 relative z-10 text-center text-white">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6 drop-shadow-lg">Give to Our Church</h2>
+            <p class="mb-8 text-lg leading-relaxed drop-shadow-md">Support our mission and ministry through your generous giving</p>
+            <a href="#" class="bg-white text-blue-600 px-8 py-3 rounded-md hover:bg-gray-100">Give Now</a>
+        </div>
+     </section>
+     <style>
+      .drop-shadow-lg {
+        filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
+       }
+      .drop-shadow-md{
+          filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.3));
+        }
+     </style>
+    </main>
+
+
+{% endblock %}

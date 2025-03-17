@@ -1,0 +1,220 @@
+ <!-- Footer -->
+ {% comment %} <footer class="bg-gray-800 text-white mt-12">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">About Us</h3>
+          <p class="text-gray-300">
+            Your one-stop destination for digital and physical books.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="" class="text-gray-300 hover:text-white">Home</a>
+            </li>
+            <li>
+              <a href="" class="text-gray-300 hover:text-white">Cart</a>
+            </li>
+            <li>
+              <a href="" class="text-gray-300 hover:text-white">Wishlist</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
+          <ul class="space-y-2 text-gray-300">
+            <li>Email: support@bookstore.com</li>
+            <li>Phone: (123) 456-7890</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-gray-700 pt-8 text-center">
+        <p class="text-gray-300">
+          &copy; 2024 Bookstore. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer> {% endcomment %}
+
+
+  {% comment %} {% load static %}
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Church Info Section -->
+              <div class="mb-6 md:mb-0">
+                   <a href="{% url 'home' %}" class="flex items-center space-x-3 mb-4">
+                       <img src="{% static 'images/church_logo.jpg' %}" alt="Church Logo" class="h-10 w-10">
+                       <span class="text-2xl font-semibold text-white tracking-wider">
+                           CoC Abenkye
+                       </span>
+                   </a>
+                  <p class="text-gray-400 mb-4">
+                      Sharing the love of Christ. Join us on our journey to spread the word of God and build a community of believers.
+                  </p>
+                  <p class="text-gray-400">
+                       © {{ year }} City Light Church. All rights reserved.
+                  </p>
+              </div>
+  
+  
+              <!-- Quick Links Section -->
+              <div class="mb-6 md:mb-0">
+                  <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                  <ul class="space-y-2">
+                     <li>
+                          <a href="{% url 'home' %}" class="hover:text-gray-100 transition-colors duration-200">Home</a>
+                      </li>
+                       <li>
+                          <a href="{% url 'about' %}" class="hover:text-gray-100 transition-colors duration-200">About Us</a>
+                      </li>
+                        <li>
+                          <a href="{% url 'ministries' %}" class="hover:text-gray-100 transition-colors duration-200">Ministries</a>
+                      </li>
+                      <li>
+                          <a href="{% url 'services' %}" class="hover:text-gray-100 transition-colors duration-200">Services</a>
+                      </li>
+                         <li>
+                          <a href="{% url 'events' %}" class="hover:text-gray-100 transition-colors duration-200">Events</a>
+                      </li>
+                       <li>
+                         <a href="{% url 'blog:blog' %}" class="hover:text-gray-100 transition-colors duration-200">Blog</a>
+                       </li>
+                       <li>
+                           <a href="{% url 'sermons' %}" class="hover:text-gray-100 transition-colors duration-200">Sermons</a>
+                      </li>
+                       <li>
+                           <a href="{% url 'contact' %}" class="hover:text-gray-100 transition-colors duration-200">Contact Us</a>
+                       </li>
+                  </ul>
+              </div>
+  
+              <!-- Social Media Section -->
+              <div>
+                  <h4 class="text-lg font-semibold text-white mb-4">Connect With Us</h4>
+                  <div class="flex space-x-4">
+                     <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M10 23.625v-6.75h2.25L12.5 14.875h-2.5v-1.75c0-.688.078-1.081.969-1.081h1.594v-2.25h-2.25c-2.25 0-3.188 1.688-3.188 3.094v1.937h-1.5v2.25h1.5v6.75h2.25z" />
+                          </svg>
+                       </a>
+                      <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M22.5 6.213c-.872.387-1.807.648-2.785.766.997-.597 1.763-1.541 2.126-2.669-.931.554-1.965.953-3.06.712C17.949 4.08 16.79 3.36 15.431 3.36c-2.655 0-4.799 2.144-4.799 4.799 0 .378.043.748.123 1.108-3.986-.201-7.513-2.108-9.887-5.029C2.102 4.971 2.062 6.154 2.062 7.239c0 1.665.848 3.138 2.124 3.984-.788-.024-1.533-.242-2.184-.618v.059c0 2.323 1.651 4.258 3.844 4.704-.399.108-.826.164-1.269.164-.309 0-.608-.032-.901-.085.628 1.9 2.448 3.287 4.596 3.324-1.632 1.278-3.694 2.044-5.922 2.044-.387 0-.765-.023-1.139-.067 2.13 1.37 4.653 2.166 7.355 2.166 8.826 0 13.672-7.322 13.672-13.669 0-.21-.005-.418-.016-.623.943-.678 1.763-1.516 2.419-2.462z" />
+                          </svg>
+                      </a>
+                       <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                         <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.632 10.033c.029 1.851-.756 3.349-2.267 4.324-.802.517-2.373 1.264-3.057 1.264-.684 0-2.246-.745-3.037-1.252-1.516-.988-2.329-2.482-2.312-4.344.017-1.905.799-3.396 2.31-4.378.795-.52 2.357-1.257 3.031-1.257.685 0 2.26.733 3.052 1.246 1.497.982 2.286 2.481 2.263 4.334z" />
+                          </svg>
+                       </a>
+                      <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m5 10.5v-2.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2.5a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2M12 4.2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-3.5a2 2 0 0 1-2-2v-2.5a2 2 0 0 1 2-2M7 4.2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 .5.5v3.5a.5.5 0 0 1-.5.5h-2.5a2 2 0 0 1-2-2v-2.5a2 2 0 0 1 2-2m6.43 12a2 2 0 0 1 2.32 1.44v1.05H17.5a2 2 0 0 1 1.5 1.9v.85H10.5a2 2 0 0 1 1.98-1.92v-.86c1.44.2 2.28-.8 2.95-1.89" />
+                         </svg>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer> {% endcomment %}
+
+
+
+
+  {% load static %}
+  <footer class="mt-12 relative" style="background: rgba(20, 28, 58, 0.75); backdrop-filter: blur(12px);">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+              <!-- Church Info Section -->
+              <div class="mb-6 md:mb-0">
+                  <a href="{% url 'community:home' %}" class="flex items-center space-x-3 mb-4">
+                      <img src="{{ church.logo.url }}" alt="Church Logo" class="h-10 w-10">
+                      <span class="text-2xl font-semibold text-white tracking-wider">
+                          {{ church.name }}
+                      </span>
+                  </a>
+                  <p class="text-gray-300 mb-4 leading-relaxed">
+                      Sharing the love of Christ. Join us on our journey to spread the word of God and build a community of believers.
+                  </p>
+                  <p class="text-gray-300">
+                      © {{ year }} City Light Church. All rights reserved.
+                  </p>
+              </div>
+  
+              <!-- Quick Links Section -->
+              <div class="mb-6 md:mb-0 md:col-span-2">
+                  <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <ul class="space-y-2">
+                          <li>
+                              <a href="{% url 'community:home' %}" class="hover:text-white transition-colors duration-200 block py-1 text-white">Home</a>
+                          </li>
+                         <li>
+                             <a href="{% url 'community:about' %}" class="hover:text-white transition-colors duration-200 block py-1 text-white">About Us</a>
+                         </li>
+                         <li>
+                             <a href="{% url 'community:ministries' %}" class="hover:text-white transition-colors duration-200 block py-1 text-white">Ministries</a>
+                         </li>
+                          <li>
+                              <a href="{% url 'community:services' %}" class="hover:text-white transition-colors duration-200 block py-1 text-white">Services</a>
+                         </li>
+                     </ul>
+                     <ul class="space-y-2">
+                         <li>
+                              <a href="{% url 'community:events' %}" class="hover:text-white transition-colors duration-200 block py-1 text-white">Events</a>
+                         </li>
+                          <li>
+                              <a href="{% url 'blog:post_list' %}" class="hover:text-white transition-colors duration-200 block py-1 text-white">Blog</a>
+                          </li>
+                           <li>
+                               <a href="{% url 'worship:sermons' %}" class="hover:text-white transition-colors duration-200 block py-1 text-white">Sermons</a>
+                           </li>
+                          <li>
+                              <a href="{% url 'contact:contact' %}" class="hover:text-white transition-colors duration-200 block py-1 text-white">Contact Us</a>
+                         </li>
+                     </ul>
+                 </div>
+              </div>
+  
+              <!-- Social Media Section -->
+              <div>
+                  <h4 class="text-lg font-semibold text-white mb-4">Connect With Us</h4>
+                  <div class="flex space-x-4">
+                      <a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 social-icon">
+                          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M10 23.625v-6.75h2.25L12.5 14.875h-2.5v-1.75c0-.688.078-1.081.969-1.081h1.594v-2.25h-2.25c-2.25 0-3.188 1.688-3.188 3.094v1.937h-1.5v2.25h1.5v6.75h2.25z" />
+                          </svg>
+                      </a>
+                      <a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 social-icon">
+                          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M22.5 6.213c-.872.387-1.807.648-2.785.766.997-.597 1.763-1.541 2.126-2.669-.931.554-1.965.953-3.06.712C17.949 4.08 16.79 3.36 15.431 3.36c-2.655 0-4.799 2.144-4.799 4.799 0 .378.043.748.123 1.108-3.986-.201-7.513-2.108-9.887-5.029C2.102 4.971 2.062 6.154 2.062 7.239c0 1.665.848 3.138 2.124 3.984-.788-.024-1.533-.242-2.184-.618v.059c0 2.323 1.651 4.258 3.844 4.704-.399.108-.826.164-1.269.164-.309 0-.608-.032-.901-.085.628 1.9 2.448 3.287 4.596 3.324-1.632 1.278-3.694 2.044-5.922 2.044-.387 0-.765-.023-1.139-.067 2.13 1.37 4.653 2.166 7.355 2.166 8.826 0 13.672-7.322 13.672-13.669 0-.21-.005-.418-.016-.623.943-.678 1.763-1.516 2.419-2.462z" />
+                          </svg>
+                      </a>
+                      <a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 social-icon">
+                          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.632 10.033c.029 1.851-.756 3.349-2.267 4.324-.802.517-2.373 1.264-3.057 1.264-.684 0-2.246-.745-3.037-1.252-1.516-.988-2.329-2.482-2.312-4.344.017-1.905.799-3.396 2.31-4.378.795-.52 2.357-1.257 3.031-1.257.685 0 2.26.733 3.052 1.246 1.497.982 2.286 2.481 2.263 4.334z" />
+                          </svg>
+                      </a>
+                       <a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 social-icon">
+                          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m5 10.5v-2.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2.5a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2M12 4.2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-3.5a2 2 0 0 1-2-2v-2.5a2 2 0 0 1 2-2M7 4.2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 .5.5v3.5a.5.5 0 0 1-.5.5h-2.5a2 2 0 0 1-2-2v-2.5a2 2 0 0 1 2-2m6.43 12a2 2 0 0 1 2.32 1.44v1.05H17.5a2 2 0 0 1 1.5 1.9v.85H10.5a2 2 0 0 1 1.98-1.92v-.86c1.44.2 2.28-.8 2.95-1.89" />
+                          </svg>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-indigo-900 opacity-30 filter blur-3xl"></div>
+      </div>
+  </footer>
+  
+  <style>
+  .social-icon:hover{
+      transform: scale(1.1);
+      transition: transform 0.3s ease-in-out;
+  }
+  </style>

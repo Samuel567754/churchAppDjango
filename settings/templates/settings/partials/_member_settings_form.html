@@ -1,0 +1,264 @@
+<div  id="settings-form-container">
+    <form method="POST" action="{% url 'settings:member-settings' %}" id="settings-form" class="space-y-8">
+        {% csrf_token %}
+
+        <!-- Theme Selection -->
+        <div class="space-y-4">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Interface Theme</label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <label class="theme-option {% if form.theme.value == 'light' %}border-2 border-green-500{% else %}border border-gray-200 dark:border-gray-700{% endif %} rounded-lg p-4 cursor-pointer transition-all hover:border-green-300">
+                    <input type="radio" name="theme" value="light" class="hidden" {% if form.theme.value == "light" %}checked{% endif %}>
+                    <div class="space-y-2">
+                        <div class="h-24 bg-gray-100 dark:bg-gray-200 rounded-md"></div>
+                        <span class="block text-sm font-medium text-gray-700 dark:text-gray-300">Light Mode</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Clean and bright interface</p>
+                    </div>
+                </label>
+                <label class="theme-option {% if form.theme.value == 'dark' %}border-2 border-green-500{% else %}border border-gray-200 dark:border-gray-700{% endif %} rounded-lg p-4 cursor-pointer transition-all hover:border-green-300">
+                    <input type="radio" name="theme" value="dark" class="hidden" {% if form.theme.value == "dark" %}checked{% endif %}>
+                    <div class="space-y-2">
+                        <div class="h-24 bg-gray-800 dark:bg-gray-900 rounded-md"></div>
+                        <span class="block text-sm font-medium text-gray-700 dark:text-gray-300">Dark Mode</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Reduced eye strain</p>
+                    </div>
+                </label>
+                <label class="theme-option {% if form.theme.value == 'auto' %}border-2 border-green-500{% else %}border border-gray-200 dark:border-gray-700{% endif %} rounded-lg p-4 cursor-pointer transition-all hover:border-green-300">
+                    <input type="radio" name="theme" value="auto" class="hidden" {% if form.theme.value == "auto" %}checked{% endif %}>
+                    <div class="space-y-2">
+                        <div class="h-24 bg-gradient-to-r from-gray-100 dark:from-gray-500 to-gray-800 dark:to-gray-900 rounded-md"></div>
+                        <span class="block text-sm font-medium text-gray-700 dark:text-gray-300">System Default</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Match your OS theme</p>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Notification Preferences -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-green-500 pl-4">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Notification Preferences</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Customize how you receive updates</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for field in form %}
+                    {% if "receive_" in field.name or "show_" in field.name %}
+                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                        <div>
+                            <span class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ field.label }}</span>
+                            <span class="block text-xs text-gray-500 dark:text-gray-400 mt-1">{{ field.help_text }}</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" name="{{ field.name }}" class="sr-only" {% if field.value %}checked{% endif %}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Privacy & Security -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-green-500 pl-4">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Privacy & Security</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your data and account protection</p>
+            </div>
+            
+            <!-- Privacy Settings -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                    <div>
+                        <span class="block text-sm font-medium text-gray-700 dark:text-gray-300">Profile Visibility</span>
+                        <span class="block text-xs text-gray-500 dark:text-gray-400 mt-1">Control who can see your profile</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" name="profile_visibility" class="sr-only" {% if form.profile_visibility.value %}checked{% endif %}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Language -->
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Language Preference</label>
+                <div class="relative">
+                    <select id="language_preference" name="language_preference" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 appearance-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
+                        <option value="en" {% if form.language_preference.value == "en" %}selected{% endif %}>English</option>
+                        <option value="fr" {% if form.language_preference.value == "fr" %}selected{% endif %}>Français</option>
+                        <option value="es" {% if form.language_preference.value == "es" %}selected{% endif %}>Español</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security -->
+            <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                <div>
+                    <span class="block text-sm font-medium text-gray-700 dark:text-gray-300">Two-Factor Authentication</span>
+                    <span class="block text-xs text-gray-500 dark:text-gray-400 mt-1">Add an extra layer of security</span>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" name="enable_2fa" class="sr-only" {% if form.enable_2fa.value %}checked{% endif %}>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="pt-8">
+            <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.01]">
+                Save Changes
+                <svg class="w-4 h-4 inline-block ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #e2e8f0;
+        transition: .3s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .3s;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    input:checked + .slider {
+        background-color: #10b981;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    .theme-option {
+        transition: all 0.2s ease;
+    }
+
+    .theme-option:hover {
+        transform: translateY(-2px);
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Theme handling
+        function applyTheme(theme) {
+            if (theme === "auto") {
+                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    document.documentElement.classList.add("dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                }
+            } else if (theme === "dark") {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        }
+
+        function initializeThemeHandling() {
+            const savedTheme = "{{ form.theme.value|default:'light' }}";
+            applyTheme(savedTheme);
+            document.querySelectorAll('input[name="theme"]').forEach((input) => {
+                input.addEventListener('change', function() {
+                    applyTheme(this.value);
+                });
+            });
+        }
+        initializeThemeHandling();
+    
+        // Form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const submitButton = form.querySelector('button[type="submit"]');
+            
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Saving...';
+    
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Save Changes <svg class="w-4 h-4 inline-block ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+    
+                if (data.success) {
+                    showMessage('success', data.message);
+                } else {
+                    const formContainer = document.getElementById('settings-form-container');
+                    formContainer.innerHTML = data.form_html;
+                    const newForm = document.getElementById('settings-form');
+                    newForm.addEventListener('submit', handleFormSubmit);
+                    initializeThemeHandling();
+                }
+            })
+            .catch(error => {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Save Changes <svg ...></svg>';
+                showMessage('error', 'An error occurred. Please try again.');
+                console.error('Error:', error);
+            });
+        }
+    
+        function showMessage(type, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `fixed top-4 right-4 p-4 rounded-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+            messageDiv.textContent = text;
+            document.body.appendChild(messageDiv);
+            setTimeout(() => messageDiv.remove(), 3000);
+        }
+    
+        const form = document.getElementById('settings-form');
+        if (form) {
+            form.addEventListener('submit', handleFormSubmit);
+        }
+    });
+</script>

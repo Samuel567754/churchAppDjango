@@ -1,0 +1,98 @@
+  <!-- Family Modal -->
+  <div id="familyModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
+    
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <!-- Modal Container -->
+        <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl transform transition-all 
+                    opacity-0 scale-95"
+             id="modalContent">
+            <!-- Close Button -->
+            <button onclick="closeFamilyModal()" 
+                    class="absolute -top-4 -right-4 p-2 bg-white dark:bg-gray-700 rounded-full shadow-lg 
+                           hover:scale-110 transition-transform">
+                <i class="fas fa-times text-gray-600 dark:text-gray-300 text-xl"></i>
+            </button>
+
+            <!-- Modal Content -->
+            <div class="p-8">
+                <!-- Header -->
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="bg-indigo-500/10 p-4 rounded-xl">
+                        <i class="fas fa-home text-indigo-500 text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white" id="modalFamilyName"></h2>
+                        <p class="text-indigo-500 dark:text-indigo-400">Family Details</p>
+                    </div>
+                </div>
+
+                <!-- Family Details Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-map-marker-alt text-blue-500 mt-1"></i>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Address</p>
+                            <p class="text-gray-900 dark:text-gray-200" id="modalAddress"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-phone text-green-500 mt-1"></i>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Phone Number</p>
+                            <p class="text-gray-900 dark:text-gray-200" id="modalPhone"></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-crown text-yellow-500 mt-1"></i>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Head of Family</p>
+                            <p class="text-gray-900 dark:text-gray-200" id="modalHead"></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-users text-purple-500 mt-1"></i>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Total Members</p>
+                            <p class="text-gray-900 dark:text-gray-200" id="modalMembersCount"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Members List -->
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Family Members</h3>
+                    <div class="space-y-4" id="modalMembersList">
+                        <!-- Members will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    @keyframes modalEntry {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .modal-animate-in {
+        animation: modalEntry 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .member-details {
+        animation: slideDown 0.3s ease-out;
+    }
+    
+    .rotate-180 {
+        transform: rotate(180deg);
+    }
+    </style>

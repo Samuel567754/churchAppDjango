@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<meta property="og:title" content="{{ tag.name }}">
+<meta property="og:description" content="Sermons tagged with '{{ tag.name }}'.">
+{% endblock %}
+
+{% block content %}
+<!-- Banner Section -->
+<section class="relative bg-cover bg-center h-72 overflow-hidden"
+style="background-image: url('https://images.unsplash.com/photo-1560361635-9d6b6befc49b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2VybW9uc3xlbnwwfHwwfHx8MA==');">
+  <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white z-20">
+    <h1 class="text-4xl font-bold">{{ tag.name }}</h1>
+    <p class="text-xl mt-4">Sermons tagged with "{{ tag.name }}"</p>
+  </div>
+</section>
+
+   <!-- Sidebar: Topics -->
+   <aside class="md:col-span-1">
+    <div class="bg-gray-50 p-8 rounded-2xl">
+      <h3 class="text-2xl font-bold mb-6">Topics</h3>
+      <div class="flex flex-wrap gap-3">
+        {% for t in tags_list %}
+        <a href="{% url 'worship:tag_detail' t.slug %}" 
+           class="px-4 py-2 bg-white rounded-full shadow-sm hover:shadow-md transition hover:-translate-y-0.5 flex items-center">
+          <span class="mr-2 text-blue-600">#</span>{{ t.name }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </aside>
+
+
+
+
+<div class="bg-gray-50 p-8 rounded-2xl">
+    <h3 class="text-2xl font-bold mb-6">Topics</h3>
+    <div class="flex flex-wrap gap-3">
+      {% for tag in tags_list %}
+      <a href="{% url 'worship:tag_detail' tag.slug %}" 
+         class="px-4 py-2 bg-white rounded-full shadow-sm hover:shadow-md transition hover:-translate-y-0.5 flex items-center">
+        <span class="mr-2 text-blue-600">#</span>{{ tag.name }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  
+
+<main class="container mx-auto px-4 py-12">
+     <!-- Sermon Grid -->
+  <section class="animate-fade-in-up">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for sermon in sermons %}
+      <article class="sermon-card relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+               data-series="{% if sermon.series.exists %}series{% else %}standalone{% endif %}">
+        <div class="relative aspect-video bg-gray-100">
+          {% if sermon.video_url %}
+          <iframe class="absolute inset-0 w-full h-full" src="{{ sermon.video_url }}" 
+                  loading="lazy" allowfullscreen></iframe>
+          {% else %}
+          <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
+            <svg class="w-12 h-12 text-white opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+            </svg>
+          </div>
+          {% endif %}
+          <span class="absolute top-3 right-3 px-2 py-1 bg-white/90 text-sm rounded-full shadow">
+            {{ sermon.date|date:"M j" }}
+          </span>
+        </div>
+        
+        <div class="p-6">
+          <div class="mb-4">
+            {% if sermon.series.exists %}
+            <span class="inline-block mb-2 text-sm text-blue-600 font-medium">
+              {{ sermon.series.first.title }}
+            </span>
+            {% endif %}
+            <h3 class="text-xl font-semibold mb-2">{{ sermon.title }}</h3>
+            <p class="text-gray-600">{{ sermon.preacher.name }}</p>
+          </div>
+          <div class="flex items-center justify-between">
+            <a href="{% url 'worship:sermon_detail' sermon.slug %}" 
+               class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium group">
+              Watch Now
+              <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            {% if sermon.audio_file %}
+            <button class="audio-play-btn p-2 hover:bg-gray-100 rounded-full transition-colors">
+              <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+              </svg>
+            </button>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      {% empty %}
+      <p class="text-gray-700 col-span-full text-center py-8">No sermons found tagged with "{{ tag.name }}".</p>
+      {% endfor %}
+    </div>
+  </section>
+  
+
+    {% if sermons.has_other_pages %}
+    <nav class="flex items-center justify-between py-3">
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Showing
+            <span class="font-medium">{{ sermons.start_index }}</span>
+            to
+            <span class="font-medium">{{ sermons.end_index }}</span>
+            of
+            <span class="font-medium">{{ sermons.paginator.count }}</span>
+            results
+          </p>
+        </div>
+        <div>
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+            {% if sermons.has_previous %}
+            <a href="?page={{ sermons.previous_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+              <span class="sr-only">Previous</span>
+              <!-- Heroicon name: solid/chevron-left -->
+              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            {% endif %}
+  
+            {% for i in sermons.paginator.page_range %}
+              {% if sermons.number == i %}
+                <span aria-current="page" class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                  {{ i }}
+                </span>
+              {% else %}
+                <a href="?page={{ i }}" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                  {{ i }}
+                </a>
+              {% endif %}
+            {% endfor %}
+  
+  
+            {% if sermons.has_next %}
+            <a href="?page={{ sermons.next_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+              <span class="sr-only">Next</span>
+              <!-- Heroicon name: solid/chevron-right -->
+              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            {% endif %}
+          </nav>
+        </div>
+      </div>
+    </nav>
+    {% endif %}
+  </main>
+{% endblock %}

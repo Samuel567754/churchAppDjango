@@ -1,0 +1,158 @@
+ <!-- Desktop Navigation (Vertical) -->
+ <nav id="sidenav"
+ class="hidden lg:block w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 z-30 fixed left-0 top-16 bottom-0 overflow-y-auto p-5 desktop-nav">
+
+            <button id="mobile-close-btn" class="lg:hidden ml-auto block p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100 transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-sm hover:shadow-md">
+                <i class='bx bx-x text-2xl'></i>
+            </button>
+
+            <a href="{% url 'membership:member_dashboard_home' %}"
+                class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'home' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+                data-page="home">
+                <i class='bx bx-home text-xl'></i>
+                <span>Home</span>
+            </a>
+            <a href="{% url 'worship:weekly_attendance' %}"
+                class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'attendance' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+                data-page="attendance">
+                <i class='bx bx-calendar text-xl'></i>
+                <span>Attendance</span>
+            </a>
+            <a href="{% url 'membership:member_dashboard_donations' %}"
+                class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'donations' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+                data-page="donations">
+                <i class='bx bx-donate-heart text-xl'></i>
+                <span>Donations</span>
+            </a>
+            <a href="{% url 'membership:member_dashboard_ministries' %}"
+                class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'ministries' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+                data-page="ministries">
+                <i class='bx bx-group text-xl'></i>
+                <span>Ministries</span>
+            </a>
+            <a href="{% url 'membership:member_family' %}"
+                class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'member_family' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+                data-page="member_family">
+                <i class='bx bx-group text-xl'></i>
+                <span>My Families</span>
+            </a>
+            <a href="{% url 'membership:member_dashboard_events' %}"
+                class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'events' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+                data-page="events">
+                <i class='bx bx-calendar-event text-xl'></i>
+                <span>Events</span>
+            </a>
+
+           
+            <a href="{% url 'membership:member_dashboard_volunteer' %}"
+                class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'volunteer' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+                data-page="volunteer">
+                <i class='bx bx-group text-xl'></i> 
+                <span>Volunteer</span>
+            </a>
+            <a href="{% url 'worship:prayer_requests' %}"
+            class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'prayer_requests' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+            data-page="prayer_requests">
+            <i class='bx bx-donate-heart text-xl'></i> <!-- Changed to a heart donation icon -->
+            <span>Prayer Request</span>
+            </a>
+
+            <a href="{% url 'worship:member_appointments' %}"
+            class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'member_appointments' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+            data-page="member_appointments">
+            <i class='bx bx-calendar text-xl'></i> 
+            <span>My Appointments</span>
+            </a>
+            {% comment %} <a href="{% url 'worship:resource_list' %}"
+            class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'resource_list' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+            data-page="resource_list">
+            <i class='bx bx-collection text-xl'></i>
+            <span>Resources</span>
+            </a> {% endcomment %}
+            <a href="{% url 'settings:member-settings' %}"
+            class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg {% if active_page == 'member-settings' %} bg-blue-50 text-blue-600 dark:bg-blue-700 dark:text-blue-400 {% else %} hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 {% endif %}"
+            data-page="member-settings">
+            <i class='bx bx-cog text-xl'></i>
+            <span>Settings</span>
+            </a>
+
+        {% comment %} <button  id="darkModeToggle">Toggle Dark Mode</button> {% endcomment %}
+        </div> 
+    </nav>
+
+
+    <!-- Mobile Navigation (Horizontal) -->
+    <nav class="lg:hidden fixed top-16 left-0 w-full z-20 bg-white dark:bg-gray-800 border-b dark:border-gray-700 shadow-sm">
+        <div class="overflow-x-auto whitespace-nowrap">
+            <div class="flex space-x-4 p-2">
+                <a href="{% url 'membership:member_dashboard_home' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'home' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="home">Home</a>
+              
+                <a href="{% url 'worship:weekly_attendance' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'attendance' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="attendance">Attendance</a>
+                <a href="{% url 'membership:member_dashboard_donations' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'donations' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="donations">Donations</a>
+                <a href="{% url 'membership:member_dashboard_ministries' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'ministries' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="ministries">Ministries</a>
+                <a href="{% url 'membership:member_family' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'member_family' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="member_family">My Family</a>
+                <a href="{% url 'membership:member_dashboard_events' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'events' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="events">Events</a>
+               
+                <a href="{% url 'membership:member_dashboard_volunteer' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'volunteer' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="volunteer">Volunteer</a>
+                <a href="{% url 'worship:prayer_requests' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'prayer_requests' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="prayer_requests">Prayer Requests</a>
+                <a href="{% url 'worship:member_appointments' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'member_appointments' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="member_appointments">My Appointments</a>
+                {% comment %} <a href="{% url 'worship:resource_list' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'resource_list' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="resource_list">Resources</a> {% endcomment %}
+                <a href="{% url 'settings:member-settings' %}"
+                class="nav-link flex-shrink-0 relative
+                    {% if active_page == 'member-settings' %} text-blue-700 font-medium dark:text-blue-400 before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-blue-500  before:transform before:scale-x-100 before:transition-transform before:duration-300 before:ease-in-out
+                    {% else %} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100  border-b border-transparent hover:border-gray-300 dark:hover:border-gray-600 {% endif %}
+                    px-3 py-2 rounded-md transition-colors duration-200 text-sm hover:before:transform hover:before:scale-x-100  before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-transparent before:transform before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out"
+                data-page="member-settings">Settings</a>
+            </div>
+        </div>
+    </nav>

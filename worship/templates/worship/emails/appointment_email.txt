@@ -1,0 +1,8 @@
+Dear {{ member_name }},
+
+You have been appointed as a {{ role }} on {{ date }} ({{ day }}).
+
+Please confirm your availability.
+
+Best regards,
+Church Administration

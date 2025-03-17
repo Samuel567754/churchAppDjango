@@ -1,0 +1,30 @@
+<div id="calendar-section" class="max-w-4xl mx-auto">
+    <!-- Navigation for Month Switching -->
+    <div class="flex justify-between items-center mb-6 px-4">
+      <a href="{{ prev_url }}" class="calendar-nav flex items-center text-indigo-600 hover:text-indigo-800 transition">
+        <i class="fas fa-chevron-left mr-2"></i> Previous Month
+      </a>
+      <span class="text-xl font-semibold text-gray-800">
+        {{ selected_month }}/{{ selected_year }}
+      </span>
+      <a href="{{ next_url }}" class="calendar-nav flex items-center text-indigo-600 hover:text-indigo-800 transition">
+        Next Month <i class="fas fa-chevron-right ml-2"></i>
+      </a>
+    </div>
+    <div class="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200 transition transform hover:scale-105">
+      <!-- Custom HTML Calendar generated in the view -->
+      <div class="p-8 calendar-container">
+        {{ church_html_calendar|safe }}
+      </div>
+      <div class="p-4 bg-gray-100 text-center">
+        <p class="text-gray-600 text-sm">
+          Can't see the calendar? 
+          <a href="YOUR_CALENDAR_LINK" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline transition duration-300">
+            <i class="fas fa-external-link-alt mr-1"></i> Click here
+          </a>
+          to open it in a new tab.
+        </p>
+      </div>
+    </div>
+  </div>
+  

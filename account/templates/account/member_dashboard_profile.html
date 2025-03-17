@@ -1,0 +1,173 @@
+{% extends 'member_dashboard.html' %}
+
+{% block content %}
+<main id="main-content" class="transition-opacity duration-200">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-8 text-center md:text-left">My Profile</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <!-- Basic Info Card -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 md:p-6 overflow-x-auto">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                    <div class="mb-2 sm:mb-0">
+                        <h2 class="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-100 mb-1">Basic Information</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Some info may be visible to others</p>
+                    </div>
+                    <a href="{% url 'account:edit_profile' %}" class="px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+                        <i class='bx bx-edit-alt align-middle mr-1'></i> Edit
+                    </a>
+                </div>
+                <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                     <div class="py-3 md:py-4 flex items-center justify-between ">
+                        <div class="flex items-center space-x-2">
+                             <i class='bx bx-user text-gray-500 dark:text-gray-400'></i>
+                            <div>
+                              <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Name</h3>
+                              <p class="text-gray-600 dark:text-gray-300">{{ member.user.get_full_name }}</p>
+                            </div>
+                        </div>
+                        <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+
+                    <div class="py-3 md:py-4 flex items-center justify-between ">
+                        <div class="flex items-center space-x-2">
+                            <i class='bx bx-cake text-gray-500 dark:text-gray-400'></i>
+                            <div>
+                              <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Birthday</h3>
+                              <p class="text-gray-600 dark:text-gray-300">{{ member.date_of_birth }}</p>
+                            </div>
+                        </div>
+                        <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+
+
+                    <div class="py-3 md:py-4 flex items-center justify-between ">
+                        <div class="flex items-center space-x-2">
+                          <i class='bx bx-male-female text-gray-500 dark:text-gray-400'></i>
+                            <div>
+                               <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Gender</h3>
+                                <p class="text-gray-600 dark:text-gray-300">
+                                     {% if member.gender == 'M' %}
+                                        Male
+                                        {% elif member.gender == 'F' %}
+                                        Female
+                                    {% else %}
+                                        Not Specified
+                                    {% endif %}
+                                </p>
+                            </div>
+                         </div>
+                        <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+
+
+                   <div class="py-3 md:py-4 flex items-center justify-between ">
+                        <div class="flex items-center space-x-2">
+                           <i class='bx bx-phone text-gray-500 dark:text-gray-400'></i>
+                            <div>
+                                <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Phone</h3>
+                                <p class="text-gray-600 dark:text-gray-300">{{ member.phone }}</p>
+                             </div>
+                       </div>
+                        <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+
+
+                    <div class="py-3 md:py-4 flex items-start justify-between ">
+                        <div class="flex items-start space-x-2">
+                              <i class='bx bx-map text-gray-500 dark:text-gray-400'></i>
+                            <div>
+                                <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Address</h3>
+                                <p class="text-gray-600 dark:text-gray-300 whitespace-pre-line">{{ member.address }}</p>
+                            </div>
+                        </div>
+                         <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+
+
+                    <div class="py-3 md:py-4 flex items-center justify-between ">
+                        <div class="flex items-center space-x-2">
+                            <i class='bx bx-calendar-check text-gray-500 dark:text-gray-400'></i>
+                            <div>
+                                <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Joined On</h3>
+                                 <p class="text-gray-600 dark:text-gray-300">{{ member.date_joined }}</p>
+                            </div>
+                       </div>
+                        <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+
+
+                   <div class="py-3 md:py-4 flex items-center justify-between ">
+                        <div class="flex items-center space-x-2">
+                           <i class='bx bx-water text-gray-500 dark:text-gray-400'></i>
+                            <div>
+                               <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Baptized</h3>
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    {% if member.baptized %}
+                                        Yes
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </p>
+                            </div>
+                       </div>
+                        <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+
+                    {% if member.ministries.all %}
+                    <div class="py-3 md:py-4 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <i class='bx bx-group text-gray-500 dark:text-gray-400'></i>
+                            <div>
+                                <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Ministries</h3>
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    {{ member.ministries.all|join:", " }}  {# ✅ Display ministries separated by commas #}
+                                </p>
+                            </div>
+                        </div>
+                        <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+                {% endif %}
+
+
+                    {% if member.can_lead and member.gender == 'M' %}
+                    <div class="py-3 md:py-4 flex items-center justify-between ">
+                       <div class="flex items-center space-x-2">
+                             <i class='bx bx-bible text-gray-500 dark:text-gray-400'></i>
+                           <div>
+                             <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">Can Lead Services</h3>
+                             <p class="text-gray-600 dark:text-gray-300">Yes</p>
+                           </div>
+                       </div>
+                        <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Family Members Card -->
+            {% if family_members %}
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 md:p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-100 mb-2">Family Members</h2>
+                    </div>
+                    <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                         {% for family_member in family_members %}
+                             <div class="py-3 md:py-4 flex items-center justify-between ">
+                                <div class="flex items-center space-x-2">
+                                    <i class='bx bx-user-circle text-gray-500 dark:text-gray-400'></i>
+                                      <div>
+                                           <h3 class="text-md font-medium text-gray-700 dark:text-gray-100">{{ family_member.user.get_full_name }}</h3>
+                                          <p class="text-gray-600 dark:text-gray-300">{{ family_member.phone }}</p>
+                                     </div>
+                                </div>
+                                <i class='bx bx-chevron-right text-gray-400 dark:text-gray-500'></i>
+                           </div>
+                        {% endfor %}
+                     </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}

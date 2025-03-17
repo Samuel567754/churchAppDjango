@@ -1,0 +1,45 @@
+{% extends 'member_dashboard.html' %}
+
+
+{% block content %}
+<div class="max-w-3xl">
+  <h1 class="text-2xl font-medium text-gray-900 dark:text-gray-100 mb-6">My Donations</h1>
+  {% if donations %}
+      <div class="bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700 p-6">
+       <table class="w-full text-left">
+           <thead>
+             <tr class="border-b dark:border-gray-700">
+                <th class="py-2 font-medium text-gray-700 dark:text-gray-300">Date</th>
+                <th class="py-2 font-medium text-gray-700 dark:text-gray-300">Purpose</th>
+                <th class="py-2 font-medium text-gray-700 dark:text-gray-300">Amount</th>
+               <th class="py-2 font-medium text-gray-700 dark:text-gray-300">Payment Method</th>
+              </tr>
+            </thead>
+             <tbody>
+              {% for donation in donations %}
+                  <tr class="border-b dark:border-gray-700">
+                     <td class="py-2 text-gray-600 dark:text-gray-400">{{ donation.date }}</td>
+                     <td class="py-2 text-gray-600 dark:text-gray-400">{{ donation.get_purpose_display }}</td>
+                      <td class="py-2 text-gray-600 dark:text-gray-400">${{ donation.amount }}</td>
+                       <td class="py-2 text-gray-600 dark:text-gray-400">{{ donation.get_payment_method_display }}</td>
+                 </tr>
+               {% endfor %}
+               </tbody>
+         </table>
+      </div>
+ {% else %}
+ <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col items-center justify-center text-center">
+  <i class='bx bx-heart-circle text-6xl text-gray-400 dark:text-gray-500 mb-4'></i>
+  <p class="text-gray-700 dark:text-gray-300 font-medium text-lg mb-2">
+    No Donations Yet
+  </p>
+  <p class="text-gray-500 dark:text-gray-400 text-sm">
+    Your contributions help support our community.
+  </p>
+    <button class="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none">
+      Make a Donation
+   </button>
+</div>
+  {% endif %}
+</div>
+{% endblock %}

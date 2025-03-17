@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <table>
+      {% for form in formset %}
+        <tr>
+          <td>{{ form.as_p }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    
+    <button type="submit" class="button button-primary">Assign Roles</button>
+  </form>
+
+  <br>
+  <a href="{% url 'admin:worship_appointment_changelist' %}" class="button">Back to Appointments</a>
+{% endblock %}

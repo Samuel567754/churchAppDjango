@@ -1,0 +1,190 @@
+{% extends 'member_dashboard.html' %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-medium text-gray-900 dark:text-gray-100 mb-2">Welcome, {{ member.user.first_name }}</h1>
+    <p class="text-gray-600 dark:text-gray-200">Manage your church profile and stay connected with the community.</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <!-- Announcements -->
+    <a href="{% url 'membership:member_dashboard_announcements' %}">
+    <div class="google-card bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-shadow duration-300 cursor-pointer">
+        <div class="flex items-start space-x-4">
+
+            <!-- Icon Container -->
+            <div class="p-3 bg-blue-100 rounded-full flex items-center justify-center">
+                <i class='bx bx-bullhorn text-3xl text-blue-600'></i>
+            </div>
+
+            <!-- Announcement Box -->
+            <div class="flex-1 bg-yellow-50 dark:bg-lime-950 border-l-4 border-yellow-500 p-4 rounded-lg shadow-md">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20h.01M4.93 4.93a10 10 0 1014.14 14.14A10 10 0 004.93 4.93z"></path>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-yellow-700">Announcements</h3>
+                </div>
+
+                <!-- Announcement Count -->
+                <p class="text-sm text-yellow-700 mt-2 font-medium">
+                    {% if announcements %}
+                        <span class="font-extrabold text-yellow-800 text-lg">{{ announcements|length }}</span>
+                        announcement{{ announcements|length|pluralize }}
+                    {% else %}
+                        <span class="text-gray-600">No announcements at this time.</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    </a>
+
+
+    <!-- Upcoming Events -->
+    <div class="google-card bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg cursor-pointer">
+        <div class="flex items-start space-x-4">
+            <div class="p-2 bg-green-100 rounded-lg">
+                <i class='bx bx-calendar-event text-2xl text-green-600'></i>
+            </div>
+            <div>
+                <h3 class="font-medium text-gray-900 dark:text-gray-100 mb-1">Upcoming Events</h3>
+                 {% if events %}
+                     {% for event in events %}
+                        <div class="mb-2">
+                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ event.title }}</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ event.date }}</p>
+                        </div>
+                     {% endfor %}
+                   {% else %}
+                        <p class="text-sm text-gray-600 dark:text-gray-400">No events at this time</p>
+                   {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Surveys -->
+      <div class="google-card bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg cursor-pointer">
+          <div class="flex items-start space-x-4">
+              <div class="p-2 bg-purple-100 rounded-lg">
+                 <i class='bx bx-list-ul text-2xl text-purple-600'></i>
+              </div>
+               <div>
+                  <h3 class="font-medium text-gray-900 dark:text-gray-100 mb-1">Surveys</h3>
+                    {% if surveys %}
+                      {% for survey in surveys %}
+                      <div class="mb-2">
+                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ survey.title }}</h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ survey.created_at }}</p>
+                        </div>
+                       {% endfor %}
+                    {% else %}
+                        <p class="text-sm text-gray-600 dark:text-gray-400">No surveys at this time</p>
+                    {% endif %}
+               </div>
+        </div>
+    </div>
+    
+    <!-- Polls -->
+      <div class="google-card bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg cursor-pointer">
+            <div class="flex items-start space-x-4">
+              <div class="p-2 bg-indigo-100 rounded-lg">
+                <i class='bx bx-bar-chart-alt-2 text-2xl text-indigo-600'></i>
+              </div>
+            <div>
+                 <h3 class="font-medium text-gray-900 dark:text-gray-100 mb-1">Polls</h3>
+                  {% if polls %}
+                     {% for poll in polls %}
+                       <div class="mb-2">
+                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ poll.question }}</h4>
+                       <div class="mt-2">
+                             <form method="post" action="{% url 'member_vote_poll' poll.id poll.options.first.id %}">
+                               {% csrf_token %}
+                               {% for option in poll.options.all %}
+                                  <button type="submit"  value="{{ option.id}}" name="option" class="text-sm font-medium text-blue-600 hover:underline">{{ option.option_text}} </button>
+
+                               {% endfor %}
+                             </form>
+                        </div>
+                       </div>
+                     {% endfor %}
+                  {% else %}
+                      <p class="text-sm text-gray-600 dark:text-gray-400">No polls at this time</p>
+                   {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Weekly Appointments -->
+    <a href="{% url 'worship:weekly_service_appointments' %}">
+        <div class="google-card bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg cursor-pointer">
+            <div class="flex items-start space-x-4">
+                <div class="p-3 bg-blue-100 rounded-lg">
+                    <i class='bx bx-calendar-check text-2xl text-blue-600'></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium text-gray-900 dark:text-gray-100 mb-2">Weekly Appointments</h3>
+
+                    <div class="mt-4">
+
+                       <p class="inline-block px-4 py-2 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg shadow-md transition">
+                            View Appointments
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+
+    <!-- Personal info -->
+    <a href="{% url 'account:member_dashboard_profile' %}">
+    <div class="google-card bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg cursor-pointer">
+        <div class="flex items-start space-x-4">
+            <div class="p-2 bg-yellow-100 rounded-lg">
+                <i class='bx bx-user text-2xl text-yellow-600'></i>
+            </div>
+            <div>
+                <h3 class="font-medium text-gray-900 dark:text-gray-100 mb-1">Personal info</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">See and update your personal info shared across our church services</p>
+            </div>
+        </div>
+    </div>
+    </a>
+
+    <!-- Resources Card -->
+<a href="{% url 'worship:resource_list' %}">
+    <div class="google-card bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg cursor-pointer">
+        <div class="flex items-start space-x-4">
+            <div class="p-3 bg-blue-100 rounded-lg">
+                <i class='bx bx-book-open text-2xl text-blue-600'></i>
+            </div>
+            <div class="flex-1">
+                <h3 class="font-medium text-gray-900 dark:text-gray-100 mb-2">Resources</h3>
+                <div class="mt-4">
+                    <p class="inline-block px-4 py-2 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg shadow-md transition">
+                        View Resources
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+
+    <!-- Payment methods -->
+   <div class="google-card bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg cursor-pointer">
+        <div class="flex items-start space-x-4">
+            <div class="p-2 bg-red-100 rounded-lg">
+               <i class='bx bx-credit-card text-2xl text-red-600'></i>
+            </div>
+            <div>
+                <h3 class="font-medium text-gray-900 dark:text-gray-100 mb-1">Donations</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">View all your contributions to the church</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

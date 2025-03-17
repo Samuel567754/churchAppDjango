@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Rejected</title>
+</head>
+<body style="background-color: #f3f4f6; margin: 0; padding: 4px; font-family: 'Arial', sans-serif; color: #4a5568; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div style="max-width: 640px; background-color: #ffffff; padding: 16px; border-radius: 12px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); overflow: hidden; border: 1px solid #e5e7eb;">
+        
+        <!-- Header Section -->
+        <div style="background-color: #ef4444; color: #ffffff; padding: 20px; text-align: center; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+            <h1 style="font-size: 1.75rem; font-weight: bold; margin: 0;">Membership Application Rejected</h1>
+        </div>
+
+        <!-- Content Section -->
+        <div style="padding-top: 24px;padding-bottom: 24px; line-height: 1.6;">
+            <p style="font-size: 1.1rem; font-weight: bold;">Dear {{ user.first_name }},</p>
+            <p style="font-size: 1rem; margin-bottom: 16px;">We regret to inform you that your membership application has been rejected. If you have any questions or require further clarification, please do not hesitate to reach out to us.</p>
+            <p style="font-size: 1rem; margin-bottom: 16px;">We truly appreciate your interest in joining our community and hope you will continue to stay engaged with us in the future.</p>
+            <p style="font-size: 1rem; font-weight: bold; margin-bottom: 24px;">Best regards,<br>The Church Admin Team</p>
+
+            <!-- Button Link -->
+            <div style="text-align: center; margin-top: 24px;">
+                <a href="{{ domain }}{% url 'contact:contact' %}" 
+                   style="display: inline-block; background-color: #ef4444; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
+                   onmouseover="this.style.backgroundColor='#dc2626'"
+                   onmouseout="this.style.backgroundColor='#ef4444'">
+                    Visit Contact
+                </a>
+            </div>
+             <!-- Button Link -->
+             <div style="text-align: center; margin-top: 24px;">
+                <a href="mailto:support@church.com?subject=Support%20Request" style="color: #2563eb; text-decoration: none;">Contact Support</a>
+
+            </div>
+
+        </div>
+
+        <!-- Footer Section -->
+        <div style="background-color: #f9fafb; text-align: center; padding: 16px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; border-top: 1px solid #e5e7eb;">
+            <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">© 2025 The Church. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

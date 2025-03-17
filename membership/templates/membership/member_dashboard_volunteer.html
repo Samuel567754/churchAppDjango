@@ -1,0 +1,75 @@
+{% extends 'member_dashboard.html' %}
+
+{% block content %}
+<div class="max-w-3xl">
+  <h1 class="text-2xl font-medium text-gray-900 dark:text-gray-100 mb-6">Volunteer Opportunities</h1>
+
+<!-- Applications section -->
+{% if applications %}
+  <div class="bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700 p-6 mb-6">
+    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">My Volunteer Applications</h3>
+      <ul class="space-y-4">
+       {% for application in applications %}
+          <li class="flex items-start justify-between py-3 border-b dark:border-gray-700">
+            <div>
+              <h4 class="font-medium text-gray-900 dark:text-gray-100">{{ application.opportunity.title }}</h4>
+               <p class="text-gray-600 dark:text-gray-400 text-sm">Applied on {{ application.application_date}}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Notes: {{ application.notes}}</p>
+              
+            </div>
+             <form method="post" action="{% url 'withdraw_from_volunteer_opportunity' application.id %}" >
+                {% csrf_token %}
+                <button type="submit" class="px-4 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 rounded-lg">Withdraw</button>
+             </form>
+         </li>
+       {% endfor %}
+    </ul>
+  </div>
+  {% else %}
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col items-center justify-center text-center">
+    <i class='bx bx-handshake text-6xl text-gray-400 dark:text-gray-500 mb-4'></i>
+    <p class="text-gray-700 dark:text-gray-300 font-medium text-lg mb-2">
+      No Volunteer Applications
+    </p>
+    <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">
+      Explore our volunteer opportunities and find one to apply to!
+    </p>
+     <a href="{% url 'membership:member_dashboard_volunteer' %}" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none">
+          View Opportunities
+     </a>
+  </div>
+ {% endif %}
+
+<!-- Opportunities section -->
+{% if opportunities %}
+ <div class="bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700 p-6">
+      <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Available Opportunities</h3>
+         <ul class="space-y-4">
+          {% for opportunity in opportunities %}
+               <li class="flex items-start justify-between py-3 border-b dark:border-gray-700">
+                   <div>
+                    <h4 class="font-medium text-gray-900 dark:text-gray-100">{{ opportunity.title}}</h4>
+                     <p class="text-gray-600 dark:text-gray-400 text-sm">{{ opportunity.description|truncatewords:20 }}</p>
+                  </div>
+                    <form method="post" action="{% url 'apply_for_volunteer_opportunity' opportunity.id %}" >
+                          {% csrf_token %}
+                      <input type="text" placeholder="Enter any application notes" name="notes" class="mb-2 w-full px-4 py-2 rounded-lg border dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="submit" class="px-4 py-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 rounded-lg">Apply</button>
+                      </form>
+             </li>
+          {% endfor %}
+     </ul>
+   </div>
+  {% else %}
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col items-center justify-center text-center">
+    <i class='bx bx-briefcase-alt-2 text-6xl text-gray-400 dark:text-gray-500 mb-4'></i>
+    <p class="text-gray-700 dark:text-gray-300 font-medium text-lg mb-2">
+      No Current Volunteer Opportunities
+    </p>
+    <p class="text-gray-500 dark:text-gray-400 text-sm">
+     Check back soon for new ways to get involved!
+    </p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Contact Message</title>
+</head>
+<body style="background-color: #f3f4f6; margin: 0; padding: 5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; line-height: 1.6;">
+    <div style="max-width: 600px; width: 95%; background-color: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb; margin: 0 auto;">
+
+        <!-- Header Area -->
+        <div style="background-color: #3b82f6; color: #ffffff; text-align: center; padding: 24px 20px;">
+            <h1 style="font-size: 1.75rem; font-weight: bold; margin: 0;">New Contact Message</h1>
+        </div>
+
+        <!-- Main Content Area -->
+        <div style="padding: 24px 20px;">
+            <p style="color: #1e293b; font-size: 1rem; margin-bottom: 16px;">
+                <strong style="font-weight: 600;">Name:</strong> <span style="font-weight: 400;">{{ name }}</span>
+            </p>
+            <p style="color: #1e293b; font-size: 1rem; margin-bottom: 16px;">
+                <strong style="font-weight: 600;">Email:</strong>
+                <a href="mailto:{{ email }}" style="color: #3b82f6; text-decoration: none;">
+                    <span style="font-weight: 400;">{{ email }}</span>
+                </a>
+            </p>
+
+             <!-- Message Area -->
+             <div style="margin-bottom: 24px;">
+                <p style="color: #1e293b; font-size: 1rem; font-weight: bold; margin-bottom: 10px;">
+                   Message:
+               </p>
+               <div style="background-color: #f9fafb; padding: 10px; border-left: 4px solid #3b82f6; border-radius: 6px;">
+                   <p style="color: #4b5563; font-size: 1rem; line-height: 1.6; margin: 0;">{{ message }}</p>
+               </div>
+            </div>
+
+            <!-- Call to Action Area -->
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="mailto:{{ email }}" style="display: inline-block; background-color: #3b82f6; color: #ffffff; font-size: 1rem; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 6px; transition: background-color 0.3s ease; white-space: nowrap;"
+                   onmouseover="this.style.backgroundColor='#2c64bd'"
+                   onmouseout="this.style.backgroundColor='#3b82f6'">
+                    Reply to Message
+                </a>
+            </div>
+        </div>
+
+         <!-- Footer Area -->
+        <div style="background-color: #f9fafb; padding: 20px 20px; text-align: center; border-top: 1px solid #e5e7eb;">
+            <p style="color: #4b5563; font-size: 0.875rem; margin: 0;">Thank you for reaching out! We will get back to you soon.</p>
+            <p style="color: #6b7280; font-size: 0.75rem; margin-top: 10px;">This is an automated message. Please do not reply.</p>
+        </div>
+    </div>
+</body>
+</html>

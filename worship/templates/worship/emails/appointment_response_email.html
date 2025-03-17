@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointment Response</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 5px; margin: 0;">
+    <table align="center" width="100%" style="max-width: 600px; background: #ffffff; padding: 10px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+        <tr>
+            <td align="center" style="padding: 15px 0;">
+                <h2 style="color: #2c3e50; margin: 0;">Church Appointment Response</h2>
+                <hr style="border: 1px solid #ddd; width: 80%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 15px; line-height: 1.6; color: #333;">
+                <p style="margin: 0 0 15px;">Dear <strong>Church Administration</strong>,</p>
+                <p style="margin: 0 0 15px;"><strong>{{ member_name }}</strong> has responded to their appointment.</p>
+                <p style="margin: 0 0 10px;"><strong>Role:</strong> {{ role }}</p>
+                <p style="margin: 0 0 10px;"><strong>Date:</strong> {{ date }} ({{ day }})</p>
+                <p style="margin: 0 0 10px;"><strong>Status:</strong> 
+                    {% if status == "Accepted" %}
+                        <span style="color: #28a745; font-weight: bold;">✔ Accepted</span>
+                    {% else %}
+                        <span style="color: #dc3545; font-weight: bold;">✖ Rejected</span>
+                    {% endif %}
+                </p>
+                
+                {% if reason %}
+                <p style="background: #ffebeb; color: #a94442; padding: 10px; border-radius: 5px;">
+                    <strong>Reason for Rejection:</strong> {{ reason }}
+                </p>
+                {% endif %}
+
+                <p style="margin-top: 20px;">Best regards,<br>
+                <strong style="color: #2c3e50;">Church System</strong></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

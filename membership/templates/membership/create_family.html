@@ -1,0 +1,118 @@
+{% extends 'member_dashboard.html' %}
+
+{% block content %}
+<div class="container mx-auto p-4">
+  <div class="max-w-2xl mx-auto bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-8 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-2xl">
+    <!-- Header Section -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">
+        <i class="fas fa-users text-blue-500 mr-2"></i>Create Your Family
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">Start your family group and manage members</p>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      
+      <!-- Family Name Field -->
+      <div class="mb-6">
+        <label for="{{ form.family_name.id_for_label }}" class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2 flex items-center">
+          <i class="fas fa-home text-gray-500 dark:text-gray-400 mr-2 text-lg"></i>
+          {{ form.family_name.label }}
+        </label>
+        {{ form.family_name }}
+        {% if form.family_name.help_text %}
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-2 ml-2">{{ form.family_name.help_text }}</p>
+        {% endif %}
+        {% for error in form.family_name.errors %}
+          <div class="flex items-center mt-2 text-red-500 text-xs">
+            <i class="fas fa-exclamation-circle mr-1"></i>{{ error }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Head of Family Field -->
+      <div class="mb-6 hidden">
+        <label for="{{ form.head_of_family.id_for_label }}" class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2 flex items-center">
+          <i class="fas fa-user-tie text-gray-500 dark:text-gray-400 mr-2 text-lg"></i>
+          {{ form.head_of_family.label }}
+        </label>
+        <div class="relative">
+          {{ form.head_of_family }}
+          <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <i class="fas fa-chevron-down text-gray-400"></i>
+          </div>
+        </div>
+        {% if form.head_of_family.help_text %}
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-2 ml-2">{{ form.head_of_family.help_text }}</p>
+        {% endif %}
+        {% for error in form.head_of_family.errors %}
+          <div class="flex items-center mt-2 text-red-500 text-xs">
+            <i class="fas fa-exclamation-circle mr-1"></i>{{ error }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Address Field -->
+      <div class="mb-6">
+        <label for="{{ form.address.id_for_label }}" class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2 flex items-center">
+          <i class="fas fa-map-marker-alt text-gray-500 dark:text-gray-400 mr-2 text-lg"></i>
+          {{ form.address.label }}
+        </label>
+        {{ form.address }}
+        {% if form.address.help_text %}
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-2 ml-2">{{ form.address.help_text }}</p>
+        {% endif %}
+        {% for error in form.address.errors %}
+          <div class="flex items-center mt-2 text-red-500 text-xs">
+            <i class="fas fa-exclamation-circle mr-1"></i>{{ error }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Phone Number Field -->
+      <div class="mb-8">
+        <label for="{{ form.phone_number.id_for_label }}" class="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2 flex items-center">
+          <i class="fas fa-phone text-gray-500 dark:text-gray-400 mr-2 text-lg"></i>
+          {{ form.phone_number.label }}
+        </label>
+        <div class="relative">
+          {{ form.phone_number }}
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 dark:text-gray-400">+</span>
+          </div>
+        </div>
+        {% if form.phone_number.help_text %}
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-2 ml-2">{{ form.phone_number.help_text }}</p>
+        {% endif %}
+        {% for error in form.phone_number.errors %}
+          <div class="flex items-center mt-2 text-red-500 text-xs">
+            <i class="fas fa-exclamation-circle mr-1"></i>{{ error }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl
+                       shadow-md transition-all duration-200 hover:scale-[1.02] transform
+                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          <i class="fas fa-users mr-2"></i>Create Family
+        </button>
+      </div>
+    </form>
+
+    <!-- Back Button -->
+    <div class="mt-8 text-center">
+      <a href="{% url 'membership:member_family' %}" 
+         class="inline-block bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 
+                text-gray-700 dark:text-gray-300 font-medium py-2 px-4 rounded-lg
+                shadow-sm transition-all duration-200 flex items-center justify-center space-x-2">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Families</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

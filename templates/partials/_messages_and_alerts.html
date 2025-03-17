@@ -1,0 +1,22 @@
+<div class="container mx-auto mt-6">
+    <!-- Display general messages with SweetAlert -->
+    {% if messages %}
+        {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: "{{ message.tags }}",  // Success, error, info, etc.
+                title: "{{ message.level_tag }}",  // The level of the message
+                text: "{{ message }}",  // The message itself
+                timer: 3000,
+                showConfirmButton: true,  // Show the OK button
+                confirmButtonText: 'OK',  // Text for the OK button
+                confirmButtonColor: '#4CAF50',  // Change to any hex color you want (Green in this case)
+                customClass: {
+                    popup: 'dark:bg-gray-800 dark:text-white',
+                    htmlContainer: 'dark:text-gray-200'
+                  }
+            });
+        </script>
+        {% endfor %}
+    {% endif %}
+    </div>

@@ -1,0 +1,45 @@
+{% extends 'member_dashboard.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto mt-8 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transform transition-all hover:shadow-3xl">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-fuchsia-500 to-cyan-500 p-8">
+        <div class="flex items-center space-x-4">
+            <i class="fas fa-bullhorn text-3xl text-white"></i> <!-- Icon for announcement -->
+            <h1 class="text-4xl font-extrabold text-white">{{ announcement.title }}</h1>
+        </div>
+        <div class="flex items-center justify-between text-sm text-gray-200 mt-4">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-calendar-day text-sm"></i> <!-- Calendar icon -->
+                <p><strong>Posted on:</strong> {{ announcement.date_posted|date:"F d, Y" }}</p>
+            </div>
+            <span class="px-4 py-1.5 rounded-full text-xs font-semibold 
+                {% if announcement.importance_level == 'urgent' %} bg-red-500 
+                {% elif announcement.importance_level == 'high' %} bg-orange-500 
+                {% elif announcement.importance_level == 'medium' %} bg-yellow-500 
+                {% else %} bg-green-500 {% endif %}">
+                <i class="fas fa-exclamation-circle mr-1"></i> <!-- Importance level icon -->
+                {{ announcement.get_importance_level_display }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="p-8">
+        <div class="prose prose-lg text-gray-700 dark:text-gray-300 max-w-none">
+            {{ announcement.content|linebreaks }}
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="border-t border-gray-100 dark:border-gray-700 p-6 bg-gray-50 dark:bg-gray-700">
+        <div class="flex justify-end">
+            <a href="{% url 'membership:member_dashboard_announcements' %}" 
+               class="px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white rounded-lg shadow-md hover:from-blue-700 hover:to-indigo-800 transition-all transform hover:scale-105 flex items-center space-x-2">
+                <i class="fas fa-arrow-left"></i> <!-- Back icon -->
+                <span>Back to Announcements</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

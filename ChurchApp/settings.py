@@ -337,7 +337,7 @@ CKEDITOR_5_CONFIGS = {
         },
         'table': {
             'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells',
-                               'tableProperties', 'tableCellProperties'],
+                            'tableProperties', 'tableCellProperties'],
             'tableProperties': {
                 'borderColors': customColorPalette,
                 'backgroundColors': customColorPalette
@@ -532,9 +532,6 @@ JAZZMIN_SETTINGS = {
 
 
 
-
-
-
 # JAZZMIN_UI_TWEAKS = {
 #     "navbar_small_text": False,
 #     "footer_small_text": False,
@@ -599,6 +596,12 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success"
     }
 }
+
+
+
+
+
+
 
 
 

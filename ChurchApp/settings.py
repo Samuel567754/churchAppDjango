@@ -28,7 +28,7 @@ if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ALLOWED_HOSTS = [
-    'bookshopapp-pa76.onrender.com',
+    'church-app-oukg.onrender.com',
     '127.0.0.1',
     'localhost'
 ]

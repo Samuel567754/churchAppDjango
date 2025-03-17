@@ -112,7 +112,6 @@ INSTALLED_APPS = [
     'worship',
     'account',
     'settings',
-    'notifications',
     'django_celery_beat',
     'imagekit',
     'versatileimagefield',

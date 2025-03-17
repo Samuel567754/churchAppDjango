@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
 from decouple import config
+import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -13,31 +17,27 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+# Static files settings
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+COMPRESS_ROOT = STATIC_ROOT
 
+if not DEBUG:
+    # Enable WhiteNoise for production
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+ALLOWED_HOSTS = [
+    'bookshopapp-pa76.onrender.com',
+    '127.0.0.1',
+    'localhost'
+]
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
 
-
-
-# VERSATILEIMAGEFIELD_SETTINGS = {
-#     'variations': {
-#         'fullsize': (1200, 1200),
-#         'thumbnail': (400, 600),
-#         'webp': {
-#             'size': (400, 600),
-#             'crop': True,
-#             'format': 'WEBP',
-#         },
-#     },
-# }
 
 VERSATILEIMAGEFIELD_SETTINGS = {
     'variations': {
@@ -50,8 +50,6 @@ VERSATILEIMAGEFIELD_SETTINGS = {
         },
     },
 }
-
-
 
 
 # Celery Configuration
@@ -84,13 +82,11 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
-
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -120,35 +116,21 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'imagekit',
     'versatileimagefield',
+    'storages',
+    'cloudinary',
+    'cloudinary_storage',
 ]
-
-# Set the upload path inside your media directory
-# CKEDITOR_UPLOAD_PATH = "uploads/"
-
-# Celery Beat for scheduling tasks
-# INSTALLED_APPS += ["django_celery_beat"]
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-STATIC_URL = '/static/'  # Make sure this starts with a slash
-
-# Directory where collectstatic will collect static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Additional locations of static files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Your app's static files directory
 ]
 
 
@@ -218,13 +200,22 @@ WSGI_APPLICATION = 'ChurchApp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Database configuration
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.getenv("DATABASE_URL"),
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
 
 
 # settings.py
@@ -267,6 +258,27 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+if not DEBUG:
+    SUPABASE_URL = config("SUPABASE_URL")
+    SUPABASE_KEY = config("SUPABASE_KEY")
+    SUPABASE_STORAGE_BUCKET = "mediafiles"  # e.g., "media-files"
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "ChurchApp.storage.SupabaseMediaStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+
+
 
 customColorPalette = [
     {
@@ -294,6 +306,7 @@ customColorPalette = [
         'label': 'Blue'
     },
 ]
+
 
 CKEDITOR_5_ALLOW_ALL_FILE_TYPES = True
 # CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'pdf', 'png'] # optional

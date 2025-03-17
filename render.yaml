@@ -1,0 +1,37 @@
+services:
+  - type: web
+    plan: free
+    name: church-app
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn ChurchApp.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: "4"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: PAYSTACK_PUBLIC_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+
+# postgresql://postgres.umigrshuvmysdgjexebg:1234567nnn+++---@aws-0-eu-west-1.pooler.supabase.com:6543/postgres

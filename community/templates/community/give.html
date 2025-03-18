@@ -4,19 +4,20 @@
 
 {% block content %}
 
-  <!-- Page Header -->
-  <header class="relative h-96">
-      <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
-          alt="Background" class="absolute inset-0 w-full h-full object-cover" />
-      <div class="relative z-10 bg-black bg-opacity-50 h-full flex flex-col items-center justify-center">
-          <h1 class="text-white text-4xl font-bold mb-2">Give</h1>
-          <p class="text-white text-lg">Support Our Mission and Ministry</p>
+ <!-- Page Header -->
+ <header class="mt-10 h-64 flex justify-center items-center mb-16 relative">
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); height: 60vh;">
+    <div class="flex items-center justify-center h-full bg-black bg-opacity-50">
+      <div class="text-center text-white px-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Give</h1>
+        <p class="text-xl md:text-2xl">Support Our Mission and Ministry</p>
       </div>
-  </header>
+    </div>
+  </div>
+</header>
 
 
   <main class="container mx-auto px-6 lg:px-8 py-10">
-
    <!-- Ways to Give -->
 <section class="py-16 bg-white rounded-lg shadow-md mb-16">
   <div class="max-w-7xl mx-auto px-6 sm:px-8">
@@ -290,7 +291,6 @@
     </div>
   </div>
 </section>
-   
 </main>
 
 {% endblock %}

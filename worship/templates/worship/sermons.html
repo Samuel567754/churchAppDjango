@@ -180,10 +180,19 @@
         </div>
       </article>
     {% empty %}
-      <div class="col-span-full text-center py-16">
-        <h3 class="text-2xl font-bold">No sermons found</h3>
-        <p class="text-gray-600 mt-4">Try selecting a different topic or <a href="{% url 'worship:sermons' %}" class="underline text-blue-600">browse all sermons</a>.</p>
+    <div class="col-span-full flex flex-col items-center justify-center py-16">
+      <div class="flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-500 p-6 rounded-full shadow-xl mb-4">
+        <!-- Modern Sermon Icon (e.g., a stylized open book) -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20l9-5-9-5-9 5 9 5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12l9-5-9-5-9 5 9 5z" />
+        </svg>
       </div>
+      <h3 class="text-2xl font-bold text-gray-800">No sermons found</h3>
+      <p class="text-gray-600 mt-4 text-center max-w-xl">
+        We couldn't find any sermons for your selection. Try choosing a different topic or <a href="{% url 'worship:sermons' %}" class="underline text-blue-600 hover:text-blue-800 transition-colors">browse all sermons</a>.
+      </p>
+    </div>    
     {% endfor %}
   </div>
 </section>

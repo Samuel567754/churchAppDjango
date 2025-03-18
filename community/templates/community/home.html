@@ -14,9 +14,15 @@
                 <div class="relative z-30 flex flex-col items-center justify-center h-full text-center">
                     {% if item.title %}
                     <h2 class="mb-4 text-3xl lg:text-5xl font-bold text-white leading-tight">{{ item.title }}</h2>
+                    {% else %}
+                    <h2 class="mb-4 text-3xl lg:text-5xl font-bold text-white leading-tight">Welcome to Adum Central Church of Christ</h2>
                     {% endif %}
                     {% if item.description %}
                     <p class="text-lg text-white max-w-2xl mx-auto">{{ item.description }}</p>
+                    {% else %}
+                    <p class="text-lg text-white max-w-2xl mx-auto">
+                      We are a vibrant community dedicated to spiritual growth, inspiring worship, and heartfelt fellowship. Join us on a transformative journey of faith.
+                  </p>
                     {% endif %}
                     {% if item.link %}
                     <a href="{{ item.link }}" class="mt-6 px-6 py-3 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-flex items-center gap-2">
@@ -25,7 +31,14 @@
                         </svg>
                         Explore Now
                     </a>
-                    {% endif %}
+                    {% else %}
+                    <a href="{% url 'community:about' %}" class="mt-6 px-6 py-3 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 inline-flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                     </svg>
+                     Explore Now
+                 </a>
+                  {% endif %}
                 </div>
                  <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
                 <div class="absolute inset-0 z-0">
@@ -33,6 +46,9 @@
                     <img src="{{ item.image.url }}" class="block w-full h-full object-cover object-center" alt="{{ item.title }}">
                     {% elif item.image_url %}
                     <img src="{{ item.image_url }}" class="block w-full h-full object-cover object-center" alt="{{ item.title }}">
+                    {% else %}
+                     <!-- Fallback beautiful gradient background -->
+                     <div class="block w-full h-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
                     {% endif %}
                 </div>
             </div>
@@ -388,8 +404,30 @@
     {% endif %}
   });
   </script>
+  {% else %}
+  <section class="py-12 md:py-16 bg-gray-100 flex flex-col items-center text-center">
+    <div class="max-w-2xl mx-auto">
+      <div class="flex justify-center items-center p-6 rounded-full bg-red-500 shadow-lg">
+        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m-2 4h8m4 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h2 class="text-3xl font-bold text-gray-700 mt-6">No Live Stream Available</h2>
+      <p class="text-gray-500 mt-3">Please check back later for upcoming sermons and events.</p>
+      <a href="{% url 'sermons' %}" 
+         class="mt-6 inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        View Past Sermons
+      </a>
+    </div>
+  </section>
 {% endif %}
  
+
+
   {% if latest_sermon %}
   {% if latest_sermon.video_url %}
     <!-- Latest Message Section with Video -->
@@ -459,20 +497,24 @@
     </section>
   {% endif %}
 {% else %}
-  <!-- Empty State Section for Latest Sermon -->
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 text-center">
-      <div class="flex flex-col items-center">
-        <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+ <!-- Improved Empty State Section for Latest Sermon -->
+<section class="py-20 bg-gradient-to-br from-indigo-50 via-white to-blue-50">
+  <div class="max-w-4xl mx-auto text-center px-4">
+    <div class="bg-white rounded-3xl shadow-xl p-10 transition transform hover:scale-105">
+      <div class="flex items-center justify-center bg-indigo-100 w-24 h-24 rounded-full mx-auto animate-pulse">
+        <!-- New Icon: Speakerphone (inspired by Heroicons) -->
+        <svg class="w-12 h-12 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8a3 3 0 00-6 0v8a3 3 0 006 0V8z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 10v4a2 2 0 01-2 2h-1l-2 2v-8l2 2h1a2 2 0 012 2z"/>
         </svg>
-        <h2 class="mt-4 text-4xl font-bold text-gray-800">Latest Message Coming Soon</h2>
-        <p class="mt-2 text-lg text-gray-600">
-          Stay tuned for our upcoming sermon.
-        </p>
       </div>
+      <h2 class="mt-8 text-3xl font-bold text-gray-800">Latest Message Coming Soon</h2>
+      <p class="mt-4 text-lg text-gray-600">
+        We're preparing an inspiring sermon for you. Stay tuned and join us soon for an uplifting message.
+      </p>
     </div>
-  </section>
+  </div>
+</section>
 {% endif %}
 
 
@@ -686,6 +728,7 @@
 <section class="py-20 bg-white px-4">
     <div class="container mx-auto">
       <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Gallery</h2>
+      {% if gallery_images %}
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {% for image in gallery_images %}
         <div class="group relative overflow-hidden rounded-xl shadow-lg">
@@ -703,6 +746,23 @@
         </div>
         {% endfor %}
       </div>
+      {% else %}
+      <!-- Empty State -->
+      <div class="flex flex-col items-center justify-center py-16">
+        <div class="flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 p-6 rounded-full shadow-xl">
+          <!-- Modern Gallery Icon -->
+          <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <rect x="4" y="4" width="16" height="16" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-4 4 4 4-4 4 4"/>
+          </svg>
+        </div>
+        <h3 class="mt-6 text-3xl font-bold text-gray-800">No Images Found</h3>
+        <p class="mt-2 text-lg text-gray-600 text-center max-w-xl">
+          Our gallery is currently empty. Please check back later or explore other sections for more updates.
+        </p>
+      </div>
+      {% endif %}
+      {% if gallery_images %}
       <div class="mt-12 text-center">
         <a href="/gallery" class="inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-transform transform hover:scale-105 shadow-lg">
           View More
@@ -711,6 +771,7 @@
           </svg>
         </a>
       </div>
+      {% endif %}
     </div>
   </section>
   
@@ -823,6 +884,7 @@
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
       <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Our Ministries</h2>
+      {% if ministries %}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         
         {% for ministry in ministries %}
@@ -845,12 +907,27 @@
           </a>
         </div>
         {% endfor %}
-        
-
       </div>
+      {% else %}
+      <!-- Empty State for Ministries -->
+      <div class="flex flex-col items-center justify-center py-16">
+        <div class="flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 p-6 rounded-full shadow-xl animate-bounce">
+          <!-- Modern Ministry Icon (e.g., a church roof icon) -->
+          <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l8 8-3 3V21h-4v-4H11v4H7v-7L4 13l8-8z" />
+          </svg>
+        </div>
+        <h3 class="mt-6 text-3xl font-bold text-gray-800">No Ministries Found</h3>
+        <p class="mt-2 text-lg text-gray-600 text-center max-w-xl">
+          We currently have no ministries listed. Please check back later for updates or explore other sections of our site.
+        </p>
+      </div>
+    {% endif %}
+    {% if ministries %}
       <div class="mt-10 text-center">
         <a href="/ministries" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200">Explore All Ministries</a>
       </div>
+    {% endif %}
     </div>
   </section>
   
@@ -862,7 +939,7 @@
         <h2 class="mt-2 text-4xl font-bold text-gray-900 sm:text-5xl">Fresh From Our Blog</h2>
         <p class="mt-4 text-lg text-gray-600">Discover spiritual wisdom and practical guidance for modern life.</p>
       </div>
-  
+      {% if latest_posts %}
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Blog Post Card -->
         {% for post in latest_posts %}
@@ -904,10 +981,23 @@
           </div>
         </article>
       {% endfor %}
-      
-        <!-- Additional Blog Post Cards (repeat as needed) -->
       </div>
-  
+      {% else %}
+      <!-- Empty State -->
+      <div class="flex flex-col items-center justify-center py-16">
+        <div class="flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 p-8 rounded-full shadow-2xl animate-bounce">
+          <!-- Modern Blog Icon (e.g., a document with a pen) -->
+          <svg class="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10M7 11h6m-6 4h8M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/>
+          </svg>
+        </div>
+        <h3 class="mt-8 text-3xl font-bold text-gray-800">No Articles Found</h3>
+        <p class="mt-4 text-lg text-gray-600 text-center max-w-xl">
+          We haven't published any blog posts yet. Check back soon for fresh insights and inspiration.
+        </p>
+      </div>
+    {% endif %}
+    {% if latest_posts %}
       <div class="mt-12 text-center">
         <a href="{% url 'blog:post_list' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition-transform transform hover:scale-105 shadow-lg">
           Explore All Articles
@@ -916,6 +1006,7 @@
           </svg>
         </a>
       </div>
+    {% endif %}
     </div>
   </section>     
     </div>

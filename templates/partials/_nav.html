@@ -917,7 +917,13 @@
                   {% if user.is_authenticated %}
                  <div class="relative group">
                   <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
-                      <img src="{% static 'images/avatar (17).jpg' %}" alt="User Icon" class="h-6 w-6 rounded-full mr-2">
+                    {% if member.photo %}
+                      <img src="{{ member.photo.url }}" alt="User Icon" class="h-6 w-6 rounded-full mr-2">
+                    {% else %}
+                      <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl cursor-pointer hover:scale-105 hover:shadow-md transition duration-300 ease-in-out">
+                          {{ member.user.first_name|slice:":1" }}{{ member.user.last_name|slice:":1" }}
+                      </div>
+                   {% endif %}
                           <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                      </button>
                    <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out right-0">
@@ -969,7 +975,70 @@
           </a>
      </div>
  </nav>
+
+
  <script>
+    const menuButton = document.getElementById('menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const dropdownLinks = document.querySelectorAll('.dropdown-link');
+    const profileDropdownLinks = document.querySelectorAll('.profile-dropdown-link');
+  
+    menuButton.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden', !isHidden);
+      menuIcon.classList.toggle('hidden', isHidden);
+      closeIcon.classList.toggle('hidden', !isHidden);
+    });
+  
+    // Close the mobile menu when clicking outside of it
+    document.addEventListener('click', (event) => {
+      if (
+        !mobileMenu.contains(event.target) &&
+        !menuButton.contains(event.target) &&
+        !mobileMenu.classList.contains('hidden')
+      ) {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+  
+    // Close the mobile menu when a nav link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+  
+    // Active Link Styling
+    navLinks.forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active-link');
+      }
+    });
+  
+    dropdownLinks.forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('dropdown-active-link');
+      }
+    });
+  
+    profileDropdownLinks.forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('profile-dropdown-active-link');
+      }
+    });
+  </script>
+  
+
+
+
+ {% comment %} <script>
      const menuButton = document.getElementById('menu-button');
      const mobileMenu = document.getElementById('mobile-menu');
      const menuIcon = document.getElementById('menu-icon');
@@ -1013,8 +1082,8 @@
              link.classList.add('profile-dropdown-active-link');
          }
      });
- 
- </script>
+ </script> {% endcomment %}
+
  <style>
  .active-link {
    font-weight: 700;

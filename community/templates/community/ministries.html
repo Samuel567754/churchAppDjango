@@ -83,10 +83,16 @@
           </div>
         </a>
         {% empty %}
-        <div class="col-span-full text-center py-16">
-          <h3 class="text-2xl font-bold">No ministries available</h3>
-          <p class="text-gray-600 mt-4">Please check back later for updates on our ministries.</p>
-        </div>
+        <div class="col-span-full flex flex-col items-center justify-center py-16">
+          <div class="flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-500 p-6 rounded-full shadow-lg mb-4">
+            <!-- Modern Church/Ministry SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l8 8-3 3V21h-4v-4H11v4H7v-7L4 13l8-8z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800">No ministries available</h3>
+          <p class="text-gray-600 mt-4 text-center">Please check back later for updates on our ministries.</p>
+        </div> 
         {% endfor %}
       </div>
     </div>
@@ -116,9 +122,15 @@
           </div>
         </a>
         {% empty %}
-        <div class="col-span-full text-center py-16">
-          <h3 class="text-2xl font-bold">No core ministries available</h3>
-          <p class="text-gray-600 mt-4">Please check back later for updates on our core ministries.</p>
+        <div class="col-span-full flex flex-col items-center justify-center py-16">
+          <div class="flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 p-6 rounded-full shadow-lg mb-4">
+            <!-- Modern Church Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l8 8-3 3V21h-4v-4H11v4H7v-7L4 13l8-8z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800">No core ministries available</h3>
+          <p class="text-gray-600 mt-4 text-center">Please check back later for updates on our core ministries.</p>
         </div>
         {% endfor %}
       </div>

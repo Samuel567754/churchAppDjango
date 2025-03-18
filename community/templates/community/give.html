@@ -4,293 +4,194 @@
 
 {% block content %}
 
- <!-- Page Header -->
- <header class="mt-10 h-64 flex justify-center items-center mb-16 relative">
-  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); height: 60vh;">
-    <div class="flex items-center justify-center h-full bg-black bg-opacity-50">
-      <div class="text-center text-white px-4">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Give</h1>
-        <p class="text-xl md:text-2xl">Support Our Mission and Ministry</p>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-  <main class="container mx-auto px-6 lg:px-8 py-10">
-   <!-- Ways to Give -->
-<section class="py-16 bg-white rounded-lg shadow-md mb-16">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8">
-    <header class="text-center mb-16">
-        <h2 class="text-3xl font-bold mb-4 text-gray-800">Ways to Give</h2>
-        <p class="text-xl text-gray-600 leading-relaxed">Choose the giving method that works best for you</p>
-    </header>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Online Giving -->
-      <div class="bg-gray-50 rounded-lg p-8 text-center shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-        <div class="h-12 w-12 text-indigo-600 mx-auto mb-4 flex items-center justify-center">
-          <!-- Online Giving Icon -->
-           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" aria-label="Online Giving">
-             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m1.5-1.5h4.5m-4.5 0a3 3 0 11-6 0 3 3 0 016 0zm1.5 1.5H18a3 3 0 013 3v7.5a3 3 0 01-3 3H5.25a3 3 0 01-3-3V15a3 3 0 013-3h1.125c0-1.056.846-1.905 1.908-1.905h2.25c1.063 0 1.908.849 1.908 1.905H15.75z" />
-           </svg>
-        </div>
-        <h3 class="text-xl font-semibold mb-2 text-gray-800">Online Giving</h3>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Give securely online using your credit card or bank account.
-        </p>
-        <button class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-          Give Now
-        </button>
-      </div>
-
-      <!-- Recurring Giving -->
-      <div class="bg-gray-50 rounded-lg p-8 text-center shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-        <div class="h-12 w-12 text-indigo-600 mx-auto mb-4 flex items-center justify-center">
-          <!-- Recurring Giving Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" aria-label="Recurring Giving">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold mb-2 text-gray-800">Recurring Giving</h3>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Set up automatic recurring donations on a schedule that works for you.
-        </p>
-        <button class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-          Set Up Recurring
-        </button>
-      </div>
-
-      <!-- Text to Give -->
-      <div class="bg-gray-50 rounded-lg p-8 text-center shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-        <div class="h-12 w-12 text-indigo-600 mx-auto mb-4 flex items-center justify-center">
-          <!-- Text to Give Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" aria-label="Text to Give">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 00-6.364 0m-4.5 3.536c.896 1.777 2.927 3.536 5.225 3.536s4.329-1.759 5.225-3.536m-1.006-6.632a11.095 11.095 0 015-4.717m-5 4.717v3.349m-5-3.349l3.395 3.5a.75.75 0 001.093 0l3.395-3.5m-5 5.117a11.075 11.075 0 01-5 4.717" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold mb-2 text-gray-800">Text to Give</h3>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Text any amount to our giving number for quick and easy giving.
-        </p>
-        <p class="font-semibold text-gray-800">Text <span class="font-bold text-indigo-600">GIVE</span> to <span class="font-bold">(555) 123-4567</span></p>
+<!-- Hero Section -->
+<section class="relative h-[60vh] flex items-center justify-center mb-16">
+  <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6')] bg-cover bg-center">
+    <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+      <div class="text-center text-white max-w-2xl px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Generous Giving</h1>
+        <p class="text-xl md:text-2xl">Partner with Us in Ministry and Mission</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Why We Give -->
-<section class="py-16 bg-gray-50 rounded-lg shadow-md mb-16">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <!-- Text Container -->
-        <div>
-          <h2 class="text-3xl font-bold mb-6 text-gray-800">Why We Give</h2>
-          <p class="text-gray-600 mb-4 leading-relaxed">
-            Giving is an act of worship and a response to God's generosity. Your faithful giving supports:
-          </p>
-          <ul class="space-y-4">
-                <li class="flex items-start">
-                  <span class="h-6 w-6 text-indigo-600 mr-2 flex items-center justify-center">
-                    <!-- Heart Icon -->
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.099 3.75 3 5.765 3 8.25c0 7.229 9 12 9 12s9-4.771 9-12z" />
-                       </svg>
-                  </span>
-                  <span class="text-gray-600 leading-relaxed">Local and global missions</span>
-                </li>
-                 <li class="flex items-start">
-                    <span class="h-6 w-6 text-indigo-600 mr-2 flex items-center justify-center">
-                         <!-- Heart Icon -->
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                               <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.099 3.75 3 5.765 3 8.25c0 7.229 9 12 9 12s9-4.771 9-12z" />
-                           </svg>
-
-                    </span>
-                    <span class="text-gray-600 leading-relaxed">Youth and children's programs</span>
-                 </li>
-                 <li class="flex items-start">
-                      <span class="h-6 w-6 text-indigo-600 mr-2 flex items-center justify-center">
-                         <!-- Heart Icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.099 3.75 3 5.765 3 8.25c0 7.229 9 12 9 12s9-4.771 9-12z" />
-                            </svg>
-
-                      </span>
-                      <span class="text-gray-600 leading-relaxed">Community outreach initiatives</span>
-                </li>
-               <li class="flex items-start">
-                    <span class="h-6 w-6 text-indigo-600 mr-2 flex items-center justify-center">
-                        <!-- Heart Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.099 3.75 3 5.765 3 8.25c0 7.229 9 12 9 12s9-4.771 9-12z" />
-                        </svg>
-
-                    </span>
-                    <span class="text-gray-600 leading-relaxed">Church operations and maintenance</span>
-               </li>
-          </ul>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Giving Methods Grid -->
+  <section class="py-16 mb-16">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Ways to Give</h2>
+        <p class="text-xl text-gray-600">Choose the method that works best for you</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Online Giving Card -->
+        <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+          <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">Online Giving</h3>
+          <p class="text-gray-600 mb-6">Secure online donations using credit/debit card or bank account</p>
+          <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+            Give Online
+          </button>
         </div>
-        <!-- Image Container -->
-        <div class="relative h-96">
-          <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-            alt="Community Impact" class="w-full h-full object-cover rounded-lg shadow-lg" />
+
+        <!-- Recurring Giving Card -->
+        <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+          <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">Recurring Giving</h3>
+          <p class="text-gray-600 mb-6">Set up automatic monthly donations</p>
+          <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+            Set Up Recurring
+          </button>
+        </div>
+
+        <!-- Other Methods Card -->
+        <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+          <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">Other Methods</h3>
+          <div class="space-y-4 text-gray-600">
+            <p class="flex items-center">
+              <span class="font-medium mr-2">Text:</span> 
+              GIVE to (555) 123-4567
+            </p>
+            <p class="border-t pt-4">
+              Mail checks to:<br>
+              123 Church Street<br>
+              City, ST 12345
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Giving Form Section -->
+  <section class="py-16 mb-16 bg-gray-50 rounded-xl">
+    <div class="max-w-2xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Give Online</h2>
+        <p class="text-gray-600">Your generous gift helps further our mission</p>
+      </div>
 
-
-  <!-- Simple Form -->
-<section class="py-16 bg-gray-50 rounded-lg shadow-md mb-16">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8">
-       <div class="max-w-2xl mx-auto">
-            <header class="text-center mb-12">
-               <h1 class="text-4xl font-bold text-gray-800 mb-4">Give</h1>
-                <p class="text-center text-gray-600 leading-relaxed">Support our ministry and make a difference in our community</p>
-             </header>
-
-           <div class="bg-white rounded-lg shadow-md p-8">
-              <form method="post" class="space-y-6">
-                    {% csrf_token %}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Amount</label>
-                       <div class="mt-1">
-                           <input type="number" name="amount" step="0.01" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                       </div>
-                    </div>
-
-                   <div>
-                        <label class="block text-sm font-medium text-gray-700">Purpose</label>
-                       <select name="purpose" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
-                             <option value="tithe">Tithe</option>
-                             <option value="offering">Offering</option>
-                             <option value="building_fund">Building Fund</option>
-                             <option value="missions">Missions</option>
-                          </select>
-                   </div>
-
-                   <div class="flex items-center">
-                         <input type="checkbox" name="recurring" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                       <label class="ml-2 block text-sm text-gray-700 leading-relaxed">Make this a recurring monthly donation</label>
-                   </div>
-                   <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                         Give Now
-                   </button>
-              </form>
+      <form class="bg-white rounded-xl shadow-lg p-8">
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+            <div class="grid grid-cols-4 gap-3 mb-4">
+              <button type="button" class="amount-btn">$50</button>
+              <button type="button" class="amount-btn">$100</button>
+              <button type="button" class="amount-btn">$250</button>
+              <button type="button" class="amount-btn">Other</button>
             </div>
-       </div>
-  </div>
-</section>
-
-<!-- Giving Options -->
-<section class="py-16">
-<div class="max-w-7xl mx-auto px-6 sm:px-8">
-  <div class="grid md:grid-cols-2 gap-12">
-    <!-- Online Giving Form -->
-    <div class="bg-white rounded-lg shadow-md p-8">
-      <h2 class="text-2xl font-bold mb-6 text-gray-800">Give Online</h2>
-      <form class="space-y-6">
-         <div>
-            <label class="block text-gray-700 mb-2" for="amount">Amount</label>
-            <div class="flex space-x-4 mb-4">
-              <button type="button" class="px-4 py-2 border rounded-md hover:bg-indigo-100 text-gray-800 hover:text-indigo-700 transition duration-200">
-                $50
-              </button>
-               <button type="button" class="px-4 py-2 border rounded-md hover:bg-indigo-100 text-gray-800 hover:text-indigo-700 transition duration-200">
-                   $100
-                </button>
-                <button type="button" class="px-4 py-2 border rounded-md hover:bg-indigo-100 text-gray-800 hover:text-indigo-700 transition duration-200">
-                 $200
-               </button>
-                 <button type="button" class="px-4 py-2 border rounded-md hover:bg-indigo-100 text-gray-800 hover:text-indigo-700 transition duration-200">
-                    Custom
-                </button>
-             </div>
-              <input type="number" id="amount" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-indigo-500" placeholder="Enter amount">
+            <input type="number" placeholder="Custom amount" class="w-full px-4 py-2 border rounded-lg">
           </div>
-           <div>
-              <label class="block text-gray-700 mb-2" for="fund">Select Fund</label>
-              <select id="fund" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-indigo-500">
-                  <option>General Fund</option>
-                 <option>Building Fund</option>
-                <option>Missions Fund</option>
-                 <option>Youth Ministry</option>
-              </select>
-           </div>
-           <div>
-               <label class="block text-gray-700 mb-2" for="frequency">Frequency</label>
-               <select id="frequency" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-indigo-500">
-                    <option>One Time</option>
-                   <option>Weekly</option>
-                     <option>Monthly</option>
-                  <option>Quarterly</option>
-                </select>
-           </div>
-           <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Give Now</button>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Fund</label>
+            <select class="w-full px-4 py-2 border rounded-lg">
+              <option>General Fund</option>
+              <option>Missions Fund</option>
+              <option>Building Fund</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Frequency</label>
+            <select class="w-full px-4 py-2 border rounded-lg">
+              <option>One-time Gift</option>
+              <option>Monthly</option>
+              <option>Weekly</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition">
+            Continue to Payment
+          </button>
+        </div>
       </form>
     </div>
+  </section>
 
-    <!-- Other Giving Info -->
-    <div class="space-y-8">
-      <div class="bg-white rounded-lg shadow-md p-8">
-        <h2 class="text-2xl font-bold mb-4 text-gray-800">Other Ways to Give</h2>
-        <div class="space-y-4">
-          <div>
-            <h3 class="font-semibold mb-2 text-gray-800">Mail a Check</h3>
-            <p class="text-gray-600 leading-relaxed">
-              Make checks payable to:<br>
-              Grace Community Church<br>
-              123 Faith Street<br>
-              Your City, ST 12345
-            </p>
-          </div>
-          <div>
-            <h3 class="font-semibold mb-2 text-gray-800">Text to Give</h3>
-            <p class="text-gray-600 leading-relaxed">Text <span class="font-bold text-indigo-600">GIVE</span> to <span class="font-bold">(555) 123-4567</span></p>
-          </div>
-        </div>
+  <!-- Impact Section -->
+  <section class="py-16 mb-16">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Your Impact</h2>
+        <p class="text-xl text-gray-600">See how your generosity makes a difference</p>
       </div>
 
-      <div class="bg-white rounded-lg shadow-md p-8">
-        <h2 class="text-2xl font-bold mb-4 text-gray-800">Why We Give</h2>
-        <p class="mb-4 text-gray-600 leading-relaxed">Your generosity helps us continue our mission of spreading God's love through various ministries and community outreach programs.</p>
-          <ul class="list-disc list-inside space-y-2 text-gray-600 leading-relaxed">
-            <li>Support local missions</li>
-            <li>Fund youth programs</li>
-            <li>Maintain church facilities</li>
-            <li>Help those in need</li>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+          <div class="text-4xl font-bold text-indigo-600 mb-2">75%</div>
+          <p class="text-gray-600">of donations go directly to ministry programs</p>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+          <div class="text-4xl font-bold text-indigo-600 mb-2">1,200+</div>
+          <p class="text-gray-600">people served through outreach programs</p>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+          <div class="text-4xl font-bold text-indigo-600 mb-2">15</div>
+          <p class="text-gray-600">countries supported through missions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Give Section -->
+  <section class="py-16 bg-indigo-600 text-white rounded-xl">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="md:flex items-center gap-12">
+        <div class="md:w-1/2 mb-8 md:mb-0">
+          <img src="https://images.unsplash.com/photo-1579208575657-c595a05383b7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2l2ZXxlbnwwfHwwfHx8MA%3D%3D" 
+               alt="Community service" 
+               class="rounded-xl shadow-xl">
+        </div>
+        <div class="md:w-1/2">
+          <h2 class="text-3xl font-bold mb-6">Why We Give</h2>
+          <p class="mb-6">Giving is an act of worship that fuels our mission to share God's love locally and globally.</p>
+          <ul class="space-y-4">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+              </svg>
+              Support community outreach programs
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+              </svg>
+              Fund youth and children's ministries
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+              </svg>
+              Maintain our worship facilities
+            </li>
           </ul>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-</section>
-
-<!-- Impact Section -->
-<section class="py-20 bg-gray-100">
-  <div class="max-w-7xl mx-auto px-4">
-        <header class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-800">Your Giving Makes a Difference</h2>
-      </header>
-    <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
-          <div class="text-4xl font-bold text-indigo-600 mb-2">1,000+</div>
-            <p class="text-gray-800 leading-relaxed">Families Helped</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
-            <div class="text-4xl font-bold text-indigo-600 mb-2">50+</div>
-            <p class="text-gray-800 leading-relaxed">Mission Trips</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
-          <div class="text-4xl font-bold text-indigo-600 mb-2">100%</div>
-            <p class="text-gray-800 leading-relaxed">To Ministry</p>
-        </div>
-    </div>
-  </div>
-</section>
+  </section>
 </main>
+
+<style>
+  .amount-btn {
+    @apply py-2 px-4 border rounded-lg hover:bg-indigo-50 transition-colors;
+  }
+</style>
 
 {% endblock %}

@@ -80,11 +80,11 @@
                               Explore Now
                           </a>
                           {% else %}
-                          <a href="{% url 'community:about' %}" class="px-6 sm:px-8 py-3 sm:py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 group">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 sm:h-6 sm:w-6 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                            </svg>
-                            Explore Now
+                          <a href="{% url 'community:about' %}" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 group">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                              </svg>
+                              Explore Now
                           </a>
                           {% endif %}
                       </div>
@@ -95,18 +95,15 @@
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-20"></div>
 
               <!-- Image Background -->
-              <div class="relative max-w-4xl mx-auto aspect-video overflow-hidden">
-                <!-- Image Background -->
-                <div class="absolute inset-0 z-10 transition-transform duration-1000 ease-in-out transform scale-100 hover:scale-105">
+              <div class="absolute inset-0 z-10 transition-transform duration-1000 ease-in-out transform scale-100 hover:scale-105">
                   {% if item.image %}
-                    <img src="{{ item.image.url }}" class="w-full h-full object-cover object-center" alt="{{ item.title }}" loading="lazy">
+                  <img src="{{ item.image.url }}" class="w-full h-full object-cover object-center" alt="{{ item.title }}" loading="lazy">
                   {% elif item.image_url %}
-                    <img src="{{ item.image_url }}" class="w-full h-full object-cover object-center" alt="{{ item.title }}" loading="lazy">
+                  <img src="{{ item.image_url }}" class="w-full h-full object-cover object-center" alt="{{ item.title }}" loading="lazy">
                   {% else %}
-                    <div class="w-full h-full bg-gradient-to-r from-fuchsia-600 to-purple-600 animate-gradient-x"></div>
+                  <div class="w-full h-full bg-gradient-to-r from-fuchsia-600 to-purple-600 animate-gradient-x"></div>
                   {% endif %}
-                </div>
-              </div>              
+              </div>
           </div>
           {% endfor %}
       </div>

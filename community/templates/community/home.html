@@ -56,8 +56,8 @@
                           {{ item.title }}
                       </h2>
                       {% else %}
-                      <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl">
-                          Welcome to Adum Central Church of Christ
+                      <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl px-4">
+                        Welcome to Adum Central Church of Christ
                       </h2>
                       {% endif %}
                       
@@ -66,8 +66,8 @@
                           {{ item.description }}
                       </p>
                       {% else %}
-                      <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-                          We are a vibrant community dedicated to spiritual growth, inspiring worship, and heartfelt fellowship. Join us on a transformative journey of faith.
+                      <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed px-4">
+                        We are a vibrant community dedicated to spiritual growth, inspiring worship, and heartfelt fellowship. Join us on a transformative journey of faith.
                       </p>
                       {% endif %}
                       
@@ -80,11 +80,11 @@
                               Explore Now
                           </a>
                           {% else %}
-                          <a href="{% url 'community:about' %}" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 group">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                              </svg>
-                              Explore Now
+                          <a href="{% url 'community:about' %}" class="px-6 sm:px-8 py-3 sm:py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-3 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 sm:h-6 sm:w-6 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            Explore Now
                           </a>
                           {% endif %}
                       </div>

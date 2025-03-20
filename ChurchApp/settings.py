@@ -258,18 +258,38 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 if not DEBUG:
+    # SUPABASE_URL = config("SUPABASE_URL")
+    # SUPABASE_KEY = config("SUPABASE_KEY")
+    # SUPABASE_STORAGE_BUCKET = "mediafiles"  # e.g., "media-files"
+
+    # STORAGES = {
+    #     "default": {
+    #         "BACKEND": "ChurchApp.storage.SupabaseMediaStorage",
+    #     },
+    #     "staticfiles": {
+    #         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    #     },
+    # }
+    
+    STORAGES = {
+    "default": {
+        "BACKEND": "settings.storage_backends.combined_storage.CombinedDynamicStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+        }
+
+        # Also add your Cloudinary and Supabase settings:
+    CLOUDINARY_CLOUD_NAME = config("CLOUDINARY_CLOUD_NAME")
+    CLOUDINARY_API_KEY = config("CLOUDINARY_API_KEY")
+    CLOUDINARY_API_SECRET = config("CLOUDINARY_API_SECRET")
+    CLOUDINARY_FOLDER = "media"  # or another folder name you wish to use
+
     SUPABASE_URL = config("SUPABASE_URL")
     SUPABASE_KEY = config("SUPABASE_KEY")
     SUPABASE_STORAGE_BUCKET = "mediafiles"  # e.g., "media-files"
 
-    STORAGES = {
-        "default": {
-            "BACKEND": "ChurchApp.storage.SupabaseMediaStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-        },
-    }
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

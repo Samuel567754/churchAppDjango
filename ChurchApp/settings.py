@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Static files settings
 STATIC_URL = '/static/'
@@ -23,7 +23,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 COMPRESS_ROOT = STATIC_ROOT
 
-if DEBUG:
+if not DEBUG:
     # Enable WhiteNoise for production
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -200,7 +200,7 @@ WSGI_APPLICATION = 'ChurchApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 # Database configuration
-if not DEBUG:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -257,47 +257,73 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-if  DEBUG:
-    # SUPABASE_URL = config("SUPABASE_URL")
-    # SUPABASE_KEY = config("SUPABASE_KEY")
-    # SUPABASE_STORAGE_BUCKET = "mediafiles"  # e.g., "media-files"
+# if  DEBUG:
+#     # SUPABASE_URL = config("SUPABASE_URL")
+#     # SUPABASE_KEY = config("SUPABASE_KEY")
+#     # SUPABASE_STORAGE_BUCKET = "mediafiles"  # e.g., "media-files"
 
-    # STORAGES = {
-    #     "default": {
-    #         "BACKEND": "ChurchApp.storage.SupabaseMediaStorage",
-    #     },
-    #     "staticfiles": {
-    #         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    #     },
-    # }
+#     # STORAGES = {
+#     #     "default": {
+#     #         "BACKEND": "ChurchApp.storage.SupabaseMediaStorage",
+#     #     },
+#     #     "staticfiles": {
+#     #         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+#     #     },
+#     # }
     
-    STORAGES = {
-    "default": {
-        "BACKEND": "settings.storage_backends.combined_storage.CombinedDynamicStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-        }
+#     STORAGES = {
+#     "default": {
+#         "BACKEND": "settings.storage_backends.combined_storage.CombinedDynamicStorage",
+#     },
+#     "staticfiles": {
+#         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+#     },
+#         }
 
-        # Also add your Cloudinary and Supabase settings:
+#         # Also add your Cloudinary and Supabase settings:
+#     CLOUDINARY_CLOUD_NAME = config("CLOUDINARY_CLOUD_NAME")
+#     CLOUDINARY_API_KEY = config("CLOUDINARY_API_KEY")
+#     CLOUDINARY_API_SECRET = config("CLOUDINARY_API_SECRET")
+#     CLOUDINARY_FOLDER = "media"  # or another folder name you wish to use
+#     DEFAULT_IMAGE_URL = "https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/church_logos/Adum_20250320_064910_0000.png"
+
+#     SUPABASE_URL = config("SUPABASE_URL")
+#     SUPABASE_KEY = config("SUPABASE_KEY")
+#     SUPABASE_STORAGE_BUCKET = "mediafiles"  # e.g., "media-files"
+
+# else:
+#     MEDIA_URL = '/media/'
+#     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+if not DEBUG:   
+    # For production, storage is set explicitly on model fields.
+    # Optionally, you could set DEFAULT_FILE_STORAGE to one of your custom backends.
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+
+    # Cloudinary settings (for production)
     CLOUDINARY_CLOUD_NAME = config("CLOUDINARY_CLOUD_NAME")
     CLOUDINARY_API_KEY = config("CLOUDINARY_API_KEY")
     CLOUDINARY_API_SECRET = config("CLOUDINARY_API_SECRET")
-    CLOUDINARY_FOLDER = "media"  # or another folder name you wish to use
+    CLOUDINARY_FOLDER = "media"
+
     DEFAULT_IMAGE_URL = "https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/church_logos/Adum_20250320_064910_0000.png"
 
+    # Supabase settings (for production)
     SUPABASE_URL = config("SUPABASE_URL")
     SUPABASE_KEY = config("SUPABASE_KEY")
-    SUPABASE_STORAGE_BUCKET = "mediafiles"  # e.g., "media-files"
-
+    SUPABASE_STORAGE_BUCKET = "mediafiles"
 else:
-    MEDIA_URL = '/media/'
+    # Use local filesystem storage for media.
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-
-
+    MEDIA_URL = '/media/'
+   
 
 
 customColorPalette = [

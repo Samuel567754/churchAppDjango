@@ -9,7 +9,7 @@ from django.apps import apps
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
 from versatileimagefield.fields import VersatileImageField, PPOIField
-from settings.fields import CompressedImageField
+from settings.fields import CompressedImageField, SupabaseFileField
 
 class ImageMixin(models.Model):
     image = CompressedImageField(
@@ -170,7 +170,7 @@ class Newsletter(models.Model):
     content = models.TextField()
     date_sent = models.DateTimeField(auto_now_add=True)
     recipients = models.ManyToManyField(User, blank=True)
-    attachment = models.FileField(upload_to='newsletters/', blank=True, null=True)
+    attachment = SupabaseFileField(upload_to='newsletters/', blank=True, null=True)
     is_sent = models.BooleanField(default=False)
 
     class Meta:

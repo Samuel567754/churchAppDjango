@@ -15,7 +15,7 @@ from datetime import date
 from django.utils.timezone import now
 from django.core.validators import FileExtensionValidator
 import os
-from settings.fields import CompressedImageField
+from settings.fields import CompressedImageField, SupabaseFileField
 
 def validate_audio_file(value):
     valid_extensions = ['.mp3', '.wav', '.ogg', '.m4a']
@@ -82,7 +82,7 @@ class Sermon(ImageMixin):
         validators=[validate_audio_file, validate_file_size]
     )
     
-    document = models.FileField(
+    document = SupabaseFileField(
         upload_to='sermons/documents/',
         blank=True,
         null=True,
@@ -481,7 +481,7 @@ class LiveStream(models.Model):
 class Resource(models.Model):
     title = models.CharField(max_length=255, help_text="Title of the resource")
     description = models.TextField(help_text="Description of the resource")
-    file = models.FileField(upload_to='resources/', help_text="Upload the resource file",validators=[validate_document_file, validate_file_size])
+    file = SupabaseFileField(upload_to='resources/', help_text="Upload the resource file",validators=[validate_document_file, validate_file_size])
     uploaded_at = models.DateTimeField(auto_now_add=True, help_text="Date and time the resource was uploaded")
 
     def __str__(self):

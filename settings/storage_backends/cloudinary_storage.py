@@ -8,6 +8,7 @@ from django.utils.deconstruct import deconstructible
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import cloudinary.exceptions  # Import the exceptions module
 
 @deconstructible
 class CloudinaryMediaStorage(Storage):
@@ -52,7 +53,6 @@ class CloudinaryMediaStorage(Storage):
             )
         except Exception as e:
             raise Exception(f"Cloudinary upload error: {e}")
-        # Return the public_id (this will be saved in the model field)
         return result.get("public_id", unique_name)
     
     def exists(self, name):
@@ -71,7 +71,7 @@ class CloudinaryMediaStorage(Storage):
             if not secure_url:
                 raise Exception(f"Secure URL not found for file: {name}")
             return secure_url
-        except cloudinary.api.Error as e:
+        except cloudinary.exceptions.Error as e:
             raise Exception(f"Error retrieving file {name}: {e}")
     
     def delete(self, name):

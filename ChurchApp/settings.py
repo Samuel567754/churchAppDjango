@@ -53,7 +53,24 @@ VERSATILEIMAGEFIELD_SETTINGS = {
 
 
 # Celery Configuration
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+# CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+# CELERY_ACCEPT_CONTENT = ["json"]
+# CELERY_TASK_SERIALIZER = "json"
+# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+# CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+# CELERY_TIMEZONE = 'Africa/Accra'
+
+# # Django Time Zone Configuration
+# TIME_ZONE = 'Africa/Accra'
+# USE_TZ = True
+
+# CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+
+# Use the Redis URL from environment if available, otherwise default to localhost.
+CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/0')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/0')
+
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
@@ -64,7 +81,6 @@ CELERY_TIMEZONE = 'Africa/Accra'
 TIME_ZONE = 'Africa/Accra'
 USE_TZ = True
 
-CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 
 CELERY_BEAT_SCHEDULE = {

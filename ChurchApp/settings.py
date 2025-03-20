@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 # Static files settings
 STATIC_URL = '/static/'
@@ -23,7 +23,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 COMPRESS_ROOT = STATIC_ROOT
 
-if not DEBUG:
+if DEBUG:
     # Enable WhiteNoise for production
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -200,7 +200,7 @@ WSGI_APPLICATION = 'ChurchApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 # Database configuration
-if DEBUG:
+if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -257,7 +257,7 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-if not DEBUG:
+if  DEBUG:
     # SUPABASE_URL = config("SUPABASE_URL")
     # SUPABASE_KEY = config("SUPABASE_KEY")
     # SUPABASE_STORAGE_BUCKET = "mediafiles"  # e.g., "media-files"

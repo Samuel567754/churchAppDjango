@@ -285,6 +285,7 @@ if  DEBUG:
     CLOUDINARY_API_KEY = config("CLOUDINARY_API_KEY")
     CLOUDINARY_API_SECRET = config("CLOUDINARY_API_SECRET")
     CLOUDINARY_FOLDER = "media"  # or another folder name you wish to use
+    DEFAULT_IMAGE_URL = "https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/church_logos/Adum_20250320_064910_0000.png"
 
     SUPABASE_URL = config("SUPABASE_URL")
     SUPABASE_KEY = config("SUPABASE_KEY")

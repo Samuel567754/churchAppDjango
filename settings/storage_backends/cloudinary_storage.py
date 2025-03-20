@@ -8,13 +8,13 @@ from django.utils.deconstruct import deconstructible
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-import cloudinary.exceptions  # Import the exceptions module
+import cloudinary.exceptions  # Import exceptions from Cloudinary
 
 @deconstructible
 class CloudinaryMediaStorage(Storage):
     """
     A custom Django storage backend that uploads files to Cloudinary using unique filenames
-    and returns secure URLs.
+    and returns secure URLs. If a resource is not found, a fallback URL is returned.
     """
     def __init__(self, folder=None):
         # Use the provided folder or fallback to CLOUDINARY_FOLDER setting.
@@ -64,6 +64,8 @@ class CloudinaryMediaStorage(Storage):
     def url(self, name):
         """
         Return the secure URL for a file stored in Cloudinary.
+        If the file is not found (404), return a fallback URL defined in settings (DEFAULT_IMAGE_URL)
+        or an empty string.
         """
         try:
             result = cloudinary.api.resource(name)
@@ -71,6 +73,10 @@ class CloudinaryMediaStorage(Storage):
             if not secure_url:
                 raise Exception(f"Secure URL not found for file: {name}")
             return secure_url
+        except cloudinary.exceptions.NotFound:
+            # File not found on Cloudinary, return a fallback URL if defined.
+            fallback = getattr(settings, 'DEFAULT_IMAGE_URL', '')
+            return fallback
         except cloudinary.exceptions.Error as e:
             raise Exception(f"Error retrieving file {name}: {e}")
     

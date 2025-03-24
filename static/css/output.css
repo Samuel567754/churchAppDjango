@@ -3145,16 +3145,16 @@ select {
   --tw-bg-opacity: 0.6;
 }
 
-.bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1532629345422-7515f3d16bb6\'\)\] {
-  background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6');
+.bg-\[url\(\'https\:\/\/ehoromymaeqciokbytfm\.supabase\.co\/storage\/v1\/object\/public\/mediafiles\/churchuploads\/IMG-20250323-WA0079\.jpg\'\)\] {
+  background-image: url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0079.jpg');
 }
 
-.bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1579208575657-c595a05383b7\?w\=500\&auto\=format\&fit\=crop\&q\=60\&ixlib\=rb-4\.0\.3\&ixid\=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2l2ZXxlbnwwfHwwfHx8MA\%3D\%3D\'\)\] {
-  background-image: url('https://images.unsplash.com/photo-1579208575657-c595a05383b7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2l2ZXxlbnwwfHwwfHx8MA%3D%3D');
+.bg-\[url\(\'https\:\/\/ehoromymaeqciokbytfm\.supabase\.co\/storage\/v1\/object\/public\/mediafiles\/churchuploads\/IMG-20250323-WA0080\.jpg\'\)\] {
+  background-image: url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0080.jpg');
 }
 
-.bg-\[url\(\'https\:\/\/plus\.unsplash\.com\/premium_photo-1661286678499-211423a9ff5e\?w\=500\&auto\=format\&fit\=crop\&q\=60\&ixlib\=rb-4\.0\.3\&ixid\=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fGNodXJjaHxlbnwwfHwwfHx8MA\%3D\%3D\'\)\] {
-  background-image: url('https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fGNodXJjaHxlbnwwfHwwfHx8MA%3D%3D');
+.bg-\[url\(\'https\:\/\/ehoromymaeqciokbytfm\.supabase\.co\/storage\/v1\/object\/public\/mediafiles\/churchuploads\/IMG_5976\.JPG\'\)\] {
+  background-image: url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG_5976.JPG');
 }
 
 .bg-gradient-to-b {
@@ -3832,6 +3832,10 @@ select {
   padding-bottom: 3rem;
 }
 
+.pb-16 {
+  padding-bottom: 4rem;
+}
+
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -3912,6 +3916,10 @@ select {
   padding-top: 5rem;
 }
 
+.pt-32 {
+  padding-top: 8rem;
+}
+
 .pt-4 {
   padding-top: 1rem;
 }
@@ -3922,14 +3930,6 @@ select {
 
 .pt-8 {
   padding-top: 2rem;
-}
-
-.pb-16 {
-  padding-bottom: 4rem;
-}
-
-.pt-32 {
-  padding-top: 8rem;
 }
 
 .text-left {
@@ -4357,10 +4357,6 @@ select {
 
 .opacity-60 {
   opacity: 0.6;
-}
-
-.opacity-70 {
-  opacity: 0.7;
 }
 
 .opacity-75 {

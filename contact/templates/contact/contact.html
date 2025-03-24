@@ -189,7 +189,7 @@
         </form>
     </div>
     
-    <script>
+    <script nonce="{{ request.csp_nonce }}">
       document.addEventListener('DOMContentLoaded', function () {
             const globalMessagesContainer = document.getElementById('global-messages');
     
@@ -353,7 +353,7 @@
   </div>
 </section>
 
-<script>
+<script nonce="{{ request.csp_nonce }}">
 document.getElementById('getDirectionsButton').addEventListener('click', function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -379,6 +379,4 @@ document.getElementById('getDirectionsButton').addEventListener('click', functio
     }
 });
 </script>
-
-
 {% endblock %}

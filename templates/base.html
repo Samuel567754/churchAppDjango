@@ -54,7 +54,7 @@
     <!-- Display general messages with SweetAlert -->
     {% if messages %}
         {% for message in messages %}
-        <script>
+        <script nonce="{{ request.csp_nonce }}">
             Swal.fire({
                 icon: "{{ message.tags }}",  // Success, error, info, etc.
                 title: "{{ message.level_tag }}",  // The level of the message
@@ -67,6 +67,13 @@
         </script>
         {% endfor %}
     {% endif %}
+
+
+    {% comment %} <script nonce="{{ request.csp_nonce }}">
+      console.log("Nonce test works");
+      alert("Nonce test works");
+  </script> {% endcomment %}
+  
 
    
     {% comment %} {% for notification in notifications %}

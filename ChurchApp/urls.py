@@ -9,6 +9,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    path('admin/defender/', include('defender.urls')),
     path('admin/', admin.site.urls),
     path('settigs/', include('settings.urls', namespace='settings')), 
     path('ckeditor5/', include('django_ckeditor_5.urls')),  # Add this line

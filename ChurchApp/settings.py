@@ -104,6 +104,16 @@ CACHES = {
     }
 }
 
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
+
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',
@@ -134,11 +144,22 @@ INSTALLED_APPS = [
     'storages',
     'cloudinary',
     'cloudinary_storage',
+    'defender',
 ]
 
 
+# Number of failed login attempts allowed before blocking (default is 3)
+DEFENDER_LOGIN_FAILURE_LIMIT = 3
+
+# How long (in hours) to keep login attempt records (default is 24)
+DEFENDER_ACCESS_ATTEMPT_EXPIRATION = 24
+
+# If using Redis, you can also set:
+DEFENDER_REDIS_URL = 'redis://127.0.0.1:6379/0'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # 'csp.middleware.CSPMiddleware', # then add CSP middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -146,7 +167,110 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'defender.middleware.FailedLoginMiddleware',
 ]
+
+
+
+if not DEBUG:
+    CSP_DEFAULT_SRC = ("'none'",)
+
+    CSP_REPORT_ONLY = True
+    # CSP_REPORT_URI = ["/csp-report/"]
+
+    # Allow scripts from your domain and external providers.
+    CSP_SCRIPT_SRC = (
+        "'self'",
+        "https://cdn.tailwindcss.com",           # Tailwind CSS config
+        "https://cdn.jsdelivr.net",               # Flowbite, Alpine.js, Flatpickr JS, etc.
+        "https://cdnjs.cloudflare.com",            # Font Awesome, GSAP, Lucide, Tailwind JS, etc.
+        "https://ajax.googleapis.com",             # Google APIs (if needed)
+        "https://code.jquery.com",                 # jQuery (if used)
+        "https://cdn.ckeditor.com",                # CKEditor JS if any
+        "https://www.googletagmanager.com",          # Google Tag Manager
+        "https://maps.googleapis.com",             # Google Maps
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com",         # Google Analytics
+        "https://www.google.com",                   # Google APIs
+        "https://www.gstatic.com",                  # Google APIs
+        "https://unpkg.com",                        # SweetAlert and others
+    )
+
+    # Allow styles from your domain and trusted CDNs.
+    CSP_STYLE_SRC = (
+        "'self'",
+        "'unsafe-inline'",                         # Needed if you have inline style blocks (attribute styles are not covered by nonce)
+        "https://unpkg.com",                        # Boxicons, SweetAlert CSS if needed
+        "https://cdn.jsdelivr.net",                # Flowbite, Tailwind CSS files, etc.
+        "https://cdnjs.cloudflare.com",             # Font Awesome CSS, etc.
+        "https://fonts.googleapis.com",             # Google Fonts CSS
+        "https://cdn.ckeditor.com",                # CKEditor CSS
+        "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css",
+        "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css",
+        "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_green.css",
+        "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_red.css",
+    )
+
+    # Allow images from your domain and external hosts.
+    CSP_IMG_SRC = (
+        "'self'",
+        "https://res.cloudinary.com",              # Cloudinary
+        "https://*.supabase.co",                    # Supabase storage
+        "https://images.unsplash.com",              # Unsplash images
+        "https://www.googleadservices.com",         # Google Ads images
+        "https://pbs.twimg.com",
+        "https://platform-lookaside.fbsbx.com",
+        "https://twitter.com",
+        "https://i.ytimg.com",
+        "https://lh3.googleusercontent.com",
+        "https://via.placeholder.com",
+        "https://platform-lookaside.fbsbx.com",     # Twitter images
+        "https://maps.gstatic.com",
+        "data:",
+    )
+
+    # Allow fonts from your domain and common font hosts.
+    CSP_FONT_SRC = (
+        "'self'",
+        "https://cdnjs.cloudflare.com",
+        "https://fonts.gstatic.com",                # Google Fonts
+        "https://fonts.googleapis.com",             # Google Fonts
+        "https://unpkg.com",                        # Boxicons, etc.
+        "https://cdn.jsdelivr.net",                 # Flowbite, Tailwind CSS files, etc.
+    )
+
+    # Allow connections for AJAX, API calls, etc.
+    CSP_CONNECT_SRC = (
+        "'self'",
+        "https://*.supabase.co",                    # Supabase APIs
+        "https://www.google-analytics.com",         # Google Analytics
+        "wss://",                                   # Secure WebSocket connections (if needed)
+    )
+
+    # Allow iframes from your domain and common providers.
+    CSP_FRAME_SRC = (
+        "'self'",
+        "https://docs.google.com",                  # Google Docs embeds
+        "https://www.youtube.com",                  # YouTube embeds
+        "https://player.vimeo.com",                 # Vimeo embeds
+        "https://www.facebook.com",                 # Facebook embeds
+        "https://platform.twitter.com",             # Twitter embeds
+        "https://www.google.com",                   # Google APIs
+        "https://www.gstatic.com",                  # Google APIs 
+        "https://*.google.com"
+    )
+
+    # Block plugin content.
+    CSP_OBJECT_SRC = ("'none'",)
+
+    # Restrict base URI and form actions.
+    CSP_BASE_URI = ("'self'",)
+    CSP_FORM_ACTION = ("'self'",)
+
+    # Enable nonce support for inline <script> and <style> tags.
+    CSP_INCLUDE_NONCE_IN = ['script-src', 'style-src']
+
+
 
 
 # Compression settings
@@ -205,6 +329,7 @@ TEMPLATES = [
                 'membership.context_processors.notification_context',
                 'account.context_processors.church_info',
                 # 'notifications.context_processors.notifications',
+                "csp.context_processors.nonce",  # Required for nonce support
             ],
         },
     },

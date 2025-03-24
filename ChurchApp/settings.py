@@ -156,6 +156,8 @@ DEFENDER_ACCESS_ATTEMPT_EXPIRATION = 24
 
 # If using Redis, you can also set:
 # DEFENDER_REDIS_URL = 'redis://127.0.0.1:6379/0'
+# Instead of using a Redis URL, configure django‑defender to use your Django cache:
+DEFENDER_REDIS_NAME = 'default'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 # Static files settings
 STATIC_URL = '/static/'
@@ -23,7 +23,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 COMPRESS_ROOT = STATIC_ROOT
 
-if not DEBUG:
+if DEBUG:
     # Enable WhiteNoise for production
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -104,7 +104,7 @@ CACHES = {
     }
 }
 
-if not DEBUG:
+if DEBUG:
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 31536000  # 1 year
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -172,7 +172,7 @@ MIDDLEWARE = [
 
 
 
-if not DEBUG:
+if DEBUG:
     CSP_DEFAULT_SRC = ("'none'",)
 
     CSP_REPORT_ONLY = True
@@ -341,9 +341,9 @@ WSGI_APPLICATION = 'ChurchApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 # Database configuration
-if DEBUG:
+if not DEBUG:
     DATABASES = {
-        'default': {
+         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
@@ -437,7 +437,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-if not DEBUG:   
+if DEBUG:   
     # For production, storage is set explicitly on model fields.
     # Optionally, you could set DEFAULT_FILE_STORAGE to one of your custom backends.
     STORAGES = {

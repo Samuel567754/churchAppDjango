@@ -122,8 +122,6 @@
   </footer> {% endcomment %}
 
 
-
-
   {% load static %}
   <footer class="mt-12 relative" style="background: rgba(20, 28, 58, 0.75); backdrop-filter: blur(12px);">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
@@ -132,9 +130,9 @@
               <div class="mb-6 md:mb-0">
                   <a href="{% url 'community:home' %}" class="flex items-center space-x-3 mb-4">
                       <img src="{{ church.logo.url }}" alt="Church Logo" class="h-10 w-10">
-                      <span class="text-2xl font-semibold text-white tracking-wider">
-                          {{ church.name }}
-                      </span>
+                      <span class="text-xl font-thin text-white tracking-tighter font-condensed">
+                        {{church.name}}
+                      </span>    
                   </a>
                   <p class="text-gray-300 mb-4 leading-relaxed">
                       Sharing the love of Christ. Join us on our journey to spread the word of God and build a community of believers.
@@ -217,4 +215,7 @@
       transform: scale(1.1);
       transition: transform 0.3s ease-in-out;
   }
+  .font-condensed {
+    font-family: 'Roboto Condensed', sans-serif;
+   }
   </style>

@@ -584,27 +584,27 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Church Admin",
     
       # Welcome text on the login screen
-    "welcome_sign": "Welcome to the Church Admin",
+    "welcome_sign": "Welcome to the Kumasi Central CoC Admin",
     
     
       # Copyright on the footer
-    "copyright": "Amazing Church of Christ 2024",
+    "copyright": "Kumasi Central Church of Christ 2025",
     
     
     #  # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "images/church-logo.png",
+    "site_logo": "images/coc-logo.png",
 
     # # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "images/church-logo.png",
+    "login_logo": "images/coc-logo.png",
     # "custom_css": "css/custom_admin.css",  # Add custom CSS
 
     # # Logo to use for login form in dark themes (defaults to login_logo)
-    # "login_logo_dark": None,
+    "login_logo_dark": "images/coc-logo.png",
 
     # # CSS classes that are applied to the logo above
     # "site_logo_classes": "custom-admin-logo", 
     
-    # "custom_css": "css/admin_custom.css",
+    "custom_css": "css/custom_admin.css",
  
     # # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     # "site_icon": None,
@@ -772,7 +772,7 @@ JAZZMIN_UI_TWEAKS = {
     "brand_small_text": False,
     "brand_colour": False,
     "accent": "accent-primary",
-    "navbar": "navbar-white navbar-light",
+    "navbar": "navbar-dark",
     "no_navbar_border": False,
     "navbar_fixed": False,
     "layout_boxed": False,
@@ -785,17 +785,50 @@ JAZZMIN_UI_TWEAKS = {
     "sidebar_nav_compact_style": False,
     "sidebar_nav_legacy_style": False,
     "sidebar_nav_flat_style": False,
-    "theme": "default",
-    "dark_mode_theme": None,
+    "theme": "superhero",
+    "dark_mode_theme": "solar",
     "button_classes": {
-        "primary": "btn-outline-primary",
-        "secondary": "btn-outline-secondary",
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
         "info": "btn-info",
         "warning": "btn-warning",
         "danger": "btn-danger",
         "success": "btn-success"
     }
 }
+
+
+# JAZZMIN_UI_TWEAKS = {
+#     "navbar_small_text": False,
+#     "footer_small_text": False,
+#     "body_small_text": False,
+#     "brand_small_text": False,
+#     "brand_colour": False,
+#     "accent": "accent-primary",
+#     "navbar": "navbar-white navbar-light",
+#     "no_navbar_border": False,
+#     "navbar_fixed": False,
+#     "layout_boxed": False,
+#     "footer_fixed": False,
+#     "sidebar_fixed": False,
+#     "sidebar": "sidebar-dark-primary",
+#     "sidebar_nav_small_text": False,
+#     "sidebar_disable_expand": False,
+#     "sidebar_nav_child_indent": False,
+#     "sidebar_nav_compact_style": False,
+#     "sidebar_nav_legacy_style": False,
+#     "sidebar_nav_flat_style": False,
+#     "theme": "default",
+#     "dark_mode_theme": None,
+#     "button_classes": {
+#         "primary": "btn-outline-primary",
+#         "secondary": "btn-outline-secondary",
+#         "info": "btn-info",
+#         "warning": "btn-warning",
+#         "danger": "btn-danger",
+#         "success": "btn-success"
+#     }
+# }
 
 
 

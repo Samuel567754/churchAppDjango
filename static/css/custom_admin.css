@@ -1,0 +1,34 @@
+/* Center and resize the login logo */
+.login-logo {
+    text-align: center !important;
+}
+
+.login-logo img {
+    width: 200px !important;  /* Adjust this value for desired size */
+    height: auto !important;
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Center the welcome message */
+.login-box-msg h1 {
+    text-align: center !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 20px !important;
+    color: #333 !important;  /* Adjust color as needed */
+}
+
+/* Optional: Adjust the login box width */
+#login-box {
+    max-width: 400px !important;
+    width: 90% !important;
+}
+
+/* Optional: Style the copyright footer */
+.main-footer {
+    text-align: center !important;
+    font-size: 0.9rem !important;
+    color: #666 !important;
+    padding: 10px !important;
+}

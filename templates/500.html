@@ -3,18 +3,55 @@
 <head>  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internal Server Error</title>
+    <title>Unexpected Spiritual Hurdle - Church of Christ</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .scripture-font {
+            font-family: 'Georgia', serif;
+        }
+        .cross-icon {
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+        }
+    </style>
 </head>
-<body>
-    <div class="bg-gray-100 px-2 text-center">
-        <div class="h-screen flex flex-col justify-center items-center">
-            <h1 class="text-8xl font-extrabold text-red-500">500</h1>
-            <p class="text-4xl font-medium text-gray-800">Internal Server Error</p>
-            <p class="text-xl text-gray-800 mt-4">We apologize for the inconvenience. Please try again later.</p>
+<body class="bg-gradient-to-br from-blue-50 to-gray-100">
+    <header class="w-full text-center py-6">
+        <img src="images/coc-logo.png" alt="Church Logo" class="mx-auto mb-8 w-32 hover:scale-105 transition-transform">
+    </header>
+    
+    <div class="px-2 text-center">
+        <div class="min-h-screen flex flex-col justify-center items-center">
+            <div class="mb-12 cross-icon">
+                <svg class="w-24 h-24 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </div>
+            
+            <h1 class="text-8xl font-bold text-red-600 scripture-font mb-4">500</h1>
+            <p class="text-3xl font-semibold text-gray-800 mb-4 scripture-font">
+                We've Hit a Spiritual Speed Bump
+            </p>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed scripture-font">
+                "Do not be anxious about anything..." - Philippians 4:6<br>
+                Our technical team is praying over this issue. While we work to restore peace,<br>
+                why not take a moment for quiet reflection?
+            </p>
+
+            <div class="mt-12 space-y-4">
+                <a href="{% url 'community:home' %}" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors scripture-font">
+                    Return to Home Page
+                </a>
+                <p class="text-gray-500 text-sm mt-4">
+                    Need immediate assistance?<br>
+                    Call our Prayer Line: (555) 123-4567
+                </p>
+            </div>
         </div>
     </div>
+
+    <footer class="text-center py-8 text-gray-600 scripture-font">
+        <p class="mb-2">"And we know that in all things God works for the good..." - Romans 8:28</p>
+        <p>© 2023 Church of Christ. All rights reserved.</p>
+    </footer>
 </body>
 </html>
-
-

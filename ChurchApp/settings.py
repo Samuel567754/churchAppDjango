@@ -155,7 +155,7 @@ DEFENDER_LOGIN_FAILURE_LIMIT = 3
 DEFENDER_ACCESS_ATTEMPT_EXPIRATION = 24
 
 # If using Redis, you can also set:
-DEFENDER_REDIS_URL = 'redis://127.0.0.1:6379/0'
+# DEFENDER_REDIS_URL = 'redis://127.0.0.1:6379/0'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

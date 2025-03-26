@@ -310,6 +310,118 @@ def about(request):
 #     return render(request, 'community/events.html', context)
 
 
+# def events(request):
+    now = timezone.now()
+
+    # Get selected year and month from query parameters; default to current year/month
+    try:
+        selected_year = int(request.GET.get('year', now.year))
+        selected_month = int(request.GET.get('month', now.month))
+    except ValueError:
+        selected_year, selected_month = now.year, now.month
+
+    # Build datetime objects for the first and last day of the selected month
+    first_day_of_month = timezone.datetime(selected_year, selected_month, 1, tzinfo=now.tzinfo)
+    last_day = calendar.monthrange(selected_year, selected_month)[1]
+    last_day_of_month = timezone.datetime(selected_year, selected_month, last_day, 23, 59, 59, 999999, tzinfo=now.tzinfo)
+
+    # Filter ChurchCalendar events for the selected month
+    church_calendar_events = ChurchCalendar.objects.filter(
+        date__gte=first_day_of_month.date(),
+        date__lte=last_day_of_month.date()
+    ).order_by('date', 'time')
+
+    # Also, get all ChurchCalendar events for the entire selected year
+    church_calendar_event_list_year = ChurchCalendar.objects.filter(
+        date__year=selected_year
+    ).order_by('date', 'time')
+
+    # Group events by day (using the day number) for the monthly calendar
+    events_by_day = defaultdict(list)
+    for event in church_calendar_events:
+        events_by_day[event.date.day].append(event)
+
+    # Custom HTMLCalendar subclass that outputs each event as a clickable element with data attributes.
+    # It also assigns classes for past, present, and future days.
+    class ChurchEventCalendar(calendar.HTMLCalendar):
+        def formatday(self, day, weekday):
+            if day == 0:
+                return '<td class="noday">&nbsp;</td>'
+            cssclass = self.cssclasses[weekday]
+            # Determine the current date for this day
+            current_date = timezone.datetime(selected_year, selected_month, day, tzinfo=now.tzinfo).date()
+            today = now.date()
+            if current_date < today:
+                cssclass += ' past-event'
+            elif current_date == today:
+                cssclass += ' present-event'
+            else:
+                cssclass += ' future-event'
+            day_html = f'<span class="day-number">{day}</span>'
+            if day in events_by_day:
+                cssclass += ' event-day'
+                events_html = ''
+                for e in events_by_day[day]:
+                    events_html += (
+                        f'<div class="modal-event" '
+                        f'data-title="{e.title}" '
+                        f'data-date="{e.date.strftime("%B %d, %Y")}" '
+                        f'data-time="{e.time.strftime("%I:%M %p")}" '
+                        f'data-description="{(e.description[:100] + " ...") if e.description and len(e.description) > 100 else (e.description or "")}">'
+                        f'<strong>{e.title}</strong> - {e.time.strftime("%I:%M %p")}'
+                        f'</div>'
+                    )
+                day_html = f'<div class="popup-container">{day_html}<div class="popup">{events_html}</div></div>'
+            return f'<td class="{cssclass}">{day_html}</td>'
+
+        def formatmonth(self, theyear, themonth, withyear=True):
+            return super().formatmonth(theyear, themonth, withyear)
+
+    cal = ChurchEventCalendar()
+    html_calendar = cal.formatmonth(selected_year, selected_month)
+
+    # Build navigation links for previous and next months
+    if selected_month == 1:
+        prev_year = selected_year - 1
+        prev_month = 12
+    else:
+        prev_year = selected_year
+        prev_month = selected_month - 1
+
+    if selected_month == 12:
+        next_year = selected_year + 1
+        next_month = 1
+    else:
+        next_year = selected_year
+        next_month = selected_month + 1
+
+    prev_url = f"?year={prev_year}&month={prev_month}"
+    next_url = f"?year={next_year}&month={next_month}"
+
+    # Load Outreach Programs list (active programs ordered by start_date descending)
+    outreach_program_list = OutreachProgram.objects.filter(is_active=True).order_by('-start_date')
+
+    context = {
+        'church_html_calendar': html_calendar,
+        'prev_url': prev_url,
+        'next_url': next_url,
+        'selected_year': selected_year,
+        'selected_month': selected_month,
+        'church_calendar_event_list_year': church_calendar_event_list_year,
+        'outreach_program_list': outreach_program_list,
+        'upcoming_events': Event.objects.filter(date__gte=now).order_by('date'),
+        'monthly_events': Event.objects.filter(date__gte=first_day_of_month, date__lte=last_day_of_month).order_by('date'),
+        'featured_events': Event.objects.filter(featured=True, date__gte=now).order_by('date'),
+    }
+
+    # If AJAX request, return the calendar partial template only
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'community/calendar_partial.html', context)
+    else:
+        return render(request, 'community/events.html', context)
+
+
+
 def events(request):
     now = timezone.now()
 
@@ -419,6 +531,8 @@ def events(request):
         return render(request, 'community/calendar_partial.html', context)
     else:
         return render(request, 'community/events.html', context)
+
+
 
 
 

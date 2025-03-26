@@ -236,18 +236,19 @@ document.getElementById('backToBottom').addEventListener('click', function() {
   </div>
     </div>
   
-    <!-- Main Toggle Button -->
+   <!-- Main Toggle Button -->
     <button id="quickLinksToggle"
-        class="flex items-center justify-center w-14 h-14 bg-purple-600/90 backdrop-blur-sm text-white rounded-full shadow-xl hover:bg-purple-700 hover:shadow-2xl transition-all duration-300 animate-pulse"
-        title="Quick Links"
-        aria-label="Toggle quick links">
-        <svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-        </svg>
+    class="flex items-center justify-center w-14 h-14 bg-purple-600/90 backdrop-blur-sm text-white rounded-full shadow-xl hover:bg-purple-700 hover:shadow-2xl transition-all duration-300 animate-pulse"
+    title="Quick Links"
+    aria-label="Toggle quick links">
+    <svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg>
     </button>
+
   </div>
   
-  <!-- Enhanced JavaScript -->
+  {% comment %} <!-- Enhanced JavaScript -->
   <script>
     const toggleButton = document.getElementById('quickLinksToggle');
     const quickActions = document.getElementById('quickActions');
@@ -302,4 +303,162 @@ document.getElementById('backToBottom').addEventListener('click', function() {
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
     });
-  </script>
+  </script> {% endcomment %}
+
+
+{% comment %} <!-- Enhanced JavaScript -->
+<script>
+    const toggleButton = document.getElementById('quickLinksToggle');
+    const quickActions = document.getElementById('quickActions');
+    const toggleIcon = document.getElementById('toggleIcon');
+    const extraLinksToggle = document.getElementById('extraLinksToggle');
+    const additionalLinks = document.getElementById('additionalLinks');
+  
+    // Toggle quick actions menu (back to top, bottom, and extra links toggle)
+    toggleButton.addEventListener('click', () => {
+        quickActions.classList.toggle('hidden');
+        quickActions.classList.toggle('opacity-0');
+        quickActions.classList.toggle('translate-y-10');
+        toggleIcon.classList.toggle('rotate-45');
+    });
+  
+    // Toggle additional important links
+    extraLinksToggle.addEventListener('click', (e) => {
+        // Prevent the event from bubbling up to the main toggle
+        e.stopPropagation();
+        additionalLinks.classList.toggle('hidden');
+        additionalLinks.classList.toggle('opacity-0');
+        additionalLinks.classList.toggle('translate-y-10');
+    });
+  
+    // Smooth scroll functions
+    document.getElementById('backToTop').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.getElementById('backToBottom').addEventListener('click', () => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+  
+    // Hide quick actions on scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (Math.abs(currentScroll - lastScroll) > 50) {
+            quickActions.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            toggleIcon.classList.remove('rotate-45');
+            // Optionally hide additional links as well
+            additionalLinks.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            lastScroll = currentScroll;
+        }
+    });
+  
+    // Keyboard shortcuts for quick navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 't' || e.key === 'T') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        if (e.key === 'b' || e.key === 'B') {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    });
+  
+    // Close quick actions when clicking outside
+    document.addEventListener('click', function(e) {
+        // Check if the click target is not within quickActions, additionalLinks, or toggleButton
+        if (
+            !quickActions.contains(e.target) &&
+            !additionalLinks.contains(e.target) &&
+            e.target !== toggleButton &&
+            !toggleButton.contains(e.target)
+        ) {
+            quickActions.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            additionalLinks.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            toggleIcon.classList.remove('rotate-45');
+        }
+    });
+
+    
+    // Auto-scroll on screen resize (autorotate)
+    window.addEventListener('resize', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>   {% endcomment %}
+
+
+<!-- Enhanced JavaScript -->
+<script>
+    const toggleButton = document.getElementById('quickLinksToggle');
+    const quickActions = document.getElementById('quickActions');
+    const toggleIcon = document.getElementById('toggleIcon');
+    const extraLinksToggle = document.getElementById('extraLinksToggle');
+    const additionalLinks = document.getElementById('additionalLinks');
+  
+    // Toggle quick actions menu (back to top, bottom, and extra links toggle)
+    toggleButton.addEventListener('click', () => {
+        quickActions.classList.toggle('hidden');
+        quickActions.classList.toggle('opacity-0');
+        quickActions.classList.toggle('translate-y-10');
+        toggleIcon.classList.toggle('rotate-45');
+    });
+  
+    // Toggle additional important links
+    extraLinksToggle.addEventListener('click', (e) => {
+        // Prevent the event from bubbling up to the main toggle
+        e.stopPropagation();
+        additionalLinks.classList.toggle('hidden');
+        additionalLinks.classList.toggle('opacity-0');
+        additionalLinks.classList.toggle('translate-y-10');
+    });
+  
+    // Smooth scroll functions
+    document.getElementById('backToTop').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.getElementById('backToBottom').addEventListener('click', () => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+  
+    // Hide quick actions on scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (Math.abs(currentScroll - lastScroll) > 50) {
+            quickActions.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            toggleIcon.classList.remove('rotate-45');
+            // Optionally hide additional links as well
+            additionalLinks.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            lastScroll = currentScroll;
+        }
+    });
+  
+    // Keyboard shortcuts for quick navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 't' || e.key === 'T') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        if (e.key === 'b' || e.key === 'B') {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    });
+  
+    // Close quick actions when clicking outside
+    document.addEventListener('click', function(e) {
+        // Check if the click target is not within quickActions, additionalLinks, or toggleButton
+        if (
+            !quickActions.contains(e.target) &&
+            !additionalLinks.contains(e.target) &&
+            e.target !== toggleButton &&
+            !toggleButton.contains(e.target)
+        ) {
+            quickActions.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            additionalLinks.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            toggleIcon.classList.remove('rotate-45');
+        }
+    });
+  
+    // Auto-scroll on screen resize (autorotate)
+    window.addEventListener('resize', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+  

@@ -145,7 +145,8 @@
     .calendar-container td {
       background-color: #fff;
       color: #4a5568;
-      position: relative;
+      position: relative; /* For positioning pseudo-elements */
+      z-index: 0; /* Establish stacking context */
     }
     .calendar-container td:hover {
       background-color: #f1f5f9;
@@ -188,70 +189,278 @@
     .calendar-container .event:hover::before {
       color: #2c5282;
     }
-  
-    /* ============================
-       Enhanced Modal Styling
-    ============================ */
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed;
-      z-index: 1000;
-      left: 0;
+    
+   /* ============================
+   Enhanced Modal Styling with Icons & Modern UI
+============================ */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.7); /* Darker overlay */
+  backdrop-filter: blur(4px); /* Blur effect */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal-content {
+  background: #fff;
+  margin: 8% auto; /* Adjust vertical alignment */
+  padding: 0; /* Remove default padding – will use inner sections */
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.4s ease-out;
+  position: relative;
+  overflow: hidden; /* For rounded corners on inner elements */
+}
+
+/* Modal Header with Gradient & Icon */
+.modal-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #ff8c00, #ff5e00);
+  color: #fff;
+}
+.modal-header i {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Close Button Styling */
+.close {
+  color: #fff;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 50%;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.close:hover,
+.close:focus {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Modal Body Content Styling */
+.modal-body {
+  padding: 1rem 1.5rem;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Optional Modal Footer for Actions */
+.modal-footer {
+  padding: 1rem 1.5rem;
+  text-align: right;
+  border-top: 1px solid #eee;
+}
+.modal-footer button {
+  background-color: #ff8c00;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.modal-footer button:hover {
+  background-color: #ff5e00;
+}
+
+/* Slide Down Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional: Headings & Paragraphs in Content */
+.modal-content h3 {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+}
+.modal-content p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+/* Flag Styling */
+.modal-flag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+/* Default: Past Event (Red) */
+.modal-flag.past {
+  background-color: #e74c3c; /* Rich red */
+}
+
+/* Upcoming Event (Green) */
+.modal-flag.upcoming {
+  background-color: #27ae60; /* Vivid green */
+}
+
+    
+    /* -------------------------------
+       Custom Day Event Backgrounds using Pseudo-elements
+       (This highlights the cell background without changing overall styles)
+    ---------------------------------*/
+    /* Past Days: light red highlight */
+    .calendar-container td.past-event::before {
+      content: "";
+      position: absolute;
       top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
-      backdrop-filter: blur(4px); /* Blurs content behind modal */
-      transition: opacity 0.3s ease-in-out;
+      background-color: rgba(255, 229, 229, 0.3); /* Light red with transparency */
+      z-index: -1;
+      transition: background-color 0.3s ease;
     }
-    .modal-content {
-      background-color: #ffffff;
-      margin: 8% auto; /* Adjust vertical alignment */
-      padding: 2rem;
-      border: none;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 12px;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-      animation: slideDown 0.4s ease-out;
-      position: relative;
+    .calendar-container td.past-event:hover::before {
+      background-color: rgba(255, 215, 215, 0.9);
     }
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .close {
-      color: #888;
+    
+    /* Present Day (Today): deep orange highlight */
+    .calendar-container td.present-event::before {
+      content: "";
       position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 28px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: color 0.3s ease;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 140, 0, 0.6); /* Deep orange */
+      z-index: -1;
+      transition: background-color 0.3s ease;
     }
-    .close:hover,
-    .close:focus {
-      color: #333;
-      text-decoration: none;
+    .calendar-container td.present-event:hover::before {
+      background-color: rgba(255, 120, 0, 1); /* Even deeper orange on hover */
     }
-    /* Modal Content Enhancements */
-    .modal-content h3 {
-      border-bottom: 2px solid #f0f0f0;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
+    
+    /* Future Days (Upcoming): light green highlight */
+    .calendar-container td.future-event::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(230, 255, 230, 0.3); /* Light green with transparency */
+      z-index: -1;
+      transition: background-color 0.3s ease;
     }
-    .modal-content p {
-      line-height: 1.6;
+    .calendar-container td.future-event:hover::before {
+      background-color: rgba(208, 255, 208, 0.7);
     }
-  </style>
+    
+   /* -------------------------------
+   Styling for Event Elements within Calendar Cells
+   (Different colours and gradients based on the day’s status)
+---------------------------------*/
+
+  /* Past Events */
+  .calendar-container td.past-event .modal-event {
+    position: relative;
+    background: linear-gradient(90deg, rgba(255, 99, 71, 0.2), rgba(255, 69, 0, 0.2)); /* Gradient from light tomato to a deeper red */
+    color: #b22222;  /* Dark red for text */
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    margin-top: 0.3rem;
+    transition: background 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .calendar-container td.past-event .modal-event:hover {
+    background: linear-gradient(90deg, rgba(255, 99, 71, 0.4), rgba(255, 69, 0, 0.4));
+  }
+  .calendar-container td.past-event .modal-event::before {
+    content: "\f06a"; /* Font Awesome exclamation-triangle icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 0.5rem;
+    color: #b22222;
+  }
+
+  /* Present Day Events */
+  .calendar-container td.present-event .modal-event {
+    position: relative;
+    background: linear-gradient(90deg, rgba(255, 165, 0, 0.2), rgba(255, 140, 0, 0.2)); /* Gradient from light orange to deep orange */
+    color: #ff8c00;  /* Dark orange for text */
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    margin-top: 0.3rem;
+    transition: background 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .calendar-container td.present-event .modal-event:hover {
+    background: linear-gradient(90deg, rgba(255, 165, 0, 0.4), rgba(255, 140, 0, 0.4));
+  }
+  .calendar-container td.present-event .modal-event::before {
+    content: "\f005"; /* Font Awesome star icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 0.5rem;
+    color: #ff8c00;
+  }
+
+  /* Future / Upcoming Events */
+  .calendar-container td.future-event .modal-event {
+    position: relative;
+    background: linear-gradient(90deg, rgba(144, 238, 144, 0.2), rgba(34, 139, 34, 0.2)); /* Gradient from light green to a deeper green */
+    color: #006400;  /* Dark green for text */
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    margin-top: 0.3rem;
+    transition: background 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .calendar-container td.future-event .modal-event:hover {
+    background: linear-gradient(90deg, rgba(144, 238, 144, 0.4), rgba(34, 139, 34, 0.4));
+  }
+  .calendar-container td.future-event .modal-event::before {
+    content: "\f0f3"; /* Font Awesome bell icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 0.5rem;
+    color: #006400;
+  }
+
+</style>
+  
+  
   
   <!-- Calendar Section -->
   <section class="py-20 bg-gradient-to-r from-gray-50 to-white">
@@ -270,15 +479,49 @@
     </div>
   </section>
   
-  <!-- Modal Markup -->
+ {% comment %} <!-- Enhanced Modal Markup -->
 <div id="event-modal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h3 id="modal-title" class="text-2xl font-bold mb-2"></h3>
-      <p id="modal-datetime" class="text-gray-600 mb-4"></p>
-      <p id="modal-description" class="text-gray-700"></p>
+  <div class="modal-content">
+    <div class="modal-header">
+      <i class="fas fa-info-circle"></i>
+      <h3 id="modal-title">Event Title</h3>
+      <button class="close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="modal-datetime">Event Date &amp; Time</p>
+      <p id="modal-description">Event description goes here...</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" onclick="document.getElementById('event-modal').style.display='none';">
+        Close
+      </button>
     </div>
   </div>
+</div> {% endcomment %}
+
+
+<!-- Enhanced Modal Markup with Past/Upcoming Flag -->
+<div id="event-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <i class="fas fa-info-circle"></i>
+      <h3 id="modal-title">Event Title</h3>
+      <!-- Flag element: add a class "upcoming" or "past" dynamically -->
+      <span id="modal-flag" class="modal-flag past">Past</span>
+      <button class="close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="modal-datetime">Event Date &amp; Time</p>
+      <p id="modal-description">Event description goes here...</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" onclick="document.getElementById('event-modal').style.display='none';">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
   
 
 <!-- Yearly Calendar Event List Section -->
@@ -319,7 +562,7 @@
   </section>
   
   
-  <!-- JavaScript for AJAX Calendar Navigation -->
+  {% comment %} <!-- JavaScript for AJAX Calendar Navigation -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       function loadCalendar(url) {
@@ -362,6 +605,7 @@
         const modalDatetime = document.getElementById("modal-datetime");
         const modalDescription = document.getElementById("modal-description");
         const closeBtn = document.querySelector(".modal .close");
+
   
         const modalEvents = document.querySelectorAll('.modal-event');
         modalEvents.forEach(eventEl => {
@@ -371,6 +615,100 @@
             const date = eventEl.getAttribute('data-date');
             const time = eventEl.getAttribute('data-time');
             const description = eventEl.getAttribute('data-description');
+    
+  
+            modalTitle.innerText = title;
+            modalDatetime.innerText = date + ' ' + time;
+            modalDescription.innerText = description;
+            modal.style.display = "block";
+          });
+        });
+  
+        closeBtn.addEventListener('click', function() {
+          modal.style.display = "none";
+        });
+  
+        window.addEventListener('click', function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        });
+      }
+  
+      // Attach modal events initially
+      attachModalEvents();
+    });
+  </script> {% endcomment %}
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function loadCalendar(url) {
+        fetch(url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('calendar-content').innerHTML = html;
+          attachCalendarNavEvents(); // reattach click events
+          attachModalEvents();       // reattach modal event listeners
+        })
+        .catch(error => console.error('Error fetching calendar:', error));
+      }
+  
+      function attachCalendarNavEvents() {
+        const navLinks = document.querySelectorAll('.calendar-nav');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.getAttribute('href');
+            loadCalendar(url);
+            window.history.pushState(null, '', url);
+          });
+        });
+      }
+  
+      // Attach initial events for navigation
+      attachCalendarNavEvents();
+  
+      // Handle browser back/forward
+      window.addEventListener('popstate', function(e) {
+        loadCalendar(location.search);
+      });
+  
+      // Modal Interactions for Calendar Events
+      function attachModalEvents() {
+        const modal = document.getElementById("event-modal");
+        const modalTitle = document.getElementById("modal-title");
+        const modalDatetime = document.getElementById("modal-datetime");
+        const modalDescription = document.getElementById("modal-description");
+        const closeBtn = document.querySelector(".modal .close");
+        const flagEl = document.getElementById('modal-flag');  // Make sure this element exists in your markup
+  
+        const modalEvents = document.querySelectorAll('.modal-event');
+        modalEvents.forEach(eventEl => {
+          eventEl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const title = eventEl.getAttribute('data-title');
+            const date = eventEl.getAttribute('data-date');
+            const time = eventEl.getAttribute('data-time');
+            const description = eventEl.getAttribute('data-description');
+  
+            // Combine date and time strings to create a Date object.
+            // Example format: "March 26, 2025 07:00 PM"
+            const eventDateTime = new Date(date + ' ' + time);
+            const now = new Date();
+  
+            // Compare eventDateTime with now
+            if (eventDateTime < now) {
+              flagEl.textContent = "Past";
+              flagEl.classList.remove('upcoming');
+              flagEl.classList.add('past');
+            } else {
+              flagEl.textContent = "Upcoming";
+              flagEl.classList.remove('past');
+              flagEl.classList.add('upcoming');
+            }
   
             modalTitle.innerText = title;
             modalDatetime.innerText = date + ' ' + time;
@@ -394,7 +732,7 @@
       attachModalEvents();
     });
   </script>
-
+  
 
 <!-- Outreach Programs Section -->
 <section class="py-10 bg-gray-100">

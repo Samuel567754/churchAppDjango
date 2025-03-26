@@ -22,12 +22,13 @@
 
             <!-- Button Link -->
             <div style="text-align: center; margin-top: 24px;">
-                <a href="{{ domain }}{% url 'contact:contact' %}" 
-                   style="display: inline-block; background-color: #ef4444; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
-                   onmouseover="this.style.backgroundColor='#dc2626'"
-                   onmouseout="this.style.backgroundColor='#ef4444'">
-                    Visit Contact
-                </a>
+                <a href="{{ local|default:domain }}{% url 'contact:contact' %}" 
+                style="display: inline-block; background-color: #ef4444; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
+                onmouseover="this.style.backgroundColor='#dc2626'"
+                onmouseout="this.style.backgroundColor='#ef4444'">
+                 Visit Contact
+             </a>
+             
             </div>
              <!-- Button Link -->
              <div style="text-align: center; margin-top: 24px;">
@@ -39,7 +40,7 @@
 
         <!-- Footer Section -->
         <div style="background-color: #f9fafb; text-align: center; padding: 16px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; border-top: 1px solid #e5e7eb;">
-            <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">© 2025 The Church. All rights reserved.</p>
+            <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">© 2025 Kumasi Central Church of Christ. All rights reserved.</p>
         </div>
     </div>
 </body>

@@ -22,7 +22,7 @@
 
             <!-- Button -->
             <div style="text-align: center; margin-top: 24px;">
-                <a href="{{ domain }}{% url 'account:login' %}" 
+                <a href="{{ local|default:domain }}{% url 'account:login' %}" 
                    style="display: inline-block; background-color: #16a34a; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
                    onmouseover="this.style.backgroundColor='#15803d'"
                    onmouseout="this.style.backgroundColor='#16a34a'">
@@ -33,7 +33,7 @@
 
         <!-- Footer -->
         <div style="background-color: #f9fafb; text-align: center; padding: 16px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; border-top: 1px solid #e5e7eb;">
-            <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">&copy; 2025 The Church. All rights reserved.</p>
+            <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">&copy; 2025 Kumasi Central Church of Christ. All rights reserved.</p>
             <p style="font-size: 0.875rem; color: #6b7280; margin: 5px 0;">Need help? <a href="mailto:support@church.com" style="color: #2563eb; text-decoration: none;">Contact Support</a></p>
         </div>
     </div>

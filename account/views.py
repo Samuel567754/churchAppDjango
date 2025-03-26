@@ -151,8 +151,14 @@ def send_email_pending_approval(user):
     subject = 'Your Membership Application is Pending Approval'
     from_email = settings.DEFAULT_FROM_EMAIL  # Ensure you have this in settings.py
     
+    context = {
+        'user': user,
+        'domain': settings.SITE_DOMAIN,
+        'local': settings.LOCAL_DOMAIN,
+    }
+    
     # Render the email as HTML
-    html_content = render_to_string('account/emails/member_pending_approval_email.html', {'user': user})
+    html_content = render_to_string('account/emails/member_pending_approval_email.html', context) 
 
     # Create email message
     email = EmailMultiAlternatives(subject, strip_tags(html_content), from_email, [user.email])

@@ -1,7 +1,7 @@
 
 {% extends 'base.html' %}
 
-{% block title %}Home - City Light Church{% endblock %}
+{% block title %}Home -  Kumasi Central CoC{% endblock %}
 
 {% block content %}
 
@@ -52,11 +52,11 @@
               <div class="relative z-30 flex flex-col items-center justify-center h-full text-center px-4">
                   <div class="max-w-4xl mx-auto space-y-6 transform transition-all duration-300">
                       {% if item.title %}
-                      <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl animate-slideInUp">
+                      <h2 class="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl animate-slideInUp">
                           {{ item.title }}
                       </h2>
                       {% else %}
-                      <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl px-4">
+                      <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl px-4">
                         Welcome to Adum Central Church of Christ
                       </h2>
                       {% endif %}
@@ -279,8 +279,9 @@
         </div>
         <h3 class="text-xl font-semibold text-gray-800 mb-3">Service Times</h3>
         <p class="text-gray-600 mb-6 leading-relaxed">
-          Sunday: 9:00 AM &amp; 11:00 AM<br>
-          Wednesday: 7:00 PM
+          Sunday: 8:30 AM &amp; 12:00 AM<br>
+          Tuesday: 6:30 PM &amp; 7:30 PM <br>
+          Friday: 6:30 PM &amp; 7:30 PM <br>
         </p>
         <a href="{% url 'community:services' %}" class="inline-flex items-center gap-2 font-medium text-orange-600 hover:text-orange-700 transition-colors">
           View Schedule
@@ -334,7 +335,7 @@
         </div>
         <h3 class="text-xl font-semibold text-gray-800 mb-3">Location</h3>
         <p class="text-gray-600 mb-6 leading-relaxed">
-          123 Adum Street<br>
+          123 Abenkye Street<br>
           Kumasi, Ghana
         </p>
       </div>

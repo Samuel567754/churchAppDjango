@@ -223,9 +223,15 @@ def send_email_approved(user):
     """Send approval email to user."""
     subject = 'Your Membership has been Approved'
     from_email = settings.DEFAULT_FROM_EMAIL  # Ensure this is set in settings.py
+    
+    context = {
+        'user': user,
+        'domain': settings.SITE_DOMAIN,
+        'local': settings.LOCAL_DOMAIN,
+    }
 
     # Render the HTML email
-    html_content = render_to_string('account/emails/member_approval_email.html', {'user': user})
+    html_content = render_to_string('account/emails/member_approval_email.html', context)
 
     # Create email with plain text fallback
     email = EmailMultiAlternatives(subject, strip_tags(html_content), from_email, [user.email])
@@ -237,9 +243,15 @@ def send_email_rejected(user):
     """Send rejection email to user."""
     subject = 'Your Membership Application has been Rejected'
     from_email = settings.DEFAULT_FROM_EMAIL  # Ensure this is set in settings.py
+    
+    context = {
+        'user': user,
+        'domain': settings.SITE_DOMAIN,
+        'local': settings.LOCAL_DOMAIN,
+    }
 
     # Render the HTML email
-    html_content = render_to_string('account/emails/member_rejection_email.html', {'user': user})
+    html_content = render_to_string('account/emails/member_rejection_email.html', context)
 
     # Create email with plain text fallback
     email = EmailMultiAlternatives(subject, strip_tags(html_content), from_email, [user.email])

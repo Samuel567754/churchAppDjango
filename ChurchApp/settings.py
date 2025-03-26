@@ -125,6 +125,12 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
 
 
+# Use a full URL for the production domain
+SITE_DOMAIN = "https://church-app-oukg.onrender.com"
+
+# Define your local domain (for development)
+LOCAL_DOMAIN = "http://127.0.0.1:8000"
+
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',

@@ -1,0 +1,305 @@
+ {% comment %} <!-- Place these buttons at the end of your <body> tag -->
+
+<!-- Back to Top Button -->
+<button id="backToTop"
+class="fixed bottom-20 right-5 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 focus:outline-none transition duration-300"
+title="Back to Top">
+<!-- Heroicons: Chevron Up -->
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+</svg>
+</button>
+
+<!-- Back to Bottom Button -->
+<button id="backToBottom"
+class="fixed bottom-5 right-5 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 focus:outline-none transition duration-300"
+title="Back to Bottom">
+<!-- Heroicons: Chevron Down -->
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+</svg>
+</button>
+
+<!-- JavaScript for smooth scrolling -->
+<script>
+document.getElementById('backToTop').addEventListener('click', function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+document.getElementById('backToBottom').addEventListener('click', function() {
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+});
+</script> {% endcomment %}
+
+
+{% comment %} <!-- Add this CSS in your head section or stylesheet -->
+<style>
+  @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+  }
+  .quick-link-transition {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
+
+<!-- HTML Structure -->
+<div class="fixed bottom-5 right-5 z-50 space-y-3">
+  <!-- Quick Actions Container -->
+  <div id="quickActions" class="space-y-3 hidden opacity-0 translate-y-10 quick-link-transition">
+      <!-- Back to Top Button -->
+      <button id="backToTop"
+          class="flex items-center justify-center w-12 h-12 bg-blue-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+          title="Back to Top"
+          aria-label="Scroll to top">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:scale-125 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+      </button>
+
+      <!-- Back to Bottom Button -->
+      <button id="backToBottom"
+          class="flex items-center justify-center w-12 h-12 bg-green-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-green-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+          title="Back to Bottom"
+          aria-label="Scroll to bottom">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:scale-125 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+      </button>
+  </div>
+
+  <!-- Toggle Button -->
+  <button id="quickLinksToggle"
+      class="flex items-center justify-center w-14 h-14 bg-purple-600/90 backdrop-blur-sm text-white rounded-full shadow-xl hover:bg-purple-700 hover:shadow-2xl transition-all duration-300 animate-pulse"
+      title="Quick Links"
+      aria-label="Toggle quick links">
+      <svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+  </button>
+</div>
+
+<!-- Enhanced JavaScript -->
+<script>
+  const toggleButton = document.getElementById('quickLinksToggle');
+  const quickActions = document.getElementById('quickActions');
+  const toggleIcon = document.getElementById('toggleIcon');
+
+  // Toggle quick links menu
+  toggleButton.addEventListener('click', () => {
+      quickActions.classList.toggle('hidden');
+      quickActions.classList.toggle('opacity-0');
+      quickActions.classList.toggle('translate-y-10');
+      toggleIcon.classList.toggle('rotate-45');
+  });
+
+  // Smooth scroll functions
+  document.getElementById('backToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.getElementById('backToBottom').addEventListener('click', () => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  });
+
+  // Hide menu on scroll
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      if (Math.abs(currentScroll - lastScroll) > 50) {
+          quickActions.classList.add('hidden', 'opacity-0', 'translate-y-10');
+          toggleIcon.classList.remove('rotate-45');
+          lastScroll = currentScroll;
+      }
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+      if (e.key === 't' || e.key === 'T') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      if (e.key === 'b' || e.key === 'B') {
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }
+  });
+</script> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+<!-- Add this CSS in your head section or stylesheet -->
+<style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .quick-link-transition {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+  
+  <!-- HTML Structure -->
+  <div class="fixed bottom-5 right-5 z-50 space-y-3">
+    <!-- Quick Actions Container -->
+    <div id="quickActions" class="space-y-3 hidden opacity-0 translate-y-10 quick-link-transition">
+        <!-- Back to Top Button -->
+        <button id="backToTop"
+            class="flex items-center justify-center w-12 h-12 bg-blue-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+            title="Back to Top"
+            aria-label="Scroll to top">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:scale-125 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+        </button>
+  
+        <!-- Back to Bottom Button -->
+        <button id="backToBottom"
+            class="flex items-center justify-center w-12 h-12 bg-green-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-green-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+            title="Back to Bottom"
+            aria-label="Scroll to bottom">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:scale-125 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+        </button>
+  
+        <!-- Extra Links Toggle Button -->
+        <button id="extraLinksToggle"
+            class="flex items-center justify-center w-12 h-12 bg-red-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-red-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+            title="Important Links"
+            aria-label="Toggle important links">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:scale-125 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <!-- Using a grid icon for extra links -->
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+  
+  
+        <!-- Additional Links Container -->
+  <div id="additionalLinks" class="hidden opacity-0 translate-y-10 quick-link-transition space-y-2">
+    <!-- Home Link -->
+    <a href="{% url 'community:home' %}" class="flex items-center space-x-2">
+      <div class="flex items-center justify-center w-12 h-12 bg-blue-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform group-hover:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6" />
+        </svg>
+      </div>
+      <span class="px-2 py-1 bg-gray-900/70 text-white rounded">Home</span>
+    </a>
+    
+    <!-- Events Link -->
+    <a href="{% url 'community:events' %}" class="flex items-center space-x-2">
+      <div class="flex items-center justify-center w-12 h-12 bg-orange-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-orange-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform group-hover:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <span class="px-2 py-1 bg-gray-900/70 text-white rounded">Events</span>
+    </a>
+    
+    <!-- About Link -->
+    <a href="{% url 'community:about' %}" class="flex items-center space-x-2">
+      <div class="flex items-center justify-center w-12 h-12 bg-teal-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-teal-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform group-hover:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
+        </svg>
+      </div>
+      <span class="px-2 py-1 bg-gray-900/70 text-white rounded">About</span>
+    </a>
+    
+    <!-- Ministries Link -->
+    <a href="{% url 'community:ministries' %}" class="flex items-center space-x-2">
+      <div class="flex items-center justify-center w-12 h-12 bg-green-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-green-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform group-hover:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 01-8 0M12 14v7" />
+        </svg>
+      </div>
+      <span class="px-2 py-1 bg-gray-900/70 text-white rounded">Ministries</span>
+    </a>
+    
+    <!-- Contact Link -->
+    <a href="{% url 'contact:contact' %}" class="flex items-center space-x-2">
+      <div class="flex items-center justify-center w-12 h-12 bg-pink-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-pink-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform group-hover:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 2a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2V4a2 2 0 012-2h8z" />
+        </svg>
+      </div>
+      <span class="px-2 py-1 bg-gray-900/70 text-white rounded">Contact</span>
+    </a>
+  </div>
+    </div>
+  
+    <!-- Main Toggle Button -->
+    <button id="quickLinksToggle"
+        class="flex items-center justify-center w-14 h-14 bg-purple-600/90 backdrop-blur-sm text-white rounded-full shadow-xl hover:bg-purple-700 hover:shadow-2xl transition-all duration-300 animate-pulse"
+        title="Quick Links"
+        aria-label="Toggle quick links">
+        <svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+    </button>
+  </div>
+  
+  <!-- Enhanced JavaScript -->
+  <script>
+    const toggleButton = document.getElementById('quickLinksToggle');
+    const quickActions = document.getElementById('quickActions');
+    const toggleIcon = document.getElementById('toggleIcon');
+    const extraLinksToggle = document.getElementById('extraLinksToggle');
+    const additionalLinks = document.getElementById('additionalLinks');
+  
+    // Toggle quick actions menu (back to top, bottom, and extra links toggle)
+    toggleButton.addEventListener('click', () => {
+        quickActions.classList.toggle('hidden');
+        quickActions.classList.toggle('opacity-0');
+        quickActions.classList.toggle('translate-y-10');
+        toggleIcon.classList.toggle('rotate-45');
+    });
+  
+    // Toggle additional important links
+    extraLinksToggle.addEventListener('click', (e) => {
+        // Prevent the event from bubbling up to the main toggle
+        e.stopPropagation();
+        additionalLinks.classList.toggle('hidden');
+        additionalLinks.classList.toggle('opacity-0');
+        additionalLinks.classList.toggle('translate-y-10');
+    });
+  
+    // Smooth scroll functions
+    document.getElementById('backToTop').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.getElementById('backToBottom').addEventListener('click', () => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+  
+    // Hide quick actions on scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (Math.abs(currentScroll - lastScroll) > 50) {
+            quickActions.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            toggleIcon.classList.remove('rotate-45');
+            // Optionally hide additional links as well
+            additionalLinks.classList.add('hidden', 'opacity-0', 'translate-y-10');
+            lastScroll = currentScroll;
+        }
+    });
+  
+    // Keyboard shortcuts for quick navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 't' || e.key === 'T') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        if (e.key === 'b' || e.key === 'B') {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    });
+  </script>

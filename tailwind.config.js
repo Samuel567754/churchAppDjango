@@ -9,6 +9,9 @@ module.exports = {
   darkMode: 'class', // Enables dark mode based on a CSS class
   theme: {
     extend: {
+      backdropBlur: {
+        sm: '4px',
+    },
       colors: {
         church: {
            brown: '#4A2F21',

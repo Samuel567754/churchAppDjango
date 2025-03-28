@@ -108,7 +108,9 @@
     </div>
   </section>
   
-
+ 
+<!-- FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 <!-- Your custom CSS (including the modal styles) -->
 <style>
   /* Modal and enhanced UI styling as provided */
@@ -234,10 +236,20 @@
 
 
 
- /* General FullCalendar Enhancements */
+/* General FullCalendar Enhancements */
 .fc {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background-color: #fff;
+}
+
+/* Calendar Container Styling */
+.calendar-container {
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
 }
 
 /* Toolbar styling for dynamic view switching */
@@ -248,6 +260,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 /* Button styling in the toolbar */
@@ -258,6 +271,7 @@
   border-radius: 0.375rem;
   padding: 0.5rem 1rem;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 .fc .fc-button:hover {
   background-color: #4338ca; /* Darker indigo */
@@ -268,16 +282,15 @@
 }
 
 /* Category-Based Color Coding with Icons */
-
 /* SERVICE */
 .fc-event.category-service {
   background-color: #34d399; /* Emerald-400 */
   border-color: #10b981; /* Emerald-600 */
   position: relative;
-  padding-left: 2.5rem; /* Extra space for the icon */
+  padding-left: 2.5rem;
 }
 .fc-event.category-service::before {
-  content: "\f51d";  /* Font Awesome icon for church (adjust code if needed) */
+  content: "\f51d";  /* Font Awesome icon for church */
   font-family: "Font Awesome 5 Free"; 
   font-weight: 900;
   position: absolute;
@@ -395,9 +408,10 @@
   .fc .fc-toolbar {
     flex-direction: column;
     gap: 0.5rem;
+    padding: 0.75rem;
   }
   .fc .fc-button {
-    padding: 0.5rem;
+    padding: 0.5rem 1.5rem;
     font-size: 0.875rem;
   }
 }
@@ -407,29 +421,33 @@
   /* Reduce overall font sizes */
   .fc {
     font-size: 0.875rem;
+    /* Make calendar square: height equals width */
+    aspect-ratio: 1 / 1;
+    /* Alternatively, if aspect-ratio is not supported:
+       height: 100vw; 
+    */
   }
   /* Adjust toolbar padding and layout */
   .fc .fc-toolbar {
     padding: 0.5rem 0.75rem;
   }
   .fc .fc-button {
-    padding: 0.5rem;
-    font-size: 0.75rem;
-  }
-  /* Ensure modals are full-width and easy to interact with */
-  .modal-content {
-    width: 95%;
-    margin: 5% auto;
-    padding: 1rem;
+    padding: 0.3rem 1.5rem;
+    font-size: 0.8rem;
+    min-height: 2.5rem;
+    line-height: 2.5rem;
   }
   /* Reduce day number font size for compact view */
   .fc-daygrid-day-number {
     font-size: 0.875rem;
   }
-  /* Increase minimum height for interactive elements to aid tapping */
-  .fc .fc-button, .fc .fc-daygrid-day-number {
-    min-height: 2.5rem;
-    line-height: 2.5rem;
+}
+
+/* Desktop Adjustments: Reduce FullCalendar Size */
+@media (min-width: 1024px) {
+  .calendar-container {
+    max-width: 800px;  /* Adjust this value as needed */
+    margin: 0 auto;
   }
 }
 
@@ -458,21 +476,18 @@
   text-align: center;
 }
 
-/* Calendar Container Styling */
-.calendar-container {
-  padding: 1rem;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
-}
-
 /* Additional styling for improved date/time display in header if needed */
 .fc .fc-col-header-cell-cushion {
   font-weight: 600;
   font-size: 1rem;
   color: #374151;
+}
+
+#calendar-content {
+  width: 100%;
+  max-width: 1000px;  /* For example, limit the width on larger screens */
+  height: 650px;     /* Define a fixed height */
+  margin: auto;      /* Center the calendar horizontally */
 }
 </style>
 
@@ -562,9 +577,10 @@
     </div> {% endcomment %}
 
     <!-- Calendar Container -->
-    <div class="bg-white shadow-2xl rounded-xl overflow-hidden">
-      <div id="calendar-content" class="p-6"></div>
+    <div class="bg-white shadow-2xl rounded-xl overflow-hidden" style="max-width: 1000px; margin: auto;">
+      <div id="calendar-content" class="p-6" style="height: 650px;"></div>
     </div>
+    
   </div>
 </section>
 
@@ -751,10 +767,10 @@
         var frameEl = arg.el.querySelector('.fc-daygrid-day-frame') || arg.el;
         if(cellDate < today) {
           // Using rgba for a very light red with low opacity
-          frameEl.style.backgroundColor = "rgba(255, 229, 229, 0.1)";
+          frameEl.style.backgroundColor = "rgba(255, 229, 229, 0.2)";
         } else {
           // Using rgba for a very light green with low opacity
-          frameEl.style.backgroundColor = "rgba(229, 255, 229, 0.1)";
+          frameEl.style.backgroundColor = "rgba(229, 255, 229, 0.2)";
         }
         
       },

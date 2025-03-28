@@ -503,69 +503,6 @@
       </p>
     </div>
 
-
-    <!-- Dynamically generated category filters with color coding and icons -->
-<div class="flex flex-wrap justify-center gap-4 mb-8" id="category-filters">
-  {% for code, label in event_categories %}
-    {% if code == "service" %}
-      {% with icon="fa-church" bgClass="bg-emerald-100" textColor="text-emerald-700" %}
-        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
-          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
-          <span class="font-semibold {{ textColor }}">
-            <i class="fas {{ icon }}"></i> {{ label }}
-          </span>
-        </label>
-      {% endwith %}
-    {% elif code == "meeting" %}
-      {% with icon="fa-handshake" bgClass="bg-amber-100" textColor="text-amber-700" %}
-        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
-          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
-          <span class="font-semibold {{ textColor }}">
-            <i class="fas {{ icon }}"></i> {{ label }}
-          </span>
-        </label>
-      {% endwith %}
-    {% elif code == "youth" %}
-      {% with icon="fa-users" bgClass="bg-blue-100" textColor="text-blue-700" %}
-        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
-          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
-          <span class="font-semibold {{ textColor }}">
-            <i class="fas {{ icon }}"></i> {{ label }}
-          </span>
-        </label>
-      {% endwith %}
-    {% elif code == "outreach" %}
-      {% with icon="fa-hands-helping" bgClass="bg-pink-100" textColor="text-pink-700" %}
-        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
-          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
-          <span class="font-semibold {{ textColor }}">
-            <i class="fas {{ icon }}"></i> {{ label }}
-          </span>
-        </label>
-      {% endwith %}
-    {% elif code == "special" %}
-      {% with icon="fa-star" bgClass="bg-purple-100" textColor="text-purple-700" %}
-        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
-          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
-          <span class="font-semibold {{ textColor }}">
-            <i class="fas {{ icon }}"></i> {{ label }}
-          </span>
-        </label>
-      {% endwith %}
-    {% else %}
-      {% with icon="fa-ellipsis-h" bgClass="bg-gray-100" textColor="text-gray-700" %}
-        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
-          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
-          <span class="font-semibold {{ textColor }}">
-            <i class="fas {{ icon }}"></i> {{ label }}
-          </span>
-        </label>
-      {% endwith %}
-    {% endif %}
-  {% endfor %}
-</div>
-
-
     {% comment %} <!-- Dynamically generated category filters -->
     <div class="flex flex-wrap justify-center gap-4 mb-8" id="category-filters">
       {% for code, label in event_categories %}
@@ -580,8 +517,67 @@
     <div class="bg-white shadow-2xl rounded-xl overflow-hidden" style="max-width: 1000px; margin: auto;">
       <div id="calendar-content" class="p-6" style="height: 650px;"></div>
     </div>
-    
   </div>
+<!-- Dynamically generated category filters with elevated buttons -->
+<div class="flex flex-wrap justify-center gap-4 mt-10" id="category-filters">
+  {% for code, label in event_categories %}
+    {% if code == "service" %}
+      {% with icon="fa-church" bgClass="bg-emerald-100" textColor="text-emerald-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow-md transition transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% elif code == "meeting" %}
+      {% with icon="fa-handshake" bgClass="bg-amber-100" textColor="text-amber-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow-md transition transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% elif code == "youth" %}
+      {% with icon="fa-users" bgClass="bg-blue-100" textColor="text-blue-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow-md transition transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% elif code == "outreach" %}
+      {% with icon="fa-hands-helping" bgClass="bg-pink-100" textColor="text-pink-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow-md transition transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% elif code == "special" %}
+      {% with icon="fa-star" bgClass="bg-purple-100" textColor="text-purple-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow-md transition transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% else %}
+      {% with icon="fa-ellipsis-h" bgClass="bg-gray-100" textColor="text-gray-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow-md transition transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+</div>
 </section>
 
 

@@ -23,13 +23,22 @@
 
             <!-- Button Link -->
             <div style="text-align: center; margin-top: 24px;">
-                <a href="{{ local|default:domain }}{% url 'community:home' %}" 
-                   style="display: inline-block; background-color: #f59e0b; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
-                   onmouseover="this.style.backgroundColor='#d97706'"
-                   onmouseout="this.style.backgroundColor='#f59e0b'">
-                    Visit home page
-                </a>
-            </div>
+                {% if debug %}
+                  <a href="{{ local }}{% url 'community:home' %}" 
+                     style="display: inline-block; background-color: #f59e0b; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
+                     onmouseover="this.style.backgroundColor='#d97706'"
+                     onmouseout="this.style.backgroundColor='#f59e0b'">
+                     Visit home page
+                  </a>
+                {% else %}
+                  <a href="{{ domain }}{% url 'community:home' %}" 
+                     style="display: inline-block; background-color: #f59e0b; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
+                     onmouseover="this.style.backgroundColor='#d97706'"
+                     onmouseout="this.style.backgroundColor='#f59e0b'">
+                     Visit home page
+                  </a>
+                {% endif %}
+              </div>              
         </div>
 
         <!-- Footer Section -->

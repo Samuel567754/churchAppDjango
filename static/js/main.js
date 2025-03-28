@@ -1,3 +1,6 @@
+// import AOS from 'aos';
+// // Optionally, pass in your configuration options
+// AOS.init();
 
      // Attach event listener to each delete button
 function confirmDeletefamily(pk) {

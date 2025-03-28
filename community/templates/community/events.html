@@ -39,7 +39,7 @@
 {% block content %}
 
 <!-- Page Header -->
-<section class="relative bg-cover bg-center h-72 overflow-hidden" style="background-image: url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0097.jpg');">
+<section data-aos="fade-up" class="relative bg-cover bg-center h-72 overflow-hidden" style="background-image: url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0097.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-white">
         <h1 class="text-4xl font-bold animate-fade-in">Events</h1>
@@ -49,7 +49,7 @@
 
 
 <!-- Upcoming Events Section -->
-<section class="py-16 bg-white">
+<section data-aos="fade-up" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <h2 class="section-title text-3xl font-bold mb-4 text-indigo-700 animate-fade-in">Upcoming Events</h2>
@@ -108,411 +108,493 @@
     </div>
   </section>
   
- 
-  <style>
-    /* ============================
-       Calendar Container & Table Styling
-    ============================ */
-    .calendar-container {
-      overflow-x: auto;
+
+<!-- Your custom CSS (including the modal styles) -->
+<style>
+  /* Modal and enhanced UI styling as provided */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.3s ease-in-out;
+  }
+  .modal-content {
+    background: #fff;
+    margin: 8% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.4s ease-out;
+    position: relative;
+    overflow: hidden;
+  }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #ff8c00, #ff5e00);
+    color: #fff;
+  }
+  .modal-header i {
+    font-size: 1.5rem;
+    margin-right: 0.75rem;
+  }
+  .modal-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .close {
+    color: #fff;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 50%;
+    padding: 0.25rem 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .close:hover,
+  .close:focus {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-decoration: none;
+  }
+  .modal-body {
+    padding: 1rem 1.5rem;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .modal-footer {
+    padding: 1rem 1.5rem;
+    text-align: right;
+    border-top: 1px solid #eee;
+  }
+  .modal-footer button {
+    background-color: #ff8c00;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .modal-footer button:hover {
+    background-color: #ff5e00;
+  }
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
     }
-    .calendar-container table {
-      min-width: 800px;
-      width: 100%;
-      border-collapse: collapse;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      margin: 0 auto;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .calendar-container table:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-    .calendar-container th,
-    .calendar-container td {
-      border: 1px solid #e2e8f0;
-      padding: 1rem;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    .calendar-container th {
-      background-color: #f7fafc;
-      color: #2d3748;
-      font-size: 1rem;
-      font-weight: 600;
-    }
-    .calendar-container td {
-      background-color: #fff;
-      color: #4a5568;
-      position: relative; /* For positioning pseudo-elements */
-      z-index: 0; /* Establish stacking context */
-    }
-    .calendar-container td:hover {
-      background-color: #f1f5f9;
-    }
-    .calendar-container .event-day {
-      background-color: #ebf4ff;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-    .calendar-container .day-number {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      font-size: 1.125rem;
-      color: #2c5282;
-    }
-    .calendar-container .events {
-      font-size: 0.875rem;
-      color: #2b6cb0;
-      margin-top: 0.5rem;
-    }
-    .calendar-container .event {
-      margin: 0.25rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .calendar-container .event::before {
-      content: "\f073"; /* Font Awesome calendar icon */
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      margin-right: 0.5rem;
-      color: #2b6cb0;
-      transition: color 0.3s ease;
-    }
-    .calendar-container .event:hover::before {
-      color: #2c5282;
-    }
-    
-   /* ============================
-   Enhanced Modal Styling with Icons & Modern UI
-============================ */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgba(0, 0, 0, 0.7); /* Darker overlay */
-  backdrop-filter: blur(4px); /* Blur effect */
+  }
+  .modal-content h3 {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+  }
+  .modal-content p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+  }
+  .modal-flag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    transition: background-color 0.3s ease;
+  }
+  .modal-flag.past {
+    background-color: #e74c3c;
+  }
+  .modal-flag.upcoming {
+    background-color: #27ae60;
+  }
+
+
+
+
+ /* General FullCalendar Enhancements */
+.fc {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #fff;
+}
+
+/* Toolbar styling for dynamic view switching */
+.fc .fc-toolbar {
+  background: #f7f7f7;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Button styling in the toolbar */
+.fc .fc-button {
+  background-color: #4f46e5; /* Indigo-600 */
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+}
+.fc .fc-button:hover {
+  background-color: #4338ca; /* Darker indigo */
+}
+.fc .fc-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Category-Based Color Coding with Icons */
+
+/* SERVICE */
+.fc-event.category-service {
+  background-color: #34d399; /* Emerald-400 */
+  border-color: #10b981; /* Emerald-600 */
+  position: relative;
+  padding-left: 2.5rem; /* Extra space for the icon */
+}
+.fc-event.category-service::before {
+  content: "\f51d";  /* Font Awesome icon for church (adjust code if needed) */
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+}
+
+/* MEETING */
+.fc-event.category-meeting {
+  background-color: #fbbf24; /* Amber-400 */
+  border-color: #f59e0b; /* Amber-500 */
+  position: relative;
+  padding-left: 2.5rem;
+}
+.fc-event.category-meeting::before {
+  content: "\f2b5";  /* Font Awesome handshake icon */
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+}
+
+/* YOUTH */
+.fc-event.category-youth {
+  background-color: #60a5fa; /* Blue-400 */
+  border-color: #3b82f6; /* Blue-500 */
+  position: relative;
+  padding-left: 2.5rem;
+}
+.fc-event.category-youth::before {
+  content: "\f0c0";  /* Font Awesome users icon */
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+}
+
+/* OUTREACH */
+.fc-event.category-outreach {
+  background-color: #f472b6; /* Pink-400 */
+  border-color: #ec4899; /* Pink-500 */
+  position: relative;
+  padding-left: 2.5rem;
+}
+.fc-event.category-outreach::before {
+  content: "\f4d1";  /* Font Awesome hands-helping icon */
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+}
+
+/* SPECIAL */
+.fc-event.category-special {
+  background-color: #a78bfa; /* Purple-400 */
+  border-color: #8b5cf6; /* Purple-500 */
+  position: relative;
+  padding-left: 2.5rem;
+}
+.fc-event.category-special::before {
+  content: "\f005";  /* Font Awesome star icon */
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+}
+
+/* OTHER */
+.fc-event.category-other {
+  background-color: #d1d5db; /* Gray-300 */
+  border-color: #9ca3af; /* Gray-500 */
+  position: relative;
+  padding-left: 2.5rem;
+}
+.fc-event.category-other::before {
+  content: "\f141";  /* Font Awesome ellipsis-h icon */
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+}
+
+/* Date/Time Formatting */
+.fc-event-time {
+  font-weight: bold;
+  color: #374151; /* Gray-700 */
+}
+
+/* Enhanced Date Number in the Day Grid */
+.fc-daygrid-day-number {
+  font-size: 1rem;
+  color: #1f2937; /* Gray-800 */
+  font-weight: 600;
+}
+
+/* Responsive Adjustments for Tablets and Small Desktops */
+@media (max-width: 768px) {
+  .fc .fc-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .fc .fc-button {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Additional Adjustments for Very Small Mobile Devices */
+@media (max-width: 480px) {
+  /* Reduce overall font sizes */
+  .fc {
+    font-size: 0.875rem;
+  }
+  /* Adjust toolbar padding and layout */
+  .fc .fc-toolbar {
+    padding: 0.5rem 0.75rem;
+  }
+  .fc .fc-button {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  /* Ensure modals are full-width and easy to interact with */
+  .modal-content {
+    width: 95%;
+    margin: 5% auto;
+    padding: 1rem;
+  }
+  /* Reduce day number font size for compact view */
+  .fc-daygrid-day-number {
+    font-size: 0.875rem;
+  }
+  /* Increase minimum height for interactive elements to aid tapping */
+  .fc .fc-button, .fc .fc-daygrid-day-number {
+    min-height: 2.5rem;
+    line-height: 2.5rem;
+  }
+}
+
+/* Swipe Navigation Enhancements */
+.fc .fc-scroller {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+/* Dynamic View Switching Visuals */
+.fc .fc-view-harness {
   transition: opacity 0.3s ease-in-out;
 }
+.fc .fc-view-harness.fc-hidden {
+  opacity: 0;
+}
 
-.modal-content {
+/* Enhanced Error Handling */
+.fc-error {
+  background-color: #fee2e2; /* Red-100 */
+  color: #b91c1c; /* Red-700 */
+  padding: 1rem;
+  border: 1px solid #fecaca;
+  border-radius: 0.375rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+/* Calendar Container Styling */
+.calendar-container {
+  padding: 1rem;
   background: #fff;
-  margin: 8% auto; /* Adjust vertical alignment */
-  padding: 0; /* Remove default padding – will use inner sections */
-  width: 90%;
-  max-width: 500px;
-  border-radius: 12px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  animation: slideDown 0.4s ease-out;
-  position: relative;
-  overflow: hidden; /* For rounded corners on inner elements */
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
 }
 
-/* Modal Header with Gradient & Icon */
-.modal-header {
-  display: flex;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, #ff8c00, #ff5e00);
-  color: #fff;
-}
-.modal-header i {
-  font-size: 1.5rem;
-  margin-right: 0.75rem;
-}
-.modal-header h3 {
-  margin: 0;
-  font-size: 1.5rem;
+/* Additional styling for improved date/time display in header if needed */
+.fc .fc-col-header-cell-cushion {
   font-weight: 600;
-}
-
-/* Close Button Styling */
-.close {
-  color: #fff;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: none;
-  border-radius: 50%;
-  padding: 0.25rem 0.5rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-.close:hover,
-.close:focus {
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  text-decoration: none;
-}
-
-/* Modal Body Content Styling */
-.modal-body {
-  padding: 1rem 1.5rem;
-  color: #333;
   font-size: 1rem;
-  line-height: 1.6;
+  color: #374151;
 }
-
-/* Optional Modal Footer for Actions */
-.modal-footer {
-  padding: 1rem 1.5rem;
-  text-align: right;
-  border-top: 1px solid #eee;
-}
-.modal-footer button {
-  background-color: #ff8c00;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.modal-footer button:hover {
-  background-color: #ff5e00;
-}
-
-/* Slide Down Animation */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Optional: Headings & Paragraphs in Content */
-.modal-content h3 {
-  margin: 0.5rem 0;
-  font-size: 1.5rem;
-}
-.modal-content p {
-  margin: 0.5rem 0;
-  line-height: 1.6;
-}
-
-/* Flag Styling */
-.modal-flag {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #fff;
-  border-radius: 4px;
-  margin-left: 0.5rem;
-  transition: background-color 0.3s ease;
-}
-
-/* Default: Past Event (Red) */
-.modal-flag.past {
-  background-color: #e74c3c; /* Rich red */
-}
-
-/* Upcoming Event (Green) */
-.modal-flag.upcoming {
-  background-color: #27ae60; /* Vivid green */
-}
-
-    
-    /* -------------------------------
-       Custom Day Event Backgrounds using Pseudo-elements
-       (This highlights the cell background without changing overall styles)
-    ---------------------------------*/
-    /* Past Days: light red highlight */
-    .calendar-container td.past-event::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(255, 229, 229, 0.3); /* Light red with transparency */
-      z-index: -1;
-      transition: background-color 0.3s ease;
-    }
-    .calendar-container td.past-event:hover::before {
-      background-color: rgba(255, 215, 215, 0.9);
-    }
-    
-    /* Present Day (Today): deep orange highlight */
-    .calendar-container td.present-event::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(255, 140, 0, 0.6); /* Deep orange */
-      z-index: -1;
-      transition: background-color 0.3s ease;
-    }
-    .calendar-container td.present-event:hover::before {
-      background-color: rgba(255, 120, 0, 1); /* Even deeper orange on hover */
-    }
-    
-    /* Future Days (Upcoming): light green highlight */
-    .calendar-container td.future-event::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(230, 255, 230, 0.3); /* Light green with transparency */
-      z-index: -1;
-      transition: background-color 0.3s ease;
-    }
-    .calendar-container td.future-event:hover::before {
-      background-color: rgba(208, 255, 208, 0.7);
-    }
-    
-   /* -------------------------------
-   Styling for Event Elements within Calendar Cells
-   (Different colours and gradients based on the day’s status)
----------------------------------*/
-
-  /* Past Events */
-  .calendar-container td.past-event .modal-event {
-    position: relative;
-    background: linear-gradient(90deg, rgba(255, 99, 71, 0.2), rgba(255, 69, 0, 0.2)); /* Gradient from light tomato to a deeper red */
-    color: #b22222;  /* Dark red for text */
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    margin-top: 0.3rem;
-    transition: background 0.3s ease;
-    font-weight: 500;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  .calendar-container td.past-event .modal-event:hover {
-    background: linear-gradient(90deg, rgba(255, 99, 71, 0.4), rgba(255, 69, 0, 0.4));
-  }
-  .calendar-container td.past-event .modal-event::before {
-    content: "\f06a"; /* Font Awesome exclamation-triangle icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    margin-right: 0.5rem;
-    color: #b22222;
-  }
-
-  /* Present Day Events */
-  .calendar-container td.present-event .modal-event {
-    position: relative;
-    background: linear-gradient(90deg, rgba(255, 165, 0, 0.2), rgba(255, 140, 0, 0.2)); /* Gradient from light orange to deep orange */
-    color: #ff8c00;  /* Dark orange for text */
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    margin-top: 0.3rem;
-    transition: background 0.3s ease;
-    font-weight: 500;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  .calendar-container td.present-event .modal-event:hover {
-    background: linear-gradient(90deg, rgba(255, 165, 0, 0.4), rgba(255, 140, 0, 0.4));
-  }
-  .calendar-container td.present-event .modal-event::before {
-    content: "\f005"; /* Font Awesome star icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    margin-right: 0.5rem;
-    color: #ff8c00;
-  }
-
-  /* Future / Upcoming Events */
-  .calendar-container td.future-event .modal-event {
-    position: relative;
-    background: linear-gradient(90deg, rgba(144, 238, 144, 0.2), rgba(34, 139, 34, 0.2)); /* Gradient from light green to a deeper green */
-    color: #006400;  /* Dark green for text */
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    margin-top: 0.3rem;
-    transition: background 0.3s ease;
-    font-weight: 500;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  .calendar-container td.future-event .modal-event:hover {
-    background: linear-gradient(90deg, rgba(144, 238, 144, 0.4), rgba(34, 139, 34, 0.4));
-  }
-  .calendar-container td.future-event .modal-event::before {
-    content: "\f0f3"; /* Font Awesome bell icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    margin-right: 0.5rem;
-    color: #006400;
-  }
-
 </style>
-  
-  
-  
-  <!-- Calendar Section -->
-  <section class="py-20 bg-gradient-to-r from-gray-50 to-white">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8">
-      <div class="text-center mb-12">
-        <h2 class="section-title text-4xl font-bold mb-4 text-indigo-700">
-          Church Calendar
-        </h2>
-        <p class="text-lg text-gray-600">
-          Stay informed about all upcoming events, services, and activities at our church.
-        </p>
-      </div>
-      <div id="calendar-content">
-        {% include "community/calendar_partial.html" %}
-      </div>
+
+<!-- Calendar Section -->
+<section data-aos="fade-up" class="py-20 bg-gradient-to-r from-gray-50 to-white">
+  <div class="max-w-7xl mx-auto px-2 sm:px-8">
+    <div class="text-center mb-12">
+      <h2 class="section-title text-5xl font-bold mb-4 text-indigo-800">
+        Church Calendar
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Stay informed about all upcoming events, services, and activities at our church.
+      </p>
     </div>
-  </section>
-  
- {% comment %} <!-- Enhanced Modal Markup -->
-<div id="event-modal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <i class="fas fa-info-circle"></i>
-      <h3 id="modal-title">Event Title</h3>
-      <button class="close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <p id="modal-datetime">Event Date &amp; Time</p>
-      <p id="modal-description">Event description goes here...</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" onclick="document.getElementById('event-modal').style.display='none';">
-        Close
-      </button>
+
+
+    <!-- Dynamically generated category filters with color coding and icons -->
+<div class="flex flex-wrap justify-center gap-4 mb-8" id="category-filters">
+  {% for code, label in event_categories %}
+    {% if code == "service" %}
+      {% with icon="fa-church" bgClass="bg-emerald-100" textColor="text-emerald-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% elif code == "meeting" %}
+      {% with icon="fa-handshake" bgClass="bg-amber-100" textColor="text-amber-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% elif code == "youth" %}
+      {% with icon="fa-users" bgClass="bg-blue-100" textColor="text-blue-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% elif code == "outreach" %}
+      {% with icon="fa-hands-helping" bgClass="bg-pink-100" textColor="text-pink-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% elif code == "special" %}
+      {% with icon="fa-star" bgClass="bg-purple-100" textColor="text-purple-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% else %}
+      {% with icon="fa-ellipsis-h" bgClass="bg-gray-100" textColor="text-gray-700" %}
+        <label class="flex items-center space-x-2 {{ bgClass }} p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="font-semibold {{ textColor }}">
+            <i class="fas {{ icon }}"></i> {{ label }}
+          </span>
+        </label>
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+
+    {% comment %} <!-- Dynamically generated category filters -->
+    <div class="flex flex-wrap justify-center gap-4 mb-8" id="category-filters">
+      {% for code, label in event_categories %}
+        <label class="flex items-center space-x-2 bg-white p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
+          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
+          <span class="text-gray-800 font-semibold">{{ label }}</span>
+        </label>
+      {% endfor %}
+    </div> {% endcomment %}
+
+    <!-- Calendar Container -->
+    <div class="bg-white shadow-2xl rounded-xl overflow-hidden">
+      <div id="calendar-content" class="p-6"></div>
     </div>
   </div>
-</div> {% endcomment %}
+</section>
 
 
-<!-- Enhanced Modal Markup with Past/Upcoming Flag -->
-<div id="event-modal" class="modal">
+<!-- Enhanced Modal Markup with Extra Details -->
+<div data-aos="fade-up" id="event-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
       <i class="fas fa-info-circle"></i>
       <h3 id="modal-title">Event Title</h3>
-      <!-- Flag element: add a class "upcoming" or "past" dynamically -->
       <span id="modal-flag" class="modal-flag past">Past</span>
       <button class="close">&times;</button>
     </div>
     <div class="modal-body">
-      <p id="modal-datetime">Event Date &amp; Time</p>
-      <p id="modal-description">Event description goes here...</p>
+      <p id="modal-datetime">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Event Date &amp; Time</span>
+      </p>
+      <p id="modal-location">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Location not provided</span>
+      </p>
+      <p id="modal-category">
+        <i class="fas fa-tag"></i>
+        <span>Category not provided</span>
+      </p>
+      <p id="modal-description">
+        <i class="fas fa-align-left"></i>
+        <span>Event description goes here...</span>
+      </p>
     </div>
     <div class="modal-footer">
       <button type="button" onclick="document.getElementById('event-modal').style.display='none';">
@@ -522,220 +604,273 @@
   </div>
 </div>
 
+
+{% comment %} <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Use Django URL tag to generate the endpoint URL
+    var baseEventsUrl = "{% url 'community:events_json' %}";
+    
+    var calendarEl = document.getElementById('calendar-content');
+    
+    // Function to build the event URL including selected category filters
+    function buildEventsUrl(fetchInfo) {
+      // Get selected categories from checkboxes
+      var selectedCategories = Array.from(
+        document.querySelectorAll('#category-filters input[type="checkbox"]:checked')
+      ).map(function(cb) {
+        return cb.value;
+      });
+      // Append category parameter to URL
+      var params = new URLSearchParams({
+        start: fetchInfo.startStr,
+        end: fetchInfo.endStr,
+        categories: selectedCategories.join(',')
+      });
+      return baseEventsUrl + '?' + params.toString();
+    }
+    
+    // Initialize FullCalendar with a dynamic events function
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      // Use a function for events so that we can pass filter parameters dynamically
+      events: function(fetchInfo, successCallback, failureCallback) {
+        var url = buildEventsUrl(fetchInfo);
+        fetch(url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => failureCallback(error));
+      },
+      eventClick: function(info) {
+        info.jsEvent.preventDefault();
+        var eventObj = info.event;
+        var title = eventObj.title;
+        var start = eventObj.start;
+        var description = eventObj.extendedProps.description || 'No description provided.';
+        var location = eventObj.extendedProps.location || 'Not specified';
+        var category = eventObj.extendedProps.category || 'General';
+        
+        // Format date and time
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        var dateStr = start.toLocaleDateString(undefined, options);
+        var timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        // Update modal content with additional details and icons
+        document.getElementById("modal-title").innerText = title;
+        document.getElementById("modal-datetime").innerHTML = '<i class="fas fa-calendar-alt"></i> ' + dateStr + ' ' + timeStr;
+        document.getElementById("modal-location").innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + location;
+        document.getElementById("modal-category").innerHTML = '<i class="fas fa-tag"></i> ' + category;
+        document.getElementById("modal-description").innerHTML = '<i class="fas fa-align-left"></i> ' + description;
+        
+        // Determine Past or Upcoming
+        var now = new Date();
+        var flagEl = document.getElementById("modal-flag");
+        if (start < now) {
+          flagEl.textContent = "Past";
+          flagEl.classList.remove("upcoming");
+          flagEl.classList.add("past");
+        } else {
+          flagEl.textContent = "Upcoming";
+          flagEl.classList.remove("past");
+          flagEl.classList.add("upcoming");
+        }
+        document.getElementById("event-modal").style.display = "block";
+      }
+    });
+    
+    calendar.render();
+    
+    // Listen for changes to the category checkboxes to refetch events
+    var filterInputs = document.querySelectorAll('#category-filters input[type="checkbox"]');
+    filterInputs.forEach(function(input) {
+      input.addEventListener('change', function() {
+        calendar.refetchEvents();
+      });
+    });
+    
+    // Modal close functionality
+    document.querySelector(".modal .close").addEventListener("click", function() {
+      document.getElementById("event-modal").style.display = "none";
+    });
+    window.addEventListener("click", function(event) {
+      var modal = document.getElementById("event-modal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+</script> {% endcomment %}
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Use Django URL tag to generate the endpoint URL
+    var baseEventsUrl = "{% url 'community:events_json' %}";
+    
+    var calendarEl = document.getElementById('calendar-content');
+    
+    // Function to build the event URL including selected category filters
+    function buildEventsUrl(fetchInfo) {
+      // Get selected categories from checkboxes
+      var selectedCategories = Array.from(
+        document.querySelectorAll('#category-filters input[type="checkbox"]:checked')
+      ).map(function(cb) {
+        return cb.value;
+      });
+      // Append category parameter to URL
+      var params = new URLSearchParams({
+        start: fetchInfo.startStr,
+        end: fetchInfo.endStr,
+        categories: selectedCategories.join(',')
+      });
+      return baseEventsUrl + '?' + params.toString();
+    }
+    
+    // Initialize FullCalendar with dynamic events and day cell customization
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      // Callback to customize day cells background color
+      dayCellDidMount: function(arg) {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var cellDate = new Date(arg.date);
+        cellDate.setHours(0, 0, 0, 0);
+        // Try to target the inner day frame if available
+        var frameEl = arg.el.querySelector('.fc-daygrid-day-frame') || arg.el;
+        if(cellDate < today) {
+          // Using rgba for a very light red with low opacity
+          frameEl.style.backgroundColor = "rgba(255, 229, 229, 0.1)";
+        } else {
+          // Using rgba for a very light green with low opacity
+          frameEl.style.backgroundColor = "rgba(229, 255, 229, 0.1)";
+        }
+        
+      },
+      // Use a function for events so that we can pass filter parameters dynamically
+      events: function(fetchInfo, successCallback, failureCallback) {
+        var url = buildEventsUrl(fetchInfo);
+        fetch(url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => failureCallback(error));
+      },
+      eventClick: function(info) {
+        info.jsEvent.preventDefault();
+        var eventObj = info.event;
+        var title = eventObj.title;
+        var start = eventObj.start;
+        var description = eventObj.extendedProps.description || 'No description provided.';
+        var location = eventObj.extendedProps.location || 'Not specified';
+        var category = eventObj.extendedProps.category || 'General';
+        
+        // Format date and time
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        var dateStr = start.toLocaleDateString(undefined, options);
+        var timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        // Update modal content with additional details and icons
+        document.getElementById("modal-title").innerText = title;
+        document.getElementById("modal-datetime").innerHTML = '<i class="fas fa-calendar-alt"></i> ' + dateStr + ' ' + timeStr;
+        document.getElementById("modal-location").innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + location;
+        document.getElementById("modal-category").innerHTML = '<i class="fas fa-tag"></i> ' + category;
+        document.getElementById("modal-description").innerHTML = '<i class="fas fa-align-left"></i> ' + description;
+        
+        // Determine Past or Upcoming for modal flag
+        var now = new Date();
+        var flagEl = document.getElementById("modal-flag");
+        if (start < now) {
+          flagEl.textContent = "Past";
+          flagEl.classList.remove("upcoming");
+          flagEl.classList.add("past");
+        } else {
+          flagEl.textContent = "Upcoming";
+          flagEl.classList.remove("past");
+          flagEl.classList.add("upcoming");
+        }
+        document.getElementById("event-modal").style.display = "block";
+      }
+    });
+    
+    calendar.render();
+    
+    // Listen for changes to the category checkboxes to refetch events
+    var filterInputs = document.querySelectorAll('#category-filters input[type="checkbox"]');
+    filterInputs.forEach(function(input) {
+      input.addEventListener('change', function() {
+        calendar.refetchEvents();
+      });
+    });
+    
+    // Modal close functionality
+    document.querySelector(".modal .close").addEventListener("click", function() {
+      document.getElementById("event-modal").style.display = "none";
+    });
+    window.addEventListener("click", function(event) {
+      var modal = document.getElementById("event-modal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+</script>
+
+
   
 
 <!-- Yearly Calendar Event List Section -->
-<section class="py-10 bg-gray-100">
-    <div class="max-w-6xl mx-auto px-4">
-      <h3 class="text-4xl font-bold text-indigo-700 text-center mb-8">
-        Calendar Events for {{ selected_year }}
-      </h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {% for event in church_calendar_event_list_year %}
-          <div class="bg-white shadow-lg rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
-            <div class="p-6">
-              <h4 class="text-xl font-semibold text-indigo-700 mb-2">{{ event.title }}</h4>
-              <p class="text-gray-600 text-sm mb-1">
-                <i class="fas fa-calendar-alt mr-2"></i>{{ event.date|date:"F d, Y" }}
-              </p>
-              <p class="text-gray-600 text-sm mb-3">
-                <i class="fas fa-clock mr-2"></i>{{ event.time|date:"g:i A" }}
-              </p>
-              <p class="text-gray-700 text-base">
-                {{ event.description|truncatewords:20 }}
-              </p>
-            </div>
+<section data-aos="fade-up" class="py-10 bg-gray-100">
+  <div class="max-w-6xl mx-auto px-4">
+    <h3 class="text-4xl font-bold text-indigo-700 text-center mb-8">
+      Calendar Events for {{ selected_year }}
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      {% for event in church_calendar_event_list_year %}
+        <div class="bg-white shadow-lg rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
+          <div class="p-6">
+            <h4 class="text-xl font-semibold text-indigo-700 mb-2">{{ event.title }}</h4>
+            <p class="text-gray-600 text-sm mb-1">
+              <i class="fas fa-calendar-alt mr-2"></i>{{ event.start_datetime|date:"F d, Y" }}
+            </p>
+            <p class="text-gray-600 text-sm mb-3">
+              <i class="fas fa-clock mr-2"></i>{{ event.start_datetime|date:"g:i A" }}
+            </p>
+            <p class="text-gray-700 text-base">
+              {{ event.description|truncatewords:20 }}
+            </p>
           </div>
-        {% empty %}
+        </div>
+      {% empty %}
         <div class="col-span-full flex flex-col items-center justify-center py-16">
-            <div class="flex items-center justify-center bg-gradient-to-br from-red-500 to-orange-500 p-6 rounded-full shadow-lg mb-4">
-              <!-- Calendar SVG Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-6 4h6m-10 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <p class="text-center text-gray-600 text-xl">No events scheduled for {{ selected_year }}.</p>
-          </div>          
-        {% endfor %}
-      </div>
+          <div class="flex items-center justify-center bg-gradient-to-br from-red-500 to-orange-500 p-6 rounded-full shadow-lg mb-4">
+            <!-- Calendar SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-6 4h6m-10 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <p class="text-center text-gray-600 text-xl">No events scheduled for {{ selected_year }}.</p>
+        </div>          
+      {% endfor %}
     </div>
-  </section>
-  
-  
-  {% comment %} <!-- JavaScript for AJAX Calendar Navigation -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      function loadCalendar(url) {
-        fetch(url, {
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById('calendar-content').innerHTML = html;
-          attachCalendarNavEvents(); // reattach click events
-          attachModalEvents();       // reattach modal event listeners
-        })
-        .catch(error => console.error('Error fetching calendar:', error));
-      }
-  
-      function attachCalendarNavEvents() {
-        const navLinks = document.querySelectorAll('.calendar-nav');
-        navLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const url = this.getAttribute('href');
-            loadCalendar(url);
-            window.history.pushState(null, '', url);
-          });
-        });
-      }
-  
-      // Attach initial events for navigation
-      attachCalendarNavEvents();
-  
-      // Handle browser back/forward
-      window.addEventListener('popstate', function(e) {
-        loadCalendar(location.search);
-      });
-  
-      // Modal Interactions for Calendar Events
-      function attachModalEvents() {
-        const modal = document.getElementById("event-modal");
-        const modalTitle = document.getElementById("modal-title");
-        const modalDatetime = document.getElementById("modal-datetime");
-        const modalDescription = document.getElementById("modal-description");
-        const closeBtn = document.querySelector(".modal .close");
+  </div>
+</section>
 
-  
-        const modalEvents = document.querySelectorAll('.modal-event');
-        modalEvents.forEach(eventEl => {
-          eventEl.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const title = eventEl.getAttribute('data-title');
-            const date = eventEl.getAttribute('data-date');
-            const time = eventEl.getAttribute('data-time');
-            const description = eventEl.getAttribute('data-description');
-    
-  
-            modalTitle.innerText = title;
-            modalDatetime.innerText = date + ' ' + time;
-            modalDescription.innerText = description;
-            modal.style.display = "block";
-          });
-        });
-  
-        closeBtn.addEventListener('click', function() {
-          modal.style.display = "none";
-        });
-  
-        window.addEventListener('click', function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        });
-      }
-  
-      // Attach modal events initially
-      attachModalEvents();
-    });
-  </script> {% endcomment %}
-
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      function loadCalendar(url) {
-        fetch(url, {
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById('calendar-content').innerHTML = html;
-          attachCalendarNavEvents(); // reattach click events
-          attachModalEvents();       // reattach modal event listeners
-        })
-        .catch(error => console.error('Error fetching calendar:', error));
-      }
-  
-      function attachCalendarNavEvents() {
-        const navLinks = document.querySelectorAll('.calendar-nav');
-        navLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const url = this.getAttribute('href');
-            loadCalendar(url);
-            window.history.pushState(null, '', url);
-          });
-        });
-      }
-  
-      // Attach initial events for navigation
-      attachCalendarNavEvents();
-  
-      // Handle browser back/forward
-      window.addEventListener('popstate', function(e) {
-        loadCalendar(location.search);
-      });
-  
-      // Modal Interactions for Calendar Events
-      function attachModalEvents() {
-        const modal = document.getElementById("event-modal");
-        const modalTitle = document.getElementById("modal-title");
-        const modalDatetime = document.getElementById("modal-datetime");
-        const modalDescription = document.getElementById("modal-description");
-        const closeBtn = document.querySelector(".modal .close");
-        const flagEl = document.getElementById('modal-flag');  // Make sure this element exists in your markup
-  
-        const modalEvents = document.querySelectorAll('.modal-event');
-        modalEvents.forEach(eventEl => {
-          eventEl.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const title = eventEl.getAttribute('data-title');
-            const date = eventEl.getAttribute('data-date');
-            const time = eventEl.getAttribute('data-time');
-            const description = eventEl.getAttribute('data-description');
-  
-            // Combine date and time strings to create a Date object.
-            // Example format: "March 26, 2025 07:00 PM"
-            const eventDateTime = new Date(date + ' ' + time);
-            const now = new Date();
-  
-            // Compare eventDateTime with now
-            if (eventDateTime < now) {
-              flagEl.textContent = "Past";
-              flagEl.classList.remove('upcoming');
-              flagEl.classList.add('past');
-            } else {
-              flagEl.textContent = "Upcoming";
-              flagEl.classList.remove('past');
-              flagEl.classList.add('upcoming');
-            }
-  
-            modalTitle.innerText = title;
-            modalDatetime.innerText = date + ' ' + time;
-            modalDescription.innerText = description;
-            modal.style.display = "block";
-          });
-        });
-  
-        closeBtn.addEventListener('click', function() {
-          modal.style.display = "none";
-        });
-  
-        window.addEventListener('click', function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        });
-      }
-  
-      // Attach modal events initially
-      attachModalEvents();
-    });
-  </script>
-  
 
 <!-- Outreach Programs Section -->
-<section class="py-10 bg-gray-100">
+<section data-aos="fade-up" class="py-10 bg-gray-100">
     <div class="max-w-6xl mx-auto px-4">
       <h3 class="text-4xl font-bold text-indigo-700 text-center mb-8">Outreach Programs</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -764,7 +899,7 @@
 
   
 <!-- Featured Events -->
-<section class="py-20 bg-white">
+<section data-aos="fade-up" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="section-title text-3xl text-center font-bold mb-8 text-indigo-700 animate-fade-in">Featured Events</h2>
         <p class="text-xl text-gray-600 text-center mb-12 animate-fade-in delay-100">Don't miss these highlighted events</p>
@@ -813,7 +948,7 @@
 
 
 <!-- Monthly Calendar -->
-<section class="py-20 bg-gray-100">
+<section data-aos="fade-up" class="py-20 bg-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="section-title text-center text-3xl font-bold mb-8 text-indigo-700 animate-fade-in">Monthly Events</h2>
         <p class="text-xl text-center text-gray-600 mb-12 animate-fade-in delay-100">Regularly scheduled gatherings</p>

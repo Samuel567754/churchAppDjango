@@ -9,6 +9,8 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from membership.models import Member
 from django.urls import reverse
+import datetime
+from django.utils import timezone
 
 # EVENT MODEL
 class Event(ImageMixin):
@@ -117,30 +119,79 @@ class OutreachProgram(models.Model):
 
 
 
+# class ChurchCalendar(models.Model):
+#     title = models.CharField(max_length=255)
+#     date = models.DateField(default=datetime.date.today)
+#     time = models.TimeField(default=datetime.time(12, 0))  # Default time set to 12:00 PM
+#     description = models.TextField(blank=True, null=True)
+#     slug = models.SlugField(unique=True, blank=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     class Meta:
+#         ordering = ['date', 'time']
+#         verbose_name = "Church Calendar Event"
+#         verbose_name_plural = "Church Calendar Events"
+
+#     def __str__(self):
+#         return f"{self.title} on {self.date} at {self.time}"
+
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             self.slug = slugify(self.title)
+#         super().save(*args, **kwargs)
+
+#     def get_absolute_url(self):
+#         return reverse('church_calendar_detail', args=[self.slug])
+
+
+
+
+EVENT_CATEGORIES = [
+    ('service', 'Service'),
+    ('meeting', 'Meeting'),
+    ('youth', 'Youth Event'),
+    ('outreach', 'Outreach'),
+    ('special', 'Special Event'),
+    ('other', 'other'),
+]
+
 class ChurchCalendar(models.Model):
     title = models.CharField(max_length=255)
-    date = models.DateField()
-    time = models.TimeField()
+    start_datetime = models.DateTimeField(default=timezone.now, help_text="Start date and time of the event")
+    end_datetime = models.DateTimeField(blank=True, null=True, help_text="End date and time of the event (optional)")
+    category = models.CharField(max_length=20, choices=EVENT_CATEGORIES, default='service')
+    location = models.CharField(max_length=255, blank=True, null=True, help_text="Location of the event")
     description = models.TextField(blank=True, null=True)
+    all_day = models.BooleanField(default=False, help_text="Check if the event lasts all day")
+    featured = models.BooleanField(default=False, help_text="Mark as a featured event for special display")
     slug = models.SlugField(unique=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['date', 'time']
+        ordering = ['start_datetime']
         verbose_name = "Church Calendar Event"
         verbose_name_plural = "Church Calendar Events"
 
     def __str__(self):
-        return f"{self.title} on {self.date} at {self.time}"
+        # Display the event title and its start/end times in a friendly format
+        end = self.end_datetime if self.end_datetime else self.start_datetime
+        return f"{self.title} from {self.start_datetime.strftime('%Y-%m-%d %I:%M %p')} to {end.strftime('%Y-%m-%d %I:%M %p')}"
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        # If end_datetime is not provided, default to the start_datetime
+        if not self.end_datetime:
+            self.end_datetime = self.start_datetime
         super().save(*args, **kwargs)
 
+    # def get_absolute_url(self):
+    #     return reverse('church_calendar_detail', args=[self.slug])
+    
     def get_absolute_url(self):
-        return reverse('church_calendar_detail', args=[self.slug])
+        return reverse('community:church_calendar_detail', args=[self.slug])
 
 
 

@@ -11,7 +11,7 @@
 
 {% block content %}
 
-<section class="relative bg-cover bg-center h-72 overflow-hidden"
+<section data-aos="fade-in" class="relative bg-cover bg-center h-72 overflow-hidden"
 style="background-image: {% if sermon.image %}url('{{ sermon.image.url }}'){% else %}url('https://images.unsplash.com/photo-1560361635-9d6b6befc49b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2VybW9uc3xlbnwwfHwwfHx8MA=='){% endif %};"
 >
   <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
@@ -33,7 +33,7 @@ style="background-image: {% if sermon.image %}url('{{ sermon.image.url }}'){% el
 
 <article class="max-w-7xl mx-auto px-4 py-12">
   <!-- Sermon Header -->
-  <header class="mb-8">
+  <header data-aos="fade-in" class="mb-8">
     {% if sermon.series.exists %}
     <div class="mb-4">
       <a href="{% url 'worship:series_detail' sermon.series.first.slug %}" 
@@ -73,7 +73,7 @@ style="background-image: {% if sermon.image %}url('{{ sermon.image.url }}'){% el
   </header>
 
  <!-- Media Section -->
-<section class="mb-12">
+<section data-aos="fade-in" class="mb-12">
   {% if sermon.video_url %}
     <!-- Video Player -->
     <div class="aspect-w-16 aspect-h-9 bg-black rounded-xl overflow-hidden shadow-xl">
@@ -157,7 +157,7 @@ style="background-image: {% if sermon.image %}url('{{ sermon.image.url }}'){% el
 <!-- Sermon Content -->
 <div class="grid lg:grid-cols-3 gap-12">
   <main class="lg:col-span-2">
-    <section class="prose max-w-none mb-12">
+    <section data-aos="fade-in" class="prose max-w-none mb-12">
       <h2 class="text-2xl font-bold mb-4">Message Summary</h2>
       <div class="text-gray-600 leading-relaxed">
         {{ sermon.description|linebreaks }}
@@ -203,7 +203,7 @@ style="background-image: {% if sermon.image %}url('{{ sermon.image.url }}'){% el
       </section>
     {% endif %}
 
-    <section class="bg-gray-50 p-6 rounded-2xl shadow-sm">
+    <section data-aos="fade-in" class="bg-gray-50 p-6 rounded-2xl shadow-sm">
       <h3 class="text-lg font-bold mb-4">Share Message</h3>
       <div class="flex space-x-4">
         <!-- Facebook -->
@@ -248,7 +248,7 @@ style="background-image: {% if sermon.image %}url('{{ sermon.image.url }}'){% el
 
 <!-- Related Sermons -->
 {% if related_sermons %}
-<section class="mt-16">
+<section data-aos="fade-in" class="mt-16">
   <h2 class="text-2xl font-bold mb-8">More from this Series</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     {% for sermon in related_sermons %}

@@ -228,6 +228,7 @@ def send_email_approved(user):
         'user': user,
         'domain': settings.SITE_DOMAIN,
         'local': settings.LOCAL_DOMAIN,
+        'debug': settings.DEBUG,         # Pass the debug flag to the template
     }
 
     # Render the HTML email
@@ -248,6 +249,7 @@ def send_email_rejected(user):
         'user': user,
         'domain': settings.SITE_DOMAIN,
         'local': settings.LOCAL_DOMAIN,
+        'debug': settings.DEBUG,         # Pass the debug flag to the template
     }
 
     # Render the HTML email

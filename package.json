@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.10",
+    "aos": "^2.3.4",
     "flowbite": "^2.5.2"
   }
 }

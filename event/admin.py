@@ -177,28 +177,56 @@ class OutreachProgramAdmin(admin.ModelAdmin):
 #     ]
 
 
+# @admin.register(ChurchCalendar)
+# class ChurchCalendarAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'date', 'time', 'created_at', 'updated_at')
+#     search_fields = ('title', 'description')
+#     list_filter = ('date',)
+#     date_hierarchy = 'date'
+    
+#     # Automatically populate slug from title
+#     prepopulated_fields = {'slug': ('title',)}
+    
+#     # Make timestamps read-only in the admin
+#     readonly_fields = ('created_at', 'updated_at')
+    
+#     fieldsets = (
+#         (None, {
+#             'fields': ('title', 'slug', 'description'),
+#         }),
+#         ('Event Details', {
+#             'fields': ('date', 'time'),
+#         }),
+#         ('Timestamps', {
+#             'fields': ('created_at', 'updated_at'),
+#             'classes': ('collapse',),  # Collapsible section for cleaner UI
+#         }),
+#     )
+
+
+
+
 @admin.register(ChurchCalendar)
 class ChurchCalendarAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'time', 'created_at', 'updated_at')
-    search_fields = ('title', 'description')
-    list_filter = ('date',)
-    date_hierarchy = 'date'
-    
-    # Automatically populate slug from title
-    prepopulated_fields = {'slug': ('title',)}
-    
-    # Make timestamps read-only in the admin
-    readonly_fields = ('created_at', 'updated_at')
+    list_display = ('title', 'start_datetime', 'end_datetime', 'category', 'location', 'featured')
+    list_filter = ('category', 'featured', 'start_datetime')
+    search_fields = ('title', 'description', 'location')
+    prepopulated_fields = {"slug": ("title",)}
+    ordering = ('start_datetime',)
     
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'description'),
+            'fields': ('title', 'slug', 'category', 'location', 'featured')
+        }),
+        ('Event Timing', {
+            'fields': ('start_datetime', 'end_datetime', 'all_day'),
         }),
         ('Event Details', {
-            'fields': ('date', 'time'),
+            'fields': ('description',),
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',),  # Collapsible section for cleaner UI
+            'classes': ('collapse',),
         }),
     )
+    readonly_fields = ('created_at', 'updated_at')

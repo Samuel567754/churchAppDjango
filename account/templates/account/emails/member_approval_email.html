@@ -21,14 +21,24 @@
             <p style="font-size: 1rem; font-weight: bold; margin-bottom: 24px;">Best regards,<br>The Church Team</p>
 
             <!-- Button -->
-            <div style="text-align: center; margin-top: 24px;">
-                <a href="{{ local|default:domain }}{% url 'account:login' %}" 
-                   style="display: inline-block; background-color: #16a34a; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
-                   onmouseover="this.style.backgroundColor='#15803d'"
-                   onmouseout="this.style.backgroundColor='#16a34a'">
-                    proceed to login
-                </a>
-            </div>
+           <!-- Somewhere in your email template -->
+        <div style="text-align: center; margin-top: 24px;">
+            {% if debug %}
+            <a href="{{ local }}{% url 'account:login' %}"
+                style="display: inline-block; background-color: #16a34a; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
+                onmouseover="this.style.backgroundColor='#15803d'"
+                onmouseout="this.style.backgroundColor='#16a34a'">
+                Proceed to Login
+            </a>
+            {% else %}
+            <a href="{{ domain }}{% url 'account:login' %}"
+                style="display: inline-block; background-color: #16a34a; color: #ffffff; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
+                onmouseover="this.style.backgroundColor='#15803d'"
+                onmouseout="this.style.backgroundColor='#16a34a'">
+                Proceed to Login
+            </a>
+            {% endif %}
+        </div>
         </div>
 
         <!-- Footer -->

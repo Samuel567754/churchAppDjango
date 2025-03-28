@@ -19,11 +19,10 @@
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
     </style>
-
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
     <header class="w-full text-center pt-8">
-        <img src="{ % static 'images/coc-logo.png' %}" alt="Church Logo" 
+        <img src="{% static 'images/coc-logo.png' %}" alt="Church Logo" 
              class="mx-auto mb-8 w-32 hover:scale-105 transition-transform dark:brightness-125">
     </header>
 
@@ -47,7 +46,7 @@
                 </p>
             </div>
             <div class="mt-8">
-                <a href="{{ url('Community:home') }}"
+                <a href="{% url 'Community:home' %}"
                    class="inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-lg 
                           text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                           focus:ring-blue-500 transition-colors scripture-font">

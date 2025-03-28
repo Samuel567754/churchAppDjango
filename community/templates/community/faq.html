@@ -4,7 +4,7 @@
 
 {% block content %}
   <!-- Page Header -->
-  <section class="relative">
+  <section data-aos="fade-down" class="relative">
     <img
       src="https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0068.jpg"
       alt="Worship and Fellowship"
@@ -17,10 +17,10 @@
     </div>
   </section>
 
-  <section class="py-16 bg-gradient-to-r from-fuchsia-200 to-cyan-200">
+  <section data-aos="slide-up" class="py-16 bg-gradient-to-r from-fuchsia-200 to-cyan-200">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
       <!-- Header Section -->
-      <div class="text-center mb-12">
+      <div data-aos="slide-up" class="text-center mb-12">
         <h1 class="text-5xl font-bold text-gray-900 mb-4 relative inline-block">
           <span class="relative z-10">FAQ Center</span>
           <div class="absolute bottom-0 left-0 w-full h-3 bg-blue-100 opacity-80 transform -rotate-1"></div>
@@ -42,7 +42,7 @@
       <!-- FAQ Items -->
       <div class="space-y-4" id="faqContainer">
         {% for faq in faqs %}
-        <div class="faq-item group bg-white border border-gray-200 rounded-xl hover:border-blue-500 transition-all duration-200 shadow-sm hover:shadow-lg">
+        <div data-aos="slide-up" class="faq-item group bg-white border border-gray-200 rounded-xl hover:border-blue-500 transition-all duration-200 shadow-sm hover:shadow-lg">
           <button class="flex items-center justify-between w-full p-6" aria-expanded="false">
             <h3 class="text-xl font-semibold text-gray-900 text-left pr-4">{{ faq.question }}</h3>
             <i class="fas fa-chevron-down text-gray-500 text-lg transform transition-transform duration-300"></i>

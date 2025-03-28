@@ -155,6 +155,7 @@ def send_email_pending_approval(user):
         'user': user,
         'domain': settings.SITE_DOMAIN,
         'local': settings.LOCAL_DOMAIN,
+        'debug': settings.DEBUG,  
     }
     
     # Render the email as HTML

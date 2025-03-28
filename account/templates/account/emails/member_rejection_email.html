@@ -22,14 +22,23 @@
 
             <!-- Button Link -->
             <div style="text-align: center; margin-top: 24px;">
-                <a href="{{ local|default:domain }}{% url 'contact:contact' %}" 
-                style="display: inline-block; background-color: #ef4444; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
-                onmouseover="this.style.backgroundColor='#dc2626'"
-                onmouseout="this.style.backgroundColor='#ef4444'">
-                 Visit Contact
-             </a>
-             
-            </div>
+                {% if debug %}
+                  <a href="{{ local }}{% url 'contact:contact' %}" 
+                     style="display: inline-block; background-color: #ef4444; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
+                     onmouseover="this.style.backgroundColor='#dc2626'"
+                     onmouseout="this.style.backgroundColor='#ef4444'">
+                    Visit Contact
+                  </a>
+                {% else %}
+                  <a href="{{ domain }}{% url 'contact:contact' %}" 
+                     style="display: inline-block; background-color: #ef4444; color: #ffffff; padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;"
+                     onmouseover="this.style.backgroundColor='#dc2626'"
+                     onmouseout="this.style.backgroundColor='#ef4444'">
+                    Visit Contact
+                  </a>
+                {% endif %}
+              </div>
+              
              <!-- Button Link -->
              <div style="text-align: center; margin-top: 24px;">
                 <a href="mailto:support@church.com?subject=Support%20Request" style="color: #2563eb; text-decoration: none;">Contact Support</a>

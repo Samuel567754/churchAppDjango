@@ -6,7 +6,7 @@
 {% load static %}
 
 <!-- Page Header -->
-<section class="relative bg-cover bg-center h-72 overflow-hidden"
+<section data-aos="fade-in" class="relative bg-cover bg-center h-72 overflow-hidden"
   style="background-image: url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0065.jpg');">
   <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white z-20">
@@ -34,7 +34,7 @@
     </style>
   {% endif %}
   
-  <section class="group relative w-full h-[450px] md:h-[550px] overflow-hidden rounded-xl shadow-lg">
+  <section data-aos="fade-in" class="group relative w-full h-[450px] md:h-[550px] overflow-hidden rounded-xl shadow-lg">
     {# Background Media: Video, Image fallback, or Gradient #}
     {% if featured_sermon.video_url %}
       <div class="absolute inset-0">
@@ -105,7 +105,7 @@
   
 
 <!-- Sermon Grid -->
-<section class="animate-fade-in-up">
+<section data-aos="fade-in" class="animate-fade-in-up">
   <div class="mb-8 flex flex-col md:flex-row justify-between items-baseline gap-4">
     {% if selected_tag %}
       <h2 class="text-3xl text-center font-bold text-gray-900">Sermons tagged with "{{ selected_tag.name }}"</h2>
@@ -199,7 +199,7 @@
 
 <!-- Series & Topics -->
 {% if series_list or tags_list %}
-<section class="grid md:grid-cols-2 gap-8 animate-fade-in-up">
+<section data-aos="fade-in" class="grid md:grid-cols-2 gap-8 animate-fade-in-up">
   {% if series_list %}
   <div class="bg-gray-50 p-8 rounded-2xl shadow-inner">
     <h3 class="text-2xl font-bold mb-6">Sermon Series</h3>

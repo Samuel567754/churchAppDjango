@@ -46,6 +46,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">  
+<!-- FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
   </head>
   <body class="bg-gray-50">
 
@@ -68,57 +71,6 @@
         </script>
         {% endfor %}
     {% endif %}
-
-
-    {% comment %} <script nonce="{{ request.csp_nonce }}">
-      console.log("Nonce test works");
-      alert("Nonce test works");
-  </script> {% endcomment %}
-  
-
-   
-    {% comment %} {% for notification in notifications %}
-    <script>
-        // Play notification sound
-        //var notificationSound = new Audio('{% static "sounds/mixkit-software-interface-start-2574.//wav" %}');
-        //notificationSound.play();
-    
-        // Display toast notification after sound delay
-        setTimeout(function() {
-            Swal.fire({
-                toast: true,
-                icon: 'info',
-                title: "You have a new notification",
-                position: 'bottom-right',
-                timer: 5000,
-                timerProgressBar: true,
-                showConfirmButton: false,
-                customClass: {
-                    toast: 'bg-blue-500 text-white',
-                }
-            });
-    
-            // Mark notification as shown
-            fetch(`/notifications/mark_as_shown/{{ notification.id }}/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCSRFToken(),  // Ensure CSRF token
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.success) {
-                    console.error(data.error || 'Failed to mark as shown');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }, 1000); // Delay for sound
-    </script>
-    {% endfor %}
-</div> {% endcomment %}
     </div>
 
     <!-- Content -->
@@ -141,18 +93,52 @@
     
  <!-- JavaScript Libraries and Scripts -->
 
+
+ <!-- Custom JS Files -->
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ <script>
+      AOS.init({
+        // Responsive control
+        disable: 'mobile', // Disable animations on mobile devices for better performance
+        startEvent: 'DOMContentLoaded',
+        
+        // Animation timing
+        offset: 150, // Slightly later trigger point for smoother initiation
+        delay: 0, // Base delay (override with data-aos-delay per element)
+        duration: 600, // Optimal duration for professional-looking animations
+        easing: 'ease-in-out', // Smoother transition curve
+        once: true, // Animate only once for cleaner user experience
+        mirror: false, // Avoid backward animations for professional flow
+
+        // Advanced configuration
+        throttleDelay: 150, // Better scroll performance
+        anchorPlacement: 'top-center', // Trigger when element center passes screen bottom
+        initClassName: 'aos-prepare', // Useful for pre-animation setup
+        animatedClassName: 'aos-executed',
+
+        // Performance optimizations
+        useClassNames: false,
+        disableMutationObserver: true // Better for static content sites
+      });
+      
+      // Refresh on window resize
+      window.addEventListener('resize', function() {
+        AOS.refresh();
+      });
+</script>
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<!-- Optionally include FontAwesome for icons (if not already available) -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<!-- Your custom JavaScript -->
   <!-- Flatpickr JS -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <!-- Flatpickr Localization -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/default.js"></script>
-
-  <!-- Custom JS Files -->
-  <script src="{% static 'js/settings.js' %}"></script>
-  <script src="{% static 'js/main.js' %}"></script>
-
   <!-- Include Flowbite (SweetAlert is not shown here but Flowbite is) -->
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-  {% include 'partials/_ministries_detail_model.html' %} 
-  {% block extra_js %}{% endblock %}
+  <script src="{% static 'js/settings.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  {% include 'partials/_ministries_detail_model.html' %}
   </body>
 </html>

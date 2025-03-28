@@ -1,0 +1,14 @@
+<!-- community/church_calendar_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ event.title }}</title>
+</head>
+<body>
+  <h1>{{ event.title }}</h1>
+  <p>Date: {{ event.start_datetime|date:"F d, Y g:i A" }}</p>
+  <p>Description: {{ event.description }}</p>
+  <!-- Add more event details as needed -->
+</body>
+</html>

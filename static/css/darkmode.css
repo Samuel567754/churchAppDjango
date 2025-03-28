@@ -89,3 +89,135 @@
   p {
     margin-bottom: 1rem;
   }
+
+
+
+
+
+
+.fc {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #fff;
+  }
+  
+  /* Toolbar styling for dynamic view switching */
+  .fc .fc-toolbar {
+    background: #f7f7f7;
+    border-bottom: 1px solid #e2e2e2;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Button styling in the toolbar */
+  .fc .fc-button {
+    background-color: #4f46e5; /* Indigo-600 */
+    color: #fff;
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+  }
+  .fc .fc-button:hover {
+    background-color: #4338ca; /* Darker indigo */
+  }
+  .fc .fc-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Category-Based Color Coding */
+  .fc-event.category-service {
+    background-color: #34d399; /* Emerald-400 */
+    border-color: #10b981; /* Emerald-600 */
+  }
+  .fc-event.category-meeting {
+    background-color: #fbbf24; /* Amber-400 */
+    border-color: #f59e0b; /* Amber-500 */
+  }
+  .fc-event.category-youth {
+    background-color: #60a5fa; /* Blue-400 */
+    border-color: #3b82f6; /* Blue-500 */
+  }
+  .fc-event.category-outreach {
+    background-color: #f472b6; /* Pink-400 */
+    border-color: #ec4899; /* Pink-500 */
+  }
+  .fc-event.category-special {
+    background-color: #a78bfa; /* Purple-400 */
+    border-color: #8b5cf6; /* Purple-500 */
+  }
+  .fc-event.category-other {
+    background-color: #d1d5db; /* Gray-300 */
+    border-color: #9ca3af; /* Gray-500 */
+  }
+  
+  
+  /* Date/Time Formatting */
+  /* Improve styling for event times */
+  .fc-event-time {
+    font-weight: bold;
+    color: #374151; /* Gray-700 */
+  }
+  
+  /* Enhanced Date Number in the Day Grid */
+  .fc-daygrid-day-number {
+    font-size: 1rem;
+    color: #1f2937; /* Gray-800 */
+    font-weight: 600;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .fc .fc-toolbar {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .fc .fc-button {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+    }
+  }
+  
+  /* Swipe Navigation Enhancements */
+  .fc .fc-scroller {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  
+  /* Dynamic View Switching Visuals */
+  .fc .fc-view-harness {
+    transition: opacity 0.3s ease-in-out;
+  }
+  .fc .fc-view-harness.fc-hidden {
+    opacity: 0;
+  }
+  
+  /* Enhanced Error Handling */
+  .fc-error {
+    background-color: #fee2e2; /* Red-100 */
+    color: #b91c1c; /* Red-700 */
+    padding: 1rem;
+    border: 1px solid #fecaca;
+    border-radius: 0.375rem;
+    margin: 1rem 0;
+    text-align: center;
+  }
+  
+  /* Calendar Container Styling */
+  .calendar-container {
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+  
+  /* Additional styling for improved date/time display in header if needed */
+  .fc .fc-col-header-cell-cushion {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #374151;
+  } 

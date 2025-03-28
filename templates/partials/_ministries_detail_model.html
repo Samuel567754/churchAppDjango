@@ -67,4 +67,101 @@
     </div>
     </div>
     </div>
+
+{% comment %} <script>
+  async function openMinistryModal(ministrySlug) {
+    try {
+      // Fetch ministry details using the namespaced URL
+      const response = await fetch(`/membership/dashboard/ministries/${ministrySlug}/`);
+      if (!response.ok) throw new Error("Failed to fetch ministry details");
+  
+      const data = await response.json();
+  
+      // Populate modal fields with fetched data
+      document.getElementById("modalTitle").innerText = data.name || "No title available";
+      document.getElementById("modalDescription").innerText = data.description || "";
+      document.getElementById("modalLeader").innerText = data.leader || "Not assigned";
+  
+      // Build the members list safely
+      const membersContainer = document.getElementById("modalMembers");
+      if (Array.isArray(data.members) && data.members.length > 0) {
+        membersContainer.innerHTML = `<ul class="list-disc pl-4">
+          ${data.members.map(member => `<li>${member}</li>`).join("")}
+        </ul>`;
+      } else {
+        membersContainer.textContent = "No members assigned yet.";
+      }
+  
+      // Prepare to set image with a fallback
+      const modalImage = document.getElementById("modalImage");
+      const fallbackImage = "/static/images/offer_6.jpg"; // A valid fallback image
+  
+      // Log the image URL
+      console.log("Image URL:", data.image_url);
+  
+      // Set up image load and error handlers BEFORE setting src
+      modalImage.onload = () => {
+        console.log("Image loaded successfully");
+        modalImage.classList.remove("opacity-0");
+        // Clear onerror after successful load to prevent unwanted re-triggering
+        modalImage.onerror = null;
+      };
+  
+      modalImage.onerror = () => {
+        console.log("Error loading image. Fallback used.");
+        // Remove onerror to avoid infinite loop if fallback fails
+        modalImage.onerror = null;
+        modalImage.src = fallbackImage;
+      };
+  
+      // Set the image source dynamically based on data
+      modalImage.src = data.image_url || fallbackImage;
+      console.log("Setting image source to:", modalImage.src);
+  
+      // Show modal with entrance animation
+      const modal = document.getElementById("ministryModal");
+      const modalContent = document.getElementById("modalContent");
+  
+      modal.classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+  
+      // Delay removal of starting animation classes to trigger CSS transitions
+      setTimeout(() => {
+        modalContent.classList.remove("scale-95", "opacity-0");
+        modalContent.classList.add("scale-100", "opacity-100");
+      }, 50);
+    } catch (error) {
+      console.error("Error loading ministry details:", error);
+      alert("Failed to load ministry details. Please try again.");
+    }
+  }
+  
+  window.openMinistryModal = openMinistryModal;
+  // Function to close modal
+  function closeMinistryModal() {
+    const modal = document.getElementById("ministryModal");
+    const modalContent = document.getElementById("modalContent");
+
+    modalContent.classList.add("scale-95", "opacity-0");
+    document.body.classList.remove("overflow-hidden");
+
+    setTimeout(() => {
+      modal.classList.add("hidden");
+    }, 200);
+  }
+
+  // Close modal on outside click
+  document.getElementById("ministryModal").addEventListener("click", (e) => {
+    const modal = document.getElementById("ministryModal");
+    if (e.target === modal) closeMinistryModal();
+  });
+
+  // Close modal on ESC key
+  document.addEventListener("keydown", (e) => {
+    const modal = document.getElementById("ministryModal");
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      closeMinistryModal();
+    }
+  });
+</script> {% endcomment %}
    

@@ -439,7 +439,13 @@
   }
   /* Reduce day number font size for compact view */
   .fc-daygrid-day-number {
-    font-size: 0.875rem;
+    font-size: 1rem;             /* Slightly larger font */
+    font-weight: 650;            /* Increased boldness */
+    /*background-color: rgba(0, 0, 0, 0.1);  /* Light background for contrast */
+   /* padding: 0.25rem 0.5rem;       Add some padding */
+    border-radius: 9999px;       /* Fully rounded for a pill shape */
+    display: inline-block;       /* Allow padding and background to wrap the text */
+   /* margin: 0.25rem;             /* Optional spacing from other elements */
   }
 }
 
@@ -489,6 +495,67 @@
   height: 650px;     /* Define a fixed height */
   margin: auto;      /* Center the calendar horizontally */
 }
+
+
+
+
+
+ /* Center the search container wrapper */
+ #search-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Search container: relative positioning for proper placement */
+#search-container {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Toggle button with gradient background */
+#search-toggle {
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#search-toggle:hover {
+  transform: scale(1.2);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Animated search input with gradient background */
+#search-container input {
+  width: 0;
+  opacity: 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  display: block;
+  margin: 0.5rem auto 0;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  outline: none;
+  border: none;
+}
+
+/* Expanded state: input becomes visible with fixed width */
+#search-container.expanded input {
+  width: 30rem; /* Adjust width as needed */
+  opacity: 1;
+}
+
+/* Responsive adjustment for very small devices */
+@media (max-width: 480px) {
+  #search-container.expanded input {
+    width: 20rem;
+  }
+}
 </style>
 
 <!-- Calendar Section -->
@@ -503,16 +570,24 @@
       </p>
     </div>
 
-    {% comment %} <!-- Dynamically generated category filters -->
-    <div class="flex flex-wrap justify-center gap-4 mb-8" id="category-filters">
-      {% for code, label in event_categories %}
-        <label class="flex items-center space-x-2 bg-white p-3 rounded-full shadow hover:shadow-lg transition duration-300 ease-in-out cursor-pointer">
-          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" value="{{ code }}" checked>
-          <span class="text-gray-800 font-semibold">{{ label }}</span>
-        </label>
-      {% endfor %}
-    </div> {% endcomment %}
+   
 
+    <div id="search-wrapper" class="my-6">
+      <div id="search-container" class="relative inline-block text-center">
+        <button id="search-toggle" class="bg-gradient-to-r from-fuchsia-500 to-cyan-500 p-3 focus:outline-none rounded-full">
+          <i class="fas fa-search text-xl"></i>
+        </button>
+        <input
+          type="text"
+          id="event-search"
+          placeholder="Search events..."
+          class="transition-all duration-300 ease-in-out border-none rounded-full shadow-lg mt-2 w-0 opacity-0"
+        />
+      </div>
+    </div>
+
+
+    
     <!-- Calendar Container -->
     <div class="bg-white shadow-2xl rounded-xl overflow-hidden" style="max-width: 1000px; margin: auto;">
       <div id="calendar-content" class="p-6" style="height: 650px;"></div>
@@ -617,14 +692,16 @@
 </div>
 
 
-{% comment %} <script>
+
+
+<script>
   document.addEventListener('DOMContentLoaded', function() {
     // Use Django URL tag to generate the endpoint URL
     var baseEventsUrl = "{% url 'community:events_json' %}";
     
     var calendarEl = document.getElementById('calendar-content');
     
-    // Function to build the event URL including selected category filters
+    // Function to build the event URL including selected category filters and search query
     function buildEventsUrl(fetchInfo) {
       // Get selected categories from checkboxes
       var selectedCategories = Array.from(
@@ -632,16 +709,22 @@
       ).map(function(cb) {
         return cb.value;
       });
-      // Append category parameter to URL
+      
+      // Get the search query from the search input
+      var searchQuery = document.getElementById('event-search').value;
+      
+      // Append parameters to URL
       var params = new URLSearchParams({
         start: fetchInfo.startStr,
         end: fetchInfo.endStr,
-        categories: selectedCategories.join(',')
+        categories: selectedCategories.join(','),
+        search: searchQuery
       });
+      
       return baseEventsUrl + '?' + params.toString();
     }
     
-    // Initialize FullCalendar with a dynamic events function
+    // Initialize FullCalendar with dynamic events and day cell customization
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       headerToolbar: {
@@ -649,7 +732,16 @@
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      // Use a function for events so that we can pass filter parameters dynamically
+      dayCellDidMount: function(arg) {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var cellDate = new Date(arg.date);
+        cellDate.setHours(0, 0, 0, 0);
+        var frameEl = arg.el.querySelector('.fc-daygrid-day-frame') || arg.el;
+        frameEl.style.backgroundColor = cellDate < today 
+          ? "rgba(255, 229, 229, 0.2)" 
+          : "rgba(229, 255, 229, 0.2)";
+      },
       events: function(fetchInfo, successCallback, failureCallback) {
         var url = buildEventsUrl(fetchInfo);
         fetch(url, {
@@ -668,19 +760,16 @@
         var location = eventObj.extendedProps.location || 'Not specified';
         var category = eventObj.extendedProps.category || 'General';
         
-        // Format date and time
         var options = { year: 'numeric', month: 'long', day: 'numeric' };
         var dateStr = start.toLocaleDateString(undefined, options);
         var timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         
-        // Update modal content with additional details and icons
         document.getElementById("modal-title").innerText = title;
         document.getElementById("modal-datetime").innerHTML = '<i class="fas fa-calendar-alt"></i> ' + dateStr + ' ' + timeStr;
         document.getElementById("modal-location").innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + location;
         document.getElementById("modal-category").innerHTML = '<i class="fas fa-tag"></i> ' + category;
         document.getElementById("modal-description").innerHTML = '<i class="fas fa-align-left"></i> ' + description;
         
-        // Determine Past or Upcoming
         var now = new Date();
         var flagEl = document.getElementById("modal-flag");
         if (start < now) {
@@ -706,6 +795,11 @@
       });
     });
     
+    // Listen for input events on the search field to auto update events
+    document.getElementById('event-search').addEventListener('input', function() {
+      calendar.refetchEvents();
+    });
+    
     // Modal close functionality
     document.querySelector(".modal .close").addEventListener("click", function() {
       document.getElementById("event-modal").style.display = "none";
@@ -716,12 +810,48 @@
         modal.style.display = "none";
       }
     });
+    
+    // Search toggle integration: Expand/collapse the search input when the icon is tapped
+    // Toggle search input when search icon is clicked
+    document.getElementById('search-toggle').addEventListener('click', function(event) {
+      // Prevent the click from propagating so the document click listener doesn't immediately collapse it
+      event.stopPropagation();
+      var searchInput = document.getElementById('event-search');
+      var container = document.getElementById('search-container');
+      
+      // Toggle expansion using Tailwind classes
+      if (searchInput.classList.contains('w-0')) {
+        searchInput.classList.remove('w-0', 'opacity-0');
+        // Use a fixed width like w-64 (16rem) for the expanded input
+        searchInput.classList.add('w-64', 'opacity-100');
+        searchInput.focus();
+        container.classList.add('expanded'); // optional for additional styling
+      } else {
+        searchInput.classList.remove('w-64', 'opacity-100');
+        searchInput.classList.add('w-0', 'opacity-0');
+        container.classList.remove('expanded');
+      }
+    });
+
+    // Close the search input when clicking outside the search container
+    document.addEventListener('click', function(event) {
+      var container = document.getElementById('search-container');
+      // If container is expanded and the click target is not inside the container, collapse it
+      if (container.classList.contains('expanded') && !container.contains(event.target)) {
+        var searchInput = document.getElementById('event-search');
+        searchInput.classList.remove('w-64', 'opacity-100');
+        searchInput.classList.add('w-0', 'opacity-0');
+        container.classList.remove('expanded');
+      }
+    });
   });
-</script> {% endcomment %}
+  </script>
+  
 
 
 
-<script>
+
+{% comment %} <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Use Django URL tag to generate the endpoint URL
     var baseEventsUrl = "{% url 'community:events_json' %}";
@@ -838,7 +968,7 @@
       }
     });
   });
-</script>
+</script> {% endcomment %}
 
 
   

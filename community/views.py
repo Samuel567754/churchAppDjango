@@ -16,6 +16,43 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+
+
+@require_GET
+def events_json(request):
+    # Read categories filter from GET parameters (if any)
+    categories = request.GET.get('categories')
+    search_query = request.GET.get('search', '').strip()
+    
+    events = ChurchCalendar.objects.all().order_by('start_datetime')
+    
+    if categories:
+        category_list = categories.split(',')
+        events = events.filter(category__in=category_list)
+        
+    if search_query:
+        events = events.filter(
+            Q(title__icontains=search_query) | Q(description__icontains=search_query)
+        )
+    
+    event_list = []
+    for event in events:
+        event_list.append({
+            'title': event.title,
+            'start': event.start_datetime.isoformat(),
+            'end': event.end_datetime.isoformat() if event.end_datetime else event.start_datetime.isoformat(),
+            'allDay': event.all_day,
+            'url': reverse('community:church_calendar_detail', args=[event.slug]),
+            'className': f'category-{event.category}',  # Adds the category class
+            'extendedProps': {
+                'category': event.category,
+                'location': event.location,
+                'description': event.description,
+                'featured': event.featured,
+            }
+        })
+    return JsonResponse(event_list, safe=False)
 
 
 
@@ -36,6 +73,7 @@ from django.shortcuts import render, get_object_or_404
 #             'end': event.end_datetime.isoformat() if event.end_datetime else event.start_datetime.isoformat(),
 #             'allDay': event.all_day,
 #             'url': reverse('community:church_calendar_detail', args=[event.slug]),
+#             'className': f'category-{event.category}',  # This adds the category class to the event element
 #             'extendedProps': {
 #                 'category': event.category,
 #                 'location': event.location,
@@ -44,35 +82,6 @@ from django.shortcuts import render, get_object_or_404
 #             }
 #         })
 #     return JsonResponse(event_list, safe=False)
-
-
-
-@require_GET
-def events_json(request):
-    # Read categories filter from the GET parameters (if any)
-    categories = request.GET.get('categories')
-    events = ChurchCalendar.objects.all().order_by('start_datetime')
-    if categories:
-        category_list = categories.split(',')
-        events = events.filter(category__in=category_list)
-    
-    event_list = []
-    for event in events:
-        event_list.append({
-            'title': event.title,
-            'start': event.start_datetime.isoformat(),
-            'end': event.end_datetime.isoformat() if event.end_datetime else event.start_datetime.isoformat(),
-            'allDay': event.all_day,
-            'url': reverse('community:church_calendar_detail', args=[event.slug]),
-            'className': f'category-{event.category}',  # This adds the category class to the event element
-            'extendedProps': {
-                'category': event.category,
-                'location': event.location,
-                'description': event.description,
-                'featured': event.featured,
-            }
-        })
-    return JsonResponse(event_list, safe=False)
 
 
 

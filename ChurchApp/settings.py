@@ -613,14 +613,14 @@ JAZZMIN_SETTINGS = {
     
     
     #  # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "images/coc-logo.png",
+    "site_logo": "images/churchofchristLogo.png",
 
     # # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "images/coc-logo.png",
+    "login_logo": "images/churchofchristLogo.png",
     # "custom_css": "css/custom_admin.css",  # Add custom CSS
 
     # # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": "images/coc-logo.png",
+    "login_logo_dark": "images/churchofchristLogo.png",
 
     # # CSS classes that are applied to the logo above
     # "site_logo_classes": "custom-admin-logo", 

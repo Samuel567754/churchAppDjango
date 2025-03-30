@@ -30,7 +30,9 @@ if not DEBUG:
 ALLOWED_HOSTS = [
     'church-app-oukg.onrender.com',
     '127.0.0.1',
-    'localhost'
+    'localhost',
+    'kumasicentralchurchofchrist.com',
+    'www.kumasicentralchurchofchrist.com',
 ]
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development

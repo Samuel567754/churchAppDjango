@@ -172,13 +172,14 @@ INSTALLED_APPS = [
 # PWA App Settings
 PWA_APP_NAME = 'KumasiCentral CoC App'
 PWA_APP_DESCRIPTION = "KumasiCentral CoC App."
-PWA_APP_THEME_COLOR = '#B21CD7FF'
-PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_THEME_COLOR = '#AD4477FF'
+PWA_APP_BACKGROUND_COLOR = '#FFFFFFFF'
 PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/'
 PWA_APP_ORIENTATION = 'any'
 PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_OFFLINE_URL = '/offline/'
 
 # Define icons (you can use multiple sizes)
 PWA_APP_ICONS = [

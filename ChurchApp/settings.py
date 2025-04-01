@@ -164,7 +164,205 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'defender',
+    'pwa',
 ]
+
+
+
+# PWA App Settings
+PWA_APP_NAME = 'KumasiCentral CoC App'
+PWA_APP_DESCRIPTION = "KumasiCentral CoC App."
+PWA_APP_THEME_COLOR = '#B21CD7FF'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+
+# Define icons (you can use multiple sizes)
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/icons/churchPwaIcon.png',
+        'sizes': '72x72'
+    },
+    {
+        'src': '/static/images/icons/churchPwaIcon.png',
+        'sizes': '96x96'
+    },
+    {
+        'src': '/static/images/icons/churchPwaIcon.png',
+        'sizes': '128x128'
+    },
+    {
+        'src': '/static/images/icons/churchPwaIcon.png',
+        'sizes': '144x144'
+    },
+    {
+        'src': '/static/images/icons/churchPwaIcon.png',
+        'sizes': '152x152'
+    },
+    {
+        'src': '/static/images/icons/churchPwaIcon.png',
+        'sizes': '192x192'
+    },
+    {
+        'src': '/static/images/icons/churchPwaIcon.png',
+        'sizes': '384x384'
+    },
+    {
+        'src': '/static/images/icons/churchPwaIcon.png',
+        'sizes': '512x512'
+    }
+]
+
+# Optionally, define splash screens if needed
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/icons/androidPwd.png',
+        'media': '(device-width: 320px) and (device-height: 568px)'
+    },
+    # Add other splash screen configurations here
+]
+
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+
+
+
+
+
+
+
+# # PWA App Settings
+
+# # The name of your PWA. This is the name users will see when they install your app.
+# PWA_APP_NAME = 'KumasiCentral CoC App'
+
+# # A brief description of your PWA. This provides users with information about your app's purpose.
+# PWA_APP_DESCRIPTION = "KumasiCentral CoC App."
+
+# # The theme color for your PWA. This color is used on the browser's UI elements to match your app's branding.
+# PWA_APP_THEME_COLOR = '#B21CD7FF'
+
+# # The background color for your PWA's splash screen. This is displayed while your app is loading.
+# PWA_APP_BACKGROUND_COLOR = '#ffffff'
+
+# # The display mode for your PWA. 'standalone' means the app will look and feel like a standalone application.
+# PWA_APP_DISPLAY = 'standalone'
+
+# # The scope of your PWA. This defines the set of URLs that the PWA can navigate within.
+# PWA_APP_SCOPE = '/'
+
+# # The default orientation for your PWA. 'any' allows both portrait and landscape orientations.
+# PWA_APP_ORIENTATION = 'any'
+
+# # The start URL for your PWA. This is the page that loads when the app is launched.
+# PWA_APP_START_URL = '/'
+
+# # The status bar color for your PWA on mobile devices. 'default' uses the browser's default color.
+# PWA_APP_STATUS_BAR_COLOR = 'default'
+
+# # The text direction for your PWA. 'ltr' stands for left-to-right.
+# PWA_APP_DIR = 'ltr'
+
+# # The default language for your PWA. 'en-US' represents U.S. English.
+# PWA_APP_LANG = 'en-US'
+
+# # Define icons for your PWA in multiple sizes. These icons are used in the app launcher and elsewhere.
+# PWA_APP_ICONS = [
+#     {
+#         'src': '/static/images/icons/churchPwaIcon-72x72.png',  # Path to the icon file
+#         'sizes': '72x72',  # Size of the icon
+#         'type': 'image/png'  # MIME type of the icon
+#     },
+#     {
+#         'src': '/static/images/icons/churchPwaIcon-96x96.png',
+#         'sizes': '96x96',
+#         'type': 'image/png'
+#     },
+#     {
+#         'src': '/static/images/icons/churchPwaIcon-128x128.png',
+#         'sizes': '128x128',
+#         'type': 'image/png'
+#     },
+#     {
+#         'src': '/static/images/icons/churchPwaIcon-144x144.png',
+#         'sizes': '144x144',
+#         'type': 'image/png'
+#     },
+#     {
+#         'src': '/static/images/icons/churchPwaIcon-152x152.png',
+#         'sizes': '152x152',
+#         'type': 'image/png'
+#     },
+#     {
+#         'src': '/static/images/icons/churchPwaIcon-192x192.png',
+#         'sizes': '192x192',
+#         'type': 'image/png'
+#     },
+#     {
+#         'src': '/static/images/icons/churchPwaIcon-384x384.png',
+#         'sizes': '384x384',
+#         'type': 'image/png'
+#     },
+#     {
+#         'src': '/static/images/icons/churchPwaIcon-512x512.png',
+#         'sizes': '512x512',
+#         'type': 'image/png'
+#     }
+# ]
+
+# # Define splash screens for your PWA. These are displayed when the app is launched from the home screen.
+# PWA_APP_SPLASH_SCREEN = [
+#     {
+#         'src': '/static/images/icons/splash-640x1136.png',  # Path to the splash screen image
+#         'media': '(device-width: 320px) and (device-height: 568px)'  # Media query to target specific devices
+#     },
+#     # Add other splash screen configurations here
+# ]
+
+# # Define screenshots for your PWA. These provide users with a preview of your app's appearance.
+# PWA_APP_SCREENSHOTS = [
+#     {
+#         'src': '/static/images/screenshots/screenshot1.png',  # Path to the screenshot image
+#         'sizes': '640x480',  # Size of the screenshot
+#         'type': 'image/png'  # MIME type of the screenshot
+#     },
+#     {
+#         'src': '/static/images/screenshots/screenshot2.png',
+#         'sizes': '750x1334',
+#         'type': 'image/png'
+#     },
+#     # Add other screenshots as needed
+# ]
+
+# # Define shortcuts for your PWA. These allow users to quickly access specific parts of your app.
+# PWA_APP_SHORTCUTS = [
+#     {
+#         'name': 'View Events',  # Name of the shortcut
+#         'short_name': 'Events',  # Shorter name for the shortcut
+#         'description': 'Quick access to upcoming events',  # Description of what the shortcut does
+#         'url': '/events/',  # URL to open when the shortcut is selected
+#         'icons': [{
+#             'src': '/static/images/icons/events-icon.png',  # Path to the shortcut icon
+#             'sizes': '192x192'  # Size of the shortcut icon
+#         }]
+#     },
+#     {
+#         'name': 'Daily Devotionals',
+#         'short_name': 'Devotionals',
+#         'description': 'Read today\'s devotional',
+#         'url': '/devotionals/',
+#         'icons': [{
+#             'src': '/static/images/icons/devotionals-icon.png',
+#             'sizes': '192x192'
+#         }]
+#     },
+#     # Add other shortcuts as needed
+# ]
+
+
 
 
 # Number of failed login attempts allowed before blocking (default is 3)
@@ -351,6 +549,7 @@ TEMPLATES = [
                 'account.context_processors.church_info',
                 # 'notifications.context_processors.notifications',
                 "csp.context_processors.nonce",  # Required for nonce support
+                # 'pwa.context_processors.pwa',
             ],
         },
     },

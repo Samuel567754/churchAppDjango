@@ -20,7 +20,8 @@ urlpatterns = [
     # path('event/', include('event.urls')),
     # path('finance/', include('finance.urls')),
     path('account/', include('account.urls', namespace='account')),
-    path('membership/', include('membership.urls', namespace='membership')), 
+    path('membership/', include('membership.urls', namespace='membership')),
+    path('', include('pwa.urls')),  # This will serve the manifest and service worker files. 
 ]
 
 

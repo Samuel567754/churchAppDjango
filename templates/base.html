@@ -94,7 +94,16 @@
 
     
  <!-- JavaScript Libraries and Scripts -->
-
+ <script>
+  if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('{% static "js/serviceworker.js" %}?v=1.0.1')
+          .then(registration => {
+              console.log('ServiceWorker registration successful');
+          }).catch(error => {
+              console.log('ServiceWorker registration failed: ', error);
+          });
+  }
+  </script>
 
  <!-- Custom JS Files -->
  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

@@ -125,7 +125,7 @@
                     <i class='bx bx-question-mark text-xl text-gray-700 dark:text-gray-300'></i>
                 </button>
 
-                <!-- User Profile Dropdown -->
+                {% comment %} <!-- User Profile Dropdown -->
                 <div class="relative group">
                     <!-- User Profile Image or Initials -->
                     {% if member.photo %}
@@ -150,7 +150,42 @@
                             <span>Logout</span>
                         </a>
                     </div>
+                </div> {% endcomment %}
+
+                <!-- User Profile Dropdown -->
+            <div class="relative group">
+                <!-- User Profile Image or Initials -->
+                {% if member.photo %}
+                    <img src="{{ member.photo.url }}" alt="{{ member.user.username }}"
+                        class="h-10 w-10 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-blue-300 transition-shadow duration-200">
+                {% else %}
+                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl cursor-pointer hover:scale-105 hover:shadow-md transition duration-300 ease-in-out">
+                        {{ member.user.first_name|slice:":1" }}{{ member.user.last_name|slice:":1" }}
+                    </div>
+                {% endif %}
+
+                <!-- Dropdown Menu -->
+                <div class="absolute hidden group-hover:block mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out right-0">
+                    <a href="{% url 'account:member_dashboard_profile' %}"
+                    class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 flex items-center space-x-2">
+                        <i class='bx bx-user text-xl'></i>
+                        <span>Profile</span>
+                    </a>
+                    {% if user.is_staff or user.is_superuser %}
+                    <a href="{% url 'admin:index' %}"
+                    class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 flex items-center space-x-2">
+                        <i class='bx bx-cog text-xl'></i>
+                        <span>Admin Home</span>
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'account:logout' %}"
+                    class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200 flex items-center space-x-2">
+                        <i class='bx bx-log-out text-xl'></i>
+                        <span>Logout</span>
+                    </a>
                 </div>
+            </div>
+
             </div>
         </div>
     </div>

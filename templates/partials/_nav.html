@@ -882,7 +882,7 @@
                      </div>
                  </div>
 
-                 {% if user.is_authenticated %}
+                 {% comment %} {% if user.is_authenticated %}
                  <div class="relative group">
                      <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
                         {% if member.photo %}
@@ -903,9 +903,46 @@
                   </div>
                     {% else %}
                         <a href="{% url 'account:login' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Login</a>
-                    {% endif %}
-                
+                    {% endif %} {% endcomment %}
 
+
+                    {% if user.is_authenticated %}
+                  <div class="relative group">
+                      <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
+                          {% if member.photo %}
+                              <img src="{{ member.photo.url }}" alt="{{ member.user.username }}"
+                                  class="h-10 w-10 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-blue-300 transition-shadow duration-200">
+                          {% else %}
+                              <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl cursor-pointer hover:scale-105 hover:shadow-md transition duration-300 ease-in-out">
+                                  {{ member.user.first_name|slice:":1" }}{{ member.user.last_name|slice:":1" }}
+                              </div>
+                          {% endif %}
+                          <span class="profile-name">{{ user.username }}</span>
+                          <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                          </svg>
+                      </button>
+                      <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
+                          <a href="{% url 'membership:member_dashboard_home' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
+                              Dashboard
+                          </a>
+                          {% if user.is_staff or user.is_superuser %}
+                              <a href="{% url 'admin:index' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
+                                  Admin Home
+                              </a>
+                          {% endif %}
+                          <a href="{% url 'account:logout' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
+                              Logout
+                          </a>
+                      </div>
+                  </div>
+              {% else %}
+                  <a href="{% url 'account:login' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">
+                      Login
+                  </a>
+              {% endif %}
+
+              
 
                     
                  <a href="{% url 'contact:contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-500 transition-colors duration-200 inline-flex items-center justify-center">Contact
@@ -917,42 +954,53 @@
  
              <!-- Mobile Menu Button -->
              <div class="md:hidden flex items-center">
-                  {% if user.is_authenticated %}
-                 <div class="relative group">
-                  <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
-                    {% if member.photo %}
-                      <img src="{{ member.photo.url }}" alt="User Icon" class="h-6 w-6 rounded-full mr-2">
-                    {% else %}
-                      <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl cursor-pointer hover:scale-105 hover:shadow-md transition duration-300 ease-in-out">
-                          {{ member.user.first_name|slice:":1" }}{{ member.user.last_name|slice:":1" }}
-                      </div>
-                   {% endif %}
-                          <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                     </button>
-                   <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out right-0">
-                        <a href="{% url 'membership:member_dashboard_home' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">Dashboard</a>
-                        <a href="{% url 'account:logout' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">Logout</a>
-                  </div>
+              {% if user.is_authenticated %}
+              <div class="relative group">
+                <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
+                  {% if member.photo %}
+                    <img src="{{ member.photo.url }}" alt="User Icon" class="h-6 w-6 rounded-full mr-2">
+                  {% else %}
+                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl cursor-pointer hover:scale-105 hover:shadow-md transition duration-300 ease-in-out">
+                      {{ member.user.first_name|slice:":1" }}{{ member.user.last_name|slice:":1" }}
+                    </div>
+                  {% endif %}
+                  <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out right-0">
+                  <a href="{% url 'membership:member_dashboard_home' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
+                    Dashboard
+                  </a>
+                  {% if user.is_staff or user.is_superuser %}
+                    <a href="{% url 'admin:index' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
+                      Admin Home
+                    </a>
+                  {% endif %}
+                  <a href="{% url 'account:logout' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
+                    Logout
+                  </a>
+                </div>
               </div>
-                  <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none ml-2">
-                      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                      </svg>
-                      <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                     </svg>
-                  </button>
-                   {% else %}
-                   <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                       </svg>
-                   </button>
-                   {% endif %}
-               </div>
+              <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none ml-2">
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            {% else %}
+              <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            {% endif %}
+              </div>
          </div>
      </div>
  

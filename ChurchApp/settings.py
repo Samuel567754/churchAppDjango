@@ -231,7 +231,68 @@ PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
 
 
-
+PWA_APP_SHORTCUTS = [
+    {
+        'name': 'Our Services',
+        'short_name': 'Services',
+        'description': 'Discover the services we offer',
+        'url': '/services/',
+        'icons': [{
+            'src': '/static/images/icons/services-icon1.png',
+            'sizes': '192x192'
+        }]
+    },
+    {
+        'name': 'About Us',
+        'short_name': 'About',
+        'description': 'Learn more about our company',
+        'url': '/about/',
+        'icons': [{
+            'src': '/static/images/icons/about-icon.png',
+            'sizes': '192x192'
+        }]
+    },
+    {
+        'name': 'View Events',
+        'short_name': 'Events',
+        'description': 'Quick access to upcoming events',
+        'url': '/events/',
+        'icons': [{
+            'src': '/static/images/icons/events-icon.png',
+            'sizes': '192x192'
+        }]
+    },
+    {
+        'name': 'Frequently Asked Questions',
+        'short_name': 'FAQ',
+        'description': 'Find answers to common questions',
+        'url': '/faq/',
+        'icons': [{
+            'src': '/static/images/icons/faq-icon.png',
+            'sizes': '192x192'
+        }]
+    },
+    {
+        'name': 'Gallery',
+        'short_name': 'Gallery',
+        'description': 'View our photo gallery',
+        'url': '/gallery/',
+        'icons': [{
+            'src': '/static/images/icons/gallery-icon.png',
+            'sizes': '192x192'
+        }]
+    },
+    {
+        'name': 'Contact Us',
+        'short_name': 'Contact',
+        'description': 'Get in touch with us',
+        'url': '/contact/',
+        'icons': [{
+            'src': '/static/images/icons/contact-icon.png',
+            'sizes': '192x192'
+        }]
+    },
+]
 
 
 

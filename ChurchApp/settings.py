@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'kumasicentralchurchofchrist.com',
     'www.kumasicentralchurchofchrist.com',
+    'church-app-ef7f.onrender.com',
 ]
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development

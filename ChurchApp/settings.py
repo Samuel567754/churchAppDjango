@@ -100,21 +100,21 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-#     }
-# }
-
 CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ.get("REDIS_URL", "redis://127.0.0.1:6379/0"),  # update this URL if needed
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": os.environ.get("REDIS_URL", "redis://127.0.0.1:6379/0"),  # update this URL if needed
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }
 
 
 if not DEBUG:
@@ -163,7 +163,7 @@ INSTALLED_APPS = [
     'storages',
     'cloudinary',
     'cloudinary_storage',
-    'defender',
+    # 'defender',
     'pwa',
 ]
 
@@ -366,16 +366,16 @@ PWA_APP_LANG = 'en-US'
 
 
 
-# Number of failed login attempts allowed before blocking (default is 3)
-DEFENDER_LOGIN_FAILURE_LIMIT = 3
+# # Number of failed login attempts allowed before blocking (default is 3)
+# DEFENDER_LOGIN_FAILURE_LIMIT = 3
 
-# How long (in hours) to keep login attempt records (default is 24)
-DEFENDER_ACCESS_ATTEMPT_EXPIRATION = 24
+# # How long (in hours) to keep login attempt records (default is 24)
+# DEFENDER_ACCESS_ATTEMPT_EXPIRATION = 24
 
-# If using Redis, you can also set:
-# DEFENDER_REDIS_URL = 'redis://127.0.0.1:6379/0'
-# Instead of using a Redis URL, configure django‑defender to use your Django cache:
-DEFENDER_REDIS_NAME = 'default'
+# # If using Redis, you can also set:
+# # DEFENDER_REDIS_URL = 'redis://127.0.0.1:6379/0'
+# # Instead of using a Redis URL, configure django‑defender to use your Django cache:
+# DEFENDER_REDIS_NAME = 'default'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -387,7 +387,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'defender.middleware.FailedLoginMiddleware',
+    # 'defender.middleware.FailedLoginMiddleware',
 ]
 
 

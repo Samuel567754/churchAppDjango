@@ -294,7 +294,33 @@ PWA_APP_SHORTCUTS = [
     },
 ]
 
-
+PWA_APP_SCREENSHOTS = [
+    {
+        'src': '/static/images/screenshots/android1.jpg',  # Screenshot of your app's main screen
+        'sizes': '640x480',  # Adjust sizes based on your actual capture
+        'type': 'image/png'
+    },
+    {
+        'src': '/static/images/screenshots/android2.jpg',  # Another key screen
+        'sizes': '750x1334',
+        'type': 'image/png'
+    },
+    {
+        'src': '/static/images/screenshots/android3.jpg',  # For instance, a settings or menu view
+        'sizes': '1080x1920',
+        'type': 'image/png'
+    },
+    {
+        'src': '/static/images/screenshots/android4.jpg',  # Showing a feature screen
+        'sizes': '1080x2340',
+        'type': 'image/png'
+    },
+    {
+        'src': '/static/images/screenshots/android5.jpg',  # Highlighting another important section
+        'sizes': '1440x3040',
+        'type': 'image/png'
+    },
+]
 
 
 # # PWA App Settings

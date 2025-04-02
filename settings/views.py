@@ -29,6 +29,21 @@ from .models import MemberSettings
 from django.utils.decorators import method_decorator
 from django.views import View
 
+
+from django.utils.cache import patch_cache_control
+import os
+
+def service_worker(request):
+    # Adjust the path if your file is in a different location
+    file_path = os.path.join('static', 'js', 'serviceworker.js')
+    with open(file_path, 'r') as f:
+        content = f.read()
+    response = HttpResponse(content, content_type='application/javascript')
+    # Set headers so that the file is always fetched fresh
+    patch_cache_control(response, no_cache=True, must_revalidate=True, max_age=0)
+    return response
+
+
 # @method_decorator(login_required, name="dispatch")
 # class MemberSettingsView(View):
 #     """

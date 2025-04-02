@@ -103,14 +103,29 @@
 
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('{% static "js/serviceworker.js" %}?v=1.0.1')
-                .then(registration => {
-                    console.log('ServiceWorker registration successful');
-                }).catch(error => {
-                    console.log('ServiceWorker registration failed: ', error);
+          navigator.serviceWorker.register('{% url "settings:service-worker" %}?v=1.0.1')
+            .then(registration => {
+              console.log('ServiceWorker registration successful');
+      
+              // Listen for updates to the service worker.
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    if (confirm("A new version is available. Reload to update?")) {
+                      window.location.reload();
+                    }
+                  }
                 });
+              });
+            })
+            .catch(error => {
+              console.log('ServiceWorker registration failed: ', error);
+            });
         }
-        </script>
+      </script>
+      
+
     <script src="{% static 'js/settings.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <!-- Include SweetAlert JS -->

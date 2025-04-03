@@ -1,194 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Connection Lost - Church PWA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/static/images/icons/churchPwaIcon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- ... (keep existing head content) ... -->
+  <meta charset="UTF-8">
+  <title>Connection Lost - Church PWA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{% static 'images/icons/churchPwaIcon.png' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Add these new styles */
     :root {
-        --primary: #AD4477;
-        --secondary: #6C757D;
-        --success: #28A745;
-        --bg: #f8f9fa;
-      }
-      
-      body {
-        background: linear-gradient(135deg, #f1f3f5, #f8f9fa);
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        color: #212529;
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .geometric-bg {
-        position: absolute;
-        width: 200vw;
-        height: 200vh;
-        background: repeating-linear-gradient(
-          45deg,
-          rgba(173, 68, 119, 0.05) 0,
-          rgba(173, 68, 119, 0.05) 5px,
-          transparent 5px,
-          transparent 10px
-        );
-        animation: slide 60s linear infinite;
-      }
-      
+      --primary: #AD4477;
+      --secondary: #6C757D;
+      --success: #28A745;
+      --error: #dc3545;
+      --bg: #f8f9fa;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f1f3f5, #f8f9fa);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #212529;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .geometric-bg {
+      position: absolute;
+      width: 200vw;
+      height: 200vh;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(173, 68, 119, 0.05) 0,
+        rgba(173, 68, 119, 0.05) 5px,
+        transparent 5px,
+        transparent 10px
+      );
+      animation: slide 60s linear infinite;
+      z-index: -1;
+    }
+    
+    .container {
+      position: relative;
+      text-align: center;
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .illustration {
+      width: 200px;
+      display: block;
+      margin: -4rem auto 1rem;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    h1 {
+      color: var(--primary);
+      margin: 1rem 0;
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    .content {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--secondary);
+      margin: 1.5rem 0;
+    }
+    
+    .connection-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 2rem;
+      background: rgba(108, 117, 125, 0.1);
+      margin: 1rem 0;
+    }
+    
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--error);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    /* Icons styling */
+    .connection-icon svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    
+    .refresh-message {
+      font-size: 0.9rem;
+      color: #6C757D;
+      margin-top: 2rem;
+      opacity: 0.8;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.95); }
+    }
+    
+    @keyframes slide {
+      from { transform: translateX(-50%) translateY(-50%); }
+      to { transform: translateX(0) translateY(0); }
+    }
+    
+    @media (max-width: 480px) {
       .container {
-        position: relative;
-        text-align: center;
-        padding: 3rem;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 1.5rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        max-width: 500px;
+        padding: 2rem 1.5rem;
         margin: 1rem;
-        transform: translateY(0);
-        opacity: 1;
-        transition: all 0.3s ease;
+        border-radius: 1rem;
       }
-      
       .illustration {
-        width: 200px;
-        height: auto;
-        display: block;      /* Ensures the element behaves like a block element */
-        margin: -4rem auto 1rem;
-        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-        animation: float 3s ease-in-out infinite;
+        width: 160px;
+        margin-top: -3rem;
       }
-
       h1 {
-        color: var(--primary);
-        margin: 1rem 0;
-        font-size: 2.25rem;
-        font-weight: 700;
-        line-height: 1.2;
+        font-size: 1.75rem;
       }
-      
-      .content {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--secondary);
-        margin: 1.5rem 0;
-      }
-      
-      .connection-status {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
-        border-radius: 2rem;
-        background: rgba(108, 117, 125, 0.1);
-        margin: 1rem 0;
-      }
-      
-      .status-indicator {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #dc3545;
-        animation: pulse 1.5s ease-in-out infinite;
-      }
-      
-      .refresh-message {
-        font-size: 0.9rem;
-        color: #6C757D;
-        margin-top: 2rem;
-        opacity: 0.8;
-      }
-      
-      @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-      }
-      
-      @keyframes pulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.5; transform: scale(0.95); }
-      }
-      
-      @keyframes slide {
-        from { transform: translateX(-50%) translateY(-50%); }
-        to { transform: translateX(0) translateY(0); }
-      }
-      
-      @media (max-width: 480px) {
-        .container {
-          padding: 2rem 1.5rem;
-          margin: 1rem;
-          border-radius: 1rem;
-        }
-        
-        .illustration {
-          width: 160px;
-          margin-top: -3rem;
-        }
-        
-        h1 {
-          font-size: 1.75rem;
-        }
-      }
-      
-      /* Updated success checkmark styles */
-      .success-check {
-        width: 80px;
-        height: 80px;
-        margin: 20px auto;
-        opacity: 0;
-        transform: scale(0);
-        transition: transform 0.6s ease, opacity 0.6s ease;
-      }
-      /* New checkmark icon: a circle with a check */
-      .checkmark-circle {
-        fill: none;
-        stroke: var(--success);
-        stroke-width: 2;
-      }
-      .checkmark-check {
-        fill: none;
-        stroke: var(--success);
-        stroke-width: 5;
-        stroke-dasharray: 48;
-        stroke-dashoffset: 48;
-        transition: stroke-dashoffset 0.5s ease-out 0.4s;
-      }
-      /* When animation is triggered */
-      .animate-check {
-        opacity: 1;
-        transform: scale(1);
-      }
-      .animate-check .checkmark-check {
-        stroke-dashoffset: 0;
-      }
-      
-      .connected-message {
-        color: var(--success);
-        font-weight: 600;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.4s ease 0.6s, transform 0.4s ease 0.6s;
-      }
-      
-      .connection-restored .status-indicator {
-        background: var(--success);
-        animation: pulse-success 1.5s ease-in-out;
-      }
-      
-      @keyframes pulse-success {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.2); }
-      }
-
+    }
+    
+    /* Checkmark Styles for Success Animation */
+    .success-check {
+      width: 80px;
+      height: 80px;
+      margin: 20px auto;
+      opacity: 0;
+      transform: scale(0);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+    .checkmark-circle {
+      fill: none;
+      stroke: var(--success);
+      stroke-width: 2;
+    }
+    .checkmark-check {
+      fill: none;
+      stroke: var(--success);
+      stroke-width: 5;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      transition: stroke-dashoffset 0.5s ease-out 0.4s;
+    }
+    .animate-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .animate-check .checkmark-check {
+      stroke-dashoffset: 0;
+    }
+    
+    .connected-message {
+      color: var(--success);
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease 0.6s, transform 0.4s ease 0.6s;
+    }
+    
+    .connection-restored .status-indicator {
+      animation: pulse-success 1.5s ease-in-out;
+      background: var(--success);
+    }
+    
+    @keyframes pulse-success {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    
     .page-loader {
       position: fixed;
       top: 0;
@@ -229,37 +229,46 @@
   </style>
 </head>
 <body>
-  <div class="geometric-bg"></div>
+  <div class="geometric-bg" aria-hidden="true"></div>
   
-  <!-- Add page loader element -->
-  <div class="page-loader">
+  <!-- Page Loader Element -->
+  <div class="page-loader" role="alert" aria-live="assertive">
     <div class="loader-spinner"></div>
   </div>
 
-  <div class="container">
-    <!-- Updated checkmark SVG -->
-    <svg class="success-check" viewBox="0 0 52 52">
+  <div class="container" role="main">
+    <!-- Success Checkmark SVG -->
+    <svg class="success-check" viewBox="0 0 52 52" aria-hidden="true">
       <circle class="checkmark-circle" cx="26" cy="26" r="25" />
       <path class="checkmark-check" d="M14 27 l10 10 l15 -15"/>
     </svg>
 
-    <svg class="illustration" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Illustration SVG -->
+    <svg class="illustration" viewBox="0 0 24 24" fill="none" 
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="var(--primary)"/>
       <path d="M12 15C12.5523 15 13 15.4477 13 16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16C11 15.4477 11.4477 15 12 15Z" fill="var(--primary)"/>
       <path d="M12 7C11.4477 7 11 7.44772 11 8V12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12V8C13 7.44772 12.5523 7 12 7Z" fill="var(--primary)"/>
     </svg>
 
-    <h1>Connection Unavailable</h1>
+    <h1 id="connection-header">Connection Unavailable</h1>
     
     <div class="content">
       <p>Don't worry, we'll automatically restore your connection to the Church community as soon as possible.</p>
-      <div class="connection-status">
+      <div class="connection-status" role="status" aria-live="polite">
         <div class="status-indicator"></div>
-        <span>No internet connection</span>
+        <span id="connection-text">No internet connection</span>
+        <span class="connection-icon" id="connection-icon">
+          <!-- Default offline icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M18.364 5.636l-12.728 12.728m0-12.728l12.728 12.728"/>
+          </svg>
+        </span>
       </div>
     </div>
 
-    <p class="refresh-message connected-message">
+    <p class="refresh-message connected-message" role="alert">
       Connection restored! Redirecting you back...
     </p>
   </div>
@@ -269,43 +278,58 @@
       const container = document.querySelector('.container');
       const statusIndicator = document.querySelector('.status-indicator');
       const checkmark = document.querySelector('.success-check');
-      const originalIllustration = document.querySelector('.illustration');
+      const illustration = document.querySelector('.illustration');
       const connectedMessage = document.querySelector('.connected-message');
       const pageLoader = document.querySelector('.page-loader');
-
+      const connectionText = document.getElementById('connection-text');
+      const connectionHeader = document.getElementById('connection-header');
+      const connectionIcon = document.getElementById('connection-icon');
+      
+      // Define inline SVG icons for offline and online states
+      const offlineIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M18.364 5.636l-12.728 12.728m0-12.728l12.728 12.728"/>
+                              </svg>`;
+      const onlineIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M5 13l4 4L19 7"/>
+                              </svg>`;
+      
       function handleOnline() {
         container.classList.add('connection-restored');
-        originalIllustration.style.display = 'none';
+        illustration.style.display = 'none';
         checkmark.classList.add('animate-check');
         connectedMessage.style.opacity = '1';
         connectedMessage.style.transform = 'translateY(0)';
         
-        document.querySelector('.connection-status span').textContent = 'Connected';
+        connectionText.textContent = 'Connected';
+        connectionHeader.textContent = 'Connection Restored';
+        connectionIcon.innerHTML = onlineIconSVG;
+        statusIndicator.style.background = 'var(--success)';
 
-        // First stage: Show success animation
         setTimeout(() => {
           container.style.transform = 'translateY(-20px)';
           container.style.opacity = '0';
-          
-          // Show loading spinner
           pageLoader.style.display = 'flex';
-          setTimeout(() => pageLoader.style.opacity = '1', 10);
-          
-          // Second stage: Prepare for reload
+          setTimeout(() => { pageLoader.style.opacity = '1'; }, 10);
           setTimeout(() => {
-            // Add subtle scale effect to spinner before reload
             pageLoader.style.transform = 'scale(1.1)';
             pageLoader.style.opacity = '0.9';
-            
-            // Reload the page after brief pause
             setTimeout(() => window.location.reload(), 300);
           }, 1000);
         }, 1500);
       }
 
-      window.addEventListener('online', handleOnline);
+      function handleOffline() {
+        connectionText.textContent = 'No internet connection';
+        connectionHeader.textContent = 'Connection Unavailable';
+        connectionIcon.innerHTML = offlineIconSVG;
+        statusIndicator.style.background = 'var(--error)';
+      }
 
-      // Optimized connection checking
+      window.addEventListener('online', handleOnline);
+      window.addEventListener('offline', handleOffline);
+
       let connectionChecked = false;
       function checkConnection() {
         if (!connectionChecked && navigator.onLine) {

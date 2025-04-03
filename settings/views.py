@@ -33,6 +33,13 @@ from django.views import View
 from django.utils.cache import patch_cache_control
 import os
 
+# For Django 2.0+ the 404 view must accept an "exception" parameter.
+def custom_404(request, exception):
+    return render(request, "404.html", status=404)
+
+def custom_500(request):
+    return render(request, "500.html", status=500)
+
 def service_worker(request):
     # Adjust the path if your file is in a different location
     file_path = os.path.join('static', 'js', 'serviceworker.js')

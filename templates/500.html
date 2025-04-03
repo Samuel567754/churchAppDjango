@@ -1,10 +1,11 @@
+{% load pwa static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% progressive_web_app_meta %}
     <title>Unexpected Spiritual Hurdle - Church of Christ</title>
-    {% load static %}
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .scripture-font {
@@ -17,14 +18,16 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-gray-100">
     <header class="w-full text-center py-6">
-        <img src="{% static 'images/coc-logo.png' %}" alt="Church Logo" class="mx-auto mb-8 w-32 hover:scale-105 transition-transform">
+        <img src="{% static 'images/coc-logo.png' %}" alt="Church Logo" 
+             class="mx-auto mb-8 w-32 hover:scale-105 transition-transform">
     </header>
     
     <div class="px-2 text-center">
         <div class="min-h-screen flex flex-col justify-center items-center">
             <div class="mb-12 cross-icon">
                 <svg class="w-24 h-24 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </div>
             
@@ -39,7 +42,8 @@
             </p>
 
             <div class="mt-12 space-y-4">
-                <a href="{% url 'community:home' %}" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors scripture-font">
+                <a href="{% url 'community:home' %}" 
+                   class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors scripture-font">
                     Return to Home Page
                 </a>
                 <p class="text-gray-500 text-sm mt-4">

@@ -7,6 +7,10 @@ from django.conf.urls.static import static
 import os
 from django.contrib.auth import views as auth_views
 
+from django.conf.urls import handler404, handler500
+
+handler404 = 'settings.views.custom_404'
+handler500 = 'settings.views.custom_500'
 
 urlpatterns = [
     # path('admin/defender/', include('defender.urls')),

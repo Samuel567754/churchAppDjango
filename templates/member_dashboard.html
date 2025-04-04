@@ -101,7 +101,7 @@
 
     
 
-    <script>
+    {% comment %} <script>
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('{% url "settings:service-worker" %}?v=1.0.1')
             .then(registration => {
@@ -123,7 +123,7 @@
               console.log('ServiceWorker registration failed: ', error);
             });
         }
-      </script>
+      </script> {% endcomment %}
       
 
     <script src="{% static 'js/settings.js' %}"></script>

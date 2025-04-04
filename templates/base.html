@@ -96,7 +96,7 @@
     {% include 'partials/_spinner.html' %}
     
  <!-- JavaScript Libraries and Scripts -->
-<script>
+{% comment %} <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('{% url "settings:service-worker" %}?v=1.0.1')
       .then(registration => {
@@ -118,9 +118,7 @@
         console.log('ServiceWorker registration failed: ', error);
       });
   }
-</script>
-
-
+</script> {% endcomment %}
 
 
  <!-- Custom JS Files -->

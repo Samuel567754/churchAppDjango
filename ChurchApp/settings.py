@@ -1031,6 +1031,11 @@ JAZZMIN_SETTINGS = {
     "changeform_format": "horizontal_tabs",
     
     
+     # Enable the sidebar
+    "show_sidebar": True,
+    # Set navigation_expanded to False for a collapsible (treeview) sidebar:
+    "navigation_expanded": False,
+    
     # "changeform_format": "horizontal_tabs",
     # # override change forms on a per modeladmin basis
     # "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},

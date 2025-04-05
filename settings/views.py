@@ -33,6 +33,18 @@ from django.views import View
 from django.utils.cache import patch_cache_control
 import os
 
+
+# class ServiceWorkerView(View):
+#     def get(self, request, *args, **kwargs):
+#         # Adjust the path if your service worker file is in a different location.
+#         sw_path = os.path.join(settings.BASE_DIR, 'static', 'js', 'serviceworker.js')
+#         with open(sw_path, 'r') as sw_file:
+#             content = sw_file.read()
+#         response = HttpResponse(content, content_type='application/javascript')
+#         # Set headers to ensure the file is always fetched fresh.
+#         patch_cache_control(response, no_cache=True, must_revalidate=True, max_age=0)
+#         return response
+
 # For Django 2.0+ the 404 view must accept an "exception" parameter.
 def custom_404(request, exception):
     return render(request, "404.html", status=404)
@@ -40,15 +52,15 @@ def custom_404(request, exception):
 def custom_500(request):
     return render(request, "500.html", status=500)
 
-def service_worker(request):
-    # Adjust the path if your file is in a different location
-    file_path = os.path.join('static', 'js', 'serviceworker.js')
-    with open(file_path, 'r') as f:
-        content = f.read()
-    response = HttpResponse(content, content_type='application/javascript')
-    # Set headers so that the file is always fetched fresh
-    patch_cache_control(response, no_cache=True, must_revalidate=True, max_age=0)
-    return response
+# def service_worker(request):
+#     # Adjust the path if your file is in a different location
+#     file_path = os.path.join('static', 'js', 'serviceworker.js')
+#     with open(file_path, 'r') as f:
+#         content = f.read()
+#     response = HttpResponse(content, content_type='application/javascript')
+#     # Set headers so that the file is always fetched fresh
+#     patch_cache_control(response, no_cache=True, must_revalidate=True, max_age=0)
+#     return response
 
 
 # @method_decorator(login_required, name="dispatch")

@@ -96,29 +96,35 @@
     {% include 'partials/_spinner.html' %}
     
 <!-- JavaScript Libraries and Scripts -->
-<script>
+{% comment %} <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('{% url "settings:service-worker" %}?v=1.0.1')
-      .then(registration => {
-        console.log('ServiceWorker registration successful');
+    navigator.serviceWorker.register('/service-worker.js?v=1.0.1')
+      .then(function(registration) {
+        console.log('ServiceWorker registration successful with scope:', registration.scope);
 
         // Listen for updates to the service worker.
-        registration.addEventListener('updatefound', () => {
+        registration.addEventListener('updatefound', function() {
           const newWorker = registration.installing;
-          newWorker.addEventListener('statechange', () => {
+          newWorker.addEventListener('statechange', function() {
+            // When the new worker is installed and there's an active controller,
+            // prompt the user for an update (only once per session).
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              if (confirm("A new version is available. Reload to update?")) {
-                window.location.reload();
+              if (!sessionStorage.getItem('swUpdatePromptShown')) {
+                if (confirm("A new version is available. Reload to update?")) {
+                  window.location.reload();
+                }
+                sessionStorage.setItem('swUpdatePromptShown', 'true');
               }
             }
           });
         });
       })
-      .catch(error => {
-        console.log('ServiceWorker registration failed: ', error);
+      .catch(function(error) {
+        console.error('ServiceWorker registration failed:', error);
       });
   }
-</script>
+</script> {% endcomment %}
+
 
 
  <!-- Custom JS Files -->

@@ -99,30 +99,35 @@
     </div>
 
     
-
-<script>
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('{% url "settings:service-worker" %}?v=1.0.1')
-            .then(registration => {
-              console.log('ServiceWorker registration successful');
-      
-              // Listen for updates to the service worker.
-              registration.addEventListener('updatefound', () => {
-                const newWorker = registration.installing;
-                newWorker.addEventListener('statechange', () => {
-                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+  {% comment %} <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js?v=1.0.1')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope:', registration.scope);
+    
+            // Listen for updates to the service worker.
+            registration.addEventListener('updatefound', function() {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', function() {
+                // When the new worker is installed and there's an active controller,
+                // prompt the user for an update (only once per session).
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  if (!sessionStorage.getItem('swUpdatePromptShown')) {
                     if (confirm("A new version is available. Reload to update?")) {
                       window.location.reload();
                     }
+                    sessionStorage.setItem('swUpdatePromptShown', 'true');
                   }
-                });
+                }
               });
-            })
-            .catch(error => {
-              console.log('ServiceWorker registration failed: ', error);
             });
-        }
-      </script>
+          })
+          .catch(function(error) {
+            console.error('ServiceWorker registration failed:', error);
+          });
+      }
+    </script> {% endcomment %}
+
       
 
     <script src="{% static 'js/settings.js' %}"></script>

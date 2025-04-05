@@ -8,6 +8,7 @@ import os
 from django.contrib.auth import views as auth_views
 
 from django.conf.urls import handler404, handler500
+from django.views.generic import TemplateView
 
 handler404 = 'settings.views.custom_404'
 handler500 = 'settings.views.custom_500'
@@ -25,7 +26,8 @@ urlpatterns = [
     # path('finance/', include('finance.urls')),
     path('account/', include('account.urls', namespace='account')),
     path('membership/', include('membership.urls', namespace='membership')),
-    path('', include('pwa.urls')),  # This will serve the manifest and service worker files. 
+    path('', include('pwa.urls')),  # This will serve the manifest and service worker files.
+    path("offline/", TemplateView.as_view(template_name="offline.html"), name="offline"),
 ]
 
 

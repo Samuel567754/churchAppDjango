@@ -38,6 +38,13 @@
 
 {% block content %}
 
+
+<!-- Include Swiper's CSS in the head -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Include Swiper's JS before the closing body tag -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <!-- Page Header -->
 <section data-aos="fade-up" class="relative bg-cover bg-center h-72 overflow-hidden" style="background-image: url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0097.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -48,7 +55,7 @@
 </section>
 
 
-<!-- Upcoming Events Section -->
+{% comment %} <!-- Upcoming Events Section -->
 <section data-aos="fade-up" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
@@ -106,132 +113,389 @@
             {% endif %}
         </div>
     </div>
-  </section>
+  </section> {% endcomment %}
   
+<!-- Upcoming Events Section with Swiper Slider -->
+<section data-aos="fade-up" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="section-title text-3xl font-bold mb-4 text-indigo-700 animate-fade-in">
+        Upcoming Events
+      </h2>
+      <p class="text-xl text-gray-600 animate-fade-in delay-100">
+        Mark your calendar and join us for these special occasions
+      </p>
+    </div>
+
+    {% if upcoming_events %}
+    <!-- Swiper Container -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        {% for event in upcoming_events %}
+        <div class="swiper-slide">
+          <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105">
+            {% if event.image %}
+              <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+            {% elif event.image_url %}
+              <img src="{{ event.image_url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+            {% else %}
+              <img src="https://via.placeholder.com/800x480?text=No+Image" alt="{{ event.title }}" class="w-full h-48 object-cover">
+            {% endif %}
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2 text-gray-800">{{ event.title }}</h3>
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center text-gray-600">
+                  <svg class="h-5 w-5 mr-2 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 21h14M6 10h12M9 16h6" />
+                  </svg>
+                  <span>{{ event.start_datetime|date:"M d, Y" }}</span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <svg class="h-5 w-5 mr-2 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8m-4 4V4" />
+                  </svg>
+                  <span>
+                    {{ event.start_datetime|date:"g:i A" }}{% if event.end_datetime %} - {{ event.end_datetime|date:"g:i A" }}{% endif %}
+                  </span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <svg class="h-5 w-5 mr-2 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10l9-7 9 7-9 7-9-7zm9-7v14" />
+                  </svg>
+                  <span>{{ event.location }}</span>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-4">{{ event.description|truncatewords:20 }}</p>
+              {% comment %} <a href="{% url 'community:church_calendar_detail' event.slug %}" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors duration-300">
+                Learn More
+              </a> {% endcomment %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Swiper Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Swiper Navigation -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+    {% else %}
+      <!-- Empty state message -->
+      <div class="col-span-full text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="mt-2 text-lg font-medium text-gray-900">No Upcoming Events</p>
+        <p class="mt-1 text-sm text-gray-500">Please check back later for exciting events and activities.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    slidesPerView: 1,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+</script>
+
+
+
+
  
 <!-- FullCalendar CSS -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 <!-- Your custom CSS (including the modal styles) -->
 <style>
-  /* Modal and enhanced UI styling as provided */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    transition: opacity 0.3s ease-in-out;
+
+/* Define CSS Variables */
+:root {
+  --modal-primary-color: #ff8c00;
+  --modal-primary-hover: #ff5e00;
+  --modal-background: #fff;
+  --modal-overlay-bg: rgba(0, 0, 0, 0.7);
+  --modal-text-color: #333;
+  --modal-header-text: #fff;
+  --modal-border-radius: 12px;
+  --modal-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --modal-padding: 1.5rem;
+  --modal-gap: 1rem; /* Consistent spacing */
+  --flag-past-bg: #e74c3c;
+  --flag-upcoming-bg: #27ae60;
+}
+
+.modal {
+  display: flex; /* Ensures flex container for centering */
+  align-items: center; /* Vertical center */
+  justify-content: center; /* Horizontal center */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--modal-overlay-bg);
+  backdrop-filter: blur(5px);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.modal.modal-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-content {
+  background: var(--modal-background);
+  margin: var(--modal-gap);
+  padding: 0;
+  width: 90%;
+  max-width: 600px;
+  border-radius: var(--modal-border-radius);
+  box-shadow: var(--modal-shadow);
+  animation: slideDown 0.4s ease-out;
+  position: relative;
+  overflow: hidden;
+  max-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: var(--modal-gap) var(--modal-padding);
+  background: linear-gradient(135deg, var(--modal-primary-color), var(--modal-primary-hover));
+  color: var(--modal-header-text);
+  flex-shrink: 0;
+}
+
+.modal-header i.fas {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  /* Removed flex-grow to allow inline placement with the flags */
+  line-height: 1.3;
+}
+
+.modal-flag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 0.5rem; /* Small left margin for spacing */
+}
+
+.modal-flag.past {
+  background-color: var(--flag-past-bg);
+}
+
+.modal-flag.upcoming {
+  background-color: var(--flag-upcoming-bg);
+}
+
+.close {
+  color: var(--modal-header-text);
+  position: absolute;
+  top: calc(var(--modal-gap) / 2);
+  right: calc(var(--modal-gap) / 2);
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  z-index: 10;
+}
+
+.close:hover,
+.close:focus {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  outline: none;
+}
+
+.modal-body {
+  padding: var(--modal-padding);
+  color: var(--modal-text-color);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Image Container Styling */
+.modal-image-container {
+  width: 100%;
+  margin-bottom: var(--modal-padding);
+  background: #f0f0f0;
+  border-radius: calc(var(--modal-border-radius) / 2);
+  overflow: hidden;
+  display: block;
+}
+
+.modal-image-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: calc(var(--modal-border-radius) / 2);
+}
+
+.modal-body p {
+  margin: 0 0 var(--modal-gap) 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.modal-body p i.fas {
+  font-size: 1.1rem;
+  margin-top: 0.15em;
+  color: var(--modal-primary-color);
+  flex-shrink: 0;
+  width: 1.2em;
+  text-align: center;
+}
+
+.modal-body p span {
+  flex-grow: 1;
+}
+
+.modal-footer {
+  padding: var(--modal-gap) var(--modal-padding);
+  text-align: right;
+  border-top: 1px solid #eee;
+  background-color: #f9f9f9;
+  flex-shrink: 0;
+}
+
+.modal-footer button {
+  background-color: var(--modal-primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-footer button:hover {
+  background-color: var(--modal-primary-hover);
+}
+
+/* Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  :root {
+    --modal-padding: 1.25rem;
+    --modal-gap: 0.8rem;
   }
   .modal-content {
-    background: #fff;
-    margin: 8% auto;
-    padding: 0;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 12px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    animation: slideDown 0.4s ease-out;
-    position: relative;
-    overflow: hidden;
-  }
-  .modal-header {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, #ff8c00, #ff5e00);
-    color: #fff;
-  }
-  .modal-header i {
-    font-size: 1.5rem;
-    margin-right: 0.75rem;
+    max-width: 95%;
+    margin: var(--modal-gap);
+    max-height: calc(100vh - 2rem);
   }
   .modal-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-  .close {
-    color: #fff;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(0, 0, 0, 0.3);
-    border: none;
-    border-radius: 50%;
-    padding: 0.25rem 0.5rem;
     font-size: 1.2rem;
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  .close:hover,
-  .close:focus {
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    text-decoration: none;
-  }
-  .modal-body {
-    padding: 1rem 1.5rem;
-    color: #333;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  .modal-footer {
-    padding: 1rem 1.5rem;
-    text-align: right;
-    border-top: 1px solid #eee;
-  }
-  .modal-footer button {
-    background-color: #ff8c00;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .modal-footer button:hover {
-    background-color: #ff5e00;
-  }
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .modal-content h3 {
-    margin: 0.5rem 0;
-    font-size: 1.5rem;
-  }
-  .modal-content p {
-    margin: 0.5rem 0;
-    line-height: 1.6;
   }
   .modal-flag {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #fff;
-    border-radius: 4px;
-    margin-left: 0.5rem;
-    transition: background-color 0.3s ease;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
   }
-  .modal-flag.past {
-    background-color: #e74c3c;
+  .modal-image-container img {
+    max-height: 200px;
   }
-  .modal-flag.upcoming {
-    background-color: #27ae60;
+  .modal-body {
+    font-size: 0.95rem;
   }
+  .modal-footer {
+    padding: var(--modal-gap) var(--modal-padding);
+    text-align: center;
+  }
+  .modal-footer button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --modal-padding: 1rem;
+  }
+  .modal-header {
+    padding: var(--modal-gap) var(--modal-padding);
+  }
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+  .close {
+    top: calc(var(--modal-gap) / 3);
+    right: calc(var(--modal-gap) / 3);
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+  }
+}
+
 
 
 
@@ -656,7 +920,7 @@
 </section>
 
 
-<!-- Enhanced Modal Markup with Extra Details -->
+<!-- Enhanced Modal Markup with Extra Details and an Image -->
 <div data-aos="fade-up" id="event-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -666,6 +930,9 @@
       <button class="close">&times;</button>
     </div>
     <div class="modal-body">
+      <div id="modal-image-container" class="modal-image-container" style="display: none;">
+        <img id="modal-image" src="" alt="Event Image">
+      </div>
       <p id="modal-datetime">
         <i class="fas fa-calendar-alt"></i>
         <span>Event Date &amp; Time</span>
@@ -694,7 +961,8 @@
 
 
 
-<script>
+
+{% comment %} <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Use Django URL tag to generate the endpoint URL
     var baseEventsUrl = "{% url 'community:events_json' %}";
@@ -845,10 +1113,324 @@
       }
     });
   });
-  </script>
+  </script> {% endcomment %}
   
 
+{% comment %} <!-- JavaScript: FullCalendar Initialization and Modal Handling -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Use Django URL tag to generate the endpoint URL
+    var baseEventsUrl = "{% url 'community:events_json' %}";
+    
+    var calendarEl = document.getElementById('calendar-content');
+    
+    // Function to build the event URL including selected category filters and search query
+    function buildEventsUrl(fetchInfo) {
+      var selectedCategories = Array.from(
+        document.querySelectorAll('#category-filters input[type="checkbox"]:checked')
+      ).map(function(cb) {
+        return cb.value;
+      });
+      var searchQuery = document.getElementById('event-search').value;
+      var params = new URLSearchParams({
+        start: fetchInfo.startStr,
+        end: fetchInfo.endStr,
+        categories: selectedCategories.join(','),
+        search: searchQuery
+      });
+      return baseEventsUrl + '?' + params.toString();
+    }
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      dayCellDidMount: function(arg) {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var cellDate = new Date(arg.date);
+        cellDate.setHours(0, 0, 0, 0);
+        var frameEl = arg.el.querySelector('.fc-daygrid-day-frame') || arg.el;
+        frameEl.style.backgroundColor = cellDate < today 
+          ? "rgba(255, 229, 229, 0.2)" 
+          : "rgba(229, 255, 229, 0.2)";
+      },
+      events: function(fetchInfo, successCallback, failureCallback) {
+        var url = buildEventsUrl(fetchInfo);
+        fetch(url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => failureCallback(error));
+      },
+      eventClick: function(info) {
+        info.jsEvent.preventDefault();
+        var eventObj = info.event;
+        var title = eventObj.title;
+        var start = eventObj.start;
+        var description = eventObj.extendedProps.description || 'No description provided.';
+        var location = eventObj.extendedProps.location || 'Not specified';
+        var category = eventObj.extendedProps.category || 'General';
+        
+        // Retrieve the image URL: check for an uploaded image then fallback to external_image
+        var imageUrl = eventObj.extendedProps.image || eventObj.extendedProps.external_image || null;
+        
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        var dateStr = start.toLocaleDateString(undefined, options);
+        var timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        document.getElementById("modal-title").innerText = title;
+        document.getElementById("modal-datetime").innerHTML = '<i class="fas fa-calendar-alt"></i> ' + dateStr + ' ' + timeStr;
+        document.getElementById("modal-location").innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + location;
+        document.getElementById("modal-category").innerHTML = '<i class="fas fa-tag"></i> ' + category;
+        document.getElementById("modal-description").innerHTML = '<i class="fas fa-align-left"></i> ' + description;
+        
+        // Set and display the modal image if available
+        if (imageUrl) {
+          document.getElementById("modal-image").src = imageUrl;
+          document.getElementById("modal-image-container").style.display = "block";
+        } else {
+          document.getElementById("modal-image-container").style.display = "none";
+        }
+        
+        var now = new Date();
+        var flagEl = document.getElementById("modal-flag");
+        if (start < now) {
+          flagEl.textContent = "Past";
+          flagEl.classList.remove("upcoming");
+          flagEl.classList.add("past");
+        } else {
+          flagEl.textContent = "Upcoming";
+          flagEl.classList.remove("past");
+          flagEl.classList.add("upcoming");
+        }
+        document.getElementById("event-modal").style.display = "block";
+      }
+    });
+    
+    calendar.render();
+    
+    // Listen for changes to category filters and search input to refetch events
+    var filterInputs = document.querySelectorAll('#category-filters input[type="checkbox"]');
+    filterInputs.forEach(function(input) {
+      input.addEventListener('change', function() {
+        calendar.refetchEvents();
+      });
+    });
+    
+    document.getElementById('event-search').addEventListener('input', function() {
+      calendar.refetchEvents();
+    });
+    
+    // Modal close functionality
+    document.querySelector(".modal .close").addEventListener("click", function() {
+      document.getElementById("event-modal").style.display = "none";
+    });
+    window.addEventListener("click", function(event) {
+      var modal = document.getElementById("event-modal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+    
+    // Search toggle integration
+    document.getElementById('search-toggle').addEventListener('click', function(event) {
+      event.stopPropagation();
+      var searchInput = document.getElementById('event-search');
+      var container = document.getElementById('search-container');
+      if (searchInput.classList.contains('w-0')) {
+        searchInput.classList.remove('w-0', 'opacity-0');
+        searchInput.classList.add('w-64', 'opacity-100');
+        searchInput.focus();
+        container.classList.add('expanded');
+      } else {
+        searchInput.classList.remove('w-64', 'opacity-100');
+        searchInput.classList.add('w-0', 'opacity-0');
+        container.classList.remove('expanded');
+      }
+    });
 
+    document.addEventListener('click', function(event) {
+      var container = document.getElementById('search-container');
+      if (container.classList.contains('expanded') && !container.contains(event.target)) {
+        var searchInput = document.getElementById('event-search');
+        searchInput.classList.remove('w-64', 'opacity-100');
+        searchInput.classList.add('w-0', 'opacity-0');
+        container.classList.remove('expanded');
+      }
+    });
+  });
+</script> {% endcomment %}
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+     // Hide the modal on page load
+    document.getElementById("event-modal").style.display = "none";
+    // Base URL for events (using Django URL tag)
+    var baseEventsUrl = "{% url 'community:events_json' %}";
+  
+    // Get the calendar element
+    var calendarEl = document.getElementById('calendar-content');
+  
+    // Helper function to build the events URL from filters and search input
+    function buildEventsUrl(fetchInfo) {
+      var selectedCategories = Array.from(
+        document.querySelectorAll('#category-filters input[type="checkbox"]:checked')
+      ).map(function(cb) {
+        return cb.value;
+      });
+      var searchQuery = document.getElementById('event-search').value;
+      var params = new URLSearchParams({
+        start: fetchInfo.startStr,
+        end: fetchInfo.endStr,
+        categories: selectedCategories.join(','),
+        search: searchQuery
+      });
+      return baseEventsUrl + '?' + params.toString();
+    }
+  
+    // Initialize FullCalendar
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      dayCellDidMount: function(arg) {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var cellDate = new Date(arg.date);
+        cellDate.setHours(0, 0, 0, 0);
+        var frameEl = arg.el.querySelector('.fc-daygrid-day-frame') || arg.el;
+        frameEl.style.backgroundColor = cellDate < today 
+          ? "rgba(255, 229, 229, 0.2)" 
+          : "rgba(229, 255, 229, 0.2)";
+      },
+      events: function(fetchInfo, successCallback, failureCallback) {
+        var url = buildEventsUrl(fetchInfo);
+        fetch(url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => failureCallback(error));
+      },
+      eventClick: function(info) {
+        info.jsEvent.preventDefault();
+        var eventObj = info.event;
+        var title = eventObj.title;
+        var start = eventObj.start;
+        var description = eventObj.extendedProps.description || 'No description provided.';
+        var location = eventObj.extendedProps.location || 'Not specified';
+        var category = eventObj.extendedProps.category || 'General';
+  
+        // Retrieve the image URL: check for an uploaded image then fallback to external_image
+        var imageUrl = eventObj.extendedProps.image || eventObj.extendedProps.external_image || null;
+  
+        // Format date and time
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        var dateStr = start.toLocaleDateString(undefined, options);
+        var timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  
+        // Update modal content
+        document.getElementById("modal-title").innerText = title;
+        document.getElementById("modal-datetime").innerHTML = '<i class="fas fa-calendar-alt"></i> ' + dateStr + ' ' + timeStr;
+        document.getElementById("modal-location").innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + location;
+        document.getElementById("modal-category").innerHTML = '<i class="fas fa-tag"></i> ' + category;
+        document.getElementById("modal-description").innerHTML = '<i class="fas fa-align-left"></i> ' + description;
+        
+        // Show the modal image if available
+        if (imageUrl) {
+          document.getElementById("modal-image").src = imageUrl;
+          document.getElementById("modal-image-container").style.display = "block";
+        } else {
+          document.getElementById("modal-image-container").style.display = "none";
+        }
+        
+        // Set the flag (Past/Upcoming) based on the event start time
+        var now = new Date();
+        var flagEl = document.getElementById("modal-flag");
+        if (start < now) {
+          flagEl.textContent = "Past";
+          flagEl.classList.remove("upcoming");
+          flagEl.classList.add("past");
+        } else {
+          flagEl.textContent = "Upcoming";
+          flagEl.classList.remove("past");
+          flagEl.classList.add("upcoming");
+        }
+        
+        // Show the modal using "flex" display so it remains centered
+        document.getElementById("event-modal").style.display = "flex";
+      }
+    });
+  
+    // Render the calendar
+    calendar.render();
+  
+    // Refetch events when category filters change
+    var filterInputs = document.querySelectorAll('#category-filters input[type="checkbox"]');
+    filterInputs.forEach(function(input) {
+      input.addEventListener('change', function() {
+        calendar.refetchEvents();
+      });
+    });
+  
+    // Refetch events on search input
+    document.getElementById('event-search').addEventListener('input', function() {
+      calendar.refetchEvents();
+    });
+  
+    // Modal close functionality when clicking the close button
+    document.querySelector(".modal .close").addEventListener("click", function() {
+      document.getElementById("event-modal").style.display = "none";
+    });
+  
+    // Modal close functionality when clicking outside the modal content
+    window.addEventListener("click", function(event) {
+      var modal = document.getElementById("event-modal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+  
+    // Search toggle integration: Expand/Collapse search input
+    document.getElementById('search-toggle').addEventListener('click', function(event) {
+      event.stopPropagation();
+      var searchInput = document.getElementById('event-search');
+      var container = document.getElementById('search-container');
+      if (searchInput.classList.contains('w-0')) {
+        searchInput.classList.remove('w-0', 'opacity-0');
+        searchInput.classList.add('w-64', 'opacity-100');
+        searchInput.focus();
+        container.classList.add('expanded');
+      } else {
+        searchInput.classList.remove('w-64', 'opacity-100');
+        searchInput.classList.add('w-0', 'opacity-0');
+        container.classList.remove('expanded');
+      }
+    });
+  
+    // Collapse search input if clicking outside the search container
+    document.addEventListener('click', function(event) {
+      var container = document.getElementById('search-container');
+      if (container.classList.contains('expanded') && !container.contains(event.target)) {
+        var searchInput = document.getElementById('event-search');
+        searchInput.classList.remove('w-64', 'opacity-100');
+        searchInput.classList.add('w-0', 'opacity-0');
+        container.classList.remove('expanded');
+      }
+    });
+  });
+  </script>
+  
 
 
 {% comment %} <script>
@@ -971,76 +1553,206 @@
 </script> {% endcomment %}
 
 
-  
 
-<!-- Yearly Calendar Event List Section -->
+
+
+<!-- Yearly Calendar Event List Section as a Slider using Number of Slides per View -->
 <section data-aos="fade-up" class="py-10 bg-gray-100">
-  <div class="max-w-6xl mx-auto px-4">
+  <div class="container mx-auto px-4 lg:px-16">
     <h3 class="text-4xl font-bold text-indigo-700 text-center mb-8">
       Calendar Events for {{ selected_year }}
     </h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      {% for event in church_calendar_event_list_year %}
-        <div class="bg-white shadow-lg rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
-          <div class="p-6">
-            <h4 class="text-xl font-semibold text-indigo-700 mb-2">{{ event.title }}</h4>
-            <p class="text-gray-600 text-sm mb-1">
-              <i class="fas fa-calendar-alt mr-2"></i>{{ event.start_datetime|date:"F d, Y" }}
-            </p>
-            <p class="text-gray-600 text-sm mb-3">
-              <i class="fas fa-clock mr-2"></i>{{ event.start_datetime|date:"g:i A" }}
-            </p>
-            <p class="text-gray-700 text-base">
-              {{ event.description|truncatewords:20 }}
-            </p>
-          </div>
+    {% if church_calendar_event_list_year %}
+    <div class="relative overflow-hidden">
+      <!-- Swiper Container (centered with a max width) -->
+      <div class="swiper-container mx-auto max-w-6xl">
+        <div class="swiper-wrapper">
+          {% for event in church_calendar_event_list_year %}
+            <!-- Each slide uses a responsive card width -->
+            <div class="swiper-slide flex justify-center">
+              <div class="bg-white shadow-xl rounded-xl overflow-hidden transform transition duration-300 hover:scale-105 w-full sm:w-72 md:w-80 lg:w-96">
+                {% if event.image %}
+                  <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+                {% elif event.image_url %}
+                  <img src="{{ event.image_url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+                {% else %}
+                  <img src="https://via.placeholder.com/800x480?text=No+Image" alt="{{ event.title }}" class="w-full h-48 object-cover">
+                {% endif %}
+                <div class="p-6">
+                  <h4 class="text-2xl font-bold text-indigo-700 mb-2">{{ event.title }}</h4>
+                  <div class="mb-3">
+                    <span class="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full px-2 py-1">
+                      {{ event.get_category_display }}
+                    </span>
+                  </div>
+                  <div class="mb-3">
+                    <p class="text-gray-600 text-sm flex items-center">
+                      <i class="fas fa-calendar-alt mr-2"></i>
+                      {{ event.start_datetime|date:"F d, Y" }}
+                      {% if event.end_datetime and event.end_datetime != event.start_datetime %}
+                        &nbsp;to&nbsp;{{ event.end_datetime|date:"F d, Y" }}
+                      {% endif %}
+                    </p>
+                    <p class="text-gray-600 text-sm flex items-center">
+                      <i class="fas fa-clock mr-2"></i>
+                      {{ event.start_datetime|date:"g:i A" }}
+                      {% if event.end_datetime and event.end_datetime != event.start_datetime %}
+                        &nbsp;-&nbsp;{{ event.end_datetime|date:"g:i A" }}
+                      {% endif %}
+                    </p>
+                  </div>
+                  {% if event.location %}
+                    <p class="text-gray-600 text-sm mb-3 flex items-center">
+                      <i class="fas fa-map-marker-alt mr-2"></i> {{ event.location }}
+                    </p>
+                  {% endif %}
+                  <p class="text-gray-700 text-base mb-4">
+                    {{ event.description|truncatewords:25 }}
+                  </p>
+                  {% comment %} <a href="{% url 'community:church_calendar_detail' event.slug %}" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors duration-300">
+                    Learn More
+                  </a> {% endcomment %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
         </div>
-      {% empty %}
-        <div class="col-span-full flex flex-col items-center justify-center py-16">
-          <div class="flex items-center justify-center bg-gradient-to-br from-red-500 to-orange-500 p-6 rounded-full shadow-lg mb-4">
-            <!-- Calendar SVG Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-6 4h6m-10 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <p class="text-center text-gray-600 text-xl">No events scheduled for {{ selected_year }}.</p>
-        </div>          
-      {% endfor %}
+        <!-- Swiper Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+      <!-- Navigation Arrows -->
+      <div class="swiper-button-prev text-indigo-600 hover:text-indigo-800"></div>
+      <div class="swiper-button-next text-indigo-600 hover:text-indigo-800"></div>
     </div>
+    {% else %}
+    <div class="flex flex-col items-center justify-center py-16">
+      <div class="flex items-center justify-center bg-gradient-to-br from-red-500 to-orange-500 p-6 rounded-full shadow-lg mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-6 4h6m-10 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+      <p class="text-center text-gray-600 text-xl">No events scheduled for {{ selected_year }}.</p>
+    </div>
+    {% endif %}
   </div>
 </section>
 
 
-<!-- Outreach Programs Section -->
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    // Use an explicit number of slides per view:
+    slidesPerView: 1,
+    spaceBetween: 10,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+</script>
+
+
+
+
+
+
+<!-- Outreach Programs Section as a Slider -->
 <section data-aos="fade-up" class="py-10 bg-gray-100">
-    <div class="max-w-6xl mx-auto px-4">
-      <h3 class="text-4xl font-bold text-indigo-700 text-center mb-8">Outreach Programs</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {% for program in outreach_program_list %}
-          <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300">
-            <h4 class="text-xl font-semibold text-indigo-700 mb-2">{{ program.name }}</h4>
-            <p class="text-gray-600 text-sm">
-              {{ program.start_date|date:"M d, Y" }}{% if program.end_date %} - {{ program.end_date|date:"M d, Y" }}{% endif %}
-            </p>
-            <p class="text-gray-700 mt-3">{{ program.description|truncatewords:20 }}</p>
-            <a href="{{ program.get_absolute_url }}" class="mt-4 inline-block text-indigo-600 hover:text-indigo-800 font-medium">
-              Learn More <i class="fas fa-arrow-right ml-1"></i>
-            </a>
+  <div class="container mx-auto px-4 lg:px-16">
+    <h3 class="text-4xl font-bold text-indigo-700 text-center mb-8">Outreach Programs</h3>
+    {% if outreach_program_list %}
+    <div class="relative overflow-hidden">
+      <!-- Swiper Container (centered with a max width) -->
+      <div class="swiper-outreach-container mx-auto max-w-6xl">
+        <div class="swiper-wrapper">
+          {% for program in outreach_program_list %}
+          <!-- Each slide uses a responsive card width -->
+          <div class="swiper-slide flex justify-center">
+            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300 w-full sm:w-72 md:w-80 lg:w-96">
+              <h4 class="text-xl font-semibold text-indigo-700 mb-2">{{ program.name }}</h4>
+              <p class="text-gray-600 text-sm">
+                {{ program.start_date|date:"M d, Y" }}{% if program.end_date %} - {{ program.end_date|date:"M d, Y" }}{% endif %}
+              </p>
+              <p class="text-gray-700 mt-3">{{ program.description|truncatewords:20 }}</p>
+              <a href="{{ program.get_absolute_url }}" class="mt-4 inline-block text-indigo-600 hover:text-indigo-800 font-medium">
+                Learn More <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
           </div>
-        {% empty %}
-          <div class="col-span-full flex flex-col items-center justify-center py-16">
-            <i class="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
-            <p class="text-gray-500 text-xl">No outreach programs available at this time.</p>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
+        <!-- Swiper Pagination -->
+        <div class="swiper-pagination"></div>
       </div>
+      <!-- Navigation Arrows -->
+      <div class="swiper-button-prev text-indigo-600 hover:text-indigo-800"></div>
+      <div class="swiper-button-next text-indigo-600 hover:text-indigo-800"></div>
     </div>
-  </section>
+    {% else %}
+    <div class="flex flex-col items-center justify-center py-16">
+      <i class="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
+      <p class="text-gray-500 text-xl">No outreach programs available at this time.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+
+<script>
+  var swiperOutreach = new Swiper('.swiper-outreach-container', {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    slidesPerView: 1,
+    spaceBetween: 10,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+</script>
+
+
+
   
   
 
   
-<!-- Featured Events -->
+{% comment %} <!-- Featured Events -->
 <section data-aos="fade-up" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="section-title text-3xl text-center font-bold mb-8 text-indigo-700 animate-fade-in">Featured Events</h2>
@@ -1086,10 +1798,112 @@
         </div>
         {% endif %}
     </div>
+</section> {% endcomment %}
+
+
+
+<!-- Featured Events as a Slider -->
+<section data-aos="fade-up" class="py-20 bg-white">
+  <div class="container mx-auto px-4 lg:px-16">
+    <h2 class="section-title text-3xl text-center font-bold mb-8 text-indigo-700 animate-fade-in">
+      Featured Events
+    </h2>
+    <p class="text-xl text-gray-600 text-center mb-12 animate-fade-in delay-100">
+      Don't miss these highlighted events
+    </p>
+    {% if featured_events %}
+    <div class="relative overflow-hidden">
+      <!-- Swiper Container (centered with a max width) -->
+      <div class="swiper-featured-container mx-auto max-w-7xl">
+        <div class="swiper-wrapper">
+          {% for event in featured_events %}
+          <!-- Each slide uses a responsive card width -->
+          <div class="swiper-slide flex justify-center">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105 w-full sm:w-80 md:w-96">
+              {% if event.image %}
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-64 object-cover">
+              {% elif event.image_url %}
+                <img src="{{ event.image_url }}" alt="{{ event.title }}" class="w-full h-64 object-cover">
+              {% else %}
+                <img src="https://via.placeholder.com/800x400?text=No+Image" alt="{{ event.title }}" class="w-full h-64 object-cover">
+              {% endif %}
+              <div class="p-6">
+                <h3 class="text-2xl font-semibold mb-2 text-gray-800 ministry-title">{{ event.title }}</h3>
+                <p class="text-gray-600 mb-4 ministry-description">
+                  {{ event.start_datetime|date:"F j, Y" }}
+                  {% if event.end_datetime and event.end_datetime != event.start_datetime %}
+                    | {{ event.start_datetime|date:"g:i A" }} - {{ event.end_datetime|date:"g:i A" }}
+                  {% else %}
+                    | {{ event.start_datetime|date:"g:i A" }}
+                  {% endif %}
+                </p>
+                <p class="text-gray-600 mb-4 ministry-description">
+                  {{ event.description|truncatewords:25 }}
+                </p>
+                {% comment %} <a href="{% url 'community:church_calendar_detail' event.slug %}" class="text-indigo-600 hover:text-indigo-800 transition-colors duration-300">
+                  {% if event.registration_required %}
+                    Register Now
+                  {% else %}
+                    Learn More
+                  {% endif %}
+                </a> {% endcomment %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- Swiper Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+      <!-- Navigation Arrows -->
+      <div class="swiper-button-prev text-indigo-600 hover:text-indigo-800"></div>
+      <div class="swiper-button-next text-indigo-600 hover:text-indigo-800"></div>
+    </div>
+    {% else %}
+    <div class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <p class="mt-2 text-lg font-medium text-gray-900">No Featured Events</p>
+      <p class="mt-1 text-sm text-gray-500">Please check back later for highlighted events.</p>
+    </div>
+    {% endif %}
+  </div>
 </section>
 
+<script>
+  var swiperFeatured = new Swiper('.swiper-featured-container', {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    slidesPerView: 1,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+</script>
 
-<!-- Monthly Calendar -->
+
+
+{% comment %} <!-- Monthly Calendar -->
 <section data-aos="fade-up" class="py-20 bg-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="section-title text-center text-3xl font-bold mb-8 text-indigo-700 animate-fade-in">Monthly Events</h2>
@@ -1119,9 +1933,118 @@
         </div>
         {% endif %}
     </div>
-</section>
+</section> {% endcomment %}
+
+
+
+<!-- Monthly Calendar Slider as a Slider -->
+<section data-aos="fade-up" class="py-20 bg-gray-100">
+  <div class="container mx-auto px-4 lg:px-16">
+    <h2 class="section-title text-center text-3xl font-bold mb-8 text-indigo-700 animate-fade-in">
+      Monthly Events
+    </h2>
+    <p class="text-xl text-center text-gray-600 mb-12 animate-fade-in delay-100">
+      Regularly scheduled gatherings
+    </p>
+    {% if monthly_events %}
+    <div class="relative overflow-hidden">
+      <!-- Swiper Container (centered with a max width) -->
+      <div class="swiper-monthly-container mx-auto max-w-7xl">
+        <div class="swiper-wrapper">
+          {% for event in monthly_events %}
+          <div class="swiper-slide flex justify-center">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105 w-full sm:w-80 md:w-96">
+              {% if event.image %}
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+              {% elif event.image_url %}
+                <img src="{{ event.image_url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+              {% else %}
+                <img src="https://via.placeholder.com/800x480?text=No+Image" alt="{{ event.title }}" class="w-full h-48 object-cover">
+              {% endif %}
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-2">
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 ministry-title inline-block">
+                      {{ event.title }}
+                    </h3>
+                    <span class="ml-2 inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full px-2 py-1">
+                      {{ event.get_category_display }}
+                    </span>
+                  </div>
+                  <span class="text-indigo-500 ministry-description">
+                    {{ event.start_datetime|date:"F j, Y" }}
+                    {% if event.end_datetime and event.end_datetime != event.start_datetime %}
+                      | {{ event.start_datetime|date:"g:i A" }} - {{ event.end_datetime|date:"g:i A" }}
+                    {% else %}
+                      | {{ event.start_datetime|date:"g:i A" }}
+                    {% endif %}
+                  </span>
+                </div>
+                {% if event.location %}
+                <div class="text-gray-600 mb-2">
+                  <i class="fas fa-map-marker-alt mr-2"></i> {{ event.location }}
+                </div>
+                {% endif %}
+                <p class="text-gray-600 ministry-description mb-4">
+                  {{ event.description|truncatewords:25 }}
+                </p>
+                {% comment %} <a href="{% url 'community:church_calendar_detail' event.slug %}" class="text-indigo-600 hover:text-indigo-800 transition-colors duration-300">
+                  View Details
+                </a> {% endcomment %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- Slider Navigation -->
+        <div class="swiper-button-prev text-indigo-600 hover:text-indigo-800"></div>
+        <div class="swiper-button-next text-indigo-600 hover:text-indigo-800"></div>
+        <!-- Slider Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+    {% else %}
+    <div class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <p class="mt-2 text-lg font-medium text-gray-900">No Monthly Events</p>
+      <p class="mt-1 text-sm text-gray-500">There are currently no recurring or monthly events scheduled.</p>
+    </div>
+    {% endif %}
+  </div>
+
+<script>
+  var swiperMonthly = new Swiper('.swiper-monthly-container', {
+    loop: true,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 1,
+      },
+      768: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      },
+    },
+  });
+</script>
+
+
+
+
   <!-- JavaScript for Popup Interactions -->
-  <script>
+  {% comment %} <script>
     document.addEventListener('DOMContentLoaded', function() {
       const popupContainers = document.querySelectorAll('.popup-container');
   
@@ -1187,5 +2110,5 @@
             }, index*150)
         });
     });
-</script>
+</script> {% endcomment %}
 {% endblock %}

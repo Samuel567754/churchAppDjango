@@ -206,9 +206,44 @@ class OutreachProgramAdmin(admin.ModelAdmin):
 
 
 
+# @admin.register(ChurchCalendar)
+# class ChurchCalendarAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'start_datetime', 'end_datetime', 'category', 'location', 'featured')
+#     list_filter = ('category', 'featured', 'start_datetime')
+#     search_fields = ('title', 'description', 'location')
+#     prepopulated_fields = {"slug": ("title",)}
+#     ordering = ('start_datetime',)
+    
+#     fieldsets = (
+#         (None, {
+#             'fields': ('title', 'slug', 'category', 'location', 'featured')
+#         }),
+#         ('Event Timing', {
+#             'fields': ('start_datetime', 'end_datetime', 'all_day'),
+#         }),
+#         ('Event Details', {
+#             'fields': ('description',),
+#         }),
+#         ('Timestamps', {
+#             'fields': ('created_at', 'updated_at'),
+#             'classes': ('collapse',),
+#         }),
+#     )
+#     readonly_fields = ('created_at', 'updated_at')
+      
+    
+
 @admin.register(ChurchCalendar)
 class ChurchCalendarAdmin(admin.ModelAdmin):
-    list_display = ('title', 'start_datetime', 'end_datetime', 'category', 'location', 'featured')
+    list_display = (
+        'title', 
+        'start_datetime', 
+        'end_datetime', 
+        'category', 
+        'location', 
+        'featured', 
+        'display_image'
+    )
     list_filter = ('category', 'featured', 'start_datetime')
     search_fields = ('title', 'description', 'location')
     prepopulated_fields = {"slug": ("title",)}
@@ -224,9 +259,27 @@ class ChurchCalendarAdmin(admin.ModelAdmin):
         ('Event Details', {
             'fields': ('description',),
         }),
+        ('Image', {
+            'fields': ('image', 'image_url', 'display_image'),
+        }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',),
         }),
     )
-    readonly_fields = ('created_at', 'updated_at')
+    readonly_fields = ('created_at', 'updated_at', 'display_image')
+    
+    def display_image(self, obj):
+        """
+        This method renders the image from the model.
+        It first checks if an uploaded image exists (from ImageMixin).
+        If not, it falls back to the external image URL.
+        """
+        if obj.image:
+            url = obj.image.url
+        elif obj.image_url:
+            url = obj.image_url
+        else:
+            return "-"
+        return format_html('<img src="{}" alt="{}" style="max-width:100px; max-height:100px;" />', url, obj.title)
+    display_image.short_description = 'Image'

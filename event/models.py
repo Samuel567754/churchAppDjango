@@ -11,6 +11,7 @@ from membership.models import Member
 from django.urls import reverse
 import datetime
 from django.utils import timezone
+from settings.fields import CompressedImageField
 
 # EVENT MODEL
 class Event(ImageMixin):
@@ -156,11 +157,12 @@ EVENT_CATEGORIES = [
     ('other', 'other'),
 ]
 
-class ChurchCalendar(models.Model):
+class ChurchCalendar(ImageMixin):
     title = models.CharField(max_length=255)
     start_datetime = models.DateTimeField(default=timezone.now, help_text="Start date and time of the event")
     end_datetime = models.DateTimeField(blank=True, null=True, help_text="End date and time of the event (optional)")
     category = models.CharField(max_length=20, choices=EVENT_CATEGORIES, default='service')
+    image_url = models.URLField(blank=True, null=True, help_text="Optional URL for an external image")
     location = models.CharField(max_length=255, blank=True, null=True, help_text="Location of the event")
     description = models.TextField(blank=True, null=True)
     all_day = models.BooleanField(default=False, help_text="Check if the event lasts all day")

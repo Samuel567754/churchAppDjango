@@ -19,6 +19,43 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
 
+# @require_GET
+# def events_json(request):
+#     # Read categories filter from GET parameters (if any)
+#     categories = request.GET.get('categories')
+#     search_query = request.GET.get('search', '').strip()
+    
+#     events = ChurchCalendar.objects.all().order_by('start_datetime')
+    
+#     if categories:
+#         category_list = categories.split(',')
+#         events = events.filter(category__in=category_list)
+        
+#     if search_query:
+#         events = events.filter(
+#             Q(title__icontains=search_query) | Q(description__icontains=search_query)
+#         )
+    
+#     event_list = []
+#     for event in events:
+#         event_list.append({
+#             'title': event.title,
+#             'start': event.start_datetime.isoformat(),
+#             'end': event.end_datetime.isoformat() if event.end_datetime else event.start_datetime.isoformat(),
+#             'allDay': event.all_day,
+#             'url': reverse('community:church_calendar_detail', args=[event.slug]),
+#             'className': f'category-{event.category}',  # Adds the category class
+#             'extendedProps': {
+#                 'category': event.category,
+#                 'location': event.location,
+#                 'description': event.description,
+#                 'featured': event.featured,
+#             }
+#         })
+#     return JsonResponse(event_list, safe=False)
+
+
+
 @require_GET
 def events_json(request):
     # Read categories filter from GET parameters (if any)
@@ -50,10 +87,11 @@ def events_json(request):
                 'location': event.location,
                 'description': event.description,
                 'featured': event.featured,
+                'image': event.image.url if event.image else None,
+                'external_image': event.image_url if event.image_url else None,
             }
         })
     return JsonResponse(event_list, safe=False)
-
 
 
 # @require_GET
@@ -129,7 +167,12 @@ def home(request):
     ministries = Ministry.objects.filter(is_active=True).order_by('?')[:3]
     
     # Retrieve 3 random upcoming events (events with a date in the future)
-    upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('?')[:3]
+    # upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('?')[:3]
+    
+      # Retrieve 3 random upcoming ChurchCalendar events (start_datetime in the future)
+    upcoming_events = ChurchCalendar.objects.filter(
+        start_datetime__gte=timezone.now()
+    ).order_by('?')[:3]
     
     # Retrieve 1 random featured sermon
     featured_sermon = Sermon.objects.filter(is_featured=True).order_by('?').first()
@@ -171,9 +214,53 @@ def about(request):
 
 
 
+# def events(request):
+#     now = timezone.now()
+    
+#     # Get selected year and month from query parameters; default to current year/month
+#     try:
+#         selected_year = int(request.GET.get('year', now.year))
+#         selected_month = int(request.GET.get('month', now.month))
+#     except ValueError:
+#         selected_year, selected_month = now.year, now.month
+
+#     # Build datetime objects for the first and last day of the selected month
+#     first_day_of_month = timezone.datetime(selected_year, selected_month, 1, tzinfo=now.tzinfo)
+#     last_day = calendar.monthrange(selected_year, selected_month)[1]
+#     last_day_of_month = timezone.datetime(selected_year, selected_month, last_day, 23, 59, 59, 999999, tzinfo=now.tzinfo)
+
+#     # Use ChurchCalendar model for the event list of the year
+#     church_calendar_event_list_year = ChurchCalendar.objects.filter(
+#         start_datetime__year=selected_year
+#     ).order_by('start_datetime')
+
+#     # The following context items remain unchanged using the Event model
+#     outreach_program_list = OutreachProgram.objects.filter(is_active=True).order_by('-start_date')
+#     upcoming_events = Event.objects.filter(date__gte=now).order_by('date')
+#     monthly_events = Event.objects.filter(date__gte=first_day_of_month, date__lte=last_day_of_month).order_by('date')
+#     featured_events = Event.objects.filter(featured=True, date__gte=now).order_by('date')
+
+#     context = {
+#         'event_categories': EVENT_CATEGORIES,
+#         'church_calendar_event_list_year': church_calendar_event_list_year,
+#         'selected_year': selected_year,
+#         'outreach_program_list': outreach_program_list,
+#         'upcoming_events': upcoming_events,
+#         'monthly_events': monthly_events,
+#         'featured_events': featured_events,
+#     }
+
+#     # If it's an AJAX request, return only the partial template; otherwise, load the full events page
+#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         return render(request, 'community/calendar_partial.html', context)
+#     else:
+#         return render(request, 'community/events.html', context)
+
+
+
 def events(request):
     now = timezone.now()
-    
+
     # Get selected year and month from query parameters; default to current year/month
     try:
         selected_year = int(request.GET.get('year', now.year))
@@ -182,20 +269,34 @@ def events(request):
         selected_year, selected_month = now.year, now.month
 
     # Build datetime objects for the first and last day of the selected month
-    first_day_of_month = timezone.datetime(selected_year, selected_month, 1, tzinfo=now.tzinfo)
+    first_day_of_month = timezone.datetime(
+        selected_year, selected_month, 1, tzinfo=now.tzinfo
+    )
     last_day = calendar.monthrange(selected_year, selected_month)[1]
-    last_day_of_month = timezone.datetime(selected_year, selected_month, last_day, 23, 59, 59, 999999, tzinfo=now.tzinfo)
+    last_day_of_month = timezone.datetime(
+        selected_year, selected_month, last_day, 23, 59, 59, 999999, tzinfo=now.tzinfo
+    )
 
     # Use ChurchCalendar model for the event list of the year
     church_calendar_event_list_year = ChurchCalendar.objects.filter(
         start_datetime__year=selected_year
     ).order_by('start_datetime')
 
-    # The following context items remain unchanged using the Event model
-    outreach_program_list = OutreachProgram.objects.filter(is_active=True).order_by('-start_date')
-    upcoming_events = Event.objects.filter(date__gte=now).order_by('date')
-    monthly_events = Event.objects.filter(date__gte=first_day_of_month, date__lte=last_day_of_month).order_by('date')
-    featured_events = Event.objects.filter(featured=True, date__gte=now).order_by('date')
+    # Use ChurchCalendar for upcoming, monthly, and featured events
+    outreach_program_list = OutreachProgram.objects.filter(
+        is_active=True
+    ).order_by('-start_date')
+    upcoming_events = ChurchCalendar.objects.filter(
+        start_datetime__gte=now
+    ).order_by('start_datetime')
+    monthly_events = ChurchCalendar.objects.filter(
+        start_datetime__gte=first_day_of_month,
+        start_datetime__lte=last_day_of_month
+    ).order_by('start_datetime')
+    featured_events = ChurchCalendar.objects.filter(
+        featured=True,
+        start_datetime__gte=now
+    ).order_by('start_datetime')
 
     context = {
         'event_categories': EVENT_CATEGORIES,
@@ -212,8 +313,6 @@ def events(request):
         return render(request, 'community/calendar_partial.html', context)
     else:
         return render(request, 'community/events.html', context)
-
-
 
 
 

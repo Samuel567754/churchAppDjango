@@ -129,7 +129,7 @@ if not DEBUG:
 
 
 # Use a full URL for the production domain
-SITE_DOMAIN = "https://church-app-oukg.onrender.com"
+SITE_DOMAIN = "https://www.kumasicentralchurchofchrist.com"
 
 # Define your local domain (for development)
 LOCAL_DOMAIN = "http://127.0.0.1:8000"

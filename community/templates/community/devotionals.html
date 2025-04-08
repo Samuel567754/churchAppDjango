@@ -658,14 +658,17 @@
       {% include 'community/partials/devotionals_list_partial.html' %}
     </div>
     
-    <!-- Load More Button -->
+        <!-- Load More Button -->
     {% if page_obj.has_next %}
-    <div class="mt-4 text-center">
-      <button id="load-more" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
-        Load More
-      </button>
+    <div class="flex items-center justify-center mt-6">
+    <div class="text-center">
+        <button id="load-more" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors flex items-center">
+        <i class="fas fa-chevron-down mr-2"></i> Load More
+        </button>
+    </div>
     </div>
     {% endif %}
+
     
     {% else %}
     <!-- Enhanced Empty State -->

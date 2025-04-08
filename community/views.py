@@ -436,15 +436,13 @@ def devotionals(request):
     # Define today's date early for both queries.
     today = timezone.localdate()
     
-    # Retrieve past devotionals (exclude those scheduled for today)
-    # The variable name 'all_devotionals' remains unchanged so that it doesn't affect the template.
-    all_devotionals = Devotional.objects.filter(published=True).exclude(date=today).order_by('-published_at')
+    # Retrieve past devotionals (only those scheduled for dates before today)
+    all_devotionals = Devotional.objects.filter(published=True, date__lt=today).order_by('-published_at')
     
     # AJAX Search: Filter based on query parameter "q"
     search_query = request.GET.get('q', '').strip()
     if search_query:
         # Update the queryset to include only devotionals whose title contains the search term.
-        # Modify the filter fields as necessary (e.g., title__icontains, content__icontains, etc.)
         all_devotionals = all_devotionals.filter(title__icontains=search_query)
     
     # ------------------------------
@@ -490,6 +488,7 @@ def devotionals(request):
     }
     
     return render(request, 'community/devotionals.html', context)
+
 
 
 

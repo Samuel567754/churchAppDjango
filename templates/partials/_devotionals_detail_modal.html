@@ -473,96 +473,7 @@ aria-labelledby="modalTitle"
     });
   </script> {% endcomment %}
   
-
- <!-- JavaScript: Modal toggle and Load More with HTMX -->
- <script>
-    // Function to open modal and load content based on devotional slug
-    function toggleDevotionalModal(slug) {
-      const modal = document.getElementById('devotionalModal');
-      const apiUrl = `/devotionals/${slug}/data/`;
-      const contentState = document.getElementById('contentState');
-      const loadingState = document.getElementById('loadingState');
-      const errorState = document.getElementById('errorState');
-      
-      // Reset modal states
-      contentState.classList.add('hidden');
-      errorState.classList.add('hidden');
-      loadingState.classList.remove('hidden');
-      modal.classList.remove('hidden');
-      
-      fetch(apiUrl)
-        .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
-          return response.json();
-        })
-        .then(data => {
-          document.getElementById('modalTitle').textContent = data.title;
-          document.getElementById('modalDate').textContent = data.date;
-          document.getElementById('modalContent').innerHTML = data.content;
-  
-          // Scripture reference handling
-          const scriptureContainer = document.getElementById('modalScriptureContainer');
-          const scriptureText = document.getElementById('scriptureText');
-          if (data.scripture_reference) {
-            scriptureText.textContent = `"${data.scripture_reference}"`;
-            scriptureContainer.classList.remove('hidden');
-          } else {
-            scriptureContainer.classList.add('hidden');
-          }
-  
-          // Image handling
-          const imageContainer = document.getElementById('modalImageContainer');
-          if (data.image_url) {
-            imageContainer.innerHTML = `
-              <img src="${data.image_url}" alt="${data.title}" 
-                   class="w-full h-48 sm:h-56 object-cover transition-opacity duration-300 opacity-0"
-                   onload="this.classList.add('opacity-100')">
-            `;
-          } else {
-            imageContainer.innerHTML = '';
-          }
-  
-          loadingState.classList.add('hidden');
-          contentState.classList.remove('hidden');
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          loadingState.classList.add('hidden');
-          errorState.classList.remove('hidden');
-        });
-    }
-    
-    // Share functionality using the Web Share API
-    const nativeShareBtn = document.getElementById('nativeShareBtn');
-    if (navigator.share && nativeShareBtn) {
-      nativeShareBtn.classList.remove('hidden');
-      nativeShareBtn.addEventListener('click', function() {
-        navigator.share({
-          title: document.getElementById('modalTitle').textContent,
-          text: 'Check out this devotional!',
-          url: window.location.href
-        }).catch(error => console.error('Share failed:', error));
-      });
-    }
-    
-    // Close modal functions
-    const closeModal = () => document.getElementById('devotionalModal').classList.add('hidden');
-    document.getElementById('closeDevotionalModal').addEventListener('click', closeModal);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const modal = document.getElementById('devotionalModal');
-        if (!modal.classList.contains('hidden')) closeModal();
-      }
-    });
-    document.getElementById('devotionalModal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
-  </script>
-  
-
-
-
-  {% comment %} <!-- JavaScript: Toggle Modal using onclick function -->
+  <!-- JavaScript: Toggle Modal using onclick function -->
   <script>
     // Function to open and load modal content based on devotional slug
     function toggleDevotionalModal(slug) {
@@ -648,7 +559,7 @@ aria-labelledby="modalTitle"
     document.getElementById('devotionalModal').addEventListener('click', function(e) {
       if (e.target === this) closeModal();
     });
-  </script> {% endcomment %}
+  </script>
 
 
 

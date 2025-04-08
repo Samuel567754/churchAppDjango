@@ -1,3 +1,4 @@
+{% load static %}
 {% for devotional in page_obj %}
 <article onclick="toggleDevotionalModal('{{ devotional.slug }}')" role="button" tabindex="0" class="cursor-pointer relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
   {% if devotional.is_featured %}
@@ -14,12 +15,9 @@
     <img src="{{ devotional.image_url }}" alt="{{ devotional.title }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
   </figure>
   {% else %}
-  <!-- Fallback Icon with Gradient Background -->
-  <div class="aspect-w-16 aspect-h-9 relative flex items-center justify-center rounded-lg bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 shadow-lg ring-2 ring-white/30">
-    <svg class="w-12 h-12 text-white opacity-90" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm1 2v14h10V6H7zm2 2h6v2H9V8zm0 4h6v2H9v-2z"/>
-    </svg>
-  </div>
+  <figure class="aspect-w-16 aspect-h-9 overflow-hidden">
+    <img src="{% static 'images/devotionals/20250408_113012_0000.png' %}" alt="{{ devotional.title }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+  </figure>
   {% endif %}
 
   <div class="p-4 flex flex-col flex-grow">

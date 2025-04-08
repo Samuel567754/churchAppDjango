@@ -379,14 +379,77 @@ def give(request):
 #     return render(request, 'community/devotionals.html', context)
 
 
-def devotionals(request):
-    # Retrieve published devotionals ordered by published_at descending
-    all_devotionals = Devotional.objects.filter(published=True).order_by('-published_at')
+# def devotionals(request):
+#     # Define today's date early for both queries.
+#     today = timezone.localdate()
+    
+#     # Retrieve past devotionals (exclude those scheduled for today)
+#     # The variable name 'all_devotionals' remains unchanged so that it doesn't affect the template.
+#     all_devotionals = Devotional.objects.filter(published=True).exclude(date=today).order_by('-published_at')
 
+#     # ------------------------------
+#     # Daily Devotional Integration
+#     # ------------------------------
+#     cache_key = f"daily_devotional_{today.isoformat()}"
+#     daily_devotional = cache.get(cache_key)
+
+#     if daily_devotional is None:
+#         # First, try to get devotionals scheduled for today
+#         scheduled_devotionals = Devotional.objects.filter(date=today)
+#         if scheduled_devotionals.exists():
+#             daily_devotional = random.choice(list(scheduled_devotionals))
+#         else:
+#             total = Devotional.objects.count()
+#             if total > 0:
+#                 hash_value = int(hashlib.md5(str(today).encode()).hexdigest(), 16)
+#                 index = hash_value % total
+#                 daily_devotional = Devotional.objects.all()[index]
+#             else:
+#                 daily_devotional = None
+
+#         # Cache the daily devotional until midnight
+#         now = timezone.now()
+#         tomorrow = now + timezone.timedelta(days=1)
+#         midnight = timezone.datetime.combine(tomorrow.date(), timezone.datetime.min.time(), tzinfo=now.tzinfo)
+#         seconds_until_midnight = int((midnight - now).total_seconds())
+#         cache.set(cache_key, daily_devotional, seconds_until_midnight)
+
+#     # Pagination: Display 9 devotionals per page (or 1 per your current setup)
+#     paginator = Paginator(all_devotionals, 1)
+#     page_number = request.GET.get('page') or 1
+#     page_obj = paginator.get_page(page_number)
+
+#     # If the request is AJAX, return just the devotionals items HTML (a partial)
+#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#          return render(request, 'community/partials/devotionals_list_partial.html', {'page_obj': page_obj})
+
+#     context = {
+#          'daily_devotional': daily_devotional,
+#          'page_obj': page_obj,
+#          'paginator': paginator,
+#     }
+    
+#     return render(request, 'community/devotionals.html', context)
+
+
+def devotionals(request):
+    # Define today's date early for both queries.
+    today = timezone.localdate()
+    
+    # Retrieve past devotionals (exclude those scheduled for today)
+    # The variable name 'all_devotionals' remains unchanged so that it doesn't affect the template.
+    all_devotionals = Devotional.objects.filter(published=True).exclude(date=today).order_by('-published_at')
+    
+    # AJAX Search: Filter based on query parameter "q"
+    search_query = request.GET.get('q', '').strip()
+    if search_query:
+        # Update the queryset to include only devotionals whose title contains the search term.
+        # Modify the filter fields as necessary (e.g., title__icontains, content__icontains, etc.)
+        all_devotionals = all_devotionals.filter(title__icontains=search_query)
+    
     # ------------------------------
     # Daily Devotional Integration
     # ------------------------------
-    today = timezone.localdate()
     cache_key = f"daily_devotional_{today.isoformat()}"
     daily_devotional = cache.get(cache_key)
 
@@ -411,7 +474,7 @@ def devotionals(request):
         seconds_until_midnight = int((midnight - now).total_seconds())
         cache.set(cache_key, daily_devotional, seconds_until_midnight)
 
-    # Pagination: Display 9 devotionals per page
+    # Pagination: Display 9 devotionals per page (or 1 per your current setup)
     paginator = Paginator(all_devotionals, 1)
     page_number = request.GET.get('page') or 1
     page_obj = paginator.get_page(page_number)
@@ -427,6 +490,7 @@ def devotionals(request):
     }
     
     return render(request, 'community/devotionals.html', context)
+
 
 
 

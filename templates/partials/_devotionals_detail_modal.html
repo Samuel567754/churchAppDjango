@@ -61,57 +61,60 @@
   </div>
    {% endcomment %}
 
-     <!-- Modal Header -->
-     <header class="flex flex-col sm:flex-row justify-between items-center p-6 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div class="flex flex-col flex-1 space-y-2">
-          <!-- Title with Icon -->
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-6 h-6 text-yellow-300"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              aria-hidden="true"
-            >
-              <path d="M10 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm4.22 2.22a1 1 0 011.42 1.42l-.7.71a1 1 0 11-1.42-1.42l.7-.71zM16 9a1 1 0 110 2h-1a1 1 0 110-2h1zM5 9a1 1 0 110 2H4a1 1 0 110-2h1zm-.22 4.78a1 1 0 10-1.42 1.42l.7.71a1 1 0 001.42-1.42l-.7-.71zM10 15a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm4.22-.22a1 1 0 00-1.42 1.42l.7.71a1 1 0 101.42-1.42l-.7-.71zM4.78 9.78a1 1 0 000 2h-.01a1 1 0 100-2h.01z" />
-            </svg>
-            <h1 id="modalTitle" class="text-lg font-bold text-white break-words">
-              MORNING DEVOTIONAL MESSAGE
-            </h1>
-          </div>
-  
-  
-          <!-- Modal Date -->
-          <div class="flex items-center gap-2 flex-wrap text-sm text-blue-100">
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span id="modalDate" class="break-words"></span>
-          </div>
-        </div>
-  
-        <!-- Close Button -->
-        <button
-          id="closeDevotionalModal"
-          aria-label="Close modal"
-          class="flex items-center justify-center p-2 text-white bg-gray-800 rounded-full shadow-md transition-transform duration-200 hover:bg-gray-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+ <!-- Modal Header -->
+<header class="flex flex-row justify-between items-center p-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-lg shadow-lg backdrop-blur-md">
+    <div class="flex flex-col">
+      <!-- Title with Icon -->
+      <div class="flex items-center gap-3">
+        <svg
+          class="w-7 h-7 text-yellow-300"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          aria-hidden="true"
         >
-          <svg
-            class="w-8 h-8"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </header>
+          <path d="M10 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm4.22 2.22a1 1 0 011.42 1.42l-.7.71a1 1 0 11-1.42-1.42l.7-.71zM16 9a1 1 0 110 2h-1a1 1 0 110-2h1zM5 9a1 1 0 110 2H4a1 1 0 110-2h1zm-.22 4.78a1 1 0 10-1.42 1.42l.7.71a1 1 0 001.42-1.42l-.7-.71zM10 15a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm4.22-.22a1 1 0 00-1.42 1.42l.7.71a1 1 0 101.42-1.42l-.7-.71zM4.78 9.78a1 1 0 000 2h-.01a1 1 0 100-2h.01z" />
+        </svg>
+        <h1 id="modalTitle" class="text-xl font-bold text-white break-words">
+          MORNING DEVOTIONAL MESSAGE
+        </h1>
+      </div>
+  
+      <!-- Modal Date -->
+      <div class="flex items-center gap-2 text-sm text-blue-100">
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span id="modalDate" class="font-medium break-words"></span>
+      </div>
+    </div>
+  
+    <!-- Close Button -->
+    <button
+      id="closeDevotionalModal"
+      aria-label="Close modal"
+      class="flex items-center justify-center p-2 text-white bg-gray-800 rounded-full shadow-lg transition-transform duration-200 hover:bg-gray-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+    >
+      <svg
+        class="w-8 h-8"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </header>
+  
+  
   
         <!-- Modal Body -->
         <div class="p-6 space-y-6">

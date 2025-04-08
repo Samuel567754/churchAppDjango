@@ -1,0 +1,616 @@
+{% extends 'base.html' %}
+
+{% block title %}Devotionals -  Kumasi Central CoC{% endblock %}
+
+{% block head %}
+  {{ block.super}}
+ <style>
+    .animate-fade-in{
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+    .section-title{
+        position:relative;
+        padding-bottom: 1rem;
+    }
+    .section-title:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        height: 2px;
+        width: 60px;
+        background-color: #6366f1;
+    }
+    .ministry-icon{
+        stroke-width: 1.5;
+    }
+ </style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section data-aos="fade-in" class="relative">
+  <img 
+    src="https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0072.jpg" 
+    alt="Contact Us" 
+    class="w-full h-96 object-cover object-center" 
+  />
+  <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+      <h1 class="text-4xl font-bold animate-fade-in">Devotionals</h1>
+      <p class="text-lg mt-4 mb-6 animate-fade-in delay-100">Listen to Our Devotionals</p>
+    </div>
+  </div>
+</section>
+
+ 
+{% comment %} <section class="py-16 bg-gradient-to-br from-gray-50 to-purple-50 relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 left-0 w-32 h-32 bg-purple-200 rounded-full opacity-20 mix-blend-multiply blur-xl"></div>
+    <div class="absolute bottom-0 right-0 w-48 h-48 bg-blue-200 rounded-full opacity-20 mix-blend-multiply blur-xl"></div>
+  
+    <div class="container mx-auto px-4 relative">
+      <!-- Heading Section with Icon -->
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg mb-6">
+          <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+          Today's Inspiration
+        </h1>
+        <p class="mt-4 text-lg text-gray-600 font-medium max-w-2xl mx-auto">
+          Nourish your spirit with today's divine wisdom
+        </p>
+      </div>
+  
+      {% if daily_devotional %}
+        <!-- Devotional Card -->
+        <div class="flex justify-center">
+          <div class="w-full max-w-2xl group">
+            <div class="relative bg-white rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div class="absolute inset-0 bg-gradient-to-r from-purple-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+              
+              <div class="relative p-8 flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8">
+                <!-- Icon Container: Image URL or Default Icon -->
+                <div class="w-full md:w-1/4 flex justify-center">
+                  {% if daily_devotional.image_url %}
+                    <img src="{{ daily_devotional.image_url }}" alt="{{ daily_devotional.title }}" class="w-24 h-24 object-cover rounded-full shadow-lg">
+                  {% else %}
+                    <div class="p-6 bg-gradient-to-br from-purple-600 to-blue-500 rounded-2xl shadow-lg">
+                      <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                      </svg>
+                    </div>
+                  {% endif %}
+                </div>
+  
+                <!-- Content -->
+                <div class="w-full md:w-3/4">
+                  <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2 flex items-center">
+                      {{ daily_devotional.title|default:"Daily Bread" }}
+                      <span class="ml-3 bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">New</span>
+                    </h3>
+                    
+                    {% if daily_devotional.scripture_reference %}
+                    <div class="flex items-center text-blue-600 font-medium">
+                      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                      </svg>
+                      {{ daily_devotional.scripture_reference }}
+                    </div>
+                    {% endif %}
+                  </div>
+  
+                  <p class="text-gray-600 leading-relaxed mb-6">
+                    {{ daily_devotional.summary|default:daily_devotional.content|truncatewords:30 }}
+                  </p>
+  
+                  <button id="openDevotionalModal" data-slug="{{ daily_devotional.slug }}" class="w-full md:w-auto inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02]">
+                    <span>Continue Reading</span>
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Date Indicator -->
+        <div class="mt-8 text-center">
+          <span class="inline-block bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-medium">
+            <svg class="w-4 h-4 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            {{ "now"|date:"F j, Y" }}
+          </span>
+        </div>
+      {% else %}
+        <!-- Empty State -->
+        <div class="flex flex-col items-center justify-center py-12">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-200 rounded-full shadow-lg mb-6">
+            <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 4h.01M12 2a10 10 0 110 20 10 10 0 010-20z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">No Devotional Available</h3>
+          <p class="mt-2 text-lg text-gray-600 max-w-2xl text-center">
+            Please check back later for today's inspirational message.
+          </p>
+        </div>
+      {% endif %}
+    </div>
+  </section> {% endcomment %}
+
+
+
+  <!-- Devotional Section -->
+  <section class="py-16 bg-gradient-to-br from-gray-50 to-purple-50 relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 left-0 w-32 h-32 bg-purple-200 rounded-full opacity-20 mix-blend-multiply blur-xl"></div>
+    <div class="absolute bottom-0 right-0 w-48 h-48 bg-blue-200 rounded-full opacity-20 mix-blend-multiply blur-xl"></div>
+  
+    <div class="container mx-auto px-4 relative">
+      <!-- Heading Section with Icon -->
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg mb-6">
+          <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+               xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 
+                     5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 
+                     3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+          Today's Inspiration
+        </h1>
+        <p class="mt-4 text-lg text-gray-600 font-medium max-w-2xl mx-auto">
+          Nourish your spirit with today's divine wisdom
+        </p>
+      </div>
+  
+      {% if daily_devotional %}
+        <!-- Devotional Card -->
+        <div class="flex justify-center">
+          <div class="w-full max-w-2xl group">
+            <!-- Entire card is clickable via the onclick on this container -->
+            <div onclick="toggleDevotionalModal('{{ daily_devotional.slug }}')"
+                 role="button" tabindex="0"
+                 class="relative bg-white rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div class="absolute inset-0 bg-gradient-to-r from-purple-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+              
+              <div class="relative p-8 flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8">
+                <!-- Icon Container: Image URL or Default Icon -->
+                <div class="w-full md:w-1/4 flex justify-center">
+                  {% if daily_devotional.image_url %}
+                    <img src="{{ daily_devotional.image_url }}" alt="{{ daily_devotional.title }}" 
+                         class="w-24 h-24 object-cover rounded-full shadow-lg">
+                  {% else %}
+                    <div class="p-6 bg-gradient-to-br from-purple-600 to-blue-500 rounded-2xl shadow-lg">
+                      <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                           xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                      </svg>
+                    </div>
+                  {% endif %}
+                </div>
+  
+                <!-- Content -->
+                <div class="w-full md:w-3/4">
+                  <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2 flex items-center">
+                      {{ daily_devotional.title|default:"Daily Bread" }}
+                      <span class="ml-3 bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">New</span>
+                    </h3>
+                    
+                    {% if daily_devotional.scripture_reference %}
+                    <div class="flex items-center text-blue-600 font-medium">
+                      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                           xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                      </svg>
+                      {{ daily_devotional.scripture_reference }}
+                    </div>
+                    {% endif %}
+                  </div>
+    
+                  <p class="text-gray-600 leading-relaxed mb-6">
+                    {{ daily_devotional.summary|default:daily_devotional.content|truncatewords:30 }}
+                  </p>
+    
+                  <button id="openDevotionalModal" data-slug="{{ daily_devotional.slug }}" 
+                          class="w-full md:w-auto inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02]">
+                    <span>Continue Reading</span>
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                         xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Date Indicator -->
+        <div class="mt-8 text-center">
+          <span class="inline-block bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-medium">
+            <svg class="w-4 h-4 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                 xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            {{ "now"|date:"F j, Y" }}
+          </span>
+        </div>
+      {% else %}
+        <!-- Empty State -->
+        <div class="flex flex-col items-center justify-center py-12">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-200 rounded-full shadow-lg mb-6">
+            <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M12 9v3m0 4h.01M12 2a10 10 0 110 20 10 10 0 010-20z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">No Devotional Available</h3>
+          <p class="mt-2 text-lg text-gray-600 max-w-2xl text-center">
+            Please check back later for today's inspirational message.
+          </p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+
+
+  {% comment %} <section class="py-8 px-6 md:px-12">
+    <!-- Header and Description with Icon -->
+    <header class="max-w-2xl mx-auto text-center mb-8 flex flex-col items-center">
+      <div class="mb-4">
+        <svg class="w-10 h-10 text-blue-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <!-- Book Icon -->
+          <path d="M4 6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm2 0v12h10V6H6zm2 2h6v2H8V8zm0 4h6v2H8v-2z"/>
+        </svg>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4"> Devotional list</h1>
+      <p class="text-lg text-gray-600">
+        Find spiritual nourishment through our carefully selected devotional readings
+      </p>
+    </header>
+  
+    {% if devotionals %}
+    <!-- Responsive Card Grid -->
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {% for devotional in devotionals %}
+      <article class="relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+          <!-- Invisible Toggle Button over the card -->
+
+        {% if devotional.is_featured %}
+        <!-- Featured Star Icon -->
+        <div class="absolute top-2 right-2 bg-yellow-500 text-white rounded-full p-1">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </div>
+        {% endif %}
+        {% if devotional.image_url %}
+        <figure class="aspect-w-16 aspect-h-9 overflow-hidden">
+          <img src="{{ devotional.image_url }}" alt="{{ devotional.title }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+        </figure>
+        {% else %}
+        <!-- Professional Fallback Icon with Enhanced Gradient -->
+        <div class="aspect-w-16 aspect-h-9 relative flex items-center justify-center rounded-lg bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 shadow-lg ring-2 ring-white/30">
+          <svg class="w-12 h-12 text-white opacity-90" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm1 2v14h10V6H7zm2 2h6v2H9V8zm0 4h6v2H9v-2z"/>
+          </svg>
+        </div>
+        {% endif %}
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ devotional.title }}</h3>
+          {% if devotional.scripture_reference %}
+          <p class="flex items-center text-sm text-gray-500 italic mb-2">
+            <svg class="w-4 h-4 mr-2 text-blue-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <!-- Bible Icon -->
+              <path d="M19 4H5c-1.1 0-2 .9-2 2v12a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V6h14v12zM7 8h10v2H7V8zm0 4h10v2H7v-2z"/>
+            </svg>
+            {{ devotional.scripture_reference }}
+          </p>
+          {% endif %}
+          <p class="text-gray-600 flex-grow">
+            {% if devotional.summary %}
+              {{ devotional.summary|truncatewords:20 }}
+            {% else %}
+              {{ devotional.content|truncatewords:20 }}
+            {% endif %}
+          </p>
+          <div class="mt-4">
+            <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors" aria-label="Read {{ devotional.title }}">
+              Read More
+              <svg class="w-4 h-4 ml-2 fill-current transition-transform duration-200" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- Enhanced Empty State -->
+    <div class="flex flex-col items-center py-12">
+      <svg class="w-16 h-16 text-gray-400 mb-4" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4zm9 16H6V4h1v9l3-2.25L13 13V4h5v16z"/>
+      </svg>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">No Devotionals Available</h2>
+      <p class="text-gray-500 text-center max-w-md">
+        We're preparing new spiritual insights. Check back soon!
+      </p>
+    </div>
+    {% endif %}
+  </section> {% endcomment %}
+  
+
+{% comment %} <!-- Devotional Section -->
+<section class="py-8 px-6 md:px-12">
+    <!-- Header and Description with Icon -->
+    <header class="max-w-2xl mx-auto text-center mb-8 flex flex-col items-center">
+      <div class="mb-4">
+        <svg class="w-10 h-10 text-blue-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <!-- Book Icon -->
+          <path d="M4 6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm2 0v12h10V6H6zm2 2h6v2H8V8zm0 4h6v2H8v-2z"/>
+        </svg>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Devotional List</h1>
+      <p class="text-lg text-gray-600">
+        Find spiritual nourishment through our carefully selected devotional readings
+      </p>
+    </header>
+  
+    {% if devotionals %}
+    <!-- Responsive Card Grid -->
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {% for devotional in devotionals %}
+      <article onclick="toggleDevotionalModal('{{ devotional.slug }}')" role="button" tabindex="0" class="cursor-pointer relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+        {% if devotional.is_featured %}
+        <!-- Featured Star Icon -->
+        <div class="absolute top-2 right-2 bg-yellow-500 text-white rounded-full p-1">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </div>
+        {% endif %}
+  
+        {% if devotional.image_url %}
+        <figure class="aspect-w-16 aspect-h-9 overflow-hidden">
+          <img src="{{ devotional.image_url }}" alt="{{ devotional.title }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+        </figure>
+        {% else %}
+        <!-- Professional Fallback Icon with Enhanced Gradient -->
+        <div class="aspect-w-16 aspect-h-9 relative flex items-center justify-center rounded-lg bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 shadow-lg ring-2 ring-white/30">
+          <svg class="w-12 h-12 text-white opacity-90" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm1 2v14h10V6H7zm2 2h6v2H9V8zm0 4h6v2H9v-2z"/>
+          </svg>
+        </div>
+        {% endif %}
+  
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ devotional.title }}</h3>
+          {% if devotional.scripture_reference %}
+          <p class="flex items-center text-sm text-gray-500 italic mb-2">
+            <svg class="w-4 h-4 mr-2 text-blue-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <!-- Bible Icon -->
+              <path d="M19 4H5c-1.1 0-2 .9-2 2v12a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V6h14v12zM7 8h10v2H7V8zm0 4h10v2H7v-2z"/>
+            </svg>
+            {{ devotional.scripture_reference }}
+          </p>
+          {% endif %}
+          <p class="text-gray-600 flex-grow">
+            {% if devotional.summary %}
+              {{ devotional.summary|truncatewords:20 }}
+            {% else %}
+              {{ devotional.content|truncatewords:20 }}
+            {% endif %}
+          </p>
+          <div class="mt-4">
+            <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors" aria-label="Read {{ devotional.title }}">
+              Read More
+              <svg class="w-4 h-4 ml-2 fill-current transition-transform duration-200" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- Enhanced Empty State -->
+    <div class="flex flex-col items-center py-12">
+      <svg class="w-16 h-16 text-gray-400 mb-4" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4zm9 16H6V4h1v9l3-2.25L13 13V4h5v16z"/>
+      </svg>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">No Devotionals Available</h2>
+      <p class="text-gray-500 text-center max-w-md">
+        We're preparing new spiritual insights. Check back soon!
+      </p>
+    </div>
+    {% endif %}
+  </section> {% endcomment %}
+
+
+
+  <section class="py-8 px-6 md:px-12">
+    <!-- Header and Description with Icon -->
+    <header class="max-w-2xl mx-auto text-center mb-8 flex flex-col items-center">
+      <div class="mb-4">
+        <svg class="w-10 h-10 text-blue-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <!-- Book Icon -->
+          <path d="M4 6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm2 0v12h10V6H6zm2 2h6v2H8V8zm0 4h6v2H8v-2z"/>
+        </svg>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Devotional List</h1>
+      <p class="text-lg text-gray-600">
+        Find spiritual nourishment through our carefully selected devotional readings
+      </p>
+    </header>
+  
+    {% if page_obj %}
+    <!-- Responsive Card Grid; initial devotionals are loaded via the partial template -->
+    <div id="devotional-list" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {% include 'community/partials/devotionals_list_partial.html' %}
+    </div>
+  
+    <!-- Load More Button -->
+    {% if page_obj.has_next %}
+    <div class="mt-4 text-center">
+      <button id="load-more" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
+        Load More
+      </button>
+    </div>
+    {% endif %}
+  
+    {% else %}
+    <!-- Enhanced Empty State -->
+    <div class="flex flex-col items-center py-12">
+      <svg class="w-16 h-16 text-gray-400 mb-4" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4zm9 16H6V4h1v9l3-2.25L13 13V4h5v16z"/>
+      </svg>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">No Devotionals Available</h2>
+      <p class="text-gray-500 text-center max-w-md">
+        We're preparing new spiritual insights. Check back soon!
+      </p>
+    </div>
+    {% endif %}
+  </section>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+     // Start with the next page (page 2) since page 1 is already loaded.
+     let page = 2;
+     const loadMoreButton = document.getElementById('load-more');
+     
+     if(loadMoreButton) {
+        loadMoreButton.addEventListener('click', function() {
+           // Request the next page via AJAX
+           fetch(`?page=${page}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+             .then(response => response.text())
+             .then(html => {
+                // If no HTML is returned, hide the button.
+                if (html.trim() === "") {
+                   loadMoreButton.style.display = 'none';
+                } else {
+                   // Append the new devotionals to the container
+                   document.getElementById('devotional-list').insertAdjacentHTML('beforeend', html);
+                   page++;
+                   // Hide the button if the next page exceeds the total number of pages.
+                   if (page > {{ paginator.num_pages }}) {
+                      loadMoreButton.style.display = 'none';
+                   }
+                }
+             })
+             .catch(error => console.error('Error fetching more devotionals:', error));
+        });
+     }
+  });
+  </script>
+
+
+  {% comment %} <!-- Devotional Section -->
+  <section class="py-8 px-6 md:px-12">
+    <!-- Header and Description with Icon -->
+    <header class="max-w-2xl mx-auto text-center mb-8 flex flex-col items-center">
+      <div class="mb-4">
+        <svg class="w-10 h-10 text-blue-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <!-- Book Icon -->
+          <path d="M4 6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm2 0v12h10V6H6zm2 2h6v2H8V8zm0 4h6v2H8v-2z"/>
+        </svg>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Devotional list</h1>
+      <p class="text-lg text-gray-600">
+        Find spiritual nourishment through our carefully selected devotional readings
+      </p>
+    </header>
+  
+    {% if devotionals %}
+    <!-- Responsive Card Grid -->
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {% for devotional in devotionals %}
+      <article class="relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+        {% if devotional.is_featured %}
+        <!-- Featured Star Icon -->
+        <div class="absolute top-2 right-2 bg-yellow-500 text-white rounded-full p-1">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </div>
+        {% endif %}
+  
+        {% if devotional.image_url %}
+        <figure class="aspect-w-16 aspect-h-9 overflow-hidden">
+          <img src="{{ devotional.image_url }}" alt="{{ devotional.title }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+        </figure>
+        {% else %}
+        <!-- Professional Fallback Icon with Enhanced Gradient -->
+        <div class="aspect-w-16 aspect-h-9 relative flex items-center justify-center rounded-lg bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 shadow-lg ring-2 ring-white/30">
+          <svg class="w-12 h-12 text-white opacity-90" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm1 2v14h10V6H7zm2 2h6v2H9V8zm0 4h6v2H9v-2z"/>
+          </svg>
+        </div>
+        {% endif %}
+  
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ devotional.title }}</h3>
+          {% if devotional.scripture_reference %}
+          <p class="flex items-center text-sm text-gray-500 italic mb-2">
+            <svg class="w-4 h-4 mr-2 text-blue-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <!-- Bible Icon -->
+              <path d="M19 4H5c-1.1 0-2 .9-2 2v12a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V6h14v12zM7 8h10v2H7V8zm0 4h10v2H7v-2z"/>
+            </svg>
+            {{ devotional.scripture_reference }}
+          </p>
+          {% endif %}
+          <p class="text-gray-600 flex-grow">
+            {% if devotional.summary %}
+              {{ devotional.summary|truncatewords:20 }}
+            {% else %}
+              {{ devotional.content|truncatewords:20 }}
+            {% endif %}
+          </p>
+
+          <button id="openDevotionalModal" data-slug="{{ devotional.slug }}" class="w-full md:w-auto mt-4 inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02]">
+            <span>Continue Reading</span>
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </button>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- Enhanced Empty State -->
+    <div class="flex flex-col items-center py-12">
+      <svg class="w-16 h-16 text-gray-400 mb-4" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4zm9 16H6V4h1v9l3-2.25L13 13V4h5v16z"/>
+      </svg>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">No Devotionals Available</h2>
+      <p class="text-gray-500 text-center max-w-md">
+        We're preparing new spiritual insights. Check back soon!
+      </p>
+    </div>
+    {% endif %}
+  </section> {% endcomment %}
+  
+  
+  
+{% endblock %}

@@ -2602,6 +2602,10 @@ select{
   margin-right:-0.25rem
 }
 
+.-mt-1{
+  margin-top:-0.25rem
+}
+
 .mb-1{
   margin-bottom:0.25rem
 }
@@ -2945,10 +2949,6 @@ select{
 
 .min-h-screen{
   min-height:100vh
-}
-
-.min-h-\[300px\]{
-  min-height:300px
 }
 
 .w-0{
@@ -3561,6 +3561,10 @@ select{
   white-space:pre-line
 }
 
+.break-words{
+  overflow-wrap:break-word
+}
+
 .rounded{
   border-radius:0.25rem
 }
@@ -3821,6 +3825,11 @@ select{
   background-color:rgb(225 239 254 / var(--tw-bg-opacity, 1))
 }
 
+.bg-blue-200{
+  --tw-bg-opacity:1;
+  background-color:rgb(195 221 253 / var(--tw-bg-opacity, 1))
+}
+
 .bg-blue-50{
   --tw-bg-opacity:1;
   background-color:rgb(235 245 255 / var(--tw-bg-opacity, 1))
@@ -4022,6 +4031,11 @@ select{
   background-color:rgb(237 235 254 / var(--tw-bg-opacity, 1))
 }
 
+.bg-purple-200{
+  --tw-bg-opacity:1;
+  background-color:rgb(220 215 254 / var(--tw-bg-opacity, 1))
+}
+
 .bg-purple-50\/50{
   background-color:rgb(246 245 255 / 0.5)
 }
@@ -4077,6 +4091,11 @@ select{
 .bg-teal-100{
   --tw-bg-opacity:1;
   background-color:rgb(213 245 246 / var(--tw-bg-opacity, 1))
+}
+
+.bg-teal-400{
+  --tw-bg-opacity:1;
+  background-color:rgb(22 189 202 / var(--tw-bg-opacity, 1))
 }
 
 .bg-teal-500{
@@ -4192,6 +4211,10 @@ select{
 
 .bg-opacity-60{
   --tw-bg-opacity:0.6
+}
+
+.bg-opacity-75{
+  --tw-bg-opacity:0.75
 }
 
 .bg-\[url\(\'https\:\/\/ehoromymaeqciokbytfm\.supabase\.co\/storage\/v1\/object\/public\/mediafiles\/churchuploads\/IMG-20250323-WA0079\.jpg\'\)\]{
@@ -4496,6 +4519,11 @@ select{
 .via-pink-500{
   --tw-gradient-to:rgb(231 70 148 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops:var(--tw-gradient-from), #E74694 var(--tw-gradient-via-position), var(--tw-gradient-to)
+}
+
+.via-purple-600{
+  --tw-gradient-to:rgb(126 58 242 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops:var(--tw-gradient-from), #7E3AF2 var(--tw-gradient-via-position), var(--tw-gradient-to)
 }
 
 .via-red-600{
@@ -4934,6 +4962,10 @@ select{
   padding-left:1.5rem
 }
 
+.pl-7{
+  padding-left:1.75rem
+}
+
 .pr-10{
   padding-right:2.5rem
 }
@@ -5146,6 +5178,11 @@ select{
   color:rgb(180 83 9 / var(--tw-text-opacity, 1))
 }
 
+.text-blue-100{
+  --tw-text-opacity:1;
+  color:rgb(225 239 254 / var(--tw-text-opacity, 1))
+}
+
 .text-blue-300{
   --tw-text-opacity:1;
   color:rgb(164 202 254 / var(--tw-text-opacity, 1))
@@ -5174,6 +5211,11 @@ select{
 .text-blue-800{
   --tw-text-opacity:1;
   color:rgb(30 66 159 / var(--tw-text-opacity, 1))
+}
+
+.text-blue-900{
+  --tw-text-opacity:1;
+  color:rgb(35 56 118 / var(--tw-text-opacity, 1))
 }
 
 .text-church-brown{
@@ -5384,6 +5426,11 @@ select{
   color:rgb(255 255 255 / 0.9)
 }
 
+.text-yellow-300{
+  --tw-text-opacity:1;
+  color:rgb(250 202 21 / var(--tw-text-opacity, 1))
+}
+
 .text-yellow-400{
   --tw-text-opacity:1;
   color:rgb(227 160 8 / var(--tw-text-opacity, 1))
@@ -5463,6 +5510,10 @@ select{
   opacity:0.9
 }
 
+.mix-blend-multiply{
+  mix-blend-mode:multiply
+}
+
 .shadow{
   --tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -5525,6 +5576,10 @@ select{
   --tw-ring-color:rgb(255 255 255 / var(--tw-ring-opacity, 1))
 }
 
+.ring-white\/30{
+  --tw-ring-color:rgb(255 255 255 / 0.3)
+}
+
 .blur{
   --tw-blur:blur(8px);
   filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
@@ -5537,6 +5592,11 @@ select{
 
 .blur-sm{
   --tw-blur:blur(4px);
+  filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+}
+
+.blur-xl{
+  --tw-blur:blur(24px);
   filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
 }
 
@@ -5862,6 +5922,11 @@ select{
 
 .hover\:-translate-y-2:hover{
   --tw-translate-y:-0.5rem;
+  transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.hover\:translate-x-1:hover{
+  --tw-translate-x:0.25rem;
   transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
@@ -6245,6 +6310,12 @@ select{
   --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)
 }
 
+.hover\:from-purple-700:hover{
+  --tw-gradient-from:#6C2BD9 var(--tw-gradient-from-position);
+  --tw-gradient-to:rgb(108 43 217 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)
+}
+
 .hover\:from-red-300:hover{
   --tw-gradient-from:#F8B4B4 var(--tw-gradient-from-position);
   --tw-gradient-to:rgb(248 180 180 / 0) var(--tw-gradient-to-position);
@@ -6470,6 +6541,11 @@ select{
   color:rgb(108 43 217 / var(--tw-text-opacity, 1))
 }
 
+.hover\:text-purple-800:hover{
+  --tw-text-opacity:1;
+  color:rgb(85 33 181 / var(--tw-text-opacity, 1))
+}
+
 .hover\:text-red-500:hover{
   --tw-text-opacity:1;
   color:rgb(240 82 82 / var(--tw-text-opacity, 1))
@@ -6684,6 +6760,11 @@ select{
   --tw-ring-color:rgb(180 198 252 / var(--tw-ring-opacity, 1))
 }
 
+.focus\:ring-indigo-400:focus{
+  --tw-ring-opacity:1;
+  --tw-ring-color:rgb(141 162 251 / var(--tw-ring-opacity, 1))
+}
+
 .focus\:ring-indigo-500:focus{
   --tw-ring-opacity:1;
   --tw-ring-color:rgb(104 117 245 / var(--tw-ring-opacity, 1))
@@ -6709,6 +6790,11 @@ select{
   --tw-ring-color:rgb(22 189 202 / var(--tw-ring-opacity, 1))
 }
 
+.focus\:ring-white:focus{
+  --tw-ring-opacity:1;
+  --tw-ring-color:rgb(255 255 255 / var(--tw-ring-opacity, 1))
+}
+
 .focus\:ring-opacity-50:focus{
   --tw-ring-opacity:0.5
 }
@@ -6719,6 +6805,10 @@ select{
 
 .focus\:ring-offset-2:focus{
   --tw-ring-offset-width:2px
+}
+
+.focus\:ring-offset-gray-800:focus{
+  --tw-ring-offset-color:#1F2937
 }
 
 .group:hover .group-hover\:pointer-events-none{
@@ -7430,6 +7520,10 @@ select{
     height:8rem
   }
 
+  .sm\:h-56{
+    height:14rem
+  }
+
   .sm\:h-6{
     height:1.5rem
   }
@@ -7460,6 +7554,10 @@ select{
 
   .sm\:w-auto{
     width:auto
+  }
+
+  .sm\:max-w-2xl{
+    max-width:42rem
   }
 
   .sm\:max-w-3xl{
@@ -7700,6 +7798,10 @@ select{
 
   .md\:w-2\/3{
     width:66.666667%
+  }
+
+  .md\:w-3\/4{
+    width:75%
   }
 
   .md\:w-4\/5{

@@ -969,7 +969,7 @@ JAZZMIN_SETTINGS = {
         "community.fAQ": "fas fa-question",
         "community.Survey": "fas fa-poll",
         "community.SurveyResponse": "fas fa-poll",
-        # "community.OutreachProgram": "fas fa-handshake",
+        "community.Devotional": "fas fa-book",
         "community.Poll": "fas fa-poll",
         "community.PollOption": "fas fa-poll",
         "community.PollVote": "fas fa-poll",

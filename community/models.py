@@ -8,6 +8,7 @@ from django.utils.text import slugify
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from settings.fields import CompressedImageField
+from django.utils import timezone
 
 
 class VolunteerOpportunity(models.Model):
@@ -181,6 +182,40 @@ class VolunteerApplication(models.Model):
 
     def __str__(self):
         return f"{self.member.user.username}applied for {self.opportunity.title}" # Access Member's related User
+
+
+class Devotional(models.Model):
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True)
+    summary = models.TextField(blank=True, null=True, help_text="A short summary of the devotional.")
+    content = models.TextField()
+    scripture_reference = models.CharField(max_length=255, blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True, help_text="Optional URL for the devotional image.")
+    date = models.DateField(default=timezone.now, help_text="Schedule this devotional for a specific day.")
+    is_featured = models.BooleanField(default=False, help_text="Mark this devotional as featured.")
+    published = models.BooleanField(default=True, help_text="Control whether this devotional is publicly visible.")
+    published_at = models.DateTimeField(blank=True, null=True, help_text="Timestamp when the devotional was published.")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-date']  # Newest first
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('devotional_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        # Auto-generate the slug from the title if not provided.
+        if not self.slug:
+            self.slug = slugify(self.title)
+            # Additional logic can be added here to ensure uniqueness if necessary.
+        # Set the published_at timestamp if the devotional is published and no timestamp exists.
+        if self.published and not self.published_at:
+            self.published_at = timezone.now()
+        super().save(*args, **kwargs)
 
 
 

@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from .models import (
     VolunteerOpportunity, VolunteerApplication, Testimonial,
     FAQ, Survey, SurveyResponse, Poll, PollOption, PollVote, Announcement,
-    CarouselItem
+    CarouselItem, Devotional
 )
 from contact.models import Notification  # Adjust import based on your project structure
 
@@ -243,3 +243,35 @@ class AnnouncementAdmin(admin.ModelAdmin):
                     content=obj.content,
                     member=None  # A general notification (not member-specific)
                 )
+                
+
+
+
+@admin.register(Devotional)
+class DevotionalAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'published', 'is_featured', 'image_link', 'published_at', 'created_at')
+    list_filter = ('published', 'is_featured', 'date')
+    search_fields = ('title', 'summary', 'content', 'scripture_reference')
+    prepopulated_fields = {'slug': ('title',)}
+    ordering = ('-date',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'slug', 'summary', 'content', 'scripture_reference', 'image_url')
+        }),
+        ('Scheduling and Status', {
+            'fields': ('date', 'is_featured', 'published', 'published_at'),
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+        }),
+    )
+    readonly_fields = ('created_at', 'updated_at', 'published_at')
+
+    def image_link(self, obj):
+        """Returns an HTML link to the image if image_url exists."""
+        if obj.image_url:
+            return format_html('<a href="{0}" target="_blank">View Image</a>', obj.image_url)
+        return "-"
+    image_link.short_description = 'Image Link'

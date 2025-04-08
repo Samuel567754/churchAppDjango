@@ -41,7 +41,7 @@
                <input type="hidden" name="remove_photo" id="removePhotoInput" value="false">
                <div class="flex flex-col items-center relative">
                    <label class="relative cursor-pointer">
-                       <img id="profilePreview" src="{% if member.get_photo_url %}{{ member.get_photo_url }}{% else %}/static/images/default-profile-picture.png{% endif %}"
+                       <img id="profilePreview" src="{% if member.get_photo_url %}{{ member.get_photo_url }}{% else %}/static/images/profiles/20250408_063407_0000.png{% endif %}"
                             class="w-32 h-32 rounded-full border-4 border-indigo-500 shadow-md object-cover transition-transform transform hover:scale-105"
                             alt="Profile Picture">
                        <input type="file" name="photo" id="profileInput" accept="image/*" class="hidden">
@@ -496,7 +496,7 @@
                 const removePhotoInput = document.getElementById('removePhotoInput');
                 if (profileInput && preview && removePhotoInput) {
                     profileInput.value = "";
-                    preview.src = "/static/images/default-profile-picture.png"; // Use default image URL
+                    preview.src = "/static/images/profiles/20250408_063407_0000.png"; // Use default image URL
                     this.classList.add('hidden');
                     removePhotoInput.value = "true";
                 }

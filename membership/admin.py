@@ -210,7 +210,7 @@ class MemberAdmin(admin.ModelAdmin):
                 obj.photo.url
             )
         else:
-            default_image_url = os.path.join(settings.STATIC_URL, "images/default-profile-picture.png")
+            default_image_url = os.path.join(settings.STATIC_URL, "images/profiles/20250408_063407_0000.png")
             return format_html(
                 '<img src="{}" style="width: 50px; height: 50px; border-radius:4px;" />', 
                 default_image_url

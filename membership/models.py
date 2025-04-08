@@ -73,7 +73,7 @@ class Member(models.Model):
     def get_photo_url(self):
         if self.photo and hasattr(self.photo, 'url'):
             return self.photo.url
-        return "/static/images/default-profile-picture.png"  # Default image path
+        return "/static/images/profiles/20250408_063407_0000.png"  # Default image path
 
     @property
     def age(self):

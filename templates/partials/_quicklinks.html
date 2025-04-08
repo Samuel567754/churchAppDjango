@@ -203,6 +203,29 @@ document.getElementById('backToBottom').addEventListener('click', function() {
       </div>
       <span class="px-2 py-1 bg-gray-900/70 text-white rounded">Events</span>
     </a>
+
+      <!-- FAQ Link -->
+  <a href="{% url 'community:faq' %}" class="flex items-center space-x-2">
+    <div class="flex items-center justify-center w-12 h-12 bg-orange-600/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-orange-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform group-hover:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Question mark icon -->
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.257 13.045a4 4 0 115.486 0M12 18h.01" />
+      </svg>
+    </div>
+    <span class="px-2 py-1 bg-gray-900/70 text-white rounded">FAQ</span>
+  </a>
+
+  <!-- Devotionals Link -->
+  <a href="{% url 'community:devotionals' %}" class="flex items-center space-x-2">
+    <div class="flex items-center justify-center w-12 h-12 bg-teal-400 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-green-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform group-hover:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Book icon for devotionals -->
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6c-3.866 0-7 1.79-7 4s3.134 4 7 4 7-1.79 7-4-3.134-4-7-4z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10c-3.866 0-7 1.79-7 4s3.134 4 7 4 7-1.79 7-4-3.134-4-7-4z" />
+      </svg>
+    </div>
+    <span class="px-2 py-1 bg-gray-900/70 text-white rounded">Devotionals</span>
+  </a>
     
     <!-- About Link -->
     <a href="{% url 'community:about' %}" class="flex items-center space-x-2">

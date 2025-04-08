@@ -16,7 +16,8 @@ handler500 = 'settings.views.custom_500'
 
 urlpatterns = [
     # path('admin/defender/', include('defender.urls')),
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    path('kumasi-central-kccofcoc-admin/', admin.site.urls),
     path('settings/', include('settings.urls', namespace='settings')), 
     path('ckeditor5/', include('django_ckeditor_5.urls')),  # Add this line
     path('', include('community.urls')), 

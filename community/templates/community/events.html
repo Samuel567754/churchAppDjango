@@ -115,6 +115,7 @@
     </div>
   </section> {% endcomment %}
   
+
 <!-- Upcoming Events Section with Swiper Slider -->
 <section data-aos="fade-up" class="py-16 bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -128,57 +129,56 @@
     </div>
 
     {% if upcoming_events %}
-    <!-- Swiper Container -->
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        {% for event in upcoming_events %}
-        <div class="swiper-slide">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105">
-            {% if event.image %}
-              <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
-            {% elif event.image_url %}
-              <img src="{{ event.image_url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
-            {% else %}
-              <img src="https://via.placeholder.com/800x480?text=No+Image" alt="{{ event.title }}" class="w-full h-48 object-cover">
-            {% endif %}
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2 text-gray-800">{{ event.title }}</h3>
-              <div class="space-y-2 mb-4">
-                <div class="flex items-center text-gray-600">
-                  <svg class="h-5 w-5 mr-2 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 21h14M6 10h12M9 16h6" />
-                  </svg>
-                  <span>{{ event.start_datetime|date:"M d, Y" }}</span>
+    <!-- Add a wrapper with relative and overflow-hidden -->
+    <div class="relative overflow-hidden">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          {% for event in upcoming_events %}
+          <div class="swiper-slide">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105">
+              {% if event.image %}
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+              {% elif event.image_url %}
+                <img src="{{ event.image_url }}" alt="{{ event.title }}" class="w-full h-48 object-cover">
+              {% else %}
+                <img src="https://via.placeholder.com/800x480?text=No+Image" alt="{{ event.title }}" class="w-full h-48 object-cover">
+              {% endif %}
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">{{ event.title }}</h3>
+                <div class="space-y-2 mb-4">
+                  <div class="flex items-center text-gray-600">
+                    <svg class="h-5 w-5 mr-2 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10M5 21h14M6 10h12M9 16h6" />
+                    </svg>
+                    <span>{{ event.start_datetime|date:"M d, Y" }}</span>
+                  </div>
+                  <div class="flex items-center text-gray-600">
+                    <svg class="h-5 w-5 mr-2 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8m-4 4V4" />
+                    </svg>
+                    <span>
+                      {{ event.start_datetime|date:"g:i A" }}{% if event.end_datetime %} - {{ event.end_datetime|date:"g:i A" }}{% endif %}
+                    </span>
+                  </div>
+                  <div class="flex items-center text-gray-600">
+                    <svg class="h-5 w-5 mr-2 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10l9-7 9 7-9 7-9-7zm9-7v14" />
+                    </svg>
+                    <span>{{ event.location }}</span>
+                  </div>
                 </div>
-                <div class="flex items-center text-gray-600">
-                  <svg class="h-5 w-5 mr-2 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8m-4 4V4" />
-                  </svg>
-                  <span>
-                    {{ event.start_datetime|date:"g:i A" }}{% if event.end_datetime %} - {{ event.end_datetime|date:"g:i A" }}{% endif %}
-                  </span>
-                </div>
-                <div class="flex items-center text-gray-600">
-                  <svg class="h-5 w-5 mr-2 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10l9-7 9 7-9 7-9-7zm9-7v14" />
-                  </svg>
-                  <span>{{ event.location }}</span>
-                </div>
+                <p class="text-gray-600 mb-4">{{ event.description|truncatewords:20 }}</p>
               </div>
-              <p class="text-gray-600 mb-4">{{ event.description|truncatewords:20 }}</p>
-              {% comment %} <a href="{% url 'community:church_calendar_detail' event.slug %}" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors duration-300">
-                Learn More
-              </a> {% endcomment %}
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+        <!-- Swiper Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Swiper Navigation -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
-      <!-- Swiper Pagination -->
-      <div class="swiper-pagination"></div>
-      <!-- Swiper Navigation -->
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
     </div>
     {% else %}
       <!-- Empty state message -->
@@ -192,7 +192,6 @@
     {% endif %}
   </div>
 </section>
-
 
 <script>
   var swiper = new Swiper('.swiper-container', {

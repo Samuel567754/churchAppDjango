@@ -1,4 +1,4 @@
-{% load static %}
+{% comment %} {% load static %}
 {% for devotional in page_obj %}
 <article onclick="toggleDevotionalModal('{{ devotional.slug }}')" role="button" tabindex="0" class="cursor-pointer relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
   {% if devotional.is_featured %}
@@ -20,6 +20,60 @@
   </figure>
   {% endif %}
 
+  <div class="p-4 flex flex-col flex-grow">
+    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ devotional.title }}</h3>
+    {% if devotional.scripture_reference %}
+    <p class="flex items-center text-sm text-gray-500 italic mb-2">
+      <svg class="w-4 h-4 mr-2 text-blue-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M19 4H5c-1.1 0-2 .9-2 2v12a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V6h14v12zM7 8h10v2H7V8zm0 4h10v2H7v-2z"/>
+      </svg>
+      {{ devotional.scripture_reference }}
+    </p>
+    {% endif %}
+    <p class="text-gray-600 flex-grow">
+      {% if devotional.summary %}
+        {{ devotional.summary|truncatewords:20 }}
+      {% else %}
+        {{ devotional.content|truncatewords:20 }}
+      {% endif %}
+    </p>
+    <div class="mt-4">
+      <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors" aria-label="Read {{ devotional.title }}">
+        Read More
+        <svg class="w-4 h-4 ml-2 fill-current transition-transform duration-200" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>
+{% endfor %} {% endcomment %}
+
+
+{% load static %}
+{% for devotional in page_obj %}
+<article onclick="toggleDevotionalModal('{{ devotional.slug }}')" role="button" tabindex="0" class="cursor-pointer relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full">
+  {% if devotional.is_featured %}
+  <!-- Featured Star Icon -->
+  <div class="absolute top-2 right-2 bg-yellow-500 text-white rounded-full p-1">
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+    </svg>
+  </div>
+  {% endif %}
+
+  {% if devotional.image_url %}
+  <!-- Fixed height container for image -->
+  <figure class="w-full h-48 overflow-hidden">
+    <img src="{{ devotional.image_url }}" alt="{{ devotional.title }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+  </figure>
+  {% else %}
+  <figure class="w-full h-48 overflow-hidden">
+    <img src="{% static 'images/devotionals/20250408_113012_0000.png' %}" alt="{{ devotional.title }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+  </figure>
+  {% endif %}
+
+  <!-- Content area using flex-grow to fill remaining space -->
   <div class="p-4 flex flex-col flex-grow">
     <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ devotional.title }}</h3>
     {% if devotional.scripture_reference %}

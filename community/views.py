@@ -473,7 +473,7 @@ def devotionals(request):
         cache.set(cache_key, daily_devotional, seconds_until_midnight)
 
     # Pagination: Display 9 devotionals per page (or 1 per your current setup)
-    paginator = Paginator(all_devotionals, 1)
+    paginator = Paginator(all_devotionals, 3)
     page_number = request.GET.get('page') or 1
     page_obj = paginator.get_page(page_number)
 

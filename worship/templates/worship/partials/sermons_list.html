@@ -1,0 +1,75 @@
+{% for sermon in sermons %}
+  <article class="relative bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+    {% if sermon.featured %}
+      <div class="absolute top-4 left-4 z-10">
+        <span class="bg-red-600 text-white text-xs font-bold uppercase px-2 py-1 rounded shadow-md">Featured</span>
+      </div>
+    {% endif %}
+    <div class="relative">
+      {% if sermon.image or sermon.image_url %}
+        {% if sermon.image %}
+          <img src="{{ sermon.image.url }}" alt="{{ sermon.title }}" class="w-full h-48 object-cover">
+        {% else %}
+          <img src="{{ sermon.image_url }}" alt="{{ sermon.title }}" class="w-full h-48 object-cover">
+        {% endif %}
+      {% else %}
+        <!-- Placeholder image -->
+        <img src=" https://images.unsplash.com/photo-1711843250904-b10731eac0db?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8U0VSTU9OU3xlbnwwfHwwfHx8MA%3D%3D" alt="{{ sermon.title }}" class="w-full h-48 object-cover">
+      {% endif %}
+      <div class="absolute bottom-0 inset-x-0 bg-black bg-opacity-60 py-2 px-4">
+        <p class="text-white text-sm font-medium">Preached by {{ sermon.preacher }}</p>
+      </div>
+    </div>
+    <div class="p-6">
+      <h3 class="text-xl font-bold text-gray-800 mb-1">{{ sermon.title }}</h3>
+      <p class="text-sm text-gray-500 mb-2">
+        <time datetime="{{ sermon.date|date:'Y-m-d' }}">{{ sermon.date|date:"F d, Y" }}</time>
+        {% if sermon.scripture_reference %}
+          | {{ sermon.scripture_reference }}
+        {% endif %}
+      </p>
+      {% if sermon.summary %}
+        <p class="text-sm text-gray-700 mb-4">
+          {{ sermon.summary|truncatewords:25 }}
+        </p>
+      {% endif %}
+      <div class="flex flex-wrap gap-3 justify-center">
+        {% if sermon.facebook_url %}
+          <a href="{{ sermon.facebook_url }}" target="_blank"
+             class="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+            <!-- Facebook Icon -->
+            <svg class="w-5 h-5 mr-1 fill-current" viewBox="0 0 24 24">
+              <path d="M22,12A10,10,0,1,0,10.9,21.9V14.7H8v-2.8h2.9V9.4c0-2.9,1.7-4.5,4.3-4.5a17,17,0,0,1,2.6.2v3h-1.5c-1.2,0-1.6.8-1.6,1.5v2h2.7l-.4,2.8H15.8v7.2A10,10,0,0,0,22,12Z"/>
+            </svg>
+            FB Video
+          </a>
+        {% endif %}
+        {% if sermon.document %}
+          <a href="{{ sermon.document.url }}" download
+             class="flex items-center bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
+            <!-- Download Icon -->
+            <svg class="w-5 h-5 mr-1 fill-current" viewBox="0 0 20 20">
+              <path d="M13 10V3H7v7H2l8 8 8-8h-5zM4 18h12v2H4v-2z"/>
+            </svg>
+            Download
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+{% empty %}
+<div class="col-span-full flex flex-col items-center justify-center py-16">
+  <div class="flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-500 p-6 rounded-full shadow-xl mb-4">
+    <!-- Modern Sermon Icon (e.g., a stylized open book) -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20l9-5-9-5-9 5 9 5z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12l9-5-9-5-9 5 9 5z" />
+    </svg>
+  </div>
+  <h3 class="text-2xl font-bold text-gray-800">No sermons found</h3>
+  <p class="text-gray-600 mt-4 text-center max-w-xl">
+    We couldn't find any sermons for your selection. Try choosing a different topic or
+    <a href="{% url 'worship:sermons' %}" class="underline text-blue-600 hover:text-blue-800 transition-colors">browse all sermons</a>.
+  </p>
+</div>
+{% endfor %}

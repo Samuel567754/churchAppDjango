@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
-from .models import PrayerRequest, Appointment, ServiceAttendance, Resource,Sermon, SermonSeries, SermonTag
+from .models import PrayerRequest, Appointment, ServiceAttendance, Resource,Sermon, SermonTag
 from community.models import Announcement, VolunteerApplication, VolunteerOpportunity, Survey, SurveyResponse, Poll, PollOption, PollVote, Testimonial
 from django.db import models  # Add this import at the top
 from django.utils import timezone
@@ -36,6 +36,7 @@ from django.db.models import Q
 
 # sermons/views.py
 from django.views.generic import ListView, DetailView, TemplateView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def generate_doc(request):
     # Fetch attendance data
@@ -1112,41 +1113,89 @@ def resource_download(request, pk):
 
 
 
+# def sermons(request):
+#     tag_slug = request.GET.get('tag')
+#     if tag_slug:
+#         selected_tag = get_object_or_404(SermonTag, slug=tag_slug)
+#         sermons_list = Sermon.objects.filter(tags=selected_tag).order_by('-date')
+#     else:
+#         selected_tag = None
+#         sermons_list = Sermon.objects.all().order_by('-date')
+
+#     featured_sermon = Sermon.objects.filter(featured=True).order_by('-date').first()
+#     tags_list = SermonTag.objects.all().order_by('name')
+
+#     context = {
+#         'sermons': sermons_list,
+#         'featured_sermon': featured_sermon,
+#         'tags_list': tags_list,
+#         'selected_tag': selected_tag,
+#     }
+#     return render(request, 'worship/sermons.html', context)
+
+
+
 def sermons(request):
     tag_slug = request.GET.get('tag')
+    search_query = request.GET.get('q')
+    page = request.GET.get('page', 1)
+
+    # Base queryset ordered by descending date
+    sermons_list = Sermon.objects.all().order_by('-date')
+    
+    # Filter by tag if provided
     if tag_slug:
         selected_tag = get_object_or_404(SermonTag, slug=tag_slug)
-        sermons_list = Sermon.objects.filter(tags=selected_tag).order_by('-date')
+        sermons_list = sermons_list.filter(tags=selected_tag)
     else:
         selected_tag = None
-        sermons_list = Sermon.objects.all().order_by('-date')
 
-    featured_sermon = Sermon.objects.filter(is_featured=True).order_by('-date').first()
-    latest_sermons = Sermon.objects.order_by('-date')[:6]  # Get the 6 latest sermons
-    series_list = SermonSeries.objects.all().order_by('-start_date')
+    # Filter by search query if provided (searching in title)
+    if search_query:
+        sermons_list = sermons_list.filter(title__icontains=search_query)
+    
+    # Paginate sermons (9 per page)
+    paginator = Paginator(sermons_list, 9)
+    try:
+        sermons_page = paginator.page(page)
+    except PageNotAnInteger:
+        sermons_page = paginator.page(1)
+    except EmptyPage:
+        sermons_page = paginator.page(paginator.num_pages)
+
+    # Randomly select one featured sermon
+    featured_sermon = Sermon.objects.filter(featured=True).order_by('?').first()
+
+    # All available tags (for filtering)
     tags_list = SermonTag.objects.all().order_by('name')
 
     context = {
-        'sermons': sermons_list,
+        'sermons': sermons_page,
         'featured_sermon': featured_sermon,
-        'latest_sermons': latest_sermons,
-        'series_list': series_list,
         'tags_list': tags_list,
         'selected_tag': selected_tag,
+        'paginator': paginator,
     }
-    return render(request, 'worship/sermons.html', context)
+
+    # If AJAX request, return just the sermons list HTML snippet
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        html = render_to_string('worship/partials/sermons_list.html', context, request=request)
+        return JsonResponse({'html': html})
+    else:
+        return render(request, 'worship/sermons.html', context)
+
 
 def sermon_detail(request, slug):
     sermon = get_object_or_404(Sermon, slug=slug)
     related_sermons = Sermon.objects.none()  # Empty queryset by default
     
-    if sermon.series.exists():
-        series = sermon.series.first()
-        related_sermons = series.sermons.exclude(id=sermon.id).order_by('-date')[:4]
+    # if sermon.series.exists():
+    #     series = sermon.series.first()
+    #     related_sermons = series.sermons.exclude(id=sermon.id).order_by('-date')[:4]
     
     context = {
         'sermon': sermon,
-        'related_sermons': related_sermons,
+        # 'related_sermons': related_sermons,
     }
     return render(request, 'worship/sermon_detail.html', context)
 

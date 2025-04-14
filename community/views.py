@@ -134,7 +134,7 @@ def home(request):
     ).order_by('?')[:3]
     
     # Retrieve 1 random featured sermon
-    featured_sermon = Sermon.objects.filter(is_featured=True).order_by('?').first()
+    featured_sermon = Sermon.objects.filter(featured=True).order_by('?').first()
     
     # Retrieve the latest sermon (most recent by sermon date)
     latest_sermon = Sermon.objects.order_by('-date').first()

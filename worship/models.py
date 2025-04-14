@@ -61,27 +61,93 @@ class Service(models.Model):
 
 
 # SERVICE TYPE ENUM
+# class Sermon(ImageMixin):
+#     title = models.CharField(max_length=200, help_text="Title of the sermon")
+#     slug = models.SlugField(unique=True, blank=True, help_text="Auto-generated from title, used in URLs.")
+#     preacher = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True, blank=True, help_text="The staff member who preached the sermon")
+#     description = models.TextField(blank=True, help_text="Description or summary of the sermon")
+#     date = models.DateField(help_text="Date the sermon was preached")
+#     scripture_reference = models.CharField(max_length=200, blank=True, help_text="Scripture passage reference for the sermon")
+#     video_url = models.URLField(
+#         blank=True,
+#         null=True,
+#         help_text="Optional URL to a video recording of the sermon"
+#     )
+    
+#     audio_file = models.FileField(
+#         upload_to='sermons/audio/',
+#         blank=True,
+#         null=True,
+#         help_text="Optional audio file of the sermon",
+#         validators=[validate_audio_file, validate_file_size]
+#     )
+    
+#     document = SupabaseFileField(
+#         upload_to='sermons/documents/',
+#         blank=True,
+#         null=True,
+#         help_text="Optional document file (PDF, notes, etc.)",
+#         validators=[validate_document_file, validate_file_size]
+#     )
+#     is_featured = models.BooleanField(default=False, help_text="Indicates if the sermon should be featured")
+#     series = models.ManyToManyField('SermonSeries', blank=True, related_name='sermons', help_text="The sermon series this sermon belongs to")
+#     tags = models.ManyToManyField('SermonTag', blank=True, related_name='sermons', help_text="Tags for this sermon")
+
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             self.slug = slugify(self.title)
+#         super().save(*args, **kwargs)
+
+#     def __str__(self):
+#         return self.title
+
+
+# class SermonSeries(models.Model):
+#     title = models.CharField(max_length=200, help_text="Title of the sermon series")
+#     slug = models.SlugField(unique=True, blank=True, help_text="Auto-generated from title, used in URLs.")
+#     description = models.TextField(blank=True, help_text="Description of the sermon series")
+#     image = CompressedImageField(upload_to='sermon_series/', blank=True, null=True, help_text="Optional image for the series")
+#     start_date = models.DateField(help_text="Start date of the sermon series")
+#     end_date = models.DateField(null=True, blank=True, help_text="Optional end date of the sermon series")
+
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             self.slug = slugify(self.title)
+#         super().save(*args, **kwargs)
+
+#     def __str__(self):
+#         return self.title
+
+
 class Sermon(ImageMixin):
-    title = models.CharField(max_length=200, help_text="Title of the sermon")
-    slug = models.SlugField(unique=True, blank=True, help_text="Auto-generated from title, used in URLs.")
-    preacher = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True, blank=True, help_text="The staff member who preached the sermon")
-    description = models.TextField(blank=True, help_text="Description or summary of the sermon")
-    date = models.DateField(help_text="Date the sermon was preached")
-    scripture_reference = models.CharField(max_length=200, blank=True, help_text="Scripture passage reference for the sermon")
-    video_url = models.URLField(
+    title = models.CharField(max_length=200)
+    preacher = models.CharField(
+        max_length=100,
+        help_text="Name of the preacher or minister",
+        default="Unknown Preacher"  # Prevents production issues by providing a default value.
+    )
+    date = models.DateTimeField(
+        default=timezone.now,
+        help_text="Date and time when the sermon was delivered"
+    )
+    scripture_reference = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Scripture passage (e.g., John 3:16-18)"
+    )
+    summary = models.TextField(
+        blank=True,
+        help_text="A brief summary or outline of the sermon"
+    )
+    transcript = models.TextField(
+        blank=True,
+        help_text="Full text transcript of the sermon (optional)"
+    )
+    facebook_url = models.URLField(
         blank=True,
         null=True,
-        help_text="Optional URL to a video recording of the sermon"
+        help_text="URL to the Facebook page where the sermon can be watched"
     )
-    
-    audio_file = models.FileField(
-        upload_to='sermons/audio/',
-        blank=True,
-        null=True,
-        help_text="Optional audio file of the sermon",
-        validators=[validate_audio_file, validate_file_size]
-    )
-    
     document = SupabaseFileField(
         upload_to='sermons/documents/',
         blank=True,
@@ -89,34 +155,49 @@ class Sermon(ImageMixin):
         help_text="Optional document file (PDF, notes, etc.)",
         validators=[validate_document_file, validate_file_size]
     )
-    is_featured = models.BooleanField(default=False, help_text="Indicates if the sermon should be featured")
-    series = models.ManyToManyField('SermonSeries', blank=True, related_name='sermons', help_text="The sermon series this sermon belongs to")
+    image = models.ImageField(
+        upload_to='sermon_images/',
+        blank=True,
+        null=True,
+        help_text="Upload a sermon thumbnail image"
+    )
+    image_url = models.URLField(
+        blank=True,
+        null=True,
+        help_text="External URL for a sermon image (if available)"
+    )
+    featured = models.BooleanField(
+        default=False,
+        help_text="Mark this sermon as featured on the site"
+    )
+    slug = models.SlugField(
+        max_length=200,
+        unique=True,
+        blank=True,
+        help_text="URL-friendly version of the title",
+        editable=False
+    )
     tags = models.ManyToManyField('SermonTag', blank=True, related_name='sermons', help_text="Tags for this sermon")
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+    class Meta:
+        ordering = ['-date']
+        verbose_name = "Sermon"
+        verbose_name_plural = "Sermons"
 
     def __str__(self):
-        return self.title
-
-
-class SermonSeries(models.Model):
-    title = models.CharField(max_length=200, help_text="Title of the sermon series")
-    slug = models.SlugField(unique=True, blank=True, help_text="Auto-generated from title, used in URLs.")
-    description = models.TextField(blank=True, help_text="Description of the sermon series")
-    image = CompressedImageField(upload_to='sermon_series/', blank=True, null=True, help_text="Optional image for the series")
-    start_date = models.DateField(help_text="Start date of the sermon series")
-    end_date = models.DateField(null=True, blank=True, help_text="Optional end date of the sermon series")
+        return f"{self.title} by {self.preacher} on {self.date.strftime('%Y-%m-%d')}"
 
     def save(self, *args, **kwargs):
+        # Automatically generate a unique slug based on the title.
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            while Sermon.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
         super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.title
 
 
 class SermonTag(models.Model):
@@ -510,13 +591,13 @@ def set_sermon_slug(sender, instance, **kwargs):
         instance.slug = slugify(instance.title)
 
 
-@receiver(pre_save, sender=SermonSeries)
-def set_sermon_series_slug(sender, instance, **kwargs):
-    """
-    Automatically sets the slug for a sermon series before saving.
-    """
-    if not instance.slug:
-        instance.slug = slugify(instance.title)
+# @receiver(pre_save, sender=SermonSeries)
+# def set_sermon_series_slug(sender, instance, **kwargs):
+#     """
+#     Automatically sets the slug for a sermon series before saving.
+#     """
+#     if not instance.slug:
+#         instance.slug = slugify(instance.title)
 
 @receiver(pre_save, sender=SermonTag)
 def set_sermon_tag_slug(sender, instance, **kwargs):

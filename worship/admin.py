@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     Service,
     Sermon,
-    SermonSeries,
+    # SermonSeries,
     SermonTag,
     ServiceSchedule,
     Appointment,
@@ -57,60 +57,119 @@ class ServiceAdmin(admin.ModelAdmin):
     ordering = ['day_of_week', 'start_time']
 
 
+# @admin.register(Sermon)
+# class SermonAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'preacher', 'date', 'is_featured', 'image_preview', 'video_url', 'audio_file', 'document')
+#     list_filter = ('is_featured', 'date', 'tags', 'series')
+#     search_fields = ('title', 'description', 'preacher__name')
+#     filter_horizontal = ('series', 'tags')
+#     prepopulated_fields = {'slug': ('title',)}
+#     date_hierarchy = 'date'
+
+#     fieldsets = (
+#         (None, {
+#             'fields': ('title', 'slug', 'preacher', 'description', 'date')
+#         }),
+#         ('Content', {
+#             'fields': ('scripture_reference', 'video_url', 'audio_file', 'document')
+#         }),
+#         ('Associations', {
+#             'fields': ('series', 'tags')
+#         }),
+#         ('Settings', {
+#             'fields': ('is_featured', 'image')
+#         })
+#     )
+
+#     def image_preview(self, obj):
+#         if obj.image:
+#             return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius:4px;" />', obj.image.url)
+#         return "No Image"
+
+#     image_preview.short_description = "Image Preview"
+
+
 @admin.register(Sermon)
 class SermonAdmin(admin.ModelAdmin):
-    list_display = ('title', 'preacher', 'date', 'is_featured', 'image_preview', 'video_url', 'audio_file', 'document')
-    list_filter = ('is_featured', 'date', 'tags', 'series')
-    search_fields = ('title', 'description', 'preacher__name')
-    filter_horizontal = ('series', 'tags')
-    prepopulated_fields = {'slug': ('title',)}
+    list_display = (
+        'title', 
+        'preacher', 
+        'date', 
+        'featured', 
+        'image_preview', 
+        'facebook_url', 
+        'document',
+    )
+    list_filter = (
+        'featured', 
+        'date', 
+        'tags',  # Adjust or remove if you add series in future
+    )
+    search_fields = (
+        'title', 
+        'summary', 
+        'preacher'
+    )
+    filter_horizontal = ('tags',)
+    readonly_fields = ('slug',)
     date_hierarchy = 'date'
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'preacher', 'description', 'date')
+            'fields': ('title', 'preacher', 'summary', 'date')
         }),
         ('Content', {
-            'fields': ('scripture_reference', 'video_url', 'audio_file', 'document')
-        }),
-        ('Associations', {
-            'fields': ('series', 'tags')
+            'fields': ('scripture_reference', 'transcript', 'facebook_url', 'document', 'tags')
         }),
         ('Settings', {
-            'fields': ('is_featured', 'image')
-        })
-    )
-
-    def image_preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius:4px;" />', obj.image.url)
-        return "No Image"
-
-    image_preview.short_description = "Image Preview"
-
-@admin.register(SermonSeries)
-class SermonSeriesAdmin(admin.ModelAdmin):
-    list_display = ('title', 'start_date', 'end_date', 'image_preview')
-    list_filter = ('start_date', 'end_date')
-    search_fields = ('title', 'description')
-    prepopulated_fields = {'slug': ('title',)}
-    date_hierarchy = 'start_date'
-
-    fieldsets = (
-        (None, {
-            'fields': ('title', 'slug', 'description', 'image')
+            'fields': ('featured', 'image', 'image_url')
         }),
-         ('Dates', {
-             'fields': ('start_date', 'end_date')
-         })
+        ('Read Only', {
+            'fields': ('slug',)
+        }),
     )
 
     def image_preview(self, obj):
+        # Check first for a locally uploaded image, then an external image URL.
         if obj.image:
-             return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius:4px;" />', obj.image.url)
+            return format_html(
+                '<img src="{}" style="width:50px; height:50px; border-radius:4px;" />', 
+                obj.image.url
+            )
+        elif obj.image_url:
+            return format_html(
+                '<img src="{}" style="width:50px; height:50px; border-radius:4px;" />', 
+                obj.image_url
+            )
         return "No Image"
 
     image_preview.short_description = "Image Preview"
+
+
+
+# @admin.register(SermonSeries)
+# class SermonSeriesAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'start_date', 'end_date', 'image_preview')
+#     list_filter = ('start_date', 'end_date')
+#     search_fields = ('title', 'description')
+#     prepopulated_fields = {'slug': ('title',)}
+#     date_hierarchy = 'start_date'
+
+#     fieldsets = (
+#         (None, {
+#             'fields': ('title', 'slug', 'description', 'image')
+#         }),
+#          ('Dates', {
+#              'fields': ('start_date', 'end_date')
+#          })
+#     )
+
+#     def image_preview(self, obj):
+#         if obj.image:
+#              return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius:4px;" />', obj.image.url)
+#         return "No Image"
+
+#     image_preview.short_description = "Image Preview"
 
 
 @admin.register(SermonTag)

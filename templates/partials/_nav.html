@@ -861,26 +861,175 @@
                          About
                          <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                      </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
+                     {% comment %} <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
                          <a href="{% url 'community:about' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Our Story</a>
                          <a href="{% url 'community:ministries' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Ministries</a>
                          <a href="{% url 'community:give' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Give</a>
                          <a href="{% url 'community:gallery' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Our Gallery</a>
-                     </div>
+                     </div> {% endcomment %}
+                     <div
+  class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
+         opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+         transition duration-300 ease-in-out right-0"
+  style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);"
+>
+  <a href="{% url 'community:about' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Book Open / Our Story Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 20h9M12 4h9M3 6a9 9 0 0 1 9 9m0 0a9 9 0 0 0-9-9" />
+    </svg>
+    Our Story
+  </a>
+
+  <a href="{% url 'community:ministries' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Users / Ministries Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17 20h5v-2a4 4 0 0 0-5-3.87M9 20H4v-2a4 4 0 0 1 5-3.87M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
+    </svg>
+    Ministries
+  </a>
+
+  <a href="{% url 'community:give' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Heart / Give Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4.318 6.318a4.5 4.5 0 0 1 6.364 0L12 7.636l1.318-1.318a4.5 4.5 0 1 1 6.364 6.364L12 21l-7.682-7.682a4.5 4.5 0 0 1 0-6.364z" />
+    </svg>
+    Give
+  </a>
+
+  <a href="{% url 'community:gallery' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Photograph / Gallery Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 4h16v16H4V4zm2 2l4 4m0 0l4-4m-4 4v8" />
+    </svg>
+    Our Gallery
+  </a>
+</div>
+
                   </div>
                  <div class="relative group">
                      <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
                        Resources
                           <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                      </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
+                     {% comment %} <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
                          <a href="{% url 'community:services' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Services</a>
                          <a href="{% url 'community:events' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Events</a>
                         <a href="{% url 'blog:post_list' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Blog</a>
                          <a href="{% url 'worship:sermons' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Sermons</a>
                          <a href="{% url 'community:faq' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">FAQ</a>
                          <a href="{% url 'community:devotionals' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Devotionals</a>
-                     </div>
+                     </div> {% endcomment %}
+
+                     <div
+  class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
+         opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+         transition duration-300 ease-in-out right-0"
+  style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);"
+>
+  <a href="{% url 'community:services' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Briefcase / Services Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2M6 7h12M6 7v10a2 2 0 002 2h8a2 2 0 002-2V7"/>
+    </svg>
+    Services
+  </a>
+
+  <a href="{% url 'community:events' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Calendar / Events Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10m-10 4h10M3 21h18a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+    </svg>
+    Events
+  </a>
+
+  <a href="{% url 'blog:post_list' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Document-Text / Blog Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M7 8h10M7 12h10M7 16h10M5 4a2 2 0 012-2h10a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V4z"/>
+    </svg>
+    Blog
+  </a>
+
+  <a href="{% url 'worship:sermons' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Speaker-Wave / Sermons Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 17V7l11 5-11 5z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5 15h.01M5 9h.01"/>
+    </svg>
+    Sermons
+  </a>
+
+  <a href="{% url 'community:faq' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Question-Mark-Circle / FAQ Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8.25 9a3.75 3.75 0 117.5 0c0 2.112-1.845 2.627-2.723 3.586C11.107 13.47 10.5 14.5 10.5 16m.75 2h.008"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 22a10 10 0 100-20 10 10 0 000 20z"/>
+    </svg>
+    FAQ
+  </a>
+
+  <a href="{% url 'community:devotionals' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Light-Bulb / Devotionals Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 18h6M10.5 8a3.75 3.75 0 117 0c0 1.657-1.148 2.822-2.5 3.393V14.5h-2v-3.107A3.75 3.75 0 0110.5 8z"/>
+    </svg>
+    Devotionals
+  </a>
+</div>
+
                  </div>
 
                  {% comment %} {% if user.is_authenticated %}
@@ -923,7 +1072,7 @@
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                           </svg>
                       </button>
-                      <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
+                      {% comment %} <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
                           <a href="{% url 'membership:member_dashboard_home' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
                               Dashboard
                           </a>
@@ -935,7 +1084,55 @@
                           <a href="{% url 'account:logout' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
                               Logout
                           </a>
-                      </div>
+                      </div> {% endcomment %}
+                      <div
+  class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
+         opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+         transition duration-300 ease-in-out right-0"
+  style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);"
+>
+  <a href="{% url 'membership:member_dashboard_home' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Home / Dashboard Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 9.75L12 4l9 5.75V20a2 2 0 0 1-2 2h-4.5V14h-5v8H5a2 2 0 0 1-2-2V9.75z" />
+    </svg>
+    Dashboard
+  </a>
+
+  {% if user.is_staff or user.is_superuser %}
+  <a href="{% url 'admin:index' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Shield / Admin Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+    Admin Home
+  </a>
+  {% endif %}
+
+  <a href="{% url 'account:logout' %}"
+     class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+            transition-colors duration-200">
+    <!-- Logout Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="h-5 w-5 mr-2 text-white"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1" />
+    </svg>
+    Logout
+  </a>
+</div>
+
                   </div>
               {% else %}
                   <a href="{% url 'account:login' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">
@@ -954,7 +1151,7 @@
              </div>
  
              <!-- Mobile Menu Button -->
-             <div class="md:hidden flex items-center">
+          <div class="md:hidden flex items-center">
               {% if user.is_authenticated %}
               <div class="relative group">
                 <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
@@ -969,20 +1166,64 @@
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
-                <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out right-0">
-                  <a href="{% url 'membership:member_dashboard_home' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
-                    Dashboard
-                  </a>
-                  {% if user.is_staff or user.is_superuser %}
-                    <a href="{% url 'admin:index' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
-                      Admin Home
-                    </a>
-                  {% endif %}
-                  <a href="{% url 'account:logout' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
-                    Logout
-                  </a>
-                </div>
+                <div
+                class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out right-0"
+                style="background: rgba(20, 28, 58, 0.7); backdrop-filter: blur(10px);"
+              >
+
+              <div
+              class="flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                     transition-colors duration-200 cursor-default"
+            >
+              <!-- User Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   class="h-5 w-5 mr-2 text-white"
+                   fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5.121 17.804A9.966 9.966 0 0112 15c2.21 0 4.208.718 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Welcome {{ member.user.username }}
+            </div>
+                <a href="{% url 'membership:member_dashboard_home' %}"
+                   class="nav-link flex items-center hover:bg-white hover:bg-opacity-20 px-4 py-2 text-white">
+                  <!-- Home / Dashboard Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       class="h-5 w-5 mr-2 text-white"
+                       fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M3 9.75L12 4l9 5.75V20a2 2 0 0 1-2 2h-4.5V14h-5v8H5a2 2 0 0 1-2-2V9.75z" />
+                  </svg>
+                  Dashboard
+                </a>
+              
+                {% if user.is_staff or user.is_superuser %}
+                <a href="{% url 'admin:index' %}"
+                   class="nav-link hover:bg-white hover:bg-opacity-20 flex items-center px-4 py-2 text-white">
+                  <!-- Shield / Admin Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       class="h-5 w-5 mr-2 text-white"
+                       fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                  Admin Home
+                </a>
+                {% endif %}
+              
+                <a href="{% url 'account:logout' %}"
+                   class="nav-link hover:bg-white hover:bg-opacity-20 flex items-center px-4 py-2 text-white">
+                  <!-- Logout Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       class="h-5 w-5 mr-2 text-white"
+                       fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1" />
+                  </svg>
+                  Logout
+                </a>
               </div>
+              </div> 
+              
               <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none ml-2">
                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />

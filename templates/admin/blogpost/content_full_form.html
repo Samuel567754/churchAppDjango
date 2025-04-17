@@ -1,0 +1,43 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+  <style>
+    /* Reserve scrollbar space to prevent layout shifts (“shake”) */
+    html { scrollbar-gutter: stable both-edges; }  /* prevents reflow on scroll :contentReference[oaicite:5]{index=5} */
+
+    /* Jazzmin‑style primary button */
+    .submit-row .default {
+      background-color: #4f46e5;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      cursor: pointer;
+    }
+    .submit-row .default:hover {
+      opacity: 0.9;
+    }
+  </style>
+{% endblock %}
+
+{% block title %}
+  {% if original.pk %}Edit Content: {{ original.title }}{% else %}Add Post Content{% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="p-6 bg-white shadow rounded-lg">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ adminform.form.media }}  {# includes CKEditor JS/CSS #}
+      <div class="mb-4">
+        {{ adminform.form.content }}
+      </div>
+      <div class="submit-row">
+        <button type="submit" class="default">
+          Save Content
+        </button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

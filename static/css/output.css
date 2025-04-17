@@ -5722,6 +5722,10 @@ select{
   transition-timing-function:cubic-bezier(0, 0, 0.2, 1)
 }
 
+.\[oaicite\:5\]{
+  oaicite:5
+}
+
 .before\:absolute::before{
   content:var(--tw-content);
   position:absolute
@@ -6213,6 +6217,10 @@ select{
 
 .hover\:bg-opacity-0:hover{
   --tw-bg-opacity:0
+}
+
+.hover\:bg-opacity-20:hover{
+  --tw-bg-opacity:0.2
 }
 
 .hover\:bg-opacity-90:hover{

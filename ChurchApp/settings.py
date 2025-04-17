@@ -914,7 +914,8 @@ JAZZMIN_SETTINGS = {
     # # CSS classes that are applied to the logo above
     # "site_logo_classes": "custom-admin-logo", 
     
-    "custom_css": "css/custom_admin.css",
+    "custom_css": "css/custom_admin.css",  
+    "custom_js":  "js/custom_admin.js",
  
     # # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     # "site_icon": None,
@@ -1080,6 +1081,39 @@ JAZZMIN_SETTINGS = {
 # }
 
 
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": False,
+    "accent": "accent-primary",
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "superhero",
+    "dark_mode_theme": "solar",
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
+}
+
+
 # JAZZMIN_UI_TWEAKS = {
 #     "navbar_small_text": False,
 #     "footer_small_text": False,
@@ -1087,7 +1121,7 @@ JAZZMIN_SETTINGS = {
 #     "brand_small_text": False,
 #     "brand_colour": False,
 #     "accent": "accent-primary",
-#     "navbar": "navbar-dark",
+#     "navbar": "navbar-white navbar-light",
 #     "no_navbar_border": False,
 #     "navbar_fixed": False,
 #     "layout_boxed": False,
@@ -1100,50 +1134,17 @@ JAZZMIN_SETTINGS = {
 #     "sidebar_nav_compact_style": False,
 #     "sidebar_nav_legacy_style": False,
 #     "sidebar_nav_flat_style": False,
-#     "theme": "superhero",
-#     "dark_mode_theme": "solar",
+#     "theme": "default",
+#     "dark_mode_theme": None,
 #     "button_classes": {
-#         "primary": "btn-primary",
-#         "secondary": "btn-secondary",
+#         "primary": "btn-outline-primary",
+#         "secondary": "btn-outline-secondary",
 #         "info": "btn-info",
 #         "warning": "btn-warning",
 #         "danger": "btn-danger",
 #         "success": "btn-success"
 #     }
 # }
-
-
-JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": False,
-    "brand_small_text": False,
-    "brand_colour": False,
-    "accent": "accent-primary",
-    "navbar": "navbar-white navbar-light",
-    "no_navbar_border": False,
-    "navbar_fixed": False,
-    "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": False,
-    "sidebar": "sidebar-dark-primary",
-    "sidebar_nav_small_text": False,
-    "sidebar_disable_expand": False,
-    "sidebar_nav_child_indent": False,
-    "sidebar_nav_compact_style": False,
-    "sidebar_nav_legacy_style": False,
-    "sidebar_nav_flat_style": False,
-    "theme": "default",
-    "dark_mode_theme": None,
-    "button_classes": {
-        "primary": "btn-outline-primary",
-        "secondary": "btn-outline-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    }
-}
 
 
 

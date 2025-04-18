@@ -806,21 +806,71 @@ class AppointmentAdmin(admin.ModelAdmin):
 
 
     
+# @admin.register(LiveStream)
+# class LiveStreamAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'scheduled_time', 'is_live', 'viewers_count')
+#     list_filter = ('is_live', 'scheduled_time')
+#     search_fields = ('title', 'description')
+#     date_hierarchy = 'scheduled_time'
+
+#     fieldsets = (
+#         (None, {
+#             'fields': ('title', 'description', 'stream_url', 'scheduled_time')
+#         }),
+#         ('Live Stream Details', {
+#             'fields': ('is_live', 'thumbnail', 'viewers_count', 'recorded_url')
+#         })
+#     )
+
+# @admin.register(LiveStream)
+# class LiveStreamAdmin(admin.ModelAdmin):
+#     list_display  = ("title", "is_live", "created_at")
+#     list_editable = ("is_live",)
+#     ordering = ("-created_at",)
+
+
 @admin.register(LiveStream)
 class LiveStreamAdmin(admin.ModelAdmin):
-    list_display = ('title', 'scheduled_time', 'is_live', 'viewers_count')
-    list_filter = ('is_live', 'scheduled_time')
-    search_fields = ('title', 'description')
-    date_hierarchy = 'scheduled_time'
+    # List view enhancements
+    list_display       = ("title", "is_live", "created_at")
+    list_display_links = ("title",)
+    list_editable      = ("is_live",)
+    list_filter        = ("is_live", "created_at")
+    search_fields      = ("title",)
+    date_hierarchy     = "created_at"
+    list_per_page      = 20
+    empty_value_display = "—"
+    list_select_related = ()
 
+    # Performance tweaks
+    raw_id_fields      = ()
+
+    # Custom actions
+    actions  = ("make_live", "make_offline",)
+
+    # Form layout
     fieldsets = (
         (None, {
-            'fields': ('title', 'description', 'stream_url', 'scheduled_time')
+            "fields": ("title", "video_url")
         }),
-        ('Live Stream Details', {
-            'fields': ('is_live', 'thumbnail', 'viewers_count', 'recorded_url')
-        })
+        ("Status & Timing", {
+            "fields": ("is_live", "created_at"),
+            "classes": ("collapse",),
+        }),
     )
+    readonly_fields = ("created_at",)
+
+    # Bulk action methods
+    @admin.action(description="Mark selected streams as live")
+    def make_live(self, request, queryset):
+        queryset.update(is_live=True)
+
+    @admin.action(description="Mark selected streams as offline")
+    def make_offline(self, request, queryset):
+        queryset.update(is_live=False)
+
+    # Default ordering
+    ordering = ("-created_at",)
 
 
 @admin.register(Resource)

@@ -545,15 +545,39 @@ class Schedule(models.Model):
         return self.title
 
 
+# class LiveStream(models.Model):
+#     title = models.CharField(max_length=200, help_text="Title of the live stream")
+#     description = models.TextField(help_text="Description of the live stream")
+#     stream_url = models.URLField(help_text="URL of the live stream")
+#     scheduled_time = models.DateTimeField(help_text="Scheduled time for the live stream")
+#     is_live = models.BooleanField(default=False, help_text="Indicates if the live stream is currently live")
+#     thumbnail = CompressedImageField(upload_to='livestreams/', help_text="Thumbnail for the live stream")
+#     viewers_count = models.IntegerField(default=0, help_text="Current count of viewers for the live stream")
+#     recorded_url = models.URLField(blank=True, null=True, help_text="Optional URL to the recorded version of the live stream")
+
+#     def __str__(self):
+#         return self.title
+
+
 class LiveStream(models.Model):
-    title = models.CharField(max_length=200, help_text="Title of the live stream")
-    description = models.TextField(help_text="Description of the live stream")
-    stream_url = models.URLField(help_text="URL of the live stream")
-    scheduled_time = models.DateTimeField(help_text="Scheduled time for the live stream")
-    is_live = models.BooleanField(default=False, help_text="Indicates if the live stream is currently live")
-    thumbnail = CompressedImageField(upload_to='livestreams/', help_text="Thumbnail for the live stream")
-    viewers_count = models.IntegerField(default=0, help_text="Current count of viewers for the live stream")
-    recorded_url = models.URLField(blank=True, null=True, help_text="Optional URL to the recorded version of the live stream")
+    title = models.CharField(
+            max_length=200,
+            help_text="Title of the live stream"
+            )
+    video_url = models.URLField(blank=True, null=True,
+            help_text="Public Facebook video post URL"
+            )
+    is_live = models.BooleanField(
+            default=False, 
+            help_text="Whether this stream is currently live"
+            )
+    created_at = models.DateTimeField(
+            auto_now_add=True,
+            help_text="When this entry was created"
+            )
+
+    class Meta:
+        ordering = ["-created_at"]
 
     def __str__(self):
         return self.title

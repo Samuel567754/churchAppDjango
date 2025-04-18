@@ -20,4 +20,5 @@ urlpatterns = [
     path('faq/', views.faq_view, name='faq'),
     path('gallery/', views.gallery, name='gallery'),
     path('devotionals/', views.devotionals, name='devotionals'),
+    path('live-streams/', views.live_streams, name='live_streams'),
 ]

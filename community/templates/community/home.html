@@ -555,241 +555,125 @@
   </div>
 </section>
 
-
-
-{% if live_stream %}
-  <section data-aos="fade-in" class="py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Header Section -->
-      <header class="text-center mb-12 space-y-4">
-        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-red-500 to-pink-500 shadow-lg animate-pulse" role="status" aria-live="polite">
-          {% if live_stream.is_live %}
-            <span class="w-3 h-3 bg-white rounded-full" aria-hidden="true"></span>
-            <h2 class="text-2xl font-bold text-white tracking-wide">
-              LIVE NOW: {{ live_stream.title }}
-            </h2>
-          {% else %}
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" role="img" aria-label="Upcoming Stream Icon" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
-              </path>
-            </svg>
-            <h2 class="text-2xl font-bold text-white tracking-wide">
-              UPCOMING: {{ live_stream.title }}
-            </h2>
-          {% endif %}
-        </div>
-
-        <p class="text-xl text-gray-700 mt-4 max-w-3xl mx-auto leading-relaxed">
-          {{ live_stream.description }}
-        </p>
-
-        {% if not live_stream.is_live %}
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-            <div class="bg-white px-6 py-3 rounded-lg shadow-md">
-              <p class="text-lg font-semibold text-gray-800">
-                🗓️ {{ live_stream.scheduled_time|date:"F j, Y" }}
-              </p>
-              <p class="text-gray-600 mt-1">
-                ⏰ {{ live_stream.scheduled_time|date:"g:i A" }} (UTC)
-              </p>
-            </div>
-            <div id="countdown" class="bg-gray-800 px-6 py-3 rounded-lg text-white text-lg font-mono hidden" aria-live="polite">
-              <!-- Countdown timer will be inserted by JavaScript -->
-            </div>
-          </div>
-        {% endif %}
-      </header>
-
-      <!-- Video or Thumbnail Display -->
-      <main>
-        {% if live_stream.is_live or live_stream.recorded_url %}
-          <!-- Embedded Live or Recorded Stream -->
-          <div class="relative group rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 hover:shadow-3xl">
-            <iframe 
-              src="{{ live_stream.stream_url }}" 
-              class="w-full h-[500px] border-0" 
-              title="{{ live_stream.title }} Stream"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
-          </div>
-        {% else %}
-          <!-- Thumbnail with Call-to-Action for Upcoming Stream -->
-          <div class="relative group rounded-2xl overflow-hidden transform transition-all duration-300 hover:scale-105">
-            <img src="{{ live_stream.thumbnail.url }}" 
-                 alt="{{ live_stream.title }} Thumbnail" 
-                 class="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent flex flex-col items-center justify-end pb-12 px-6 text-center">
-              <div class="space-y-4">
-                <h3 class="text-3xl font-bold text-white drop-shadow-lg">{{ live_stream.title }}</h3>
-                <p class="text-gray-200 text-lg max-w-2xl mx-auto leading-relaxed">
-                  {{ live_stream.description|truncatewords:30 }}
-                </p>
-              </div>
-              <a href="{{ live_stream.stream_url }}" 
-                 class="mt-8 inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-xl transition-transform duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" aria-hidden="true" role="img" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
-                  </path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                  </path>
-                </svg>
-                <span>Set Reminder & Notify Me</span>
-              </a>
-            </div>
-          </div>
-        {% endif %}
-      </main>
-
-      <!-- Social Sharing Links -->
-      <div class="mt-12 flex flex-col items-center space-y-4">
-        <p class="text-sm font-medium text-gray-500">Share this stream:</p>
-        <div class="flex justify-center gap-3">
-          <!-- Twitter -->
-          <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20stream%3A%20{{ live_stream.title|urlencode }}%20{{ request.build_absolute_uri|urlencode }}"
-             target="_blank" rel="noopener noreferrer"
-             class="p-3 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on Twitter">
-            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
-              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-            </svg>
-          </a>
-          <!-- Facebook -->
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
-             target="_blank" rel="noopener noreferrer"
-             class="p-3 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on Facebook">
-            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-          </a>
-          <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title={{ live_stream.title|urlencode }}"
-             target="_blank" rel="noopener noreferrer"
-             class="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on LinkedIn">
-            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
-              <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
-            </svg>
-          </a>
-          <!-- WhatsApp -->
-          <a href="https://api.whatsapp.com/send?text=Check%20out%20this%20stream%3A%20{{ live_stream.title|urlencode }}%20{{ request.build_absolute_uri|urlencode }}"
-             target="_blank" rel="noopener noreferrer"
-             class="p-3 rounded-xl bg-gradient-to-br from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on WhatsApp">
-            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-          </a>
-          <!-- Reddit -->
-          <a href="https://reddit.com/submit?url={{ request.build_absolute_uri|urlencode }}&title={{ live_stream.title|urlencode }}"
-             target="_blank" rel="noopener noreferrer"
-             class="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on Reddit">
-            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
-              <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.29-1.84.756-1.814-1.171-4.274-1.882-6.972-1.992l1.483-4.669 4.016.941-.006.058c0 1.193.973 2.164 2.164 2.164 1.193 0 2.164-.971 2.164-2.164s-.971-2.164-2.164-2.164c-.95 0-1.752.614-2.045 1.466l-4.389-1.029c-.093-.023-.188.022-.224.11l-1.653 5.207c-2.837.096-5.401.788-7.303 1.979-.479-.465-1.127-.756-1.843-.756-1.465 0-2.657 1.187-2.657 2.645 0 1.096.666 2.037 1.614 2.443-.041.287-.062.579-.062.874 0 3.591 4.216 6.509 9.404 6.509s9.404-2.918 9.404-6.509c0-.295-.021-.587-.062-.874.948-.406 1.614-1.347 1.614-2.443zm-16.782 1.871c0-.897.73-1.627 1.627-1.627s1.627.73 1.627 1.627-.73 1.627-1.627 1.627-1.627-.73-1.627-1.627zm8.486 4.792c-1.009.891-2.732 1.355-5.098 1.355-2.365 0-4.088-.464-5.097-1.355-.123-.108-.143-.291-.035-.415.108-.123.29-.143.415-.035.854.754 2.393 1.139 4.717 1.139 2.324 0 3.863-.385 4.717-1.139.124-.108.307-.088.415.035.108.124.088.307-.035.415zm-.399-3.165c-.897 0-1.627-.73-1.627-1.627s.73-1.627 1.627-1.627 1.627.73 1.627 1.627-.73 1.627-1.627 1.627z"/>
-            </svg>
-          </a>
-          <!-- Copy Link -->
-          <button onclick="copyToClipboard('{{ request.build_absolute_uri }}', event)"
-                  class="p-3 rounded-xl bg-gradient-to-br from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg relative focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                  aria-label="Copy stream link">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" role="img" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-            </svg>
-            <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-2 py-1 rounded-md text-sm opacity-0 transition-opacity duration-200 pointer-events-none" role="tooltip">
-              Copy link
-            </span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Copy to Clipboard Function -->
-  <script>
-    function copyToClipboard(text, event) {
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = event.currentTarget;
-        const tooltip = btn.querySelector('[role="tooltip"]');
-        const originalText = tooltip.textContent;
-        tooltip.textContent = 'Copied!';
-        tooltip.style.opacity = '1';
-        btn.classList.add('bg-green-500', 'to-green-700');
-        setTimeout(() => {
-          tooltip.textContent = originalText;
-          tooltip.style.opacity = '0';
-          btn.classList.remove('bg-green-500', 'to-green-700');
-        }, 2000);
-      }).catch(err => {
-        console.error('Failed to copy text:', err);
-      });
-    }
-  </script>
-
-  <!-- Countdown Timer Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      {% if not live_stream.is_live %}
-        const countdownEl = document.getElementById('countdown');
-        const scheduledTime = new Date('{{ live_stream.scheduled_time|date:"c" }}').getTime();
-        
-        function updateCountdown() {
-          const now = Date.now();
-          const distance = scheduledTime - now;
-      
-          if (distance <= 0) {
-            clearInterval(countdownInterval);
-            countdownEl.textContent = "Stream starting soon...";
-            return;
-          }
-      
-          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-          countdownEl.textContent = `Starts in: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-          countdownEl.classList.remove('hidden');
-        }
-      
-        const countdownInterval = setInterval(updateCountdown, 1000);
-        updateCountdown();
-      {% endif %}
-    });
-  </script>
-
-{% else %}
-  <!-- No Live Stream Available -->
-  <section data-aos="fade-in" class="py-12 md:py-16 bg-gray-100 flex flex-col items-center text-center">
-    <div class="max-w-2xl mx-auto">
-      <div class="flex justify-center items-center p-6 rounded-full bg-red-500 shadow-lg">
-        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" role="img" aria-label="No stream icon" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                d="M13 16h-1v-4h-1m-2 4h8m4 0a9 9 0 11-18 0 9 9 0 0118 0z">
-          </path>
-        </svg>
-      </div>
-      <h2 class="text-3xl font-bold text-gray-700 mt-6">No Live Stream Available</h2>
-      <p class="text-gray-500 mt-3">Please check back later for upcoming sermons and events.</p>
-      <a href="{% url 'worship:sermons' %}" 
-         class="mt-6 inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" role="img" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
-          </path>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-          </path>
-        </svg>
-        View Past Sermons
-      </a>
-    </div>
-  </section>
-{% endif %}
-
-
  
+  {% load static %}
+  <section data-aos="fade-in" class="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+     <!-- Heading & Description with Live Badge -->
+<div class="text-center mb-8">
+  {% if live_stream.is_live %}
+    <span class="inline-flex items-center mb-4">
+      <!-- Pulsing dot -->
+      <span class="relative flex h-6 w-6 mr-2">
+        <span class="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
+        <span class="relative inline-flex h-6 w-6 rounded-full bg-red-600"></span>
+      </span>
+      <!-- Live label -->
+      <span class="uppercase font-semibold text-lg text-red-600">Live Now</span>
+    </span>
+  {% endif %}
+
+  <!-- Title -->
+  <h1 class="text-2xl md:text-5xl font-bold text-gray-700">
+    {{ live_stream.title|default:"Join Us Live Now" }}
+  </h1>
+
+  <!-- Description -->
+  <p class="text-lg md:text-xl text-gray-600 mt-4">
+    {{ live_stream.description|default:"Experience our live service, community worship, and inspiring messages—wherever you are." }}
+  </p>
+</div>
+
+  
+      {% if live_stream %}
+        <!-- Live Video Embed -->
+        <div class="mx-auto mb-8 w-full sm:w-3/4 lg:w-2/3 aspect-w-16 aspect-h-9">
+          <div class="fb-video w-full h-full" 
+               data-href="{{ live_stream.video_url }}"
+               data-width="720" data-allowfullscreen="true">
+          </div>
+        </div>
+
+         <!-- Social Sharing Links -->
+  <div class="mt-12 flex flex-col items-center space-y-4">
+    <p class="text-sm font-medium text-gray-500">Share this stream:</p>
+    <div class="flex justify-center gap-3">
+      <!-- Twitter -->
+      <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20stream%3A%20{{ live_stream.title|urlencode }}%20{{ request.build_absolute_uri|urlencode }}"
+         target="_blank" rel="noopener noreferrer"
+         class="p-3 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on Twitter">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
+          <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+        </svg>
+      </a>
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
+         target="_blank" rel="noopener noreferrer"
+         class="p-3 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on Facebook">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title={{ live_stream.title|urlencode }}"
+         target="_blank" rel="noopener noreferrer"
+         class="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on LinkedIn">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
+          <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+        </svg>
+      </a>
+      <!-- WhatsApp -->
+      <a href="https://api.whatsapp.com/send?text=Check%20out%20this%20stream%3A%20{{ live_stream.title|urlencode }}%20{{ request.build_absolute_uri|urlencode }}"
+         target="_blank" rel="noopener noreferrer"
+         class="p-3 rounded-xl bg-gradient-to-br from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on WhatsApp">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
+      <!-- Reddit -->
+      <a href="https://reddit.com/submit?url={{ request.build_absolute_uri|urlencode }}&title={{ live_stream.title|urlencode }}"
+         target="_blank" rel="noopener noreferrer"
+         class="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg" aria-label="Share on Reddit">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" role="img">
+          <path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.29-1.84.756-1.814-1.171-4.274-1.882-6.972-1.992l1.483-4.669 4.016.941-.006.058c0 1.193.973 2.164 2.164 2.164 1.193 0 2.164-.971 2.164-2.164s-.971-2.164-2.164-2.164c-.95 0-1.752.614-2.045 1.466l-4.389-1.029c-.093-.023-.188.022-.224.11l-1.653 5.207c-2.837.096-5.401.788-7.303 1.979-.479-.465-1.127-.756-1.843-.756-1.465 0-2.657 1.187-2.657 2.645 0 1.096.666 2.037 1.614 2.443-.041.287-.062.579-.062.874 0 3.591 4.216 6.509 9.404 6.509s9.404-2.918 9.404-6.509c0-.295-.021-.587-.062-.874.948-.406 1.614-1.347 1.614-2.443zm-16.782 1.871c0-.897.73-1.627 1.627-1.627s1.627.73 1.627 1.627-.73 1.627-1.627 1.627-1.627-.73-1.627-1.627zm8.486 4.792c-1.009.891-2.732 1.355-5.098 1.355-2.365 0-4.088-.464-5.097-1.355-.123-.108-.143-.291-.035-.415.108-.123.29-.143.415-.035.854.754 2.393 1.139 4.717 1.139 2.324 0 3.863-.385 4.717-1.139.124-.108.307-.088.415.035.108.124.088.307-.035.415zm-.399-3.165c-.897 0-1.627-.73-1.627-1.627s.73-1.627 1.627-1.627 1.627.73 1.627 1.627-.73 1.627-1.627 1.627z"/>
+        </svg>
+      </a>
+      <!-- Copy Link -->
+      <button onclick="copyToClipboard('{{ request.build_absolute_uri }}', event)"
+              class="p-3 rounded-xl bg-gradient-to-br from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900 transition-transform duration-300 transform hover:scale-110 hover:shadow-lg relative focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              aria-label="Copy stream link">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" role="img" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+        </svg>
+        <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-2 py-1 rounded-md text-sm opacity-0 transition-opacity duration-200 pointer-events-none" role="tooltip">
+          Copy link
+        </span>
+      </button>
+    </div>
+  </div>
+     
+      {% else %}
+        <!-- Fallback When Not Live -->
+        <div class="py-12 bg-red-50 rounded-2xl shadow-lg inline-block">
+          <div class="flex items-center justify-center mb-4">
+            <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m-2 4h8m4 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-red-700 mb-2">No Live Stream Right Now</h2>
+          <p class="text-gray-600 mb-4">Please check back soon for upcoming events and messages.</p>
+          <a href="{% url 'community:live_streams' %}"
+             class="inline-flex items-center px-6 py-3 bg-red-500 text-white 
+                    rounded-lg shadow hover:bg-red-600 transition transform hover:scale-105">
+            View Past Streams
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+  
 
 {% comment %} 
   {% if latest_sermon %}

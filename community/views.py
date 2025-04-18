@@ -19,6 +19,12 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 import hashlib
 from django.core.cache import cache
+from django.views.decorators.cache import cache_page
+from django.views.decorators.http import require_http_methods
+import json
+from django.template.loader import render_to_string
+
+
 
 
 
@@ -141,9 +147,6 @@ def home(request):
     
     # Retrieve the currently live stream or the next scheduled stream
     live_stream = LiveStream.objects.filter(is_live=True).first()
-    if not live_stream:
-        live_stream = LiveStream.objects.filter(scheduled_time__gte=timezone.now()).order_by('scheduled_time').first()
-
     # ------------------------------
     # Daily Devotional Integration
     # ------------------------------
@@ -318,18 +321,84 @@ def events(request):
         return render(request, 'community/events.html', context)
 
 
-
 def services(request):
-    live_streams_list = LiveStream.objects.all().order_by('-scheduled_time')
-    paginator = Paginator(live_streams_list, 10)  # Display 10 live streams per page
-    page_number = request.GET.get('page')
-    live_streams = paginator.get_page(page_number)
-    
-    context = {
-        'live_streams': live_streams,
-    }
-    return render(request, 'community/services.html', context)
+    return render(request, 'community/services.html')
 
+# def live_streams(request):
+#     live_stream = LiveStream.objects.filter(is_live=True).first()
+#     archived_videos = LiveStream.objects.filter(is_live=False).order_by("-created_at")
+#     # Get the latest sermon
+#     context = {
+#         'live_stream': live_stream,
+#         'archived_videos': archived_videos,
+#     }
+#     return render(request, 'community/live_streams.html', context)
+
+
+
+# def live_streams(request):
+#     live_stream = LiveStream.objects.filter(is_live=True).first()
+#     all_archived = LiveStream.objects.filter(is_live=False).order_by("-created_at")
+
+#     # Pagination and search
+#     query = request.GET.get('q', '')
+#     page_number = request.GET.get('page', 1)
+#     if query:
+#         all_archived = all_archived.filter(title__icontains=query)
+
+#     paginator = Paginator(all_archived, 1)  # 6 items per page
+#     page = paginator.get_page(page_number)
+
+#     # AJAX detection using header instead of removed is_ajax()
+#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         videos_data = [
+#             {'title': vid.title, 'video_url': vid.video_url}
+#             for vid in page
+#         ]
+#         return JsonResponse({'videos': videos_data, 'has_next': page.has_next()})
+
+#     context = {
+#         'live_stream': live_stream,
+#         'archived_videos': page,
+#         'query': query,
+#     }
+#     return render(request, 'community/live_streams.html', context)
+
+
+def live_streams(request):
+    # Live stream (if any)
+    live_stream = LiveStream.objects.filter(is_live=True).first()
+
+    # Base queryset for archived
+    archived_qs = LiveStream.objects.filter(is_live=False).order_by('-created_at')
+
+    # Search
+    query = request.GET.get('q', '').strip()
+    if query:
+        archived_qs = archived_qs.filter(title__icontains=query)
+
+    # Pagination
+    page_number = int(request.GET.get('page', 1))
+    paginator = Paginator(archived_qs, 6)  # show 6 per page
+    page = paginator.get_page(page_number)
+
+    context = {
+        'live_stream': live_stream,
+        'archived_videos': page,
+        'query': query,
+    }
+
+    # AJAX / Fetch: return JSON
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        html = render_to_string('community/partials/_archived_streams_list.html', context, request=request)
+        return JsonResponse({
+            'html': html,
+            'has_next': page.has_next(),
+            'next_page': page.next_page_number() if page.has_next() else None,
+        })
+
+    # Full page
+    return render(request, 'community/live_streams.html', context)
 
 
 

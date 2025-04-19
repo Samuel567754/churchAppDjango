@@ -23,6 +23,7 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_http_methods
 import json
 from django.template.loader import render_to_string
+from datetime import timedelta
 
 
 
@@ -382,23 +383,67 @@ def live_streams(request):
     paginator = Paginator(archived_qs, 6)  # show 6 per page
     page = paginator.get_page(page_number)
 
+    # Flag items older than 30 days (no YouTube URL) for migration
+    thirty_days_ago = timezone.now() - timedelta(days=30)
+    for vid in page:
+        vid.needs_migration = (vid.created_at < thirty_days_ago and not getattr(vid, 'yt_url', None))
+
     context = {
-        'live_stream': live_stream,
-        'archived_videos': page,
-        'query': query,
+        'live_stream':      live_stream,
+        'archived_videos':  page,
+        'query':            query,
     }
 
     # AJAX / Fetch: return JSON
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        html = render_to_string('community/partials/_archived_streams_list.html', context, request=request)
+        html = render_to_string(
+            'community/partials/_archived_streams_list.html',
+            context,
+            request=request
+        )
         return JsonResponse({
-            'html': html,
-            'has_next': page.has_next(),
+            'html':      html,
+            'has_next':  page.has_next(),
             'next_page': page.next_page_number() if page.has_next() else None,
         })
 
     # Full page
     return render(request, 'community/live_streams.html', context)
+
+# def live_streams(request):
+#     # Live stream (if any)
+#     live_stream = LiveStream.objects.filter(is_live=True).first()
+
+#     # Base queryset for archived
+#     archived_qs = LiveStream.objects.filter(is_live=False).order_by('-created_at')
+
+#     # Search
+#     query = request.GET.get('q', '').strip()
+#     if query:
+#         archived_qs = archived_qs.filter(title__icontains=query)
+
+#     # Pagination
+#     page_number = int(request.GET.get('page', 1))
+#     paginator = Paginator(archived_qs, 6)  # show 6 per page
+#     page = paginator.get_page(page_number)
+
+#     context = {
+#         'live_stream': live_stream,
+#         'archived_videos': page,
+#         'query': query,
+#     }
+
+#     # AJAX / Fetch: return JSON
+#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         html = render_to_string('community/partials/_archived_streams_list.html', context, request=request)
+#         return JsonResponse({
+#             'html': html,
+#             'has_next': page.has_next(),
+#             'next_page': page.next_page_number() if page.has_next() else None,
+#         })
+
+#     # Full page
+#     return render(request, 'community/live_streams.html', context)
 
 
 

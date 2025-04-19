@@ -4517,6 +4517,12 @@ select{
   --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)
 }
 
+.from-blue-300{
+  --tw-gradient-from:#A4CAFE var(--tw-gradient-from-position);
+  --tw-gradient-to:rgb(164 202 254 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)
+}
+
 .via-black\/70{
   --tw-gradient-to:rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops:var(--tw-gradient-from), rgb(0 0 0 / 0.7) var(--tw-gradient-via-position), var(--tw-gradient-to)
@@ -4550,6 +4556,11 @@ select{
 .via-white{
   --tw-gradient-to:rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops:var(--tw-gradient-from), #ffffff var(--tw-gradient-via-position), var(--tw-gradient-to)
+}
+
+.via-purple-300{
+  --tw-gradient-to:rgb(202 191 253 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops:var(--tw-gradient-from), #CABFFD var(--tw-gradient-via-position), var(--tw-gradient-to)
 }
 
 .to-blue-100{
@@ -4722,6 +4733,10 @@ select{
 
 .to-white\/50{
   --tw-gradient-to:rgb(255 255 255 / 0.5) var(--tw-gradient-to-position)
+}
+
+.to-pink-300{
+  --tw-gradient-to:#F8B4D9 var(--tw-gradient-to-position)
 }
 
 .bg-cover{

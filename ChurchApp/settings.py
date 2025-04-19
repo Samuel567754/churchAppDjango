@@ -168,6 +168,10 @@ INSTALLED_APPS = [
     'pwa',
 ]
 
+INSTALLED_APPS += [
+    "embed_video",
+]
+# :contentReference[oaicite:2]{index=2}  
 
 
 # PWA App Settings
@@ -644,6 +648,12 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATES[0]["OPTIONS"]["context_processors"] += [
+    "django.template.context_processors.request",
+]
+#``` :contentReference[oaicite:3]{index=3}  
+
 
 WSGI_APPLICATION = 'ChurchApp.wsgi.application'
 

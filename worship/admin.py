@@ -89,6 +89,64 @@ class ServiceAdmin(admin.ModelAdmin):
 #     image_preview.short_description = "Image Preview"
 
 
+# @admin.register(Sermon)
+# class SermonAdmin(admin.ModelAdmin):
+#     list_display = (
+#         'title', 
+#         'preacher', 
+#         'date', 
+#         'featured', 
+#         'image_preview', 
+#         'facebook_url', 
+#         'document',
+#         'is_live'
+#     )
+#     list_filter = (
+#         'featured', 
+#         'date', 
+#         'tags',  # Adjust or remove if you add series in future
+#     )
+#     search_fields = (
+#         'title', 
+#         'summary', 
+#         'preacher'
+#     )
+#     filter_horizontal = ('tags',)
+#     readonly_fields = ('slug',)
+#     date_hierarchy = 'date'
+
+#     fieldsets = (
+#         (None, {
+#             'fields': ('title', 'preacher', 'summary', 'date')
+#         }),
+#         ('Content', {
+#             'fields': ('scripture_reference', 'transcript', 'facebook_url','yt_url', 'document', 'tags')
+#         }),
+#         ('Settings', {
+#             'fields': ('featured', 'image', 'image_url', 'is_live')
+#         }),
+#         ('Read Only', {
+#             'fields': ('slug',)
+#         }),
+#     )
+
+#     def image_preview(self, obj):
+#         # Check first for a locally uploaded image, then an external image URL.
+#         if obj.image:
+#             return format_html(
+#                 '<img src="{}" style="width:50px; height:50px; border-radius:4px;" />', 
+#                 obj.image.url
+#             )
+#         elif obj.image_url:
+#             return format_html(
+#                 '<img src="{}" style="width:50px; height:50px; border-radius:4px;" />', 
+#                 obj.image_url
+#             )
+#         return "No Image"
+
+#     image_preview.short_description = "Image Preview"
+
+
 @admin.register(Sermon)
 class SermonAdmin(admin.ModelAdmin):
     list_display = (
@@ -144,6 +202,7 @@ class SermonAdmin(admin.ModelAdmin):
         return "No Image"
 
     image_preview.short_description = "Image Preview"
+
 
 
 
@@ -851,7 +910,7 @@ class LiveStreamAdmin(admin.ModelAdmin):
     # Form layout
     fieldsets = (
         (None, {
-            "fields": ("title", "video_url")
+            "fields": ("title", "video_url", "yt_url"),
         }),
         ("Status & Timing", {
             "fields": ("is_live", "created_at"),

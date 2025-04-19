@@ -16,6 +16,8 @@ from django.utils.timezone import now
 from django.core.validators import FileExtensionValidator
 import os
 from settings.fields import CompressedImageField, SupabaseFileField
+from embed_video.fields import EmbedVideoField
+from datetime import timedelta
 
 def validate_audio_file(value):
     valid_extensions = ['.mp3', '.wav', '.ogg', '.m4a']
@@ -177,7 +179,9 @@ class Sermon(ImageMixin):
         help_text="URL-friendly version of the title",
         editable=False
     )
+    # yt_url = EmbedVideoField(blank=True, null=True)
     tags = models.ManyToManyField('SermonTag', blank=True, related_name='sermons', help_text="Tags for this sermon")
+    # is_live = models.BooleanField(default=False, help_text="Indicates if the sermon is currently live")
 
     class Meta:
         ordering = ['-date']
@@ -198,6 +202,110 @@ class Sermon(ImageMixin):
                 counter += 1
             self.slug = slug
         super().save(*args, **kwargs)
+        
+        
+
+# class Sermon(ImageMixin):
+#     title = models.CharField(max_length=200)
+#     preacher = models.CharField(
+#         max_length=100,
+#         help_text="Name of the preacher or minister",
+#         default="Unknown Preacher"  # Prevents production issues by providing a default value.
+#     )
+#     date = models.DateTimeField(
+#         default=timezone.now,
+#         help_text="Date and time when the sermon was delivered"
+#     )
+#     scripture_reference = models.CharField(
+#         max_length=100,
+#         blank=True,
+#         help_text="Scripture passage (e.g., John 3:16-18)"
+#     )
+#     summary = models.TextField(
+#         blank=True,
+#         help_text="A brief summary or outline of the sermon"
+#     )
+#     transcript = models.TextField(
+#         blank=True,
+#         help_text="Full text transcript of the sermon (optional)"
+#     )
+#     facebook_url = models.URLField(
+#         blank=True,
+#         null=True,
+#         help_text="URL to the Facebook page where the sermon can be watched"
+#     )
+#     document = SupabaseFileField(
+#         upload_to='sermons/documents/',
+#         blank=True,
+#         null=True,
+#         help_text="Optional document file (PDF, notes, etc.)",
+#         validators=[validate_document_file, validate_file_size]
+#     )
+#     image = models.ImageField(
+#         upload_to='sermon_images/',
+#         blank=True,
+#         null=True,
+#         help_text="Upload a sermon thumbnail image"
+#     )
+#     image_url = models.URLField(
+#         blank=True,
+#         null=True,
+#         help_text="External URL for a sermon image (if available)"
+#     )
+#     featured = models.BooleanField(
+#         default=False,
+#         help_text="Mark this sermon as featured on the site"
+#     )
+#     slug = models.SlugField(
+#         max_length=200,
+#         unique=True,
+#         blank=True,
+#         help_text="URL-friendly version of the title",
+#         editable=False
+#     )
+#     yt_url = EmbedVideoField(blank=True, null=True)
+#     tags = models.ManyToManyField('SermonTag', blank=True, related_name='sermons', help_text="Tags for this sermon")
+#     is_live = models.BooleanField(default=False, help_text="Indicates if the sermon is currently live")
+
+#     class Meta:
+#         ordering = ['-date']
+#         verbose_name = "Sermon"
+#         verbose_name_plural = "Sermons"
+
+#     def __str__(self):
+#         return f"{self.title} by {self.preacher} on {self.date.strftime('%Y-%m-%d')}"
+
+#     def save(self, *args, **kwargs):
+#         # Automatically generate a unique slug based on the title.
+#         if not self.slug:
+#             base_slug = slugify(self.title)
+#             slug = base_slug
+#             counter = 1
+#             while Sermon.objects.filter(slug=slug).exists():
+#                 slug = f"{base_slug}-{counter}"
+#                 counter += 1
+#             self.slug = slug
+#         super().save(*args, **kwargs)
+        
+#     @property
+#     def embed_html(self):
+#         if self.is_live and self.facebook_url:
+#             return (
+#                 f'<div class="fb-video" '
+#                 f'data-href="{self.facebook_url}" '
+#                 f'data-width="720" '
+#                 f'data-allowfullscreen="true"></div>'
+#             )
+#         if self.yt_url:
+#             return self.yt_url   # django-embed-video tag will render this
+#         return ""
+
+#     @property
+#     def needs_migration(self):
+#         return (
+#             not self.yt_url
+#             and self.date < timezone.now() - timedelta(days=30)
+#         )
 
 
 class SermonTag(models.Model):
@@ -567,6 +675,11 @@ class LiveStream(models.Model):
     video_url = models.URLField(blank=True, null=True,
             help_text="Public Facebook video post URL"
             )
+    yt_url  = EmbedVideoField(
+                   blank=True,
+                   null=True,
+                   help_text="YouTube replay URL (after FB expires)"
+               )
     is_live = models.BooleanField(
             default=False, 
             help_text="Whether this stream is currently live"
@@ -581,6 +694,19 @@ class LiveStream(models.Model):
 
     def __str__(self):
         return self.title
+    
+    # @property
+    # def needs_migration(self):
+    #     return (
+    #         not self.yt_url
+    #         and self.date < timezone.now() - timedelta(days=30)
+    #     )
+    
+    def needs_migration(self):
+        return (
+            not self.yt_url
+            and self.date < timezone.now() - timedelta(days=30)
+        )
 
 
 class Resource(models.Model):

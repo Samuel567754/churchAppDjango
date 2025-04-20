@@ -84,7 +84,7 @@
    {% endcomment %}
 
 {# Wrap the list and its Load‑More button in one chunk #}
-<div id="archived-list" class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+{% comment %} <div id="archived-list" class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
   {% load embed_video_tags %}
   {% for vid in archived_videos %}
     <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -105,9 +105,7 @@
           </div>
         {% endif %}
       {% endif %}
-      {% comment %} <div class="p-4">
-        <h3 class="font-semibold text-lg text-gray-800 truncate">{{ vid.title }}</h3>
-      </div> {% endcomment %}
+     
       <div class="p-4 flex items-center">
         <!-- Play icon -->
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -163,6 +161,95 @@
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor"
               d="M4 12a8 8 0 018-8v8H4z" />
+      </svg>
+    </button>
+  </div>
+{% endif %} {% endcomment %}
+
+
+
+{# templates/myapp/archived_videos.html #}
+{% load embed_video_tags %}
+
+<div id="archived-list"
+     class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+
+  {% for vid in archived_videos %}
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+
+      {% if vid.yt_url %}
+        {# Responsive 16:9 video wrapper #}
+        <div class="aspect-video">
+          {% video vid.yt_url "100%x100%" %}
+        </div>
+      {% else %}
+        {# Facebook fallback (you may need a similar wrapper) #}
+        <div class="relative w-full pb-[56.25%] overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-full">
+            <div class="fb-video"
+                 data-href="{{ vid.video_url }}"
+                 data-show-text="false"
+                 data-allowfullscreen="true">
+            </div>
+          </div>
+        </div>
+        {% if vid.needs_migration %}
+          <div class="mt-2 px-3 py-1 bg-yellow-100 text-yellow-800 text-sm rounded">
+            ⚠️ Please upload this video to YouTube for permanent archive.
+          </div>
+        {% endif %}
+      {% endif %}
+
+      <div class="p-4 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-6 w-6 text-green-600 mr-2"
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M14.752 11.168l-5.197-3.022A1 1 0 008 9.07v5.861a1 1 0 001.555.832l5.197-3.022a1 1 0 000-1.664z" />
+        </svg>
+        <h3 class="font-semibold text-lg text-gray-800 truncate">
+          {{ vid.title }}
+        </h3>
+      </div>
+
+    </div>
+  {% empty %}
+    <div class="col-span-full flex flex-col items-center justify-center py-20">
+      <!-- empty state SVG & text -->
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-20 w-20 text-gray-400"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 10l4.553 2.276A2 2 0 0120 14.118V17a2 2 0 01-2 2H6a2 2 0 01-2-2v-2.882a2 2 0 01.447-1.842L10 10m5-3.382V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v.618M12 12v.01" />
+      </svg>
+      <h4 class="mt-4 text-xl font-semibold text-gray-700">
+        No Archived Streams Yet
+      </h4>
+      <p class="mt-2 text-gray-500 text-center max-w-xs">
+        We haven’t archived any streams yet. Check back soon for fresh insights and inspiration.
+      </p>
+    </div>
+  {% endfor %}
+</div>
+
+{% if archived_videos.has_next %}
+  <div class="w-full flex justify-center mt-8">
+    <button id="load-more-btn"
+            data-next-page="{{ archived_videos.next_page_number }}"
+            class="flex items-center space-x-2 bg-green-600 hover:bg-green-700
+                   text-white px-6 py-2 rounded-full
+                   focus:outline-none focus:ring-2 focus:ring-green-500 transition">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-5 w-5" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor"
+           aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7" />
+      </svg>
+      <span class="btn-text">Load More</span>
+      <svg class="spinner hidden animate-spin h-5 w-5" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
       </svg>
     </button>
   </div>

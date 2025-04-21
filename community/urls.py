@@ -21,4 +21,6 @@ urlpatterns = [
     path('gallery/', views.gallery, name='gallery'),
     path('devotionals/', views.devotionals, name='devotionals'),
     path('live-streams/', views.live_streams, name='live_streams'),
+    path('announcements/api/', views.announcement_list_api, name='announcement_list_api'),
+    path('announcements/', views.announcement_list, name='announcement_list'),
 ]

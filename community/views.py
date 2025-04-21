@@ -2,8 +2,8 @@ from django.shortcuts import render
 from community.models import CarouselItem
 from event.models import GalleryImage
 from membership.models import Ministry
-from django.core.paginator import Paginator
-from .models import FAQ, Devotional
+from django.core.paginator import Paginator, EmptyPage
+from .models import FAQ, Devotional, Announcement
 from blog.models import Post
 import random
 from event.models import Event, ChurchCalendar, OutreachProgram, EVENT_CATEGORIES
@@ -655,3 +655,78 @@ def gallery(request):
         return render(request, 'community/partials/gallery_items.html', context)
     
     return render(request, 'community/gallery.html', context)
+
+
+
+
+@require_GET
+def announcement_list_api(request):
+    """
+    AJAX endpoint that returns a paginated, filtered list of announcements as JSON.
+    GET params:
+      - status:         one or more of 'draft', 'published', 'archived'
+      - importance:     one or more of 'urgent','high','medium','low'
+      - is_active:      'true' or 'false'
+      - page:           integer, defaults to 1
+    Response JSON:
+      {
+        "announcements": [
+          {"id": ..., "title": ..., "content": ..., "date_posted": "...", "status": "...", "importance_level": "..."},
+          …
+        ],
+        "has_next": true|false
+      }
+    """
+    qs = Announcement.objects.all()
+
+    # --- filters ---
+    statuses = request.GET.getlist('status')
+    if statuses:
+        qs = qs.filter(status__in=statuses)
+
+    imps = request.GET.getlist('importance')
+    if imps:
+        qs = qs.filter(importance_level__in=imps)
+
+    is_active = request.GET.get('is_active')
+    if is_active in ('true', 'false'):
+        qs = qs.filter(is_active=(is_active == 'true'))
+
+    # order newest first
+    qs = qs.order_by('-date_posted')
+
+    # --- pagination / “load more” ---
+    page_num = request.GET.get('page', 1)
+    paginator = Paginator(qs, 10)  # 10 per page
+    try:
+        page = paginator.page(page_num)
+    except EmptyPage:
+        return JsonResponse({
+            'announcements': [],
+            'has_next': False
+        })
+
+    # serialize
+    items = []
+    for ann in page.object_list:
+        items.append({
+            'id': ann.id,
+            'title': ann.title,
+            'content': ann.content,
+            'date_posted': ann.date_posted.isoformat(),
+            'status': ann.status,
+            'importance_level': ann.importance_level,
+        })
+
+    return JsonResponse({
+        'announcements': items,
+        'has_next': page.has_next(),
+    })
+    
+    
+def announcement_list(request):
+    """
+    Renders the HTML page that contains 
+    the filters, empty state, grid, and JS loader.
+    """
+    return render(request, 'community/announcement_list.html')

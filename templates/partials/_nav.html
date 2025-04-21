@@ -1,843 +1,4 @@
-{% comment %} {% load static %}
-<nav class="bg-white shadow-lg fixed top-0  w-full z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-20">
-      <div class="flex">
-        <a href="/" class="flex items-center">
-          <svg class="h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5z" />
-          </svg>
-          <span class="ml-2 text-2xl font-bold text-gray-900">Grace Community</span>
-        </a>
-      </div>
-
-      <!-- Desktop Menu -->
-      <div class="hidden md:flex items-center space-x-8">
-        <a href="/" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Home</a>
-        <a href="/about" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">About</a>
-        <a href="/services" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Services</a>
-        <a href="/events" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Events</a>
-        <a href="/ministries" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Ministries</a>
-        <a href="/give" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Give</a>
-        <a href="{% url 'blog:blog' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Blog</a>
-        <a href="{% url 'sermons' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Sermons</a>
-        <a href="/contact" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Contact</a>
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden flex items-center">
-        <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none">
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3">
-    <a href="{% url 'home' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Home</a>
-    <a href="{% url 'about' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">About</a>
-    <a href="{% url 'services' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Services</a>
-    <a href="{% url 'events' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Events</a>
-    <a href="{% url 'ministries' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Ministries</a>
-    <a href="{% url 'blog:blog' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Blog</a>
-    <a href="{% url 'sermons' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Sermons</a>
-    <a href="{% url 'give' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Give</a>
-    <a href="{% url 'contact' %}" class="block px-3 py-2 bg-indigo-600 text-white rounded-md">Contact</a>
-  </div>
-</nav>
-
-<script>
-  const menuButton = document.getElementById('menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  menuButton.addEventListener('click', () => {
-    const isHidden = mobileMenu.classList.contains('hidden');
-    mobileMenu.classList.toggle('hidden', !isHidden);
-  });
-</script> {% endcomment %}
-
-
-
-{% comment %} {% load static %}
-<nav class="bg-white shadow-lg fixed top-0 w-full z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-20 items-center">
-            <div class="flex">
-                <a href="{% url 'home' %}" class="flex items-center">
-                    <svg class="h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5z" />
-                    </svg>
-                    <span class="ml-2 text-2xl font-bold text-gray-900">Grace Community</span>
-                </a>
-            </div>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-4 lg:space-x-8">
-                 <a href="{% url 'home' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Home</a>
-                <a href="{% url 'about' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">About</a>
-                <a href="{% url 'services' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Services</a>
-                <a href="{% url 'events' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Events</a>
-                <a href="{% url 'ministries' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Ministries</a>
-                  <a href="{% url 'give' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Give</a>
-                <a href="{% url 'blog:blog' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Blog</a>
-                <a href="{% url 'sermons' %}" class="text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Sermons</a>
-                <a href="{% url 'contact' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Contact</a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none">
-                  <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                   <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                   </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mobile Menu -->
-   <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a href="{% url 'home' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Home</a>
-        <a href="{% url 'about' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">About</a>
-        <a href="{% url 'services' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Services</a>
-        <a href="{% url 'events' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Events</a>
-         <a href="{% url 'ministries' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Ministries</a>
-          <a href="{% url 'give' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Give</a>
-        <a href="{% url 'blog:blog' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Blog</a>
-        <a href="{% url 'sermons' %}" class="block px-3 py-2 text-gray-700 hover:text-indigo-600">Sermons</a>
-        <a href="{% url 'contact' %}" class="block px-3 py-2 bg-indigo-600 text-white rounded-md">Contact</a>
-    </div>
-</nav>
-
-<script>
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-     const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
-
-    menuButton.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden', !isHidden);
-        menuIcon.classList.toggle('hidden', isHidden);
-        closeIcon.classList.toggle('hidden', !isHidden);
-    });
-
-
-    // Close the mobile menu when clicking outside of it
-    document.addEventListener('click', (event) => {
-      if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
-           menuIcon.classList.remove('hidden');
-           closeIcon.classList.add('hidden');
-       }
-    });
-</script> {% endcomment %}
-
-
-
-
-
-
-{% comment %} {% load static %}
-<nav class="bg-white shadow-lg fixed top-0 w-full z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-20 items-center">
-            <div class="flex">
-                <a href="{% url 'home' %}" class="flex items-center">
-                    <svg class="h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5z" />
-                    </svg>
-                    <span class="ml-2 text-2xl font-bold text-gray-900">Grace Community</span>
-                </a>
-            </div>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-4 lg:space-x-8">
-                <a href="{% url 'home' %}" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Home</a>
-                <a href="{% url 'about' %}" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">About</a>
-                <a href="{% url 'services' %}" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Services</a>
-                <a href="{% url 'events' %}" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Events</a>
-                <a href="{% url 'ministries' %}" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Ministries</a>
-                  <a href="{% url 'give' %}" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Give</a>
-                <a href="{% url 'blog:blog' %}" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Blog</a>
-                 <a href="{% url 'sermons' %}" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Sermons</a>
-                 {% if user.is_authenticated %}
-                   <a href="" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Dashboard</a>
-                    <a href="" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Logout</a>
-                  {% else %}
-                     <a href="" class="nav-link text-gray-700 hover:text-indigo-600 px-3 py-2 font-medium">Login</a>
-                  {% endif %}
-                <a href="{% url 'contact' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Contact</a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none">
-                  <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                   <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                   </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mobile Menu -->
-   <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a href="{% url 'home' %}" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Home</a>
-        <a href="{% url 'about' %}" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">About</a>
-        <a href="{% url 'services' %}" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Services</a>
-        <a href="{% url 'events' %}" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Events</a>
-        <a href="{% url 'ministries' %}" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Ministries</a>
-         <a href="{% url 'give' %}" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Give</a>
-       <a href="{% url 'blog:blog' %}" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Blog</a>
-        <a href="{% url 'sermons' %}" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Sermons</a>
-      {% if user.is_authenticated %}
-         <a href="" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Dashboard</a>
-         <a href="" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Logout</a>
-        {% else %}
-           <a href="" class="nav-link block px-3 py-2 text-gray-700 hover:text-indigo-600">Login</a>
-      {% endif %}
-      <a href="{% url 'contact' %}" class="nav-link block px-3 py-2 bg-indigo-600 text-white rounded-md">Contact</a>
-    </div>
-</nav>
-
-<script>
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    menuButton.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden', !isHidden);
-        menuIcon.classList.toggle('hidden', isHidden);
-        closeIcon.classList.toggle('hidden', !isHidden);
-    });
-
-
-    // Close the mobile menu when clicking outside of it
-    document.addEventListener('click', (event) => {
-      if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-       }
-    });
-    //Active Link Styling
-
-    navLinks.forEach(link => {
-      if (link.href === window.location.href) {
-        link.classList.add('active-link');
-      }
-    });
-
-</script>
-
-<style>
-.active-link {
-    color: #6366f1; /* Example color. change it as you see fit */
-    font-weight: 700;
-}
-</style> {% endcomment %}
-
-
-
-
-
-
-
-{% comment %} {% load static %}
-<nav class="bg-gradient-to-r from-blue-900 to-indigo-900 fixed top-0 w-full z-50 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-20 items-center">
-            <div class="flex items-center">
-                <a href="{% url 'home' %}" class="flex items-center space-x-3">
-                      <img src="{% static 'images/church_logo.png' %}" alt="Church Logo" class="h-10 w-10">
-                    <span class="text-2xl font-semibold text-white tracking-wider">
-                        City Light Church
-                    </span>
-                </a>
-            </div>
-
-            <!-- Desktop Menu -->
-           <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                <a href="{% url 'home' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Home</a>
-                <a href="{% url 'about' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">About</a>
-                 <a href="{% url 'services' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Services</a>
-                <a href="{% url 'events' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Events</a>
-                  <a href="{% url 'ministries' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Ministries</a>
-                  <a href="{% url 'give' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Give</a>
-                <a href="{% url 'blog:blog' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Blog</a>
-                  <a href="{% url 'sermons' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Sermons</a>
-               {% if user.is_authenticated %}
-                    <a href="" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Dashboard</a>
-                     <a href="" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Logout</a>
-                 {% else %}
-                     <a href="" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Login</a>
-                 {% endif %}
-                <a href="{% url 'contact' %}" class="bg-white text-indigo-900 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors duration-200">Contact</a>
-            </div>
-
-
-             <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
-                   <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                   <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                   </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-   <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gradient-to-r from-blue-900 to-indigo-900">
-        <a href="{% url 'home' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Home</a>
-        <a href="{% url 'about' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">About</a>
-         <a href="{% url 'services' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Services</a>
-        <a href="{% url 'events' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Events</a>
-        <a href="{% url 'ministries' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Ministries</a>
-        <a href="{% url 'give' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Give</a>
-        <a href="{% url 'blog:blog' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Blog</a>
-       <a href="{% url 'sermons' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Sermons</a>
-       {% if user.is_authenticated %}
-            <a href="" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Dashboard</a>
-            <a href="" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Logout</a>
-        {% else %}
-           <a href="" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Login</a>
-       {% endif %}
-         <a href="{% url 'contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-100 transition-colors duration-200">Contact</a>
-    </div>
-</nav>
-
-<script>
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    menuButton.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden', !isHidden);
-        menuIcon.classList.toggle('hidden', isHidden);
-        closeIcon.classList.toggle('hidden', !isHidden);
-    });
-
-
-    // Close the mobile menu when clicking outside of it
-    document.addEventListener('click', (event) => {
-      if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-       }
-    });
-    //Active Link Styling
-
-    navLinks.forEach(link => {
-      if (link.href === window.location.href) {
-        link.classList.add('active-link');
-      }
-    });
-
-</script>
-<style>
-.active-link {
-  font-weight: 700;
-    color: #fff; /* Active link text color */
-    background-color: rgba(255, 255, 255, 0.1);
-}
-</style> {% endcomment %}
-
-
-
-
-
-
-{% comment %} {% load static %}
-<nav class="bg-gradient-to-r from-blue-900 to-indigo-900 fixed top-0 w-full z-50 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-20 items-center">
-            <div class="flex items-center">
-                <a href="{% url 'home' %}" class="flex items-center space-x-3">
-                    <img src="{% static 'images/church_logo.png' %}" alt="Church Logo" class="h-10 w-10">
-                    <span class="text-2xl font-semibold text-white tracking-wider">
-                        C0C Abenkye
-                    </span>
-                </a> 
-            </div>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                <a href="{% url 'home' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Home</a>
-                <div class="relative group">
-                    <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                        About <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                     </button>
-                    <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                        <a href="{% url 'about' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Our Story</a>
-                        <a href="{% url 'ministries' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Ministries</a>
-                        <a href="{% url 'give' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Give</a>
-                     </div>
-                 </div>
-                <div class="relative group">
-                    <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                      Resources  <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                   </button>
-                    <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                         <a href="{% url 'services' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Services</a>
-                         <a href="{% url 'events' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Events</a>
-                         <a href="{% url 'blog:blog' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Blog</a>
-                        <a href="{% url 'sermons' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Sermons</a>
-                     </div>
-                </div>
-
-               {% if user.is_authenticated %}
-                    <a href="" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Dashboard</a>
-                     <a href="" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Logout</a>
-                 {% else %}
-                     <a href="" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Login</a>
-                 {% endif %}
-                <a href="{% url 'contact' %}" class="bg-white text-indigo-900 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors duration-200">Contact</a>
-            </div>
-
-
-             <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
-                   <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                   <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                   </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gradient-to-r from-blue-900 to-indigo-900">
-         <a href="{% url 'home' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Home</a>
-        <div class="relative group">
-            <button class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200 flex items-center">
-                About <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-             </button>
-             <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                 <a href="{% url 'about' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Our Story</a>
-                  <a href="{% url 'ministries' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Ministries</a>
-                  <a href="{% url 'give' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Give</a>
-             </div>
-         </div>
-          <div class="relative group">
-             <button class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200 flex items-center">
-               Resources <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-              </button>
-              <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                    <a href="{% url 'services' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Services</a>
-                    <a href="{% url 'events' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Events</a>
-                    <a href="{% url 'blog:blog' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Blog</a>
-                   <a href="{% url 'sermons' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Sermons</a>
-            </div>
-          </div>
-
-        {% if user.is_authenticated %}
-             <a href="" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Dashboard</a>
-             <a href="" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Logout</a>
-        {% else %}
-            <a href="" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Login</a>
-         {% endif %}
-        <a href="{% url 'contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-100 transition-colors duration-200">Contact</a>
-    </div>
-</nav>
-
-<script>
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    menuButton.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden', !isHidden);
-        menuIcon.classList.toggle('hidden', isHidden);
-        closeIcon.classList.toggle('hidden', !isHidden);
-    });
-
-
-    // Close the mobile menu when clicking outside of it
-    document.addEventListener('click', (event) => {
-      if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-       }
-    });
-    //Active Link Styling
-
-    navLinks.forEach(link => {
-      if (link.href === window.location.href) {
-        link.classList.add('active-link');
-      }
-    });
-
-</script>
-<style>
-.active-link {
-  font-weight: 700;
-    color: #fff; /* Active link text color */
-    background-color: rgba(255, 255, 255, 0.1);
-}
-</style>
- {% endcomment %}
-
-
-
-
-
-
-
-
- {% comment %} {% load static %}
- <nav class="fixed top-0 w-full z-50 shadow-md" style="background: rgba(20, 28, 58, 0.7); backdrop-filter: blur(10px);">
-     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-         <div class="flex justify-between h-20 items-center">
-             <div class="flex items-center">
-                 <a href="{% url 'home' %}" class="flex items-center space-x-3">
-                      <img src="{% static 'images/church_logo.png' %}" alt="Church Logo" class="h-10 w-10">
-                     <span class="text-2xl font-semibold text-white tracking-wider">
-                         CoC Abenkye
-                     </span>
-                 </a>
-             </div>
- 
-             <!-- Desktop Menu -->
-             <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                 <a href="{% url 'home' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Home</a>
-                 <div class="relative group">
-                     <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                         About
-                         <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                     </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                         <a href="{% url 'about' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Our Story</a>
-                         <a href="{% url 'ministries' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Ministries</a>
-                           <a href="{% url 'give' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Give</a>
-                     </div>
-                  </div>
-                 <div class="relative group">
-                     <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                       Resources
-                          <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                     </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                         <a href="{% url 'services' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Services</a>
-                         <a href="{% url 'events' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Events</a>
-                        <a href="{% url 'blog:blog' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Blog</a>
-                         <a href="{% url 'sermons' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Sermons</a>
-                     </div>
-                 </div>
-                  {% if user.is_authenticated %}
-                 <div class="relative group">
-                      <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                          <img src="{% static 'images/user_icon.png' %}" alt="User Icon" class="h-6 w-6 rounded-full mr-2">
-                        {{ user.username }}
-                           <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                      </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                       <a href="" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Dashboard</a>
-                          <a href="" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Logout</a>
-                     </div>
-                  </div>
-                  {% else %}
-                      <a href="{% url 'login' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Login</a>
-                  {% endif %}
-                 <a href="{% url 'contact' %}" class="bg-white text-indigo-900 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors duration-200">Contact</a>
-             </div>
- 
- 
-              <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                 <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                     </svg>
-                    <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                 </button>
-             </div>
-         </div>
-     </div>
- 
-     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3" style="background: rgba(20, 28, 58, 0.7); backdrop-filter: blur(10px);">
-         <a href="{% url 'home' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Home</a>
-          <div class="relative group">
-             <button class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200 flex items-center">
-                 About
-                  <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-              </button>
-             <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                  <a href="{% url 'about' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Our Story</a>
-                   <a href="{% url 'ministries' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Ministries</a>
-                  <a href="{% url 'give' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Give</a>
-            </div>
-          </div>
-           <div class="relative group">
-             <button class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200 flex items-center">
-                  Resources
-                 <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-             </button>
-               <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                    <a href="{% url 'services' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Services</a>
-                     <a href="{% url 'events' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Events</a>
-                   <a href="{% url 'blog:blog' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Blog</a>
-                   <a href="{% url 'sermons' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Sermons</a>
-                </div>
-          </div>
-        {% if user.is_authenticated %}
-              <div class="relative group">
-                 <button class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200 flex items-center">
-                     <img src="{% static 'images/user_icon.png' %}" alt="User Icon" class="h-6 w-6 rounded-full mr-2">
-                        Chill
-                    <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                 </button>
-               <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                      <a href="" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Dashboard</a>
-                       <a href="" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Logout</a>
-                </div>
-          </div>
-         {% else %}
-             <a href="{% url 'login' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Login</a>
-         {% endif %}
-         <a href="{% url 'contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-100 transition-colors duration-200">Contact</a>
-     </div>
- </nav>
- <script>
-     const menuButton = document.getElementById('menu-button');
-     const mobileMenu = document.getElementById('mobile-menu');
-     const menuIcon = document.getElementById('menu-icon');
-     const closeIcon = document.getElementById('close-icon');
-     const navLinks = document.querySelectorAll('.nav-link');
- 
-     menuButton.addEventListener('click', () => {
-         const isHidden = mobileMenu.classList.contains('hidden');
-         mobileMenu.classList.toggle('hidden', !isHidden);
-         menuIcon.classList.toggle('hidden', isHidden);
-         closeIcon.classList.toggle('hidden', !isHidden);
-     });
- 
- 
-     // Close the mobile menu when clicking outside of it
-     document.addEventListener('click', (event) => {
-       if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-         mobileMenu.classList.add('hidden');
-         menuIcon.classList.remove('hidden');
-         closeIcon.classList.add('hidden');
-        }
-     });
-     //Active Link Styling
- 
-     navLinks.forEach(link => {
-       if (link.href === window.location.href) {
-         link.classList.add('active-link');
-       }
-     });
- 
- </script>
- <style>
- .active-link {
-   font-weight: 700;
-     color: #fff; /* Active link text color */
-     background-color: rgba(255, 255, 255, 0.1);
- }
- </style> {% endcomment %}
-
-
-
-
- {% comment %} {% load static %}
- <nav class="fixed top-0 w-full z-50 shadow-md" style="background: rgba(20, 28, 58, 0.7); backdrop-filter: blur(10px);">
-     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-         <div class="flex justify-between h-20 items-center">
-             <div class="flex items-center">
-                 <a href="{% url 'home' %}" class="flex items-center space-x-3">
-                     <img src="{% static 'images/church_logo.jpg' %}" alt="Church Logo" class="h-10 w-10">
-                     <span class="text-2xl font-semibold text-white tracking-wider">
-                         CoC Abenkye
-                     </span>
-                 </a>
-             </div>
- 
-             <!-- Desktop Menu -->
-             <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                 <a href="{% url 'home' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Home</a>
-                 <div class="relative group">
-                     <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                         About
-                         <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                     </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                         <a href="{% url 'about' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Our Story</a>
-                         <a href="{% url 'ministries' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Ministries</a>
-                           <a href="{% url 'give' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Give</a>
-                     </div>
-                  </div>
-                 <div class="relative group">
-                     <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                       Resources
-                          <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                     </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                         <a href="{% url 'services' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Services</a>
-                         <a href="{% url 'events' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Events</a>
-                        <a href="{% url 'blog:blog' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Blog</a>
-                         <a href="{% url 'sermons' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Sermons</a>
-                     </div>
-                 </div>
-                 {% if user.is_authenticated %}
-                 <div class="relative group">
-                      <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                          <img src="{% static 'images/user_icon.png' %}" alt="User Icon" class="h-6 w-6 rounded-full mr-2">
-                          Chill
-                           <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                      </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                         <a href="" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Dashboard</a>
-                         <a href="" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Logout</a>
-                     </div>
-                  </div>
-                  {% else %}
-                      <a href="" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Login</a>
-                  {% endif %}
-                   <a href="{% url 'contact' %}" class="bg-white text-indigo-900 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors duration-200 inline-flex items-center">Contact
-                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-5 h-5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                   </svg>
-                   </a>
- 
-             </div>
- 
-             <!-- Mobile Menu Button -->
-             <div class="md:hidden flex items-center">
-                  {% if user.is_authenticated %}
-                  <div class="relative group">
-                   <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
-                    <img src="{% static 'images/user_icon.png' %}" alt="User Icon" class="h-6 w-6 rounded-full mr-2">
-                         <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                   </button>
-                     <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out right-0">
-                           <a href="" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Dashboard</a>
-                           <a href="" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200">Logout</a>
-                      </div>
-                   </div>
-                  <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none ml-2">
-                      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                      </svg>
-                      <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                     </svg>
-                 </button>
-                  {% else %}
-                  <button id="menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none">
-                       <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menu-icon">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                       </svg>
-                       <svg class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="close-icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                  </button>
-                  {% endif %}
-              </div>
-         </div>
-     </div>
- 
-     <!-- Mobile Menu -->
-     <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3" style="background: rgba(20, 28, 58, 0.7); backdrop-filter: blur(10px);">
-          <a href="{% url 'home' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Home</a>
-          <a href="{% url 'about' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">About</a>
-          <a href="{% url 'ministries' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Ministries</a>
-         <a href="{% url 'give' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Give</a>
-         <a href="{% url 'services' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Services</a>
-          <a href="{% url 'events' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Events</a>
-         <a href="{% url 'blog:blog' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Blog</a>
-         <a href="{% url 'sermons' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Sermons</a>
-        {% if not user.is_authenticated %}
-         <a href="" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Login</a>
-        {% endif %}
-         <a href="{% url 'contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-100 transition-colors duration-200 inline-flex items-center justify-center">Contact
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-          </svg>
-         </a>
-     </div>
- </nav>
- <script>
-     const menuButton = document.getElementById('menu-button');
-     const mobileMenu = document.getElementById('mobile-menu');
-     const menuIcon = document.getElementById('menu-icon');
-     const closeIcon = document.getElementById('close-icon');
-     const navLinks = document.querySelectorAll('.nav-link');
- 
-     menuButton.addEventListener('click', () => {
-         const isHidden = mobileMenu.classList.contains('hidden');
-         mobileMenu.classList.toggle('hidden', !isHidden);
-         menuIcon.classList.toggle('hidden', isHidden);
-         closeIcon.classList.toggle('hidden', !isHidden);
-     });
- 
- 
-     // Close the mobile menu when clicking outside of it
-     document.addEventListener('click', (event) => {
-       if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-         mobileMenu.classList.add('hidden');
-         menuIcon.classList.remove('hidden');
-         closeIcon.classList.add('hidden');
-        }
-     });
-     //Active Link Styling
- 
-     navLinks.forEach(link => {
-       if (link.href === window.location.href) {
-         link.classList.add('active-link');
-       }
-     });
- 
- </script>
- <style>
- .active-link {
-   font-weight: 700;
-     color: #fff; /* Active link text color */
-     background-color: rgba(255, 255, 255, 0.1);
- }
- </style> {% endcomment %}
- 
-
-
-
-
-
-
-
-
- {% load static %}
+{% load static %}
  <nav data-aos="zoom-up" class="fixed top-0 w-full z-50 shadow-md" style="background: rgba(20, 28, 58, 0.7); backdrop-filter: blur(10px);">
      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
          <div class="flex justify-between h-20 items-center">
@@ -854,19 +15,14 @@
              </div>
  
              <!-- Desktop Menu -->
-             <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+             {% comment %} <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
                  <a href="{% url 'community:home' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Home</a>
                  <div class="relative group">
                      <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
                          About
                          <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                      </button>
-                     {% comment %} <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                         <a href="{% url 'community:about' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Our Story</a>
-                         <a href="{% url 'community:ministries' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Ministries</a>
-                         <a href="{% url 'community:give' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Give</a>
-                         <a href="{% url 'community:gallery' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Our Gallery</a>
-                     </div> {% endcomment %}
+                    
                      <div
   class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
          opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
@@ -932,14 +88,7 @@
                        Resources
                           <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                      </button>
-                     {% comment %} <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                         <a href="{% url 'community:services' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Services</a>
-                         <a href="{% url 'community:events' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Events</a>
-                        <a href="{% url 'blog:post_list' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Blog</a>
-                         <a href="{% url 'worship:sermons' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Sermons</a>
-                         <a href="{% url 'community:faq' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">FAQ</a>
-                         <a href="{% url 'community:devotionals' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Devotionals</a>
-                     </div> {% endcomment %}
+                   
 
                      <div
   class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
@@ -1046,33 +195,293 @@
   </svg>
   Live Streams
 </a>
-
 </div>
+</div> {% endcomment %}
 
-                 </div>
+<!-- Desktop Menu -->
+<div class="hidden md:flex items-center space-x-4 lg:space-x-4">
+  <!-- Home -->
+  <a href="{% url 'community:home' %}"
+     class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">
+    Home
+  </a>
 
-                 {% comment %} {% if user.is_authenticated %}
-                 <div class="relative group">
-                     <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
-                        {% if member.photo %}
-                        <img src="{{ member.photo.url }}" alt="{{ member.user.username }}"
-                             class="h-10 w-10 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-blue-300 transition-shadow duration-200">
-                    {% else %}
-                        <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl cursor-pointer hover:scale-105 hover:shadow-md transition duration-300 ease-in-out">
-                            {{ member.user.first_name|slice:":1" }}{{ member.user.last_name|slice:":1" }}
-                        </div>
-                     {% endif %}
-                         <span class="profile-name">{{ user.username }}</span>
-                         <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                     </button>
-                    <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                          <a href="{% url 'membership:member_dashboard_home' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">Dashboard</a>
-                         <a href="{% url 'account:logout' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">Logout</a>
-                     </div>
-                  </div>
-                    {% else %}
-                        <a href="{% url 'account:login' %}" class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200">Login</a>
-                    {% endif %} {% endcomment %}
+  <!-- About -->
+  <div class="relative group">
+    <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
+      About
+      <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+           fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    <div
+      class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
+             opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+             transition duration-300 ease-in-out right-0"
+      style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);"
+    >
+      <a href="{% url 'community:about' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Info / About Us Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+        </svg>
+        About Us
+      </a>
+      <a href="{% url 'community:faq' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- FAQ Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.25 9a3.75 3.75 0 117.5 0c0 2.112-1.845 2.627-2.723 3.586C11.107 13.47 10.5 14.5 10.5 16m.75 2h.008" />
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 22a10 10 0 100-20 10 10 0 000 20z" />
+        </svg>
+        FAQ
+      </a>
+      <a href="{% url 'contact:contact' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Contact Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 10a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.2 8.38 8.38 0 01-3.8-.9L3 21l1.9-4.7A8.38 8.38 0 015 12.5a8.5 8.5 0 014.2-7.6A8.38 8.38 0 0113 4h.5a8.38 8.38 0 013.8.9A8.5 8.5 0 0121 10z" />
+        </svg>
+        Contact
+      </a>
+    </div>
+  </div>
+
+  <!-- Worship -->
+  <div class="relative group">
+    <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
+      Worship
+      <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+           fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    <div
+      class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
+             opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+             transition duration-300 ease-in-out right-0"
+      style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);"
+    >
+      <a href="{% url 'community:services' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Calendar / Service Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10m-10 4h10M3 21h18a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Service
+      </a>
+      <a href="{% url 'worship:sermons' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Speaker / Sermons Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 17V7l11 5-11 5z" />
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 15h.01M5 9h.01" />
+        </svg>
+        Sermons
+      </a>
+      <a href="{% url 'community:live_streams' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Live Stream Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 
+                   002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+        Live Stream
+      </a>
+    </div>
+  </div>
+
+  <!-- Grow & Serve -->
+  <div class="relative group">
+    <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
+      Grow &amp; Serve
+      <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+           fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    <div
+      class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
+             opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+             transition duration-300 ease-in-out right-0"
+      style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);"
+    >
+      <a href="{% url 'community:ministries' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Ministries Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a4 4 0 0 0-5-3.87M9 20H4v-2a4 4 0 0 1 5-3.87M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
+        </svg>
+        Ministries
+      </a>
+      <a href="{% url 'community:devotionals' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Devotionals Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 18h6M10.5 8a3.75 3.75 0 117 0c0 1.657-1.148 2.822-2.5 3.393V14.5h-2v-3.107A3.75 3.75 0 0110.5 8z" />
+        </svg>
+        Devotionals
+      </a>
+      <a href="{% url 'community:events' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Events Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10m-10 4h10M3 21h18a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Events
+      </a>
+      <a href="{% url 'community:announcement_list' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Announcements Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+        Announcements
+      </a>
+    </div>
+  </div>
+
+  <!-- Engage -->
+  <div class="relative group">
+    <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
+      Engage
+      <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+           fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    <div
+      class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
+             opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+             transition duration-300 ease-in-out right-0"
+      style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);"
+    >
+      <a href="{% url 'blog:post_list' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Blog Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 8h10M7 12h10M7 16h10M5 4a2 2 0 012-2h10a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V4z" />
+        </svg>
+        Blog
+      </a>
+      <a href="{% url 'community:gallery' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Gallery Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 4h16v16H4V4zm2 2l4 4m0 0l4-4m-4 4v8" />
+        </svg>
+        Gallery
+      </a>
+    </div>
+  </div>
+
+  <!-- Support -->
+  <div class="relative group">
+    <button class="nav-link text-gray-200 hover:text-white px-3 py-2 font-medium transition-colors duration-200 flex items-center">
+      Support
+      <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+           fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    <div
+      class="absolute hidden group-hover:block mt-2 w-40 rounded-md shadow-lg z-10 transform
+             opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+             transition duration-300 ease-in-out right-0"
+      style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);"
+    >
+      <a href="{% url 'community:give' %}"
+         class="nav-link dropdown-link flex items-center px-4 py-2 text-white hover:bg-white hover:bg-opacity-20
+                transition-colors duration-200">
+        <!-- Heart / Give Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 mr-2 text-white" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 0 1 6.364 0L12 7.636l1.318-1.318a4.5 4.5 0 1 1 6.364 6.364L12 21l-7.682-7.682a4.5 4.5 0 0 1 0-6.364z" />
+        </svg>
+        Give
+      </a>
+    </div>
+  </div>
+
 
 
                     {% if user.is_authenticated %}
@@ -1091,19 +500,7 @@
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                           </svg>
                       </button>
-                      {% comment %} <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
-                          <a href="{% url 'membership:member_dashboard_home' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
-                              Dashboard
-                          </a>
-                          {% if user.is_staff or user.is_superuser %}
-                              <a href="{% url 'admin:index' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
-                                  Admin Home
-                              </a>
-                          {% endif %}
-                          <a href="{% url 'account:logout' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 profile-dropdown-link">
-                              Logout
-                          </a>
-                      </div> {% endcomment %}
+                    
                       <div
   class="absolute hidden group-hover:block mt-2 w-48 rounded-md shadow-lg z-10 transform
          opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
@@ -1162,11 +559,11 @@
               
 
                     
-                 <a href="{% url 'contact:contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-500 transition-colors duration-200 inline-flex items-center justify-center">Contact
+                 {% comment %} <a href="{% url 'contact:contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-500 transition-colors duration-200 inline-flex items-center justify-center">Contact
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-5 h-5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                   </svg>
-                 </a>
+                 </a> {% endcomment %}
              </div>
  
              <!-- Mobile Menu Button -->
@@ -1265,151 +662,213 @@
          </div>
      </div>
  
-     {% comment %} <!-- Mobile Menu -->
-     <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3" style="background: rgba(20, 28, 58, 0.7); backdrop-filter: blur(10px);">
-          <a href="{% url 'community:home' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Home</a>
-          <a href="{% url 'community:about' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">About</a>
-           <a href="{% url 'community:ministries' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Ministries</a>
-         <a href="{% url 'community:give' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Give</a>
-         <a href="{% url 'community:services' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Services</a>
-          <a href="{% url 'community:events' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Events</a>
-         <a href="{% url 'community:gallery' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Our Gallery</a>
-         <a href="{% url 'blog:post_list' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Blog</a>
-         <a href="{% url 'worship:sermons' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Sermons</a>
-        <a href="{% url 'community:faq' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">FAQ</a>
-         {% if not user.is_authenticated %}
-          <a href="{% url 'account:login' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">Login</a>
-         {% endif %}
-         <a href="{% url 'contact:contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-500 transition-colors duration-200 inline-flex items-center justify-center">Contact
-           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-5 h-5">
-               <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-           </svg>
-          </a>
-     </div> {% endcomment %}
+   
      <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3" style="background: rgba(20, 28, 58, 0.7); backdrop-filter: blur(10px);">
-      <!-- Home -->
-      <a href="{% url 'community:home' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- Home Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75v8.25A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18V9.75z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 22V12h6v10" />
-        </svg>
-        Home
-      </a>
+    <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-3 sm:px-3"  style="background: rgba(20,28,58,0.7); backdrop-filter: blur(10px);">
 
-      <!-- About -->
-      <a href="{% url 'community:about' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- About Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 110 20 10 10 0 010-20z" />
-        </svg>
-        About
-      </a>
-
-      <!-- Ministries -->
-      <a href="{% url 'community:ministries' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- Ministries Icon (Office Building) -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4v11a2 2 0 01-2 2h-4a2 2 0 01-2-2v-4H9v4a2 2 0 01-2 2H3a2 2 0 01-2-2V7z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 22V12h6v10" />
-        </svg>
-        Ministries
-      </a>
-
-      <!-- Give -->
-      <a href="{% url 'community:give' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- Give Icon (Heart) -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </svg>
-        Give
-      </a>
-
-      <!-- Services -->
-      <a href="{% url 'community:services' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- Services Icon (Briefcase) -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 10h18M5 10v10a2 2 0 002 2h10a2 2 0 002-2V10" />
-        </svg>
-        Services
-      </a>
-
-      <!-- Events -->
-      <a href="{% url 'community:events' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- Events Icon (Calendar) -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10m-11 4h12a2 2 0 002-2V7a2 2 0 00-2-2h-1M4 7a2 2 0 00-2 2v8a2 2 0 002 2h1" />
-        </svg>
-        Events
-      </a>
-
-      <!-- Our Gallery -->
-      <a href="{% url 'community:gallery' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- Gallery Icon (Photograph) -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h4l2 2h7a1 1 0 011 1v2H3V4z" />
-          <rect x="3" y="8" width="18" height="12" rx="2" ry="2" />
-          <circle cx="12" cy="14" r="3" />
-        </svg>
-        Our Gallery
-      </a>
-
-      <!-- Blog -->
-      <a href="{% url 'blog:post_list' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- Blog Icon (Pencil) -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M16.768 4.768a2.5 2.5 0 113.536 3.536L7 21H3v-4l13.768-13.232z" />
-        </svg>
-        Blog
-      </a>
-
-      <!-- Sermons -->
-      <a href="{% url 'worship:sermons' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- Sermons Icon (Microphone) -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 1v11m0 0a4 4 0 004-4V5a4 4 0 00-4-4 4 4 0 00-4 4v3a4 4 0 004 4z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 11a7 7 0 0014 0" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 17v4" />
-        </svg>
-        Sermons
-      </a>
-
-        <!-- devotionals -->
-        <a href="{% url 'community:devotionals' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-          <!-- Devotionals Icon (Book) -->
+        <!-- Home -->
+        <a href="{% url 'community:home' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
+          <!-- Home Icon -->
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v14a2 2 0 002 2h14a2 2 0 002-2V7m-6-4h-8a2 2 0 00-2 2v14m10-16v16m0-16l4.5 4.5M12 3l4.5-4.5" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75v8.25A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18V9.75z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 22V12h6v10" />
           </svg>
-          Devotionals
+          Home
         </a>
 
-      <!-- FAQ -->
-      <a href="{% url 'community:faq' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- FAQ Icon (Question Mark) -->
+
+        
+        <!-- About Group -->
+<details class="group" open>
+  <summary class="flex items-center justify-between text-gray-200 hover:text-white cursor-pointer py-2 px-3 rounded-md">
+    <span class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 110 20 10 10 0 010-20z" />
+      </svg>
+      About
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  </summary>
+  <div class="pl-5 mt-2 space-y-1">
+    <a href="{% url 'community:about' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9a3.5 3.5 0 116.544 1c0 2.636-3.556 3.371-3.556 3.371m0 4.129h.008" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        About Us
+      </span>
+    </a>
+    <a href="{% url 'community:faq' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         FAQ
-      </a>
+      </span>
+    </a>
+    <a href="{% url 'contact:contact' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        Contact
+      </span>
+    </a>
+  </div>
+</details>
 
-       <!-- Live stream -->
-       <a href="{% url 'community:live_streams' %}" class="nav-link flex items-center gap-2 block px-3 py-2 text-gray-200 hover:text-white transition-colors duration-200">
-        <!-- FAQ Icon (Question Mark) -->
-        <svg xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5 mr-2 text-white"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        aria-hidden="true">
-     <path stroke-linecap="round"
-           stroke-linejoin="round"
-           stroke-width="2"
-           d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 
-              002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-   </svg>
-        Live Streams
-      </a>
+<!-- Worship Group -->
+<details class="group">
+  <summary class="flex items-center justify-between text-gray-200 hover:text-white cursor-pointer py-2 px-3 rounded-md">
+    <span class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 10h18M5 10v10a2 2 0 002 2h10a2 2 0 002-2V10" />
+      </svg>
+      Worship
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  </summary>
+  <div class="pl-5 mt-2 space-y-1">
+    <a href="{% url 'community:services' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+        </svg>
+        Service
+      </span>
+    </a>
+    <a href="{% url 'worship:sermons' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+        </svg>
+        Sermons
+      </span>
+    </a>
+    <a href="{% url 'community:live_streams' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+        Live Stream
+      </span>
+    </a>
+  </div>
+</details>
+
+<!-- Grow & Serve Group -->
+<details class="group">
+  <summary class="flex items-center justify-between text-gray-200 hover:text-white cursor-pointer py-2 px-3 rounded-md">
+    <span class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4v11a2 2 0 01-2 2h-4a2 2 0 01-2-2v-4H9v4a2 2 0 01-2 2H3a2 2 0 01-2-2V7z" />
+      </svg>
+      Grow & Serve
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  </summary>
+  <div class="pl-5 mt-2 space-y-1">
+    <a href="{% url 'community:ministries' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        Ministries
+      </span>
+    </a>
+    <a href="{% url 'community:devotionals' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        Devotionals
+      </span>
+    </a>
+    <a href="{% url 'community:events' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2m4 0v6m-4-8H4m14 8H4" />
+        </svg>
+        Events
+      </span>
+    </a>
+    <a href="{% url 'community:announcement_list' %}" class="block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+        </svg>
+        Announcements
+      </span>
+    </a>
+  </div>
+</details>
+
+<!-- Engage Group -->
+<details class="group">
+  <summary class="flex items-center justify-between text-gray-200 hover:text-white cursor-pointer py-2 px-3 rounded-md">
+    <span class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h4l2 2h7a1 1 0 011 1v2H3V4z" />
+        <rect x="3" y="8" width="18" height="12" rx="2" ry="2" />
+        <circle cx="12" cy="14" r="3" />
+      </svg>
+      Engage
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  </summary>
+  <div class="pl-5 mt-2 space-y-1">
+    <a href="{% url 'blog:post_list' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+        Blog
+      </span>
+    </a>
+    <a href="{% url 'community:gallery' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Gallery
+      </span>
+    </a>
+  </div>
+</details>
+
+<!-- Support Group -->
+<details class="group">
+  <summary class="flex items-center justify-between text-gray-200 hover:text-white cursor-pointer py-2 px-3 rounded-md">
+    <span class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      Support
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  </summary>
+  <div class="pl-5 mt-2 space-y-1">
+    <a href="{% url 'community:give' %}" class="nav-link block px-3 py-2 text-gray-200 hover:text-white rounded-md transition-colors duration-200">
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        Give
+      </span>
+    </a>
+  </div>
+</details>
+    
 
       <!-- Login (only if not authenticated) -->
       {% if not user.is_authenticated %}
@@ -1423,17 +882,7 @@
       </a>
       {% endif %}
 
-      <!-- Contact -->
-      <a href="{% url 'contact:contact' %}" class="nav-link block px-3 py-2 bg-white text-indigo-900 rounded-md hover:bg-gray-500 transition-colors duration-200 inline-flex items-center justify-center">
-        <!-- Contact Text -->
-        Contact
-        <!-- Arrow Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-5 h-5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-        </svg>
-      </a>
-    </div>
-
+    </div> 
  </nav>
 
 <style>
@@ -1501,54 +950,6 @@
   </script>
   
 
-
-
- {% comment %} <script>
-     const menuButton = document.getElementById('menu-button');
-     const mobileMenu = document.getElementById('mobile-menu');
-     const menuIcon = document.getElementById('menu-icon');
-     const closeIcon = document.getElementById('close-icon');
-     const navLinks = document.querySelectorAll('.nav-link');
-     const dropdownLinks = document.querySelectorAll('.dropdown-link');
-     const profileDropdownLinks = document.querySelectorAll('.profile-dropdown-link');
-
-     menuButton.addEventListener('click', () => {
-         const isHidden = mobileMenu.classList.contains('hidden');
-         mobileMenu.classList.toggle('hidden', !isHidden);
-          menuIcon.classList.toggle('hidden', isHidden);
-         closeIcon.classList.toggle('hidden', !isHidden);
-     });
- 
- 
-     // Close the mobile menu when clicking outside of it
-     document.addEventListener('click', (event) => {
-       if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-         mobileMenu.classList.add('hidden');
-          menuIcon.classList.remove('hidden');
-         closeIcon.classList.add('hidden');
-        }
-     });
-     //Active Link Styling
- 
-     navLinks.forEach(link => {
-       if (link.href === window.location.href) {
-         link.classList.add('active-link');
-       }
-     });
- 
-      dropdownLinks.forEach(link => {
-         if (link.href === window.location.href) {
-             link.classList.add('dropdown-active-link');
-         }
-     });
- 
-     profileDropdownLinks.forEach(link => {
-         if (link.href === window.location.href) {
-             link.classList.add('profile-dropdown-active-link');
-         }
-     });
- </script> {% endcomment %}
-
  <style>
  .active-link {
    font-weight: 700;
@@ -1556,7 +957,7 @@
      background-color: rgba(255, 255, 255, 0.1);
  }
   .dropdown-active-link {
-     color: #6366f1; /* Active dropdown link text color */
+     color: #FCFCFEFF; /* Active dropdown link text color */
      font-weight: 700;
  
  }
@@ -1570,5 +971,33 @@
      margin-right:0.3rem;
  }
  </style>
+
+
+
+
+
+
+
+
+ 
+                  
+                   
+                     {% comment %} <div class="absolute hidden group-hover:block mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 transform opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition duration-300 ease-in-out">
+                         <a href="{% url 'community:services' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Services</a>
+                         <a href="{% url 'community:events' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Events</a>
+                        <a href="{% url 'blog:post_list' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Blog</a>
+                         <a href="{% url 'worship:sermons' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Sermons</a>
+                         <a href="{% url 'community:faq' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">FAQ</a>
+                         <a href="{% url 'community:devotionals' %}" class="nav-link block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200 dropdown-link">Devotionals</a>
+                     </div> {% endcomment %}
+
+                  
+               
+   
+
+
+
+
+
 
 

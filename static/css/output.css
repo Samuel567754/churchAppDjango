@@ -3020,6 +3020,10 @@ select{
   width:1rem
 }
 
+.w-40{
+  width:10rem
+}
+
 .w-48{
   width:12rem
 }
@@ -4948,6 +4952,10 @@ select{
   padding-bottom:1.5rem
 }
 
+.pb-\[56\.25\%\]{
+  padding-bottom:56.25%
+}
+
 .pl-0{
   padding-left:0px
 }
@@ -5030,10 +5038,6 @@ select{
 
 .pt-8{
   padding-top:2rem
-}
-
-.pb-\[56\.25\%\]{
-  padding-bottom:56.25%
 }
 
 .text-left{
@@ -5195,6 +5199,11 @@ select{
 .text-blue-100{
   --tw-text-opacity:1;
   color:rgb(225 239 254 / var(--tw-text-opacity, 1))
+}
+
+.text-blue-300{
+  --tw-text-opacity:1;
+  color:rgb(164 202 254 / var(--tw-text-opacity, 1))
 }
 
 .text-blue-400{
@@ -5415,6 +5424,21 @@ select{
 .text-rose-500{
   --tw-text-opacity:1;
   color:rgb(244 63 94 / var(--tw-text-opacity, 1))
+}
+
+.text-slate-500{
+  --tw-text-opacity:1;
+  color:rgb(100 116 139 / var(--tw-text-opacity, 1))
+}
+
+.text-slate-600{
+  --tw-text-opacity:1;
+  color:rgb(71 85 105 / var(--tw-text-opacity, 1))
+}
+
+.text-slate-700{
+  --tw-text-opacity:1;
+  color:rgb(51 65 85 / var(--tw-text-opacity, 1))
 }
 
 .text-teal-600{
@@ -6839,6 +6863,11 @@ select{
   --tw-ring-offset-color:#1F2937
 }
 
+.group[open] .group-open\:rotate-180{
+  --tw-rotate:180deg;
+  transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
 .group:hover .group-hover\:block{
   display:block
 }
@@ -8061,6 +8090,12 @@ select{
     --tw-space-x-reverse:0;
     margin-right:calc(3rem * var(--tw-space-x-reverse));
     margin-left:calc(3rem * calc(1 - var(--tw-space-x-reverse)))
+  }
+
+  .lg\:space-x-4 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-x-reverse:0;
+    margin-right:calc(1rem * var(--tw-space-x-reverse));
+    margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))
   }
 
   .lg\:space-x-8 > :not([hidden]) ~ :not([hidden]){

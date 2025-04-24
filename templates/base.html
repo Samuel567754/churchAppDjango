@@ -55,6 +55,11 @@
 rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
+
+<script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css">
+
+
 <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -138,6 +143,28 @@ href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
   }
 </script> {% endcomment %}
 
+
+  <!-- Pace options for exact timing -->
+  <script>
+    window.paceOptions = {
+      ajax:         false,
+      document:     false,
+      eventLag:     false,
+      elements:     false,
+      ghostTime:    0,
+      minTime:      0
+    };
+  </script>
+ 
+
+
+  <!-- start & stop bar on real load -->
+  <script>
+    Pace.start();
+    window.addEventListener('load', function(){
+      Pace.stop();
+    });
+  </script>
 
 
  <!-- Custom JS Files -->

@@ -3128,6 +3128,10 @@ select{
   max-width:20rem
 }
 
+.max-w-screen-lg{
+  max-width:1024px
+}
+
 .flex-1{
   flex:1 1 0%
 }
@@ -4815,6 +4819,10 @@ select{
 
 .p-8{
   padding:2rem
+}
+
+.p-48{
+  padding:12rem
 }
 
 .px-0{

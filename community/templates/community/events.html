@@ -242,6 +242,7 @@
   --modal-gap: 1rem; /* Consistent spacing */
   --flag-past-bg: #e74c3c;
   --flag-upcoming-bg: #27ae60;
+  --flag-ongoing-bg:  #D74CF7FF;
 }
 
 .modal {
@@ -324,6 +325,10 @@
 
 .modal-flag.upcoming {
   background-color: var(--flag-upcoming-bg);
+}
+
+.modal-flag.ongoing {
+  background-color: var(--flag-ongoing-bg);
 }
 
 .close {
@@ -1296,7 +1301,7 @@
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
       },
       dayCellDidMount: function(arg) {
         var today = new Date();
@@ -1349,16 +1354,53 @@
           document.getElementById("modal-image-container").style.display = "none";
         }
         
-        // Set the flag (Past/Upcoming) based on the event start time
-        var now = new Date();
-        var flagEl = document.getElementById("modal-flag");
-        if (start < now) {
-          flagEl.textContent = "Past";
-          flagEl.classList.remove("upcoming");
-          flagEl.classList.add("past");
-        } else {
+      // Set the flag (Past/Upcoming/Ongoing) based on the event's start and end time
+        var now     = new Date();
+        var today   = new Date(now); 
+        today.setHours(0, 0, 0, 0);
+
+        var flagEl  = document.getElementById("modal-flag");
+
+        if (start < now) {  // event has started
+          if (eventObj.end) {
+            // we have an explicit end datetime
+            var endDate = new Date(eventObj.end);
+            if (endDate < now) {
+              // fully past
+              flagEl.textContent = "Past";
+              flagEl.classList.remove("upcoming", "ongoing");
+              flagEl.classList.add("past");
+            }
+            else {
+              // started and not yet ended
+              flagEl.textContent = "Ongoing";
+              flagEl.classList.remove("past", "upcoming");
+              flagEl.classList.add("ongoing");
+            }
+          }
+          else {
+            // no end date: treat as single-day event
+            var startDay = new Date(start);
+            startDay.setHours(0, 0, 0, 0);
+
+            if (startDay.getTime() === today.getTime()) {
+              // it starts today, so it's ongoing
+              flagEl.textContent = "Ongoing";
+              flagEl.classList.remove("past", "upcoming");
+              flagEl.classList.add("ongoing");
+            }
+            else {
+              // it started on a previous day, so it's past
+              flagEl.textContent = "Past";
+              flagEl.classList.remove("upcoming", "ongoing");
+              flagEl.classList.add("past");
+            }
+          }
+        }
+        else {
+          // event hasn’t started yet
           flagEl.textContent = "Upcoming";
-          flagEl.classList.remove("past");
+          flagEl.classList.remove("past", "ongoing");
           flagEl.classList.add("upcoming");
         }
         

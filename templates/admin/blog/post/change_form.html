@@ -1,0 +1,47 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    /* 1) Hide admin header, sidebar, breadcrumbs, and save/delete row */
+    .object-tools,
+    .breadcrumbs,
+    .module,
+    .submit-row {
+      display: none;
+    }
+
+    /* 2) Remove default padding/margins so editor can expand */
+    .change-form form,
+    .form-row,
+    .fieldset {
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    /* 3) Ensure CKEditor’s toolbar floats on top in fullscreen */
+    .cke_fullscreen .cke_top,
+    .cke_fullscreen .cke_bottom {
+      z-index: 2000;
+    }
+
+    /* 4) Force the editing area to fill the viewport height */
+    .cke_editor__document {
+      height: 100vh !important;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="cke_fullpage">
+    {{ block.super }}
+  </div>
+{% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+  {# Make sure CKEditor5’s JS and CSS are loaded before we init #}
+  {{ media }}
+{% endblock %}

@@ -6,6 +6,12 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from celery.schedules import crontab
+# Import the two storage backends.
+from settings.storage_backends.cloudinary_storage import CloudinaryMediaStorage
+from settings.storage_backends.supabase_storage import SupabaseMediaStorage
+from settings.storage_backends.combined_storage import CombinedDynamicStorage
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -787,86 +793,191 @@ else:
    
 
 
-customColorPalette = [
-    {
-        'color': 'hsl(4, 90%, 58%)',
-        'label': 'Red'
-    },
-    {
-        'color': 'hsl(340, 82%, 52%)',
-        'label': 'Pink'
-    },
-    {
-        'color': 'hsl(291, 64%, 42%)',
-        'label': 'Purple'
-    },
-    {
-        'color': 'hsl(262, 52%, 47%)',
-        'label': 'Deep Purple'
-    },
-    {
-        'color': 'hsl(231, 48%, 48%)',
-        'label': 'Indigo'
-    },
-    {
-        'color': 'hsl(207, 90%, 54%)',
-        'label': 'Blue'
-    },
+# customColorPalette = [
+#     {
+#         'color': 'hsl(4, 90%, 58%)',
+#         'label': 'Red'
+#     },
+#     {
+#         'color': 'hsl(340, 82%, 52%)',
+#         'label': 'Pink'
+#     },
+#     {
+#         'color': 'hsl(291, 64%, 42%)',
+#         'label': 'Purple'
+#     },
+#     {
+#         'color': 'hsl(262, 52%, 47%)',
+#         'label': 'Deep Purple'
+#     },
+#     {
+#         'color': 'hsl(231, 48%, 48%)',
+#         'label': 'Indigo'
+#     },
+#     {
+#         'color': 'hsl(207, 90%, 54%)',
+#         'label': 'Blue'
+#     },
+# ]
+
+
+# CKEDITOR_5_ALLOW_ALL_FILE_TYPES = True
+# # CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'pdf', 'png'] # optional
+# CKEDITOR_5_CUSTOM_CSS = 'path_to.css' # optional
+# # CKEDITOR_5_MAX_FILE_SIZE = 5 # Max size in MBs
+# CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage" # optional
+# CKEDITOR_5_CONFIGS = {
+#     'default': {
+#         'toolbar': {
+#             'items': ['heading', '|', 'bold', 'italic', 'link',
+#                       'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'alignment', ],
+#         }
+#     },
+#     'extends': {
+#         'blockToolbar': [
+#             'paragraph', 'heading1', 'heading2', 'heading3',
+#             '|',
+#             'bulletedList', 'numberedList',
+#             '|',
+#             'blockQuote',
+#         ],
+#         'toolbar': {
+#             'items': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
+#                       'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
+#                       'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', 'alignment', '|',
+#                       'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
+#                       'insertTable',
+#                       ],
+#             'shouldNotGroupWhenFull': True
+#         },
+#         'image': {
+#             'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
+#                         'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side', '|'],
+#             'styles': [
+#                 'full',
+#                 'side',
+#                 'alignLeft',
+#                 'alignRight',
+#                 'alignCenter',
+#             ]
+#         },
+#         'table': {
+#             'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells',
+#                             'tableProperties', 'tableCellProperties'],
+#             'tableProperties': {
+#                 'borderColors': customColorPalette,
+#                 'backgroundColors': customColorPalette
+#             },
+#             'tableCellProperties': {
+#                 'borderColors': customColorPalette,
+#                 'backgroundColors': customColorPalette
+#             }
+#         },
+#         'heading': {
+#             'options': [
+#                 {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+#                 {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+#                 {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+#                 {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'}
+#             ]
+#         }
+#     },
+#     'list': {
+#         'properties': {
+#             'styles': 'true',
+#             'startIndex': 'true',
+#             'reversed': 'true',
+#         }
+#     }
+# }
+
+# # Define a constant in settings.py to specify file upload permissions
+# CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # Possible values: "staff", "authenticated", "any"
+
+
+
+# ==============================
+# CKEditor 5 Color Palette
+# ==============================
+CUSTOM_COLOR_PALETTE = [
+    {'color': 'hsl(4, 90%, 58%)', 'label': 'Red'},
+    {'color': 'hsl(340, 82%, 52%)', 'label': 'Pink'},
+    {'color': 'hsl(291, 64%, 42%)', 'label': 'Purple'},
+    {'color': 'hsl(262, 52%, 47%)', 'label': 'Deep Purple'},
+    {'color': 'hsl(231, 48%, 48%)', 'label': 'Indigo'},
+    {'color': 'hsl(207, 90%, 54%)', 'label': 'Blue'},
 ]
 
-
-CKEDITOR_5_ALLOW_ALL_FILE_TYPES = True
-# CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'pdf', 'png'] # optional
-CKEDITOR_5_CUSTOM_CSS = 'path_to.css' # optional
-# CKEDITOR_5_MAX_FILE_SIZE = 5 # Max size in MBs
-CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage" # optional
+# ==============================
+# CKEditor 5 Core Configuration
+# ==============================
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': {
-            'items': ['heading', '|', 'bold', 'italic', 'link',
-                      'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'alignment', ],
+            'items': [
+                'heading', '|',
+                'bold', 'italic', 'link',
+                'bulletedList', 'numberedList',
+                'blockQuote', 'imageUpload', 'alignment'
+            ],
+            'shouldNotGroupWhenFull': True
         }
     },
+    
     'extends': {
         'blockToolbar': [
             'paragraph', 'heading1', 'heading2', 'heading3',
             '|',
             'bulletedList', 'numberedList',
             '|',
-            'blockQuote',
+            'blockQuote'
         ],
+        
         'toolbar': {
-            'items': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-                      'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
-                      'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', 'alignment', '|',
-                      'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                      'insertTable',
-                      ],
+            'items': [
+                'heading', '|',
+                'outdent', 'indent', '|',
+                'bold', 'italic', 'link', 'underline', 'strikethrough',
+                'code', 'subscript', 'superscript', 'highlight', '|',
+                'codeBlock', 'sourceEditing', 'insertImage',
+                'bulletedList', 'numberedList', 'todoList', '|',
+                'blockQuote', 'imageUpload', 'alignment', '|',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
+                'mediaEmbed', 'removeFormat', 'insertTable'
+            ],
             'shouldNotGroupWhenFull': True
         },
+        
         'image': {
-            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
-                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side', '|'],
+            'toolbar': [
+                'imageTextAlternative', '|',
+                'imageStyle:alignLeft', 'imageStyle:alignRight',
+                'imageStyle:alignCenter', 'imageStyle:side'
+            ],
             'styles': [
                 'full',
                 'side',
                 'alignLeft',
                 'alignRight',
-                'alignCenter',
+                'alignCenter'
             ]
         },
+        
         'table': {
-            'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells',
-                            'tableProperties', 'tableCellProperties'],
+            'contentToolbar': [
+                'tableColumn', 'tableRow', 'mergeTableCells',
+                'tableProperties', 'tableCellProperties'
+            ],
             'tableProperties': {
-                'borderColors': customColorPalette,
-                'backgroundColors': customColorPalette
+                'borderColors': CUSTOM_COLOR_PALETTE,
+                'backgroundColors': CUSTOM_COLOR_PALETTE
             },
             'tableCellProperties': {
-                'borderColors': customColorPalette,
-                'backgroundColors': customColorPalette
+                'borderColors': CUSTOM_COLOR_PALETTE,
+                'backgroundColors': CUSTOM_COLOR_PALETTE
             }
         },
+        
         'heading': {
             'options': [
                 {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
@@ -874,19 +985,53 @@ CKEDITOR_5_CONFIGS = {
                 {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
                 {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'}
             ]
+        },
+        
+         # Enable full‑page editing
+        "fullPage": True,
+        
+        # Additional recommended plugins
+        'htmlSupport': {
+            'allow': [
+                {'name': 'img', 'attributes': ['src', 'alt', 'width', 'height', 'style']},
+                {'name': 'table', 'attributes': ['border', 'cellpadding', 'cellspacing']}
+            ]
         }
     },
+    
     'list': {
         'properties': {
-            'styles': 'true',
-            'startIndex': 'true',
-            'reversed': 'true',
+            'styles': True,
+            'startIndex': True,
+            'reversed': True
         }
     }
 }
 
-# Define a constant in settings.py to specify file upload permissions
-CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # Possible values: "staff", "authenticated", "any"
+# ==============================
+# File Handling Configuration
+# ==============================
+# Security configuration
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # or "authenticated"
+CKEDITOR_5_ALLOW_ALL_FILE_TYPES = False  # Safer in production
+CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx']
+CKEDITOR_5_MAX_FILE_SIZE = 10  # MB
+# CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'webp', 'pdf', 'doc', 'docx'] 
+# CKEDITOR_5_MAX_FILE_SIZE = 10  # Max size in MB
+
+# Storage configuration
+if DEBUG:
+    CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Explicit media root
+    MEDIA_URL = '/media/'
+# Alternative: "storages.backends.s3boto3.S3Boto3Storage"
+else:
+    CKEDITOR_5_FILE_STORAGE = "settings.storage_backends.combined_storage.CombinedDynamicStorage"
+# Security configuration
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # Options: "staff", "authenticated", "any"
+
+# Optional CSS overrides
+CKEDITOR_5_CUSTOM_CSS = 'css/admin-ckeditor-mobile.css'  # Path to your custom CSS
 
 
 
@@ -1057,104 +1202,6 @@ JAZZMIN_SETTINGS = {
 }
 
 
-
-# JAZZMIN_UI_TWEAKS = {
-#     "navbar_small_text": False,
-#     "footer_small_text": False,
-#     "body_small_text": False,
-#     "brand_small_text": False,
-#     "brand_colour": False,
-#     "accent": "accent-primary",
-#     "navbar": "navbar-dark",
-#     "no_navbar_border": False,
-#     "navbar_fixed": False,
-#     "layout_boxed": False,
-#     "footer_fixed": False,
-#     "sidebar_fixed": False,
-#     "sidebar": "sidebar-dark-primary",
-#     "sidebar_nav_small_text": False,
-#     "sidebar_disable_expand": False,
-#     "sidebar_nav_child_indent": False,
-#     "sidebar_nav_compact_style": False,
-#     "sidebar_nav_legacy_style": False,
-#     "sidebar_nav_flat_style": False,
-#     "theme": "superhero",
-#     "dark_mode_theme": "superhero",
-#     "button_classes": {
-#         "primary": "btn-primary",
-#         "secondary": "btn-secondary",
-#         "info": "btn-info",
-#         "warning": "btn-warning",
-#         "danger": "btn-danger",
-#         "success": "btn-success"
-#     }
-# }
-
-
-JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": False,
-    "brand_small_text": False,
-    "brand_colour": False,
-    "accent": "accent-primary",
-    "navbar": "navbar-dark",
-    "no_navbar_border": False,
-    "navbar_fixed": False,
-    "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": False,
-    "sidebar": "sidebar-dark-primary",
-    "sidebar_nav_small_text": False,
-    "sidebar_disable_expand": False,
-    "sidebar_nav_child_indent": True,
-    "sidebar_nav_compact_style": False,
-    "sidebar_nav_legacy_style": False,
-    "sidebar_nav_flat_style": False,
-    "theme": "superhero",
-    "dark_mode_theme": "solar",
-    "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    }
-}
-
-
-# JAZZMIN_UI_TWEAKS = {
-#     "navbar_small_text": False,
-#     "footer_small_text": False,
-#     "body_small_text": False,
-#     "brand_small_text": False,
-#     "brand_colour": False,
-#     "accent": "accent-primary",
-#     "navbar": "navbar-white navbar-light",
-#     "no_navbar_border": False,
-#     "navbar_fixed": False,
-#     "layout_boxed": False,
-#     "footer_fixed": False,
-#     "sidebar_fixed": False,
-#     "sidebar": "sidebar-dark-primary",
-#     "sidebar_nav_small_text": False,
-#     "sidebar_disable_expand": False,
-#     "sidebar_nav_child_indent": False,
-#     "sidebar_nav_compact_style": False,
-#     "sidebar_nav_legacy_style": False,
-#     "sidebar_nav_flat_style": False,
-#     "theme": "default",
-#     "dark_mode_theme": None,
-#     "button_classes": {
-#         "primary": "btn-outline-primary",
-#         "secondary": "btn-outline-secondary",
-#         "info": "btn-info",
-#         "warning": "btn-warning",
-#         "danger": "btn-danger",
-#         "success": "btn-success"
-#     }
-# }
 
 
 

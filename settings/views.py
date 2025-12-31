@@ -129,3 +129,81 @@ class MemberSettingsView(View):
                 return JsonResponse({'success': False, 'form_html': form_html})
             messages.error(request, "Please correct the errors below.")
             return render(request, self.template_name, {"form": form})
+
+
+# Keep-Alive Endpoint for UptimeRobot
+def keep_alive(request):
+    """
+    Lightweight endpoint to keep Render and Supabase active.
+    This endpoint performs a minimal database query to prevent both services from sleeping.
+    
+    UptimeRobot should ping this endpoint every 5 minutes.
+    URL: https://your-app.onrender.com/keep-alive/
+    """
+    from django.db import connection
+    import datetime
+    
+    try:
+        # Perform a minimal database query to keep Supabase active
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            cursor.fetchone()
+        
+        # Get timestamp
+        current_time = datetime.datetime.now().isoformat()
+        
+        # Return JSON response
+        return JsonResponse({
+            'status': 'alive',
+            'message': 'Server is active',
+            'timestamp': current_time,
+            'database': 'connected',
+            'purpose': 'Prevent Render and Supabase from sleeping'
+        }, status=200)
+        
+    except Exception as e:
+        # Return error response but still 200 status to keep UptimeRobot satisfied
+        return JsonResponse({
+            'status': 'error',
+            'message': str(e),
+            'timestamp': datetime.datetime.now().isoformat()
+        }, status=200)
+
+
+def health_check(request):
+    """
+    Detailed health check endpoint for monitoring.
+    This provides more information about the application status.
+    """
+    from django.db import connection
+    import datetime
+    
+    health_status = {
+        'status': 'healthy',
+        'timestamp': datetime.datetime.now().isoformat(),
+        'checks': {}
+    }
+    
+    # Check database connection
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            cursor.fetchone()
+        health_status['checks']['database'] = 'connected'
+    except Exception as e:
+        health_status['checks']['database'] = f'error: {str(e)}'
+        health_status['status'] = 'unhealthy'
+    
+    # Check if we can access models
+    try:
+        from django.contrib.auth.models import User
+        user_count = User.objects.count()
+        health_status['checks']['models'] = f'accessible ({user_count} users)'
+    except Exception as e:
+        health_status['checks']['models'] = f'error: {str(e)}'
+        health_status['status'] = 'unhealthy'
+    
+    # Return appropriate status code
+    status_code = 200 if health_status['status'] == 'healthy' else 503
+    
+    return JsonResponse(health_status, status=status_code)

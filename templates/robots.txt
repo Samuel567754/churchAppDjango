@@ -1,0 +1,34 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /account/
+Disallow: /dashboard/
+Disallow: /kumasi-central-kccofcoc-admin/
+Disallow: /membership/
+Disallow: /settings/
+Disallow: /ckeditor5/
+Disallow: /media/private/
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+Allow: /
+Allow: /blog/
+Allow: /worship/
+Allow: /contact/
+Allow: /community/
+Allow: /events/
+Allow: /about/
+Allow: /services/
+Allow: /ministries/
+Allow: /give/
+Allow: /faq/
+Allow: /gallery/
+Allow: /devotionals/
+Allow: /live-streams/
+Allow: /static/
+Allow: /media/public/
+
+# Sitemaps
+Sitemap: https://www.kumasicentralchurchofchrist.com/sitemap.xml
+
+# Crawl-delay (optional, prevents overloading server)
+# Crawl-delay: 10

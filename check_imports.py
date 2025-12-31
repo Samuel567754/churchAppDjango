@@ -1,0 +1,35 @@
+try:
+    import jazzmin
+    print("jazzmin OK")
+    import compressor
+    print("compressor OK")
+    import phonenumber_field
+    print("phonenumber_field OK")
+    import sweetify
+    print("sweetify OK")
+    import crispy_forms
+    print("crispy_forms OK")
+    import crispy_tailwind
+    print("crispy_tailwind OK")
+    import widget_tweaks
+    print("widget_tweaks OK")
+    import django_ckeditor_5
+    print("django_ckeditor_5 OK")
+    import django_celery_beat
+    print("django_celery_beat OK")
+    import imagekit
+    print("imagekit OK")
+    import versatileimagefield
+    print("versatileimagefield OK")
+    import storages
+    print("storages OK")
+    import cloudinary
+    print("cloudinary OK")
+    import cloudinary_storage
+    print("cloudinary_storage OK")
+    import pwa
+    print("pwa OK")
+    import embed_video
+    print("embed_video OK")
+except ImportError as e:
+    print(f"FAILED: {e}")

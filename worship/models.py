@@ -190,6 +190,10 @@ class Sermon(ImageMixin):
 
     def __str__(self):
         return f"{self.title} by {self.preacher} on {self.date.strftime('%Y-%m-%d')}"
+    
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('worship:sermon_detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         # Automatically generate a unique slug based on the title.

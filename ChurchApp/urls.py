@@ -10,9 +10,20 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls import handler404, handler500
 from django.views.generic import TemplateView
 # from settings.views import ServiceWorkerView  # Adjust 'your_app' to your actual app name
+from django.contrib.sitemaps.views import sitemap
+from ChurchApp.sitemaps import StaticViewSitemap, BlogSitemap, SermonSitemap, EventSitemap
+from django.views.generic.base import TemplateView
 
 handler404 = 'settings.views.custom_404'
 handler500 = 'settings.views.custom_500'
+
+# Sitemap configuration
+sitemaps = {
+    'static': StaticViewSitemap,
+    'blog': BlogSitemap,
+    'sermons': SermonSitemap,
+    'events': EventSitemap,
+}
 
 urlpatterns = [
     # path('admin/defender/', include('defender.urls')),
@@ -31,6 +42,10 @@ urlpatterns = [
     path('', include('pwa.urls')),  # This will serve the manifest and service worker files.
     # path('service-worker.js', ServiceWorkerView.as_view(), name='service-worker'),
     path("offline/", TemplateView.as_view(template_name="offline.html"), name="offline"),
+    
+    # SEO URLs
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots_file"),
 ]
 
 

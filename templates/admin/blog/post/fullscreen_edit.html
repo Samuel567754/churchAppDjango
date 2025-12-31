@@ -1,0 +1,57 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% blocktrans %}Fullscreen Editor - {{ post.title }}{% endblocktrans %}</title>
+  <link rel="stylesheet" href="{% static 'css/admin-ckeditor-fullpage.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/admin-ckeditor-mobile.css' %}" />
+  <style>
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:#111827; color:#fff; }
+    header .actions a, header .actions button { margin-left:8px; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; text-decoration:none; }
+    header .actions a { background:#374151; color:#fff; }
+    header .actions button[type="submit"] { background:#16a34a; color:#fff; }
+    main { padding:12px; }
+    .editor-wrap { max-width: 1200px; margin: 0 auto; position:relative; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">{% trans "Fullscreen Content Editor" %} — {{ post.title }}</div>
+    <div class="actions">
+      <a href="{{ change_url }}">{% trans "Back to admin" %}</a>
+      <button form="fullscreen-editor-form" type="submit">{% trans "Save & return" %}</button>
+    </div>
+  </header>
+  <main>
+    <div class="editor-wrap">
+      <form id="fullscreen-editor-form" method="post">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.non_field_errors }}
+        {{ form.content.errors }}
+        {{ form.content }}
+        <input type="hidden" name="_fullscreen" value="1" />
+      </form>
+    </div>
+  </main>
+  <script src="{% static 'js/custom_admin.js' %}"></script>
+  <script>
+    // Submit on Ctrl/Cmd + S
+    (function(){
+      function handler(e){
+        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.keyCode === 83)){
+          e.preventDefault();
+          const form = document.getElementById('fullscreen-editor-form');
+          if(form){ form.submit(); }
+        }
+      }
+      document.addEventListener('keydown', handler);
+    })();
+  </script>
+</body>
+</html>
+
+

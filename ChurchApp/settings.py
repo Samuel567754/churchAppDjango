@@ -148,6 +148,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # Required for sitemaps
+    'django.contrib.sitemaps',  # For sitemap generation
     'compressor',
     "phonenumber_field",
     'sweetify',
@@ -173,6 +175,9 @@ INSTALLED_APPS = [
     # 'defender',
     'pwa',
 ]
+
+# Site ID for Django sites framework (required for sitemaps)
+SITE_ID = 1
 
 INSTALLED_APPS += [
     "embed_video",

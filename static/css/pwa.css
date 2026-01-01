@@ -1,0 +1,622 @@
+/**
+ * PWA Specific Styles for Kumasi Central Church of Christ
+ * These styles handle PWA-specific UI elements and states
+ */
+
+/* ============================================
+   PWA Install Banner Animations
+   ============================================ */
+
+@keyframes slideUp {
+    from {
+        transform: translateX(-50%) translateY(100px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-50%) translateY(100px);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   Network Status Indicators
+   ============================================ */
+
+/* Offline indicator banner */
+.pwa-offline-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    z-index: 10001;
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+.pwa-offline-banner.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.pwa-offline-banner svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Online indicator toast */
+.pwa-online-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+    animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pwa-online-toast.show {
+    display: flex;
+}
+
+@keyframes toastIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   Body State Classes
+   ============================================ */
+
+body.pwa-offline {
+    /* Slight visual indicator when offline */
+    opacity: 0.98;
+}
+
+body.pwa-offline::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #dc3545 0%, #f8d7da 50%, #dc3545 100%);
+    background-size: 200% 100%;
+    animation: offlineStripe 2s linear infinite;
+    z-index: 10002;
+}
+
+@keyframes offlineStripe {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+body.pwa-online::before {
+    display: none;
+}
+
+/* ============================================
+   Update Notification
+   ============================================ */
+
+.pwa-update-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10000;
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    max-width: 400px;
+    width: calc(100% - 40px);
+    animation: slideUp 0.5s ease;
+}
+
+.pwa-update-banner.show {
+    display: flex;
+}
+
+.pwa-update-content {
+    flex: 1;
+}
+
+.pwa-update-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.pwa-update-text {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.pwa-update-btn {
+    padding: 0.6rem 1.25rem;
+    background: white;
+    color: #764ba2;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.pwa-update-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pwa-update-dismiss {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    color: white;
+}
+
+.pwa-update-dismiss:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.pwa-update-dismiss svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ============================================
+   Standalone Mode Adjustments
+   ============================================ */
+
+/* Adjust for iOS safe area when in standalone mode */
+@media all and (display-mode: standalone) {
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+
+    /* Hide browser-specific elements in standalone mode */
+    .browser-only {
+        display: none !important;
+    }
+
+    /* Show app-specific elements in standalone mode */
+    .app-only {
+        display: block;
+    }
+}
+
+/* Hide app-only elements in browser mode */
+.app-only {
+    display: none;
+}
+
+/* ============================================
+   Loading States
+   ============================================ */
+
+.pwa-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 10003;
+}
+
+.pwa-loading.show {
+    display: flex;
+}
+
+.pwa-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(173, 68, 119, 0.1);
+    border-top-color: #AD4477;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.pwa-loading-text {
+    color: #6C757D;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ============================================
+   Push Notification Permission UI
+   ============================================ */
+
+.pwa-notification-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    max-width: 380px;
+    width: calc(100% - 40px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    display: none;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pwa-notification-prompt.show {
+    display: block;
+}
+
+.pwa-notification-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.pwa-notification-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #AD4477 0%, #8B3660 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pwa-notification-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.pwa-notification-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #212529;
+    margin-bottom: 0.25rem;
+}
+
+.pwa-notification-subtitle {
+    font-size: 0.85rem;
+    color: #6C757D;
+}
+
+.pwa-notification-text {
+    font-size: 0.95rem;
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.pwa-notification-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.pwa-notification-allow {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(135deg, #AD4477 0%, #8B3660 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pwa-notification-allow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(173, 68, 119, 0.3);
+}
+
+.pwa-notification-deny {
+    padding: 0.8rem 1rem;
+    background: #f1f3f5;
+    color: #495057;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pwa-notification-deny:hover {
+    background: #e9ecef;
+}
+
+/* ============================================
+   Install Success Animation
+   ============================================ */
+
+.pwa-install-success {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 24px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    z-index: 10004;
+    display: none;
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pwa-install-success.show {
+    display: block;
+}
+
+@keyframes popIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.pwa-success-checkmark {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    animation: checkPop 0.5s ease 0.3s both;
+}
+
+@keyframes checkPop {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.pwa-success-checkmark svg {
+    width: 40px;
+    height: 40px;
+    color: white;
+}
+
+.pwa-success-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 0.5rem;
+}
+
+.pwa-success-text {
+    font-size: 1rem;
+    color: #6C757D;
+    margin-bottom: 1.5rem;
+}
+
+.pwa-success-btn {
+    padding: 0.8rem 2rem;
+    background: linear-gradient(135deg, #AD4477 0%, #8B3660 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pwa-success-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(173, 68, 119, 0.3);
+}
+
+/* ============================================
+   Background Sync Indicator
+   ============================================ */
+
+.pwa-sync-badge {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #ffc107;
+    color: #212529;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pwa-sync-badge.show {
+    display: flex;
+}
+
+.pwa-sync-badge svg {
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 480px) {
+    .pwa-update-banner {
+        bottom: 10px;
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pwa-update-btn {
+        width: 100%;
+    }
+
+    .pwa-notification-prompt {
+        bottom: 10px;
+    }
+
+    .pwa-notification-actions {
+        flex-direction: column;
+    }
+}
+
+/* ============================================
+   Dark Mode Support
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    .pwa-notification-prompt {
+        background: #1a1a2e;
+    }
+
+    .pwa-notification-title {
+        color: #f8f9fa;
+    }
+
+    .pwa-notification-text {
+        color: #adb5bd;
+    }
+
+    .pwa-notification-deny {
+        background: #2d2d44;
+        color: #e9ecef;
+    }
+
+    .pwa-notification-deny:hover {
+        background: #3d3d5c;
+    }
+
+    .pwa-install-success {
+        background: #1a1a2e;
+    }
+
+    .pwa-success-title {
+        color: #f8f9fa;
+    }
+
+    .pwa-success-text {
+        color: #adb5bd;
+    }
+
+    .pwa-loading {
+        background: rgba(26, 26, 46, 0.95);
+    }
+
+    .pwa-loading-text {
+        color: #adb5bd;
+    }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+
+    .pwa-install-banner,
+    .pwa-offline-banner,
+    .pwa-online-toast,
+    .pwa-update-banner,
+    .pwa-notification-prompt,
+    .pwa-loading,
+    .pwa-sync-badge {
+        display: none !important;
+    }
+}

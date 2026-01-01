@@ -1,347 +1,791 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Connection Lost - Church PWA</title>
+  <title>Offline - Kumasi Central Church of Christ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="{% static 'images/icons/churchPwaIcon.png' %}">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --primary: #AD4477;
+      --primary-dark: #8B3660;
+      --primary-light: #D4699A;
       --secondary: #6C757D;
       --success: #28A745;
       --error: #dc3545;
-      --bg: #f8f9fa;
+      --warning: #ffc107;
+      --bg-light: #f8f9fa;
+      --bg-dark: #1a1a2e;
+      --text-dark: #212529;
+      --text-light: #f8f9fa;
     }
-    
-    body {
-      background: linear-gradient(135deg, #f1f3f5, #f8f9fa);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+
+    * {
       margin: 0;
-      color: #212529;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+      color: var(--text-dark);
       position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background pattern */
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(173, 68, 119, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(173, 68, 119, 0.08) 0%, transparent 50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .geometric-shapes {
+      position: fixed;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
     }
-    
-    .geometric-bg {
+
+    .shape {
       position: absolute;
-      width: 200vw;
-      height: 200vh;
-      background: repeating-linear-gradient(
-        45deg,
-        rgba(173, 68, 119, 0.05) 0,
-        rgba(173, 68, 119, 0.05) 5px,
-        transparent 5px,
-        transparent 10px
-      );
-      animation: slide 60s linear infinite;
-      z-index: -1;
+      border-radius: 50%;
+      opacity: 0.1;
+      animation: float-shape 20s ease-in-out infinite;
     }
-    
-    .container {
-      position: relative;
-      text-align: center;
-      padding: 3rem;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 1.5rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      margin: 1rem;
-      transition: all 0.3s ease;
+
+    .shape:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      background: var(--primary);
+      top: -100px;
+      right: -50px;
+      animation-delay: 0s;
     }
-    
-    .illustration {
+
+    .shape:nth-child(2) {
       width: 200px;
-      display: block;
-      margin: -4rem auto 1rem;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-      animation: float 3s ease-in-out infinite;
+      height: 200px;
+      background: var(--primary-light);
+      bottom: -50px;
+      left: -50px;
+      animation-delay: 3s;
     }
-    
-    h1 {
-      color: var(--primary);
-      margin: 1rem 0;
-      font-size: 2.25rem;
-      font-weight: 700;
-      line-height: 1.2;
+
+    .shape:nth-child(3) {
+      width: 150px;
+      height: 150px;
+      background: var(--primary);
+      top: 50%;
+      left: 10%;
+      animation-delay: 5s;
     }
-    
-    .content {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: var(--secondary);
-      margin: 1.5rem 0;
+
+    @keyframes float-shape {
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      25% {
+        transform: translate(20px, -20px) rotate(5deg);
+      }
+
+      50% {
+        transform: translate(-10px, 10px) rotate(-3deg);
+      }
+
+      75% {
+        transform: translate(-20px, -10px) rotate(3deg);
+      }
     }
-    
-    .connection-status {
+
+    /* Main container */
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Card */
+    .offline-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 3rem 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.02);
+      animation: cardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    @keyframes cardIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Logo */
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(173, 68, 119, 0.25);
+      animation: pulse-logo 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-logo {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 8px 24px rgba(173, 68, 119, 0.25);
+      }
+
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 12px 32px rgba(173, 68, 119, 0.3);
+      }
+    }
+
+    /* Status icon */
+    .status-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(220, 53, 69, 0.05) 100%);
+      transition: all 0.5s ease;
+    }
+
+    .status-icon.online {
+      background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+    }
+
+    .status-icon svg {
+      width: 50px;
+      height: 50px;
+      color: var(--error);
+      transition: all 0.5s ease;
+    }
+
+    .status-icon.online svg {
+      color: var(--success);
+    }
+
+    /* Connection indicator */
+    .connection-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
+      padding: 0.5rem 1rem;
       border-radius: 2rem;
-      background: rgba(108, 117, 125, 0.1);
-      margin: 1rem 0;
+      background: rgba(220, 53, 69, 0.1);
+      color: var(--error);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      transition: all 0.5s ease;
     }
-    
-    .status-indicator {
-      width: 12px;
-      height: 12px;
+
+    .connection-badge.online {
+      background: rgba(40, 167, 69, 0.1);
+      color: var(--success);
+    }
+
+    .connection-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--error);
-      animation: pulse 1.5s ease-in-out infinite;
+      animation: blink 1.5s ease-in-out infinite;
     }
-    
-    /* Icons styling */
-    .connection-icon svg {
-      width: 1.5rem;
-      height: 1.5rem;
+
+    .connection-badge.online .connection-dot {
+      background: var(--success);
+      animation: none;
     }
-    
-    .refresh-message {
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    /* Title */
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--secondary);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    /* Quick actions */
+    .quick-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      box-shadow: 0 8px 24px rgba(173, 68, 119, 0.3);
+    }
+
+    .action-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(173, 68, 119, 0.4);
+    }
+
+    .action-btn.secondary {
+      background: rgba(108, 117, 125, 0.1);
+      color: var(--secondary);
+    }
+
+    .action-btn.secondary:hover {
+      background: rgba(108, 117, 125, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .action-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Cached pages section */
+    .cached-pages {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .cached-pages-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cached-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .cached-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: rgba(173, 68, 119, 0.08);
+      color: var(--primary);
+      text-decoration: none;
       font-size: 0.9rem;
-      color: #6C757D;
-      margin-top: 2rem;
-      opacity: 0.8;
+      font-weight: 500;
+      transition: all 0.3s ease;
     }
-    
-    /* Animations */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+
+    .cached-link:hover {
+      background: rgba(173, 68, 119, 0.15);
+      transform: translateY(-1px);
     }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.95); }
+
+    .cached-link svg {
+      width: 16px;
+      height: 16px;
     }
-    
-    @keyframes slide {
-      from { transform: translateX(-50%) translateY(-50%); }
-      to { transform: translateX(0) translateY(0); }
+
+    /* Success animation */
+    .success-animation {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
-    
-    @media (max-width: 480px) {
-      .container {
-        padding: 2rem 1.5rem;
-        margin: 1rem;
-        border-radius: 1rem;
+
+    .success-animation.show {
+      display: flex;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
       }
-      .illustration {
-        width: 160px;
-        margin-top: -3rem;
-      }
-      h1 {
-        font-size: 1.75rem;
+
+      to {
+        opacity: 1;
+        transform: scale(1);
       }
     }
-    
-    /* Checkmark Styles for Success Animation */
-    .success-check {
+
+    .checkmark-circle {
       width: 80px;
       height: 80px;
-      margin: 20px auto;
-      opacity: 0;
-      transform: scale(0);
-      transition: transform 0.6s ease, opacity 0.6s ease;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--success) 0%, #20c997 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .checkmark-circle {
-      fill: none;
-      stroke: var(--success);
-      stroke-width: 2;
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+
+      to {
+        transform: scale(1);
+      }
     }
-    .checkmark-check {
-      fill: none;
-      stroke: var(--success);
-      stroke-width: 5;
-      stroke-dasharray: 48;
-      stroke-dashoffset: 48;
-      transition: stroke-dashoffset 0.5s ease-out 0.4s;
+
+    .checkmark-circle svg {
+      color: white;
+      width: 40px;
+      height: 40px;
+      animation: drawCheck 0.5s ease 0.3s both;
     }
-    .animate-check {
-      opacity: 1;
-      transform: scale(1);
+
+    @keyframes drawCheck {
+      from {
+        stroke-dashoffset: 50;
+      }
+
+      to {
+        stroke-dashoffset: 0;
+      }
     }
-    .animate-check .checkmark-check {
-      stroke-dashoffset: 0;
-    }
-    
-    .connected-message {
+
+    .success-text {
       color: var(--success);
-      font-weight: 600;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.4s ease 0.6s, transform 0.4s ease 0.6s;
+      font-weight: 700;
+      font-size: 1.25rem;
     }
-    
-    .connection-restored .status-indicator {
-      animation: pulse-success 1.5s ease-in-out;
-      background: var(--success);
-    }
-    
-    @keyframes pulse-success {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
-    
-    .page-loader {
+
+    /* Loading overlay */
+    .loading-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 2000;
-      backdrop-filter: blur(5px);
+      z-index: 100;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-    
-    .loader-spinner {
+
+    .loading-overlay.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .spinner {
       width: 50px;
       height: 50px;
       border: 4px solid rgba(173, 68, 119, 0.1);
-      border-top: 4px solid var(--primary);
+      border-top-color: var(--primary);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-    
+
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
-    
-    .connection-restored .status-indicator {
-      animation: pulse-success 1.5s ease-in-out, scaleDown 0.3s ease 1.5s forwards;
+
+    /* Hide elements when transitioning */
+    .offline-content.hidden {
+      display: none;
     }
-    
-    @keyframes scaleDown {
-      to { transform: scale(0); opacity: 0; }
+
+    /* Footer */
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--secondary);
+      font-size: 0.85rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .offline-card {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .status-icon {
+        width: 80px;
+        height: 80px;
+      }
+
+      .status-icon svg {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: var(--text-light);
+      }
+
+      .offline-card {
+        background: rgba(30, 30, 50, 0.95);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      h1 {
+        color: var(--text-light);
+      }
+
+      .subtitle {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .cached-pages {
+        border-top-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .action-btn.secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.8);
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="geometric-bg" aria-hidden="true"></div>
-  
-  <!-- Page Loader Element -->
-  <div class="page-loader" role="alert" aria-live="assertive">
-    <div class="loader-spinner"></div>
+  <!-- Background elements -->
+  <div class="bg-pattern"></div>
+  <div class="geometric-shapes" aria-hidden="true">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
   </div>
 
-  <div class="container" role="main">
-    <!-- Success Checkmark SVG -->
-    <svg class="success-check" viewBox="0 0 52 52" aria-hidden="true">
-      <circle class="checkmark-circle" cx="26" cy="26" r="25" />
-      <path class="checkmark-check" d="M14 27 l10 10 l15 -15"/>
-    </svg>
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
 
-    <!-- Illustration SVG -->
-    <svg class="illustration" viewBox="0 0 24 24" fill="none" 
-         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="var(--primary)"/>
-      <path d="M12 15C12.5523 15 13 15.4477 13 16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16C11 15.4477 11.4477 15 12 15Z" fill="var(--primary)"/>
-      <path d="M12 7C11.4477 7 11 7.44772 11 8V12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12V8C13 7.44772 12.5523 7 12 7Z" fill="var(--primary)"/>
-    </svg>
+  <div class="container">
+    <div class="offline-card">
+      <!-- Logo -->
+      <img src="{% static 'images/icons/churchPwaIcon.png' %}" alt="App Logo" class="logo">
 
-    <h1 id="connection-header">Connection Unavailable</h1>
-    
-    <div class="content">
-      <p>Don't worry, we'll automatically restore your connection to the Church community as soon as possible.</p>
-      <div class="connection-status" role="status" aria-live="polite">
-        <div class="status-indicator"></div>
-        <span id="connection-text">No internet connection</span>
-        <span class="connection-icon" id="connection-icon">
-          <!-- Default offline icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                  d="M18.364 5.636l-12.728 12.728m0-12.728l12.728 12.728"/>
+      <!-- Offline content -->
+      <div class="offline-content" id="offlineContent">
+        <!-- Status icon -->
+        <div class="status-icon" id="statusIcon">
+          <svg id="offlineIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a5 5 0 01-1.414-7.072m-4.415 9.243a9 9 0 010-12.728M3 3l18 18" />
           </svg>
-        </span>
+          <svg id="onlineIcon" style="display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="50"
+              stroke-dashoffset="0" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+
+        <!-- Connection badge -->
+        <div class="connection-badge" id="connectionBadge">
+          <span class="connection-dot"></span>
+          <span id="connectionText">No internet connection</span>
+        </div>
+
+        <!-- Title -->
+        <h1 id="pageTitle">You're Offline</h1>
+        <p class="subtitle" id="pageSubtitle">
+          Don't worry! We'll automatically reconnect you when your internet is back.
+          In the meantime, you can still access some features.
+        </p>
+
+        <!-- Quick actions -->
+        <div class="quick-actions">
+          <button class="action-btn primary" onclick="retryConnection()">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Retry Connection</span>
+          </button>
+          <a href="/" class="action-btn secondary">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span>Try Home Page</span>
+          </a>
+        </div>
+
+        <!-- Cached pages -->
+        <div class="cached-pages">
+          <p class="cached-pages-title">Available Offline</p>
+          <div class="cached-links" id="cachedLinks">
+            <a href="/" class="cached-link">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              Home
+            </a>
+            <a href="/about/" class="cached-link">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              About
+            </a>
+            <a href="/services/" class="cached-link">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              Services
+            </a>
+            <a href="/contact/" class="cached-link">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Contact
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success animation (shown when online) -->
+      <div class="success-animation" id="successAnimation">
+        <div class="checkmark-circle">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <p class="success-text">Connection Restored!</p>
+        <p class="subtitle">Redirecting you back...</p>
       </div>
     </div>
-
-    <p class="refresh-message connected-message" role="alert">
-      Connection restored! Redirecting you back...
-    </p>
   </div>
 
+  <footer>
+    <p>© {% now "Y" %} Kumasi Central Church of Christ</p>
+  </footer>
+
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const container = document.querySelector('.container');
-      const statusIndicator = document.querySelector('.status-indicator');
-      const checkmark = document.querySelector('.success-check');
-      const illustration = document.querySelector('.illustration');
-      const connectedMessage = document.querySelector('.connected-message');
-      const pageLoader = document.querySelector('.page-loader');
-      const connectionText = document.getElementById('connection-text');
-      const connectionHeader = document.getElementById('connection-header');
-      const connectionIcon = document.getElementById('connection-icon');
-      
-      // Define inline SVG icons for offline and online states
-      const offlineIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                      d="M18.364 5.636l-12.728 12.728m0-12.728l12.728 12.728"/>
-                              </svg>`;
-      const onlineIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                      d="M5 13l4 4L19 7"/>
-                              </svg>`;
-      
-      function handleOnline() {
-        container.classList.add('connection-restored');
-        illustration.style.display = 'none';
-        checkmark.classList.add('animate-check');
-        connectedMessage.style.opacity = '1';
-        connectedMessage.style.transform = 'translateY(0)';
-        
-        connectionText.textContent = 'Connected';
-        connectionHeader.textContent = 'Connection Restored';
-        connectionIcon.innerHTML = onlineIconSVG;
-        statusIndicator.style.background = 'var(--success)';
+    // DOM Elements
+    const offlineContent = document.getElementById('offlineContent');
+    const successAnimation = document.getElementById('successAnimation');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const statusIcon = document.getElementById('statusIcon');
+    const connectionBadge = document.getElementById('connectionBadge');
+    const connectionText = document.getElementById('connectionText');
+    const pageTitle = document.getElementById('pageTitle');
+    const pageSubtitle = document.getElementById('pageSubtitle');
+    const offlineIcon = document.getElementById('offlineIcon');
+    const onlineIcon = document.getElementById('onlineIcon');
 
-        setTimeout(() => {
-          container.style.transform = 'translateY(-20px)';
-          container.style.opacity = '0';
-          pageLoader.style.display = 'flex';
-          setTimeout(() => { pageLoader.style.opacity = '1'; }, 10);
-          setTimeout(() => {
-            pageLoader.style.transform = 'scale(1.1)';
-            pageLoader.style.opacity = '0.9';
-            setTimeout(() => window.location.reload(), 300);
-          }, 1000);
-        }, 1500);
+    let connectionRestored = false;
+
+    // Retry connection handler
+    function retryConnection() {
+      loadingOverlay.classList.add('show');
+
+      // Try to fetch a small resource
+      fetch('/keep-alive/', {
+        method: 'HEAD',
+        cache: 'no-store'
+      })
+        .then(response => {
+          if (response.ok) {
+            handleOnline();
+          } else {
+            throw new Error('Server not responding');
+          }
+        })
+        .catch(() => {
+          loadingOverlay.classList.remove('show');
+          // Show error feedback
+          if (typeof Swal !== 'undefined') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Still Offline',
+              text: 'Unable to connect. Please check your internet connection.',
+              timer: 3000,
+              showConfirmButton: false
+            });
+          }
+        });
+    }
+
+    // Handle coming back online
+    function handleOnline() {
+      if (connectionRestored) return;
+      connectionRestored = true;
+
+      // Update UI
+      statusIcon.classList.add('online');
+      connectionBadge.classList.add('online');
+      connectionText.textContent = 'Connected';
+      offlineIcon.style.display = 'none';
+      onlineIcon.style.display = 'block';
+      pageTitle.textContent = 'Connected!';
+      pageSubtitle.textContent = 'Your connection has been restored.';
+
+      // Show success animation
+      setTimeout(() => {
+        offlineContent.classList.add('hidden');
+        successAnimation.classList.add('show');
+        loadingOverlay.classList.remove('show');
+      }, 500);
+
+      // Redirect after animation
+      setTimeout(() => {
+        loadingOverlay.classList.add('show');
+
+        // Try to go back to previous page or home
+        const previousPage = sessionStorage.getItem('previousPage') || '/';
+        window.location.href = previousPage;
+      }, 2000);
+    }
+
+    // Handle going offline
+    function handleOffline() {
+      connectionRestored = false;
+      statusIcon.classList.remove('online');
+      connectionBadge.classList.remove('online');
+      connectionText.textContent = 'No internet connection';
+      offlineIcon.style.display = 'block';
+      onlineIcon.style.display = 'none';
+      pageTitle.textContent = 'You\'re Offline';
+      pageSubtitle.textContent = 'Don\'t worry! We\'ll automatically reconnect you when your internet is back.';
+      offlineContent.classList.remove('hidden');
+      successAnimation.classList.remove('show');
+    }
+
+    // Event listeners
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // Initial check
+    if (navigator.onLine) {
+      // If we're actually online, the offline page was probably cached redirect
+      handleOnline();
+    }
+
+    // Periodic connection check
+    let checkInterval = setInterval(() => {
+      if (navigator.onLine && !connectionRestored) {
+        // Verify actual connectivity
+        fetch('/keep-alive/', { method: 'HEAD', cache: 'no-store' })
+          .then(response => {
+            if (response.ok) {
+              handleOnline();
+              clearInterval(checkInterval);
+            }
+          })
+          .catch(() => { });
       }
+    }, 3000);
 
-      function handleOffline() {
-        connectionText.textContent = 'No internet connection';
-        connectionHeader.textContent = 'Connection Unavailable';
-        connectionIcon.innerHTML = offlineIconSVG;
-        statusIndicator.style.background = 'var(--error)';
-      }
+    // Store previous page for redirect
+    if (document.referrer && !document.referrer.includes('/offline')) {
+      sessionStorage.setItem('previousPage', document.referrer);
+    }
 
-      window.addEventListener('online', handleOnline);
-      window.addEventListener('offline', handleOffline);
-
-      let connectionChecked = false;
-      function checkConnection() {
-        if (!connectionChecked && navigator.onLine) {
-          connectionChecked = true;
-          handleOnline();
-        }
-      }
-      
-      const connectionCheckInterval = setInterval(checkConnection, 1500);
-      checkConnection(); // Initial check
-    });
+    // Check cached pages availability
+    if ('caches' in window) {
+      caches.open('kccc-pwa-pages-v2.0.0').then(cache => {
+        cache.keys().then(keys => {
+          console.log('[Offline] Cached pages:', keys.length);
+        });
+      }).catch(() => { });
+    }
   </script>
 </body>
+
 </html>

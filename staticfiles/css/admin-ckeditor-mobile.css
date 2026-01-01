@@ -1,0 +1,33 @@
+/* 1) Only on screens narrower than 768px */
+@media (max-width: 767px) {
+
+    /* 2) Make the CKEditor container fluid and taller */
+    /* .ck is the wrapper Jazzmin/Django-CKEditor5 leaves around the editor */
+    .content-wrapper .ck,
+    .content-wrapper .ck-editor__editable_inline {
+      width: 100% !important;       /* span full width of the form */
+      min-height: 50vh !important;  /* at least half the viewport height */
+      box-sizing: border-box;
+    }
+  
+    /* 3) Increase toolbar touch targets */
+    .content-wrapper .ck-toolbar,
+    .content-wrapper .ck-toolbar .ck-button {
+      padding: 0.5rem !important;   /* Easier to tap buttons */
+    }
+  
+    /* 4) Remove any left/right form padding in Jazmin */
+    .content-wrapper .form-horizontal .form-group,
+    .content-wrapper .form-horizontal fieldset {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  
+    /* 5) Ensure the whole form wrapper is full width */
+    .content-wrapper .box,
+    .content-wrapper .card {
+      width: 100% !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }

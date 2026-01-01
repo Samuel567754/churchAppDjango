@@ -75,6 +75,7 @@
 
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pwa.css' %}" />
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
   <!-- Other head elements -->
   <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.2.0/ckeditor5.css" />
@@ -330,6 +331,38 @@
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <script src="{% static 'js/settings.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
+
+  <!-- PWA Manager - Advanced PWA Functionality -->
+  <script src="{% static 'js/pwa-manager.js' %}"></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    // Register Service Worker for PWA functionality
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/serviceworker.js', { scope: '/' })
+          .then(function (registration) {
+            console.log('[App] ServiceWorker registered with scope:', registration.scope);
+
+            // Check for updates on page load
+            registration.update();
+          })
+          .catch(function (error) {
+            console.error('[App] ServiceWorker registration failed:', error);
+          });
+      });
+    }
+
+    // Handle controlled page reload on service worker update
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.addEventListener('controllerchange', function () {
+        if (sessionStorage.getItem('pwa-reloading')) return;
+        sessionStorage.setItem('pwa-reloading', 'true');
+        window.location.reload();
+      });
+    }
+  </script>
+
   {% include 'partials/_ministries_detail_model.html' %}
 </body>
 

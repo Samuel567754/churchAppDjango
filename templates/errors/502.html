@@ -1,0 +1,70 @@
+{% extends "errors/base_error.html" %}
+{% load static %}
+
+{% block title %}Bad Gateway{% endblock %}
+
+{% block background %}linear-gradient(135deg, #f857a6 0%, #ff5858 50%, #ffc371 100%){% endblock %}
+{% block btn_color %}#f857a6{% endblock %}
+
+{% block icon %}
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+</svg>
+{% endblock %}
+
+{% block error_code %}502{% endblock %}
+{% block error_title %}Bad Gateway{% endblock %}
+
+{% block error_message %}
+Our server received an invalid response from an upstream server. This is usually a temporary issue.
+Please wait a moment and try again.
+{% endblock %}
+
+{% block scripture %}
+"Wait for the LORD; be strong and take heart and wait for the LORD."
+<strong>— Psalm 27:14</strong>
+{% endblock %}
+
+{% block buttons %}
+<a href="{% url 'community:home' %}" class="btn">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+    </svg>
+    Return Home
+</a>
+<button onclick="window.location.reload()" class="btn btn-outline">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+    </svg>
+    Retry
+</button>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Auto-retry after 30 seconds
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    function autoRetry() {
+        if (retryCount < maxRetries) {
+            retryCount++;
+            console.log(`Auto-retry attempt ${retryCount} of ${maxRetries}`);
+            window.location.reload();
+        }
+    }
+
+    // Only auto-retry if the user hasn't interacted
+    let userInteracted = false;
+    document.addEventListener('click', () => { userInteracted = true; });
+    document.addEventListener('keydown', () => { userInteracted = true; });
+
+    setTimeout(() => {
+        if (!userInteracted) {
+            autoRetry();
+        }
+    }, 30000);
+</script>
+{% endblock %}

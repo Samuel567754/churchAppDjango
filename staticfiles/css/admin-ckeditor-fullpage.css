@@ -1,0 +1,56 @@
+/* Full-page editor container */
+.django_ckeditor_5-fullpage {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Editor content area */
+.django_ckeditor_5-fullpage .ck-editor__editable_inline {
+    min-height: 80vh;
+    padding: 2rem !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Jazzmin admin adjustments */
+.content-wrapper .django_ckeditor_5-fullpage {
+    margin: 0 -15px;
+    width: calc(100% + 30px) !important;
+}
+
+/* Fullscreen mode enhancements */
+.ck.ck-editor__editable_inline.ck-focused:not(.ck-editor__nested-editable) {
+    z-index: 1050 !important;
+}
+
+.ck.ck-balloon-panel {
+    z-index: 1060 !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 992px) {
+    .django_ckeditor_5-fullpage .ck-editor__editable_inline {
+        min-height: 70vh;
+        padding: 1.5rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .django_ckeditor_5-fullpage .ck-editor__editable_inline {
+        min-height: 60vh;
+        padding: 1rem !important;
+    }
+    
+    .django_ckeditor_5-fullpage .ck-toolbar {
+        flex-wrap: wrap;
+        height: auto !important;
+    }
+}
+
+/* Fix Jazzmin sidebar overlap */
+.ck.ck-editor__top.ck-reset_all {
+    position: relative;
+    z-index: 1;
+}

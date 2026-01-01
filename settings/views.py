@@ -45,12 +45,32 @@ import os
 #         patch_cache_control(response, no_cache=True, must_revalidate=True, max_age=0)
 #         return response
 
-# For Django 2.0+ the 404 view must accept an "exception" parameter.
+# Custom Error Handlers for Django
+# These views handle HTTP error responses with custom templates
+
+def custom_400(request, exception):
+    """Handle 400 Bad Request errors."""
+    return render(request, "errors/400.html", status=400)
+
+def custom_403(request, exception):
+    """Handle 403 Forbidden errors."""
+    return render(request, "errors/403.html", status=403)
+
 def custom_404(request, exception):
-    return render(request, "404.html", status=404)
+    """Handle 404 Not Found errors."""
+    return render(request, "errors/404.html", status=404)
 
 def custom_500(request):
-    return render(request, "500.html", status=500)
+    """Handle 500 Internal Server errors."""
+    return render(request, "errors/500.html", status=500)
+
+def custom_502(request):
+    """Handle 502 Bad Gateway errors."""
+    return render(request, "errors/502.html", status=502)
+
+def custom_503(request):
+    """Handle 503 Service Unavailable errors."""
+    return render(request, "errors/503.html", status=503)
 
 # def service_worker(request):
 #     # Adjust the path if your file is in a different location

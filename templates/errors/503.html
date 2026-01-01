@@ -1,0 +1,155 @@
+{% extends "errors/base_error.html" %}
+{% load static %}
+
+{% block title %}Service Unavailable{% endblock %}
+
+{% block background %}linear-gradient(135deg, #5f2c82 0%, #49a09d 50%, #74ebd5 100%){% endblock %}
+{% block btn_color %}#5f2c82{% endblock %}
+
+{% block icon %}
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+</svg>
+{% endblock %}
+
+{% block error_code %}503{% endblock %}
+{% block error_title %}Service Unavailable{% endblock %}
+
+{% block error_message %}
+We're currently performing maintenance or experiencing high traffic. Our service will be back shortly.
+Thank you for your patience and understanding.
+{% endblock %}
+
+{% block scripture %}
+"For everything there is a season, and a time for every matter under heaven."
+<strong>— Ecclesiastes 3:1</strong>
+{% endblock %}
+
+{% block buttons %}
+<a href="{% url 'community:home' %}" class="btn">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+    </svg>
+    Try Home Page
+</a>
+<button onclick="window.location.reload()" class="btn btn-outline">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+    </svg>
+    Refresh
+</button>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .countdown-container {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+    }
+
+    .countdown-text {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+    }
+
+    .countdown-time {
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
+
+    .maintenance-progress {
+        margin-top: 1rem;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .maintenance-progress-bar {
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        width: 0%;
+        animation: progressPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes progressPulse {
+
+        0%,
+        100% {
+            width: 15%;
+            transform: translateX(0);
+        }
+
+        50% {
+            width: 30%;
+            transform: translateX(200%);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block additional_actions %}
+<div class="additional-actions">
+    <div class="countdown-container">
+        <p class="countdown-text">Estimated time to recovery:</p>
+        <p class="countdown-time" id="countdown">Checking status...</p>
+        <div class="maintenance-progress">
+            <div class="maintenance-progress-bar"></div>
+        </div>
+    </div>
+
+    <div class="action-links" style="margin-top: 1.5rem;">
+        <a href="https://www.facebook.com/KumasiCentralCoC" target="_blank" class="action-link">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+                <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+            Follow Updates
+        </a>
+        <a href="mailto:kumasicentralcoc1@gmail.com" class="action-link">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Get Notified
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Simulate countdown (in production, fetch actual status)
+    const countdownEl = document.getElementById('countdown');
+    let minutes = Math.floor(Math.random() * 10) + 5; // Random 5-15 minutes
+
+    function updateCountdown() {
+        if (minutes > 0) {
+            countdownEl.textContent = `About ${minutes} minute${minutes > 1 ? 's' : ''} remaining`;
+            minutes--;
+            setTimeout(updateCountdown, 60000); // Update every minute
+        } else {
+            countdownEl.textContent = 'Should be back any moment...';
+            // Auto-refresh after countdown
+            setTimeout(() => {
+                window.location.reload();
+            }, 30000);
+        }
+    }
+
+    // Initial countdown
+    setTimeout(updateCountdown, 2000);
+
+    // Auto-refresh every 60 seconds
+    setTimeout(() => {
+        window.location.reload();
+    }, 60000);
+</script>
+{% endblock %}

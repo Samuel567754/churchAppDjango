@@ -821,7 +821,7 @@ document.addEventListener('DOMContentLoaded', () => {
         enablePushNotifications: true,
         enableBackgroundSync: true,
         enableAnalytics: true,
-        promptDelay: 60000, // Show install prompt after 1 minute
+        promptDelay: 5000, // Show install prompt after 5 seconds
         onInstalled: () => {
             console.log('App was installed!');
         },

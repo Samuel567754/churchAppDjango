@@ -10,7 +10,7 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls import handler400, handler403, handler404, handler500
 from django.views.generic import TemplateView
 # from settings.views import ServiceWorkerView  # Adjust 'your_app' to your actual app name
-from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import views as sitemap_views
 from ChurchApp.sitemaps import (
     StaticViewSitemap, BlogSitemap, BlogCategorySitemap,
     SermonSitemap, SermonTagSitemap, EventSitemap
@@ -52,7 +52,8 @@ urlpatterns = [
     path("offline/", TemplateView.as_view(template_name="offline.html"), name="offline"),
     
     # SEO URLs
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap.xml', sitemap_views.index, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.index'),
+    path('sitemap-<section>.xml', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots_file"),
 ]
 

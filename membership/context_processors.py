@@ -3,15 +3,17 @@ from contact.models import Notification  # Import the Notification model
 
 def member_profile(request):
     """Make the logged-in member's profile available globally"""
-    if request.user.is_authenticated and hasattr(request.user, 'member'):
-        return {'member': request.user.member}  # Provide member to templates
+    user = getattr(request, 'user', None)
+    if user and user.is_authenticated and hasattr(user, 'member'):
+        return {'member': user.member}  # Provide member to templates
     return {}  # Return an empty dictionary if not logged in
 
 
 def notification_context(request):
-    if request.user.is_authenticated:
+    user = getattr(request, 'user', None)
+    if user and user.is_authenticated:
         # Get member object associated with the user
-        member = getattr(request.user, 'member', None)
+        member = getattr(user, 'member', None)
         
         # Get notifications: both general and user-specific
         notifications = Notification.objects.filter(member__isnull=True)  # General notifications

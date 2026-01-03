@@ -9,6 +9,7 @@ from event.models import ChurchCalendar
 class StaticViewSitemap(Sitemap):
     """Sitemap for static pages with optimized priorities"""
     changefreq = 'weekly'
+    protocol = 'https'
 
     # Define priorities for different page types
     PRIORITY_MAP = {
@@ -46,6 +47,7 @@ class BlogSitemap(Sitemap):
     """Sitemap for blog posts with high priority"""
     changefreq = "weekly"
     priority = 0.8
+    protocol = 'https'
 
     def items(self):
         return Post.objects.filter(is_published=True).order_by('-published_at')
@@ -61,6 +63,7 @@ class BlogCategorySitemap(Sitemap):
     """Sitemap for blog categories"""
     changefreq = "weekly"
     priority = 0.6
+    protocol = 'https'
 
     def items(self):
         return BlogCategory.objects.all()
@@ -76,6 +79,7 @@ class SermonSitemap(Sitemap):
     """Sitemap for sermons"""
     changefreq = "weekly"
     priority = 0.8
+    protocol = 'https'
 
     def items(self):
         return Sermon.objects.all().order_by('-date')
@@ -91,6 +95,7 @@ class SermonTagSitemap(Sitemap):
     """Sitemap for sermon tags"""
     changefreq = "monthly"
     priority = 0.5
+    protocol = 'https'
 
     def items(self):
         return SermonTag.objects.all()
@@ -103,6 +108,7 @@ class EventSitemap(Sitemap):
     """Sitemap for church calendar events"""
     changefreq = "daily"
     priority = 0.7
+    protocol = 'https'
 
     def items(self):
         return ChurchCalendar.objects.all().order_by('-start_datetime')

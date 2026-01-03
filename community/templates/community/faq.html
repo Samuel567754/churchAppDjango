@@ -1,102 +1,119 @@
 {% extends "base.html" %}
+{% load seo_tags %}
 
-{% block title %}FAQ - Kumasi Central CoC{% endblock %}
+{% block title %}Frequently Asked Questions - Kumasi Central Church of Christ{% endblock %}
+{% block meta_title %}FAQs - Kumasi Central Church of Christ | Your Questions Answered{% endblock %}
+{% block meta_description %}Find answers to common questions about Kumasi Central Church of Christ. Learn about our
+beliefs, worship practices, service times, and how to get involved in our community.{% endblock %}
+{% block meta_keywords %}church FAQ, questions about Church of Christ, Kumasi church questions, what to expect at
+church, church beliefs, joining a church{% endblock %}
+
+{% block og_title %}FAQs - Kumasi Central Church of Christ{% endblock %}
+{% block og_description %}Find answers to common questions about our church, beliefs, service times, and community
+involvement.{% endblock %}
+
+{% block twitter_title %}FAQs - Kumasi Central Church of Christ{% endblock %}
+{% block twitter_description %}Find answers to common questions about our church, beliefs, service times, and community
+involvement.{% endblock %}
+
+{% block additional_structured_data %}
+{% breadcrumb_schema "Home|/" "FAQ" %}
+{% faq_schema faqs %}
+{% endblock %}
 
 {% block content %}
-  <!-- Page Header -->
-  <section data-aos="fade-down" class="relative">
-    <img
-      src="https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0068.jpg"
-      alt="Worship and Fellowship"
-      class="w-full h-96 object-cover object-center"
-    />
-    <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
-    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-      <h1 class="text-4xl font-bold animate-fade-in">Frequently Asked Questions</h1>
-      <p class="text-xl mt-4 animate-fade-in delay-100">Your questions answered</p>
-    </div>
-  </section>
+<!-- Page Header -->
+<section data-aos="fade-down" class="relative">
+  <img
+    src="https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0068.jpg"
+    alt="Worship and Fellowship" class="w-full h-96 object-cover object-center" />
+  <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+    <h1 class="text-4xl font-bold animate-fade-in">Frequently Asked Questions</h1>
+    <p class="text-xl mt-4 animate-fade-in delay-100">Your questions answered</p>
+  </div>
+</section>
 
-  <section data-aos="slide-up" class="py-16 bg-gradient-to-r from-fuchsia-200 to-cyan-200">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-      <!-- Header Section -->
-      <div data-aos="slide-up" class="text-center mb-12">
-        <h1 class="text-5xl font-bold text-gray-900 mb-4 relative inline-block">
-          <span class="relative z-10">FAQ Center</span>
-          <div class="absolute bottom-0 left-0 w-full h-3 bg-blue-100 opacity-80 transform -rotate-1"></div>
-        </h1>
-        <p class="text-xl text-gray-600">Quick answers to your common questions</p>
-        
-        <!-- Search Bar -->
-        <div class="mt-8 max-w-md mx-auto">
-          <div class="relative">
-            <input type="text" 
-                   id="faqSearch" 
-                   placeholder="Search questions..."
-                   class="w-full px-6 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none shadow-sm hover:shadow-md">
-            <i class="fas fa-search absolute right-4 top-4 text-gray-400"></i>
-          </div>
+<section data-aos="slide-up" class="py-16 bg-gradient-to-r from-fuchsia-200 to-cyan-200">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+    <!-- Header Section -->
+    <div data-aos="slide-up" class="text-center mb-12">
+      <h1 class="text-5xl font-bold text-gray-900 mb-4 relative inline-block">
+        <span class="relative z-10">FAQ Center</span>
+        <div class="absolute bottom-0 left-0 w-full h-3 bg-blue-100 opacity-80 transform -rotate-1"></div>
+      </h1>
+      <p class="text-xl text-gray-600">Quick answers to your common questions</p>
+
+      <!-- Search Bar -->
+      <div class="mt-8 max-w-md mx-auto">
+        <div class="relative">
+          <input type="text" id="faqSearch" placeholder="Search questions..."
+            class="w-full px-6 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none shadow-sm hover:shadow-md">
+          <i class="fas fa-search absolute right-4 top-4 text-gray-400"></i>
         </div>
-      </div>
-  
-      <!-- FAQ Items -->
-      <div class="space-y-4" id="faqContainer">
-        {% for faq in faqs %}
-        <div data-aos="slide-up" class="faq-item group bg-white border border-gray-200 rounded-xl hover:border-blue-500 transition-all duration-200 shadow-sm hover:shadow-lg">
-          <button class="flex items-center justify-between w-full p-6" aria-expanded="false">
-            <h3 class="text-xl font-semibold text-gray-900 text-left pr-4">{{ faq.question }}</h3>
-            <i class="fas fa-chevron-down text-gray-500 text-lg transform transition-transform duration-300"></i>
-          </button>
-          <div class="answer-container hidden px-6 pb-6 pt-2">
-            <p class="text-gray-700 leading-relaxed">{{ faq.answer }}</p>
-            <!-- Additional Actions -->
-            <div class="mt-4 flex space-x-4">
-              <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                <i class="fas fa-share mr-2"></i>Share
-              </button>
-              <button class="text-gray-500 hover:text-gray-700 text-sm">
-                <i class="fas fa-thumbs-up mr-2"></i>Helpful?
-              </button>
-            </div>
-          </div>
-        </div>
-        {% empty %}
-        <div class="text-center py-12">
-          <div class="mb-4 text-gray-400 text-6xl">
-            <i class="fas fa-question-circle"></i>
-          </div>
-          <p class="text-gray-600 text-lg">No FAQs found. Please check back later.</p>
-        </div>
-        {% endfor %}
-      </div>
-  
-      <!-- Load More Button -->
-      <div class="mt-8 text-center" id="loadMoreContainer">
-        <button id="loadMore" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-          Load More Questions
-        </button>
-        <p id="noMoreText" class="text-gray-500 mt-4 hidden">All questions loaded</p>
-      </div>
-  
-      <!-- Back to Top -->
-      <div class="mt-12 text-center">
-        <button id="backToTopfaq" class="text-gray-600 hover:text-blue-600 transition-colors hidden">
-          <i class="fas fa-arrow-up mr-2"></i>Back to Top
-        </button>
       </div>
     </div>
-  </section>
-  
-  <style>
-    .faq-item.active {
-      border-color: #3B82F6;
-      box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
-      transform: scale(1.02);
-    }
-  </style>
-  
+
+    <!-- FAQ Items -->
+    <div class="space-y-4" id="faqContainer">
+      {% for faq in faqs %}
+      <div data-aos="slide-up"
+        class="faq-item group bg-white border border-gray-200 rounded-xl hover:border-blue-500 transition-all duration-200 shadow-sm hover:shadow-lg">
+        <button class="flex items-center justify-between w-full p-6" aria-expanded="false">
+          <h3 class="text-xl font-semibold text-gray-900 text-left pr-4">{{ faq.question }}</h3>
+          <i class="fas fa-chevron-down text-gray-500 text-lg transform transition-transform duration-300"></i>
+        </button>
+        <div class="answer-container hidden px-6 pb-6 pt-2">
+          <p class="text-gray-700 leading-relaxed">{{ faq.answer }}</p>
+          <!-- Additional Actions -->
+          <div class="mt-4 flex space-x-4">
+            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              <i class="fas fa-share mr-2"></i>Share
+            </button>
+            <button class="text-gray-500 hover:text-gray-700 text-sm">
+              <i class="fas fa-thumbs-up mr-2"></i>Helpful?
+            </button>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="text-center py-12">
+        <div class="mb-4 text-gray-400 text-6xl">
+          <i class="fas fa-question-circle"></i>
+        </div>
+        <p class="text-gray-600 text-lg">No FAQs found. Please check back later.</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Load More Button -->
+    <div class="mt-8 text-center" id="loadMoreContainer">
+      <button id="loadMore"
+        class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+        Load More Questions
+      </button>
+      <p id="noMoreText" class="text-gray-500 mt-4 hidden">All questions loaded</p>
+    </div>
+
+    <!-- Back to Top -->
+    <div class="mt-12 text-center">
+      <button id="backToTopfaq" class="text-gray-600 hover:text-blue-600 transition-colors hidden">
+        <i class="fas fa-arrow-up mr-2"></i>Back to Top
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-item.active {
+    border-color: #3B82F6;
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
+    transform: scale(1.02);
+  }
+</style>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Toggle FAQ items
     document.querySelectorAll('.faq-item button').forEach(button => {
       button.addEventListener('click', () => {
@@ -108,9 +125,9 @@
         icon.classList.toggle('rotate-180');
       });
     });
-  
+
     // Search functionality
-    document.getElementById('faqSearch').addEventListener('input', function(e) {
+    document.getElementById('faqSearch').addEventListener('input', function (e) {
       const searchTerm = e.target.value.toLowerCase();
       currentPage = 1;
       document.querySelectorAll('.faq-item').forEach(item => {
@@ -123,7 +140,7 @@
       loadMoreButton.classList.add('hidden');
       noMoreText.classList.add('hidden');
     });
-  
+
     // Pagination variables
     const itemsPerPage = 5;
     let currentPage = 1;
@@ -131,7 +148,7 @@
     const totalItems = faqItems.length;
     const loadMoreButton = document.getElementById('loadMore');
     const noMoreText = document.getElementById('noMoreText');
-  
+
     // Initialize items: show only the first "itemsPerPage"
     function initializeItems() {
       faqItems.forEach((item, index) => {
@@ -139,19 +156,19 @@
       });
       toggleLoadMoreButton();
     }
-  
+
     // Load More functionality: show next set of items
     function loadMoreItems() {
       currentPage++;
       const itemsToShow = currentPage * itemsPerPage;
       faqItems.forEach((item, index) => {
-        if(index < itemsToShow) {
+        if (index < itemsToShow) {
           item.style.display = 'block';
         }
       });
       toggleLoadMoreButton();
     }
-  
+
     // Toggle visibility of Load More button and "no more" text
     function toggleLoadMoreButton() {
       const visibleItems = Array.from(faqItems).filter(item => item.style.display !== 'none').length;
@@ -163,7 +180,7 @@
         noMoreText.classList.add('hidden');
       }
     }
-  
+
     // Back to Top button
     const backToTop = document.getElementById('backToTopfaq');
     window.addEventListener('scroll', () => {
@@ -172,12 +189,12 @@
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  
+
     // Event Listeners for Load More button
     loadMoreButton.addEventListener('click', loadMoreItems);
-  
+
     // Initialize FAQ items on page load
     initializeItems();
   });
-  </script>
+</script>
 {% endblock %}

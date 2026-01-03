@@ -1,21 +1,47 @@
 {% extends 'base.html' %}
+{% load seo_tags %}
 
-{% block title %}Sermons -  Kumasi Central CoC{% endblock %}
+{% block title %}Sermons & Bible Messages - Kumasi Central Church of Christ{% endblock %}
+{% block meta_title %}Sermons & Bible Messages - Kumasi Central Church of Christ{% endblock %}
+{% block meta_description %}Listen to inspiring sermons and Bible teachings from Kumasi Central Church of Christ. Browse
+our collection of messages on faith, Christian living, and spiritual growth.{% endblock %}
+{% block meta_keywords %}church sermons, Bible messages, Christian sermons Ghana, Kumasi church sermons, Sunday sermons,
+Bible teaching, expository preaching{% endblock %}
+
+{% block og_title %}Sermons - Kumasi Central Church of Christ{% endblock %}
+{% block og_description %}Listen to inspiring sermons and Bible teachings from our church. Browse our collection of
+messages.{% endblock %}
+
+{% block twitter_title %}Sermons - Kumasi Central Church of Christ{% endblock %}
+{% block twitter_description %}Listen to inspiring sermons and Bible teachings from our church.{% endblock %}
+
+{% block additional_structured_data %}
+{% breadcrumb_schema "Home|/" "Sermons" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Sermons - Kumasi Central Church of Christ",
+  "description": "Collection of Bible sermons and Christian teachings",
+  "url": "{{ request.build_absolute_uri }}"
+}
+</script>
+{% endblock %}
 
 {% block content %}
 {% load static %}
 
 <!-- Page Header -->
 <section data-aos="fade-in" class="relative bg-cover bg-center h-72 overflow-hidden"
-         style="background-image: url('{% if featured_sermon %}{% if featured_sermon.image %}{{ featured_sermon.image.url }}{% elif featured_sermon.image_url %}{{ featured_sermon.image_url }}{% else %}https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0065.jpg{% endif %}{% else %}https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0065.jpg{% endif %}');">
+  style="background-image: url('{% if featured_sermon %}{% if featured_sermon.image %}{{ featured_sermon.image.url }}{% elif featured_sermon.image_url %}{{ featured_sermon.image_url }}{% else %}https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0065.jpg{% endif %}{% else %}https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0065.jpg{% endif %}');">
   <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white z-20">
     {% if selected_tag %}
-      <h1 class="text-2xl font-bold">Sermons tagged with "{{ selected_tag.name }}"</h1>
-      <p class="text-xl mt-4">Browse sermons related to this topic</p>
+    <h1 class="text-2xl font-bold">Sermons tagged with "{{ selected_tag.name }}"</h1>
+    <p class="text-xl mt-4">Browse sermons related to this topic</p>
     {% else %}
-      <h1 class="text-2xl font-bold">Our Sermons</h1>
-      <p class="text-xl mt-4">Listen to our sermon recordings</p>
+    <h1 class="text-2xl font-bold">Our Sermons</h1>
+    <p class="text-xl mt-4">Listen to our sermon recordings</p>
     {% endif %}
   </div>
 </section>
@@ -31,18 +57,22 @@
       <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Featured Sermon</h2>
       <div class="relative rounded-2xl overflow-hidden shadow-xl">
         {% if featured_sermon.image or featured_sermon.image_url %}
-          <!-- Background Image with Dark Overlay -->
-          <div class="absolute inset-0">
-            {% if featured_sermon.image %}
-              <img src="{{ featured_sermon.image.url }}" alt="{{ featured_sermon.title }}" class="w-full h-full object-cover">
-            {% else %}
-              <img src="{{ featured_sermon.image_url }}" alt="{{ featured_sermon.title }}" class="w-full h-full object-cover">
-            {% endif %}
-            <div class="absolute inset-0 bg-black opacity-60"></div>
-          </div>
+        <!-- Background Image with Dark Overlay -->
+        <div class="absolute inset-0">
+          {% if featured_sermon.image %}
+          <img src="{{ featured_sermon.image.url }}" alt="{{ featured_sermon.title }}"
+            class="w-full h-full object-cover">
+          {% else %}
+          <img src="{{ featured_sermon.image_url }}" alt="{{ featured_sermon.title }}"
+            class="w-full h-full object-cover">
+          {% endif %}
+          <div class="absolute inset-0 bg-black opacity-60"></div>
+        </div>
         {% else %}
-          <!-- Placeholder image -->
-          <img src="https://images.unsplash.com/photo-1711843250904-b10731eac0db?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8U0VSTU9OU3xlbnwwfHwwfHx8MA%3D%3D" alt="{{ featured_sermon.title }}" class="w-full h-full object-cover">
+        <!-- Placeholder image -->
+        <img
+          src="https://images.unsplash.com/photo-1711843250904-b10731eac0db?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8U0VSTU9OU3xlbnwwfHwwfHx8MA%3D%3D"
+          alt="{{ featured_sermon.title }}" class="w-full h-full object-cover">
         {% endif %}
         <!-- Featured Flag -->
         <div class="absolute top-4 left-4 z-10">
@@ -55,38 +85,39 @@
           <header class="mb-4">
             <h1 class="text-3xl font-bold">{{ featured_sermon.title }}</h1>
             <p class="mt-1">
-              Preached by <span class="font-semibold">{{ featured_sermon.preacher }}</span> on 
+              Preached by <span class="font-semibold">{{ featured_sermon.preacher }}</span> on
               <time datetime="{{ featured_sermon.date|date:'Y-m-d' }}">
                 {{ featured_sermon.date|date:"F d, Y" }}
               </time>
               {% if featured_sermon.scripture_reference %}
-                <span class="ml-2 text-sm">| {{ featured_sermon.scripture_reference }}</span>
+              <span class="ml-2 text-sm">| {{ featured_sermon.scripture_reference }}</span>
               {% endif %}
             </p>
           </header>
           {% if featured_sermon.summary %}
-            <p class="text-lg mb-6">{{ featured_sermon.summary }}</p>
+          <p class="text-lg mb-6">{{ featured_sermon.summary }}</p>
           {% endif %}
           <div class="flex flex-wrap gap-4 justify-center mb-6">
             {% if featured_sermon.facebook_url %}
-              <a href="{{ featured_sermon.facebook_url }}" target="_blank"
-                 class="flex items-center bg-blue-600 text-white px-5 py-3 rounded-md hover:bg-blue-700 transition">
-                <!-- Facebook Icon -->
-                <svg class="w-5 h-5 mr-2 fill-current" viewBox="0 0 24 24">
-                  <path d="M22,12A10,10,0,1,0,10.9,21.9V14.7H8v-2.8h2.9V9.4c0-2.9,1.7-4.5,4.3-4.5a17,17,0,0,1,2.6.2v3h-1.5c-1.2,0-1.6.8-1.6,1.5v2h2.7l-.4,2.8H15.8v7.2A10,10,0,0,0,22,12Z"/>
-                </svg>
-                Watch on Facebook
-              </a>
+            <a href="{{ featured_sermon.facebook_url }}" target="_blank"
+              class="flex items-center bg-blue-600 text-white px-5 py-3 rounded-md hover:bg-blue-700 transition">
+              <!-- Facebook Icon -->
+              <svg class="w-5 h-5 mr-2 fill-current" viewBox="0 0 24 24">
+                <path
+                  d="M22,12A10,10,0,1,0,10.9,21.9V14.7H8v-2.8h2.9V9.4c0-2.9,1.7-4.5,4.3-4.5a17,17,0,0,1,2.6.2v3h-1.5c-1.2,0-1.6.8-1.6,1.5v2h2.7l-.4,2.8H15.8v7.2A10,10,0,0,0,22,12Z" />
+              </svg>
+              Watch on Facebook
+            </a>
             {% endif %}
             {% if featured_sermon.document %}
-              <a href="{{ featured_sermon.document.url }}" download
-                 class="flex items-center bg-green-600 text-white px-5 py-3 rounded-md hover:bg-green-700 transition">
-                <!-- Download Icon -->
-                <svg class="w-5 h-5 mr-2 fill-current" viewBox="0 0 20 20">
-                  <path d="M13 10V3H7v7H2l8 8 8-8h-5zM4 18h12v2H4v-2z"/>
-                </svg>
-                Download Sermon Document
-              </a>
+            <a href="{{ featured_sermon.document.url }}" download
+              class="flex items-center bg-green-600 text-white px-5 py-3 rounded-md hover:bg-green-700 transition">
+              <!-- Download Icon -->
+              <svg class="w-5 h-5 mr-2 fill-current" viewBox="0 0 20 20">
+                <path d="M13 10V3H7v7H2l8 8 8-8h-5zM4 18h12v2H4v-2z" />
+              </svg>
+              Download Sermon Document
+            </a>
             {% endif %}
           </div>
           <div>
@@ -96,7 +127,7 @@
       </div>
     </div>
   </section>
-{% else %}
+  {% else %}
   <!-- Empty Featured Sermon Message -->
   <section class="py-20 bg-gradient-to-br from-blue-50 to-white px-4">
     <div class="max-w-6xl mx-auto text-center">
@@ -105,7 +136,8 @@
         <!-- Icon or illustration for empty state -->
         <svg class="w-16 h-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <p class="text-gray-600">
           There is currently no featured sermon available. Please check back later for updates.
@@ -113,9 +145,9 @@
       </div>
     </div>
   </section>
-{% endif %}
+  {% endif %}
 
-  
+
   <!-- Sermons Container -->
   <section id="sermons-container" class="py-20 bg-gradient-to-br from-blue-50 to-white">
     <div class="max-w-6xl mx-auto px-4">
@@ -123,23 +155,21 @@
       <p class="text-center text-gray-600 mb-8">Explore our collection of sermons below.</p>
 
       <!-- Improved Responsive Search Input with Icon and Animation -->
-<div class="w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl mx-auto px-4 my-8">
-  <div class="relative">
-    <!-- Search Icon -->
-    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-      <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M21 21l-5-5m2-4a7 7 0 11-14 0 7 7 0 0114 0z" />
-      </svg>
-    </div>
-    <!-- Input Field -->
-    <input id="search-input" type="text" placeholder="Search sermons…"
-           class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none 
+      <div class="w-full sm:max-w-3xl md:max-w-4xl lg:max-w-6xl mx-auto px-4 my-8">
+        <div class="relative">
+          <!-- Search Icon -->
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-5-5m2-4a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <!-- Input Field -->
+          <input id="search-input" type="text" placeholder="Search sermons…" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none 
                   focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300
-                  placeholder-gray-400"
-           value="{{ request.GET.q|default:'' }}">
-  </div>
-</div>
+                  placeholder-gray-400" value="{{ request.GET.q|default:'' }}">
+        </div>
+      </div>
 
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -147,41 +177,40 @@
       </div>
       <!-- Load More Button -->
       {% if sermons.has_next %}
-        <div class="text-center mt-8">
-          <button id="load-more" data-next-page="{{ sermons.next_page_number }}"
-                  class="px-6 py-3 bg-blue-500 text-white rounded-full shadow hover:bg-blue-600 transition">
-            Load More Sermons
-          </button>
-        </div>
+      <div class="text-center mt-8">
+        <button id="load-more" data-next-page="{{ sermons.next_page_number }}"
+          class="px-6 py-3 bg-blue-500 text-white rounded-full shadow hover:bg-blue-600 transition">
+          Load More Sermons
+        </button>
+      </div>
       {% endif %}
     </div>
   </section>
 
   <!-- Improved and Centered Topics (Tags) UI -->
-{% if tags_list %}
-<div class="bg-gray-50 p-8 rounded-2xl shadow-inner max-w-6xl mx-auto px-4 mb-8">
-  <h3 class="text-2xl font-bold mb-6 text-center">Topics</h3>
-  <div class="flex flex-wrap justify-center gap-4 topics">
-    {% for tag in tags_list %}
-    <a href="?tag={{ tag.slug }}" 
-       class="px-5 py-2 bg-white rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center
+  {% if tags_list %}
+  <div class="bg-gray-50 p-8 rounded-2xl shadow-inner max-w-6xl mx-auto px-4 mb-8">
+    <h3 class="text-2xl font-bold mb-6 text-center">Topics</h3>
+    <div class="flex flex-wrap justify-center gap-4 topics">
+      {% for tag in tags_list %}
+      <a href="?tag={{ tag.slug }}" class="px-5 py-2 bg-white rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center
               {% if selected_tag and selected_tag.slug == tag.slug %}bg-blue-100 border-2 border-blue-200{% endif %}">
-      <span class="mr-2 text-blue-600 font-medium">#</span>
-      <span class="text-gray-700">{{ tag.name }}</span>
-    </a>
-    {% endfor %}
+        <span class="mr-2 text-blue-600 font-medium">#</span>
+        <span class="text-gray-700">{{ tag.name }}</span>
+      </a>
+      {% endfor %}
+    </div>
   </div>
-</div>
-{% endif %}
+  {% endif %}
 
 
   <!-- Back to Sermons (if tag is selected) -->
   {% if selected_tag %}
   <div class="mt-8 justify-center flex text-center">
-    <a href="{% url 'worship:sermons' %}" 
-       class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+    <a href="{% url 'worship:sermons' %}"
+      class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
       <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
       Back to Sermons Page
     </a>
@@ -199,31 +228,31 @@
             'x-requested-with': 'XMLHttpRequest'
           }
         })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not OK');
-          }
-          return response.json();
-        })
-        .then(data => {
-          const container = document.getElementById('sermons-container');
-          // If appending (Load More), add new items to the grid.
-          if (append) {
-            container.querySelector('.grid').insertAdjacentHTML('beforeend', data.html);
-          } else {
-            // Otherwise, replace the entire sermons content
-            container.querySelector('.grid').innerHTML = data.html;
-          }
-          // Optionally, you can update or hide the "Load More" button if needed.
-        })
-        .catch(error => {
-          console.error('Error loading sermons:', error);
-        });
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not OK');
+            }
+            return response.json();
+          })
+          .then(data => {
+            const container = document.getElementById('sermons-container');
+            // If appending (Load More), add new items to the grid.
+            if (append) {
+              container.querySelector('.grid').insertAdjacentHTML('beforeend', data.html);
+            } else {
+              // Otherwise, replace the entire sermons content
+              container.querySelector('.grid').innerHTML = data.html;
+            }
+            // Optionally, you can update or hide the "Load More" button if needed.
+          })
+          .catch(error => {
+            console.error('Error loading sermons:', error);
+          });
       }
 
       // Tag Filtering: Listen for clicks on tag links
-      document.querySelectorAll('.topics a').forEach(function(link) {
-        link.addEventListener('click', function(e) {
+      document.querySelectorAll('.topics a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
           e.preventDefault();
           // Remove the Load More button because the list will be replaced
           const loadMoreBtn = document.getElementById('load-more');
@@ -244,9 +273,9 @@
       const searchInput = document.getElementById('search-input');
       if (searchInput) {
         let debounceTimer;
-        searchInput.addEventListener('keyup', function(e) {
+        searchInput.addEventListener('keyup', function (e) {
           clearTimeout(debounceTimer);
-          debounceTimer = setTimeout(function(){
+          debounceTimer = setTimeout(function () {
             let query = encodeURIComponent(searchInput.value);
             const baseUrl = window.location.pathname;
             // Build a new URL for the search. This clears other filters.
@@ -260,7 +289,7 @@
       // Pagination: Load More Sermons
       const loadMoreButton = document.getElementById('load-more');
       if (loadMoreButton) {
-        loadMoreButton.addEventListener('click', function(e) {
+        loadMoreButton.addEventListener('click', function (e) {
           e.preventDefault();
           // Read next page number
           let nextPage = this.getAttribute('data-next-page');
@@ -285,4 +314,3 @@
 </main>
 
 {% endblock %}
-

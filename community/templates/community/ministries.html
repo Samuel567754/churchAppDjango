@@ -1,142 +1,182 @@
 {% extends 'base.html' %}
+{% load seo_tags %}
 
-{% block title %}Ministries -  Kumasi Central CoC{% endblock %}
+{% block title %}Our Ministries - Kumasi Central Church of Christ | Serve & Grow{% endblock %}
+{% block meta_title %}Our Ministries - Kumasi Central Church of Christ | Serve & Grow{% endblock %}
+{% block meta_description %}Discover the various ministries at Kumasi Central Church of Christ. From youth and women's
+ministries to community outreach, find your place to serve and grow in faith.{% endblock %}
+{% block meta_keywords %}church ministries Kumasi, youth ministry, women's ministry, church outreach, Christian service,
+spiritual growth ministries{% endblock %}
+
+{% block og_title %}Our Ministries - Kumasi Central Church of Christ{% endblock %}
+{% block og_description %}Discover opportunities to serve and connect with our community through our various
+ministries.{% endblock %}
+
+{% block twitter_title %}Our Ministries - Kumasi Central Church of Christ{% endblock %}
+{% block twitter_description %}Discover opportunities to serve and connect with our community through our various
+ministries.{% endblock %}
+
+{% block additional_structured_data %}
+{% breadcrumb_schema "Home|/" "Ministries" %}
+{% endblock %}
 
 {% block head %}
-  {{ block.super}}
- <style>
-    .animate-fade-in{
-        opacity: 0;
-        transition: opacity 0.6s ease-in-out;
-    }
-    .section-title{
-        position:relative;
-        padding-bottom: 1rem;
-    }
-    .section-title:after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        height: 2px;
-        width: 60px;
-        background-color: #6366f1;
-    }
-    .ministry-icon{
-        stroke-width: 1.5;
-    }
- </style>
+{{ block.super}}
+<style>
+  .animate-fade-in {
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+  }
+
+  .section-title {
+    position: relative;
+    padding-bottom: 1rem;
+  }
+
+  .section-title:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 60px;
+    background-color: #6366f1;
+  }
+
+  .ministry-icon {
+    stroke-width: 1.5;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 
 <!-- Hero Section -->
 <section data-aos="fade-in" class="relative">
-  <img 
-    src="https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/20250222_112127.jpg" 
-    alt="Contact Us" 
-    class="w-full h-96 object-cover object-center" 
-  />
+  <img
+    src="https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/20250222_112127.jpg"
+    alt="Contact Us" class="w-full h-96 object-cover object-center" />
   <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-      <h1 class="text-4xl font-bold animate-fade-in">Our Ministries</h1>
-      <p class="text-lg mt-4 mb-6 animate-fade-in delay-100">Find Your Place to Serve and Grow</p>
-      <a href="#ministries-grid" class="py-3 px-6 bg-indigo-600 hover:bg-indigo-700 rounded-md shadow-md transition-colors duration-300 inline-block">Explore Ministries</a>
-    </div>
+    <h1 class="text-4xl font-bold animate-fade-in">Our Ministries</h1>
+    <p class="text-lg mt-4 mb-6 animate-fade-in delay-100">Find Your Place to Serve and Grow</p>
+    <a href="#ministries-grid"
+      class="py-3 px-6 bg-indigo-600 hover:bg-indigo-700 rounded-md shadow-md transition-colors duration-300 inline-block">Explore
+      Ministries</a>
+  </div>
   </div>
 </section>
 
 
 {% comment %} <!-- Ministries Grid -->
 <section data-aos="fade-in" id="ministries-grid" class="py-16 bg-gray-50 overflow-hidden">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="section-title text-3xl font-bold text-center mb-12 text-indigo-700 animate-fade-in">Our Ministries</h2>
-      <p class="text-xl text-center text-gray-600 mb-12 animate-fade-in delay-100">Discover opportunities to serve and connect with our community.</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% for ministry in ministries %}
-        <a href="javascript:void(0)" onclick="openMinistryModal('{{ ministry.slug }}')" class="block">
-          <div class="ministry-card relative bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105 group">
-            <div class="relative p-6">
-              <div class="flex justify-center mb-4">
-                {% if ministry.image_url %}
-                  <img src="{{ ministry.image_url }}" alt="{{ ministry.name }}" class="h-12 w-12 object-contain ministry-icon">
-                {% elif ministry.image %}
-                  <img src="{{ ministry.image.url }}" alt="{{ ministry.name }}" class="h-12 w-12 object-contain ministry-icon">
-                {% else %}
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-indigo-500 ministry-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M3 18v2h18v-2M12 3v2M5.6 5.6l1.4 1.4M18.4 5.6l-1.4 1.4M3 12h2M19 12h2M5.6 18.4l1.4-1.4M18.4 18.4l-1.4-1.4M7 7l4 4M7 17l4-4M12 7h8M12 17h8"></path>
-                  </svg>
-                {% endif %}
-              </div>
-              <h3 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">{{ ministry.name }}</h3>
-              <p class="text-gray-600 mb-4 ministry-description">{{ ministry.description|truncatewords:25 }}</p>
-              {% if ministry.leader %}
-              <div class="border-t pt-4">
-                <p class="text-gray-600"><strong>Leader:</strong> {{ ministry.leader.name }}</p>
-              </div>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="section-title text-3xl font-bold text-center mb-12 text-indigo-700 animate-fade-in">Our Ministries</h2>
+    <p class="text-xl text-center text-gray-600 mb-12 animate-fade-in delay-100">Discover opportunities to serve and
+      connect with our community.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for ministry in ministries %}
+      <a href="javascript:void(0)" onclick="openMinistryModal('{{ ministry.slug }}')" class="block">
+        <div
+          class="ministry-card relative bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105 group">
+          <div class="relative p-6">
+            <div class="flex justify-center mb-4">
+              {% if ministry.image_url %}
+              <img src="{{ ministry.image_url }}" alt="{{ ministry.name }}"
+                class="h-12 w-12 object-contain ministry-icon">
+              {% elif ministry.image %}
+              <img src="{{ ministry.image.url }}" alt="{{ ministry.name }}"
+                class="h-12 w-12 object-contain ministry-icon">
+              {% else %}
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-indigo-500 ministry-icon"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M3 18v2h18v-2M12 3v2M5.6 5.6l1.4 1.4M18.4 5.6l-1.4 1.4M3 12h2M19 12h2M5.6 18.4l1.4-1.4M18.4 18.4l-1.4-1.4M7 7l4 4M7 17l4-4M12 7h8M12 17h8">
+                </path>
+              </svg>
               {% endif %}
             </div>
-            <div class="ministry-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-opacity duration-300">
-              <span class="text-white text-xl font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Learn More</span>
+            <h3 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">{{ ministry.name }}</h3>
+            <p class="text-gray-600 mb-4 ministry-description">{{ ministry.description|truncatewords:25 }}</p>
+            {% if ministry.leader %}
+            <div class="border-t pt-4">
+              <p class="text-gray-600"><strong>Leader:</strong> {{ ministry.leader.name }}</p>
             </div>
-          </div>
-        </a>
-        {% empty %}
-        <div class="col-span-full flex flex-col items-center justify-center py-16">
-          <div class="flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-500 p-6 rounded-full shadow-lg mb-4">
-            <!-- Modern Church/Ministry SVG Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l8 8-3 3V21h-4v-4H11v4H7v-7L4 13l8-8z" />
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-gray-800">No ministries available</h3>
-          <p class="text-gray-600 mt-4 text-center">Please check back later for updates on our ministries.</p>
-        </div> 
-        {% endfor %}
-      </div>
-    </div>
-  </section> {% endcomment %}
-  
-  <!-- Core Ministries Section -->
-  <section data-aos="fade-in" class="py-16 bg-white">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="section-title text-3xl font-bold text-center mb-12 text-indigo-700 animate-fade-in">Core Ministries</h2>
-      <p class="text-xl text-center text-gray-600 mb-12 animate-fade-in delay-100">Our foundational ministries are dedicated to specific areas of growth.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {% for ministry in ministries %}
-        <a href="javascript:void(0)" onclick="openMinistryModal('{{ ministry.slug }}')" class="block">
-          <div class="bg-gray-100 rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105">
-            {% if ministry.image_url %}
-              <img src="{{ ministry.image_url }}" alt="{{ ministry.name }}" class="w-full h-52 object-cover ministry-image">
-            {% elif ministry.image %}
-              <img src="{{ ministry.image.url }}" alt="{{ ministry.name }}" class="w-full h-52 object-cover ministry-image">
-            {% else %}
-              <img src="https://via.placeholder.com/400x300?text=Ministry" alt="{{ ministry.name }}" class="w-full h-52 object-cover ministry-image">
             {% endif %}
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">{{ ministry.name }}</h3>
-              <p class="text-gray-600 mb-4 ministry-description">{{ ministry.description|truncatewords:25 }}</p>
-              <span class="text-indigo-600 hover:text-indigo-800 transition-colors duration-300">Learn More →</span>
-            </div>
           </div>
-        </a>
-        {% empty %}
-        <div class="col-span-full flex flex-col items-center justify-center py-16">
-          <div class="flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 p-6 rounded-full shadow-lg mb-4">
-            <!-- Modern Church Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l8 8-3 3V21h-4v-4H11v4H7v-7L4 13l8-8z" />
-            </svg>
+          <div
+            class="ministry-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-opacity duration-300">
+            <span
+              class="text-white text-xl font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Learn
+              More</span>
           </div>
-          <h3 class="text-2xl font-bold text-gray-800">No core ministries available</h3>
-          <p class="text-gray-600 mt-4 text-center">Please check back later for updates on our core ministries.</p>
         </div>
-        {% endfor %}
+      </a>
+      {% empty %}
+      <div class="col-span-full flex flex-col items-center justify-center py-16">
+        <div
+          class="flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-500 p-6 rounded-full shadow-lg mb-4">
+          <!-- Modern Church/Ministry SVG Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 2l8 8-3 3V21h-4v-4H11v4H7v-7L4 13l8-8z" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800">No ministries available</h3>
+        <p class="text-gray-600 mt-4 text-center">Please check back later for updates on our ministries.</p>
       </div>
+      {% endfor %}
     </div>
-  </section>
-  
+  </div>
+</section> {% endcomment %}
+
+<!-- Core Ministries Section -->
+<section data-aos="fade-in" class="py-16 bg-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="section-title text-3xl font-bold text-center mb-12 text-indigo-700 animate-fade-in">Core Ministries</h2>
+    <p class="text-xl text-center text-gray-600 mb-12 animate-fade-in delay-100">Our foundational ministries are
+      dedicated to specific areas of growth.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for ministry in ministries %}
+      <a href="javascript:void(0)" onclick="openMinistryModal('{{ ministry.slug }}')" class="block">
+        <div
+          class="bg-gray-100 rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out hover:scale-105">
+          {% if ministry.image_url %}
+          <img src="{{ ministry.image_url }}" alt="{{ ministry.name }}" class="w-full h-52 object-cover ministry-image">
+          {% elif ministry.image %}
+          <img src="{{ ministry.image.url }}" alt="{{ ministry.name }}" class="w-full h-52 object-cover ministry-image">
+          {% else %}
+          <img src="https://via.placeholder.com/400x300?text=Ministry" alt="{{ ministry.name }}"
+            class="w-full h-52 object-cover ministry-image">
+          {% endif %}
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2 text-gray-800 ministry-title">{{ ministry.name }}</h3>
+            <p class="text-gray-600 mb-4 ministry-description">{{ ministry.description|truncatewords:25 }}</p>
+            <span class="text-indigo-600 hover:text-indigo-800 transition-colors duration-300">Learn More →</span>
+          </div>
+        </div>
+      </a>
+      {% empty %}
+      <div class="col-span-full flex flex-col items-center justify-center py-16">
+        <div
+          class="flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 p-6 rounded-full shadow-lg mb-4">
+          <!-- Modern Church Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 2l8 8-3 3V21h-4v-4H11v4H7v-7L4 13l8-8z" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800">No core ministries available</h3>
+        <p class="text-gray-600 mt-4 text-center">Please check back later for updates on our core ministries.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 
 <!-- Outreach Programs Section -->
 <section data-aos="fade-in" class="py-16 bg-gray-100">
@@ -149,54 +189,58 @@
     </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {% for program in outreach_program_list %}
-        <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300">
-          <h4 class="text-xl font-semibold mb-2 text-indigo-700">{{ program.name }}</h4>
-          <p class="text-gray-600 text-sm">
-            {% if program.start_date %}{{ program.start_date|date:"M d, Y" }}{% endif %}
-            {% if program.end_date %} - {{ program.end_date|date:"M d, Y" }}{% endif %}
-          </p>
-          <p class="text-gray-700 mt-3">{{ program.description|truncatewords:20 }}</p>
-          <a href="{{ program.get_absolute_url }}" class="mt-4 inline-block text-indigo-600 hover:text-indigo-800 font-medium">
-            Learn More <i class="fas fa-arrow-right ml-1"></i>
-          </a>
-        </div>
+      <div
+        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300">
+        <h4 class="text-xl font-semibold mb-2 text-indigo-700">{{ program.name }}</h4>
+        <p class="text-gray-600 text-sm">
+          {% if program.start_date %}{{ program.start_date|date:"M d, Y" }}{% endif %}
+          {% if program.end_date %} - {{ program.end_date|date:"M d, Y" }}{% endif %}
+        </p>
+        <p class="text-gray-700 mt-3">{{ program.description|truncatewords:20 }}</p>
+        <a href="{{ program.get_absolute_url }}"
+          class="mt-4 inline-block text-indigo-600 hover:text-indigo-800 font-medium">
+          Learn More <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+      </div>
       {% empty %}
-        <div class="col-span-full flex flex-col items-center justify-center py-16">
-          <i class="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
-          <p class="text-gray-500 text-xl">No outreach programs available at this time.</p>
-        </div>
+      <div class="col-span-full flex flex-col items-center justify-center py-16">
+        <i class="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
+        <p class="text-gray-500 text-xl">No outreach programs available at this time.</p>
+      </div>
       {% endfor %}
     </div>
   </div>
 </section>
 
-  
-  <!-- Get Involved Section -->
-  <section data-aos="fade-in" class="py-16 bg-white">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="section-title text-3xl font-bold mb-8 text-indigo-700 animate-fade-in">
-        Get Involved
-      </h2>
-      <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-        If you have a heart for the Gospel and a desire to serve, we invite you to join our outreach efforts. Whether your gift is in teaching, caring, or practical service, there is a place for you at Adum Central Church of Christ.
-      </p>
-      <a href="{% url 'contact:contact' %}" class="py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md shadow-md transition-colors duration-300 inline-block">
-        Volunteer Today
-      </a>
-    </div>
-  </section>
-  
+
+<!-- Get Involved Section -->
+<section data-aos="fade-in" class="py-16 bg-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="section-title text-3xl font-bold mb-8 text-indigo-700 animate-fade-in">
+      Get Involved
+    </h2>
+    <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+      If you have a heart for the Gospel and a desire to serve, we invite you to join our outreach efforts. Whether your
+      gift is in teaching, caring, or practical service, there is a place for you at Adum Central Church of Christ.
+    </p>
+    <a href="{% url 'contact:contact' %}"
+      class="py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md shadow-md transition-colors duration-300 inline-block">
+      Volunteer Today
+    </a>
+  </div>
+</section>
+
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const fadeElements = document.querySelectorAll('.animate-fade-in');
     fadeElements.forEach((element, index) => {
       setTimeout(() => {
-      element.classList.add('opacity-100');
-      }, index*150)
+        element.classList.add('opacity-100');
+      }, index * 150)
     });
-});
+  });
 </script>
 
 {% endblock %}

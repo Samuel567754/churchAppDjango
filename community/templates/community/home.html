@@ -1,7 +1,22 @@
 
 {% extends 'base.html' %}
+{% load seo_tags %}
 
-{% block title %}Home -  Kumasi Central CoC{% endblock %}
+{% block title %}Kumasi Central Church of Christ - Welcome Home | Sunday Worship in Adum, Ghana{% endblock %}
+{% block meta_title %}Kumasi Central Church of Christ - Welcome Home | Sunday Worship in Adum, Ghana{% endblock %}
+{% block meta_description %}Welcome to Kumasi Central Church of Christ (Adum). Join us for inspiring Sunday worship at 8:30 AM, Bible study Tuesday evenings, and prayer meetings on Fridays. A vibrant Christian community in Kumasi, Ghana.{% endblock %}
+{% block meta_keywords %}Kumasi Central Church of Christ, Church of Christ Ghana, Adum Church, Sunday worship Kumasi, Bible study Ghana, Christian church Kumasi, Churches of Christ, Ashanti Region church{% endblock %}
+
+{% block og_title %}Kumasi Central Church of Christ - Welcome Home{% endblock %}
+{% block og_description %}Join us for inspiring worship, spiritual growth, and Christian fellowship at Kumasi Central Church of Christ, Adum. Sunday services at 8:30 AM.{% endblock %}
+
+{% block twitter_title %}Kumasi Central Church of Christ - Welcome Home{% endblock %}
+{% block twitter_description %}Join us for inspiring worship, spiritual growth, and Christian fellowship at Kumasi Central Church of Christ, Adum.{% endblock %}
+
+{% block additional_structured_data %}
+{% website_schema %}
+{% breadcrumb_schema "Home" %}
+{% endblock %}
 
 {% block content %}
 

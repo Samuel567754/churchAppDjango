@@ -11,7 +11,10 @@ from django.conf.urls import handler400, handler403, handler404, handler500
 from django.views.generic import TemplateView
 # from settings.views import ServiceWorkerView  # Adjust 'your_app' to your actual app name
 from django.contrib.sitemaps.views import sitemap
-from ChurchApp.sitemaps import StaticViewSitemap, BlogSitemap, SermonSitemap, EventSitemap
+from ChurchApp.sitemaps import (
+    StaticViewSitemap, BlogSitemap, BlogCategorySitemap,
+    SermonSitemap, SermonTagSitemap, EventSitemap
+)
 from django.views.generic.base import TemplateView
 
 # Custom error handlers - using enhanced error pages
@@ -20,11 +23,13 @@ handler403 = 'settings.views.custom_403'
 handler404 = 'settings.views.custom_404'
 handler500 = 'settings.views.custom_500'
 
-# Sitemap configuration
+# Sitemap configuration with comprehensive coverage
 sitemaps = {
     'static': StaticViewSitemap,
     'blog': BlogSitemap,
+    'blog-categories': BlogCategorySitemap,
     'sermons': SermonSitemap,
+    'sermon-tags': SermonTagSitemap,
     'events': EventSitemap,
 }
 

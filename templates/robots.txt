@@ -1,4 +1,10 @@
+# Robots.txt for Kumasi Central Church of Christ
+# https://www.kumasicentralchurchofchrist.com
+
+# Default rules for all crawlers
 User-agent: *
+
+# Disallow private/admin areas
 Disallow: /admin/
 Disallow: /account/
 Disallow: /dashboard/
@@ -7,9 +13,19 @@ Disallow: /membership/
 Disallow: /settings/
 Disallow: /ckeditor5/
 Disallow: /media/private/
+
+# Disallow sensitive file types
 Disallow: /*.pdf$
 Disallow: /*.doc$
 Disallow: /*.docx$
+Disallow: /*.xls$
+Disallow: /*.xlsx$
+
+# Disallow query strings and duplicate content
+Disallow: /*?*
+Disallow: /*/page/*
+
+# Allow public content
 Allow: /
 Allow: /blog/
 Allow: /worship/
@@ -24,11 +40,34 @@ Allow: /faq/
 Allow: /gallery/
 Allow: /devotionals/
 Allow: /live-streams/
+Allow: /sitemap.xml
+
+# Allow static assets
 Allow: /static/
 Allow: /media/public/
+Allow: /static/*.js
+Allow: /static/*.css
+Allow: /static/*.png
+Allow: /static/*.jpg
+Allow: /static/*.webp
+
+# Googlebot specific rules
+User-agent: Googlebot
+Crawl-delay: 1
+Allow: /
+
+# Bingbot specific rules
+User-agent: Bingbot
+Crawl-delay: 2
+Allow: /
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /static/
+Allow: /media/
 
 # Sitemaps
 Sitemap: https://www.kumasicentralchurchofchrist.com/sitemap.xml
 
-# Crawl-delay (optional, prevents overloading server)
-# Crawl-delay: 10
+# Host directive (optional but helps some crawlers)
+Host: https://www.kumasicentralchurchofchrist.com

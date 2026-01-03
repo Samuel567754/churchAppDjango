@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
+{% load seo_tags %}
 
-{% block title %}Give -  Kumasi Central CoC{% endblock %}
+{% block title %}Giving & Support - Kumasi Central Church of Christ{% endblock %}
+{% block meta_title %}Giving & Support - Kumasi Central Church of Christ{% endblock %}
+{% block meta_description %}Support the mission and ministry of Kumasi Central Church of Christ. Learn about our online
+giving options, recurring donations, and how your generosity makes a difference.{% endblock %}
+{% block meta_keywords %}give to church Kumasi, church donations Ghana, support church missions, online giving church,
+tithes and offerings Kumasi{% endblock %}
+
+{% block og_title %}Giving & Support - Kumasi Central Church of Christ{% endblock %}
+{% block og_description %}Partner with us in ministry and mission through generous giving. Your support helps us serve
+our community and spread the Gospel.{% endblock %}
+
+{% block twitter_title %}Giving & Support - Kumasi Central Church of Christ{% endblock %}
+{% block twitter_description %}Partner with us in ministry and mission through generous giving.{% endblock %}
+
+{% block additional_structured_data %}
+{% breadcrumb_schema "Home|/" "Giving" %}
+{% endblock %}
 
 {% block content %}
 
 <!-- Hero Section -->
 <section data-aos="flip-down" class="relative h-[60vh] flex items-center justify-center mb-16">
-  <div class="absolute inset-0 bg-[url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0079.jpg')] bg-cover bg-center">
+  <div
+    class="absolute inset-0 bg-[url('https://ehoromymaeqciokbytfm.supabase.co/storage/v1/object/public/mediafiles/churchuploads/IMG-20250323-WA0079.jpg')] bg-cover bg-center">
     <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
       <div class="text-center text-white max-w-2xl px-4">
         <h1 class="text-4xl md:text-6xl font-bold mb-4">Generous Giving</h1>
@@ -24,13 +42,14 @@
         <h2 class="text-3xl font-bold text-gray-900 mb-4">Ways to Give</h2>
         <p class="text-xl text-gray-600">Choose the method that works best for you</p>
       </div>
-      
+
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Online Giving Card -->
         <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
           <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
             </svg>
           </div>
           <h3 class="text-xl font-semibold mb-4">Online Giving</h3>
@@ -44,7 +63,8 @@
         <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
           <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
           <h3 class="text-xl font-semibold mb-4">Recurring Giving</h3>
@@ -58,13 +78,14 @@
         <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
           <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
             <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
           <h3 class="text-xl font-semibold mb-4">Other Methods</h3>
           <div class="space-y-4 text-gray-600">
             <p class="flex items-center">
-              <span class="font-medium mr-2">Text:</span> 
+              <span class="font-medium mr-2">Text:</span>
               GIVE to (555) 123-4567
             </p>
             <p class="border-t pt-4">
@@ -151,33 +172,37 @@
   </section>
 
   <!-- Why Give Section -->
-  <section  data-aos="flip-down" class="py-16 bg-indigo-600 text-white rounded-xl">
+  <section data-aos="flip-down" class="py-16 bg-indigo-600 text-white rounded-xl">
     <div class="max-w-5xl mx-auto px-4">
       <div class="md:flex items-center gap-12">
         <div class="md:w-1/2 mb-8 md:mb-0">
-          <img src="https://images.unsplash.com/photo-1579208575657-c595a05383b7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2l2ZXxlbnwwfHwwfHx8MA%3D%3D" 
-               alt="Community service" 
-               class="rounded-xl shadow-xl">
+          <img
+            src="https://images.unsplash.com/photo-1579208575657-c595a05383b7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2l2ZXxlbnwwfHwwfHx8MA%3D%3D"
+            alt="Community service" class="rounded-xl shadow-xl">
         </div>
         <div class="md:w-1/2">
           <h2 class="text-3xl font-bold mb-6">Why We Give</h2>
-          <p class="mb-6">Giving is an act of worship that fuels our mission to share God's love locally and globally.</p>
+          <p class="mb-6">Giving is an act of worship that fuels our mission to share God's love locally and globally.
+          </p>
           <ul class="space-y-4">
             <li class="flex items-center">
               <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                <path
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
               </svg>
               Support community outreach programs
             </li>
             <li class="flex items-center">
               <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                <path
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
               </svg>
               Fund youth and children's ministries
             </li>
             <li class="flex items-center">
               <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                <path
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
               </svg>
               Maintain our worship facilities
             </li>
